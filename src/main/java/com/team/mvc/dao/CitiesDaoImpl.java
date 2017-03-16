@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.team.mvc.hibernate.utils.HibernateSessionFactory.getSessionFactory;
+
 
 /**
  * Created by vit on 16.03.2017.
@@ -35,5 +37,11 @@ public class CitiesDaoImpl  implements CitiesDao{
         }
 
     }
+
+    @Override
+    public List<CitiesEntity> getCity() {
+        List list = getSessionFactory().getCurrentSession().createQuery("from  CitiesEntity ").list();
+        return list;
     }
+}
 
