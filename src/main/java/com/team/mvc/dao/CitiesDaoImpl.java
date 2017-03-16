@@ -10,7 +10,7 @@ import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 public class CitiesDaoImpl  implements CitiesDao{
 
     @Override
-    public CitiesEntity setCitiesEntity(VarcharTypeDescriptor citiname) {
+    public CitiesEntity setCitiesEntity(String citiname) {
         return null;
     }
 }
