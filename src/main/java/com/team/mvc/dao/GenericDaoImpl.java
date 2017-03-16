@@ -1,6 +1,8 @@
 package com.team.mvc.dao;
 
-import org.hibernate.*;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
