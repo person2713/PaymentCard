@@ -3,7 +3,7 @@ package com.team.mvc.entity;
 import javax.persistence.*;
 
 /**
- * Created by Nick on 15.03.2017.
+ * Created by vit on 16.03.2017.
  */
 @Entity
 @Table(name = "BUSES", schema = "CAPTAIN", catalog = "")
@@ -12,7 +12,7 @@ public class BusesEntity {
     private String busNumber;
 
     @Id
-    @Column(name = "BUS_ID")
+    @Column(name = "BUS_ID", nullable = false, precision = 0)
     public short getBusId() {
         return busId;
     }
@@ -22,7 +22,7 @@ public class BusesEntity {
     }
 
     @Basic
-    @Column(name = "BUS_NUMBER")
+    @Column(name = "BUS_NUMBER", nullable = false, length = 10)
     public String getBusNumber() {
         return busNumber;
     }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Time;
 
 /**
- * Created by Nick on 15.03.2017.
+ * Created by vit on 16.03.2017.
  */
 @Entity
 @Table(name = "EVENTS", schema = "CAPTAIN", catalog = "")
@@ -16,7 +16,7 @@ public class EventsEntity {
     private short busId;
 
     @Id
-    @Column(name = "EVENT_ID")
+    @Column(name = "EVENT_ID", nullable = false, precision = 0)
     public long getEventId() {
         return eventId;
     }
@@ -26,7 +26,7 @@ public class EventsEntity {
     }
 
     @Basic
-    @Column(name = "COORDINATES")
+    @Column(name = "COORDINATES", nullable = false, length = 100)
     public String getCoordinates() {
         return coordinates;
     }
@@ -36,7 +36,7 @@ public class EventsEntity {
     }
 
     @Basic
-    @Column(name = "SECRET_KEY")
+    @Column(name = "SECRET_KEY", nullable = false, length = 100)
     public String getSecretKey() {
         return secretKey;
     }
@@ -45,8 +45,8 @@ public class EventsEntity {
         this.secretKey = secretKey;
     }
 
-
-    @Column(name = "PAYMENT_TIME")
+    @Basic
+    @Column(name = "PAYMENT_TIME", nullable = true)
     public Time getPaymentTime() {
         return paymentTime;
     }
@@ -56,7 +56,7 @@ public class EventsEntity {
     }
 
     @Basic
-    @Column(name = "BUS_ID")
+    @Column(name = "BUS_ID", nullable = false, precision = 0)
     public short getBusId() {
         return busId;
     }

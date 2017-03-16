@@ -1,18 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
-        "-//Hibernate/Hibernate Configuration DTD//EN"
-        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
     <property name="connection.url">jdbc:oracle:thin:@207.154.210.58:1521:XE</property>
     <property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
 
+
     <!--логин и пароль к бд-->
     <property name="connection.username">captain</property>
     <property name="connection.password">captain</property>
 
-    <!--маппинг классов к хиберу-->
+    <!--логин и пароль к бд-->
     <mapping class="com.team.mvc.entity.BalanceHistEntity"/>
     <mapping class="com.team.mvc.entity.BusesEntity"/>
     <mapping class="com.team.mvc.entity.CardsEntity"/>
@@ -25,11 +26,5 @@
     <mapping class="com.team.mvc.entity.PersonsEntity"/>
     <mapping class="com.team.mvc.entity.RoutesEntity"/>
     <mapping class="com.team.mvc.entity.TypeCardEntity"/>
-
-    <!-- NOTE that after automapping with IDEA property username and password will delete -->
-    <!--and will be:  Initial SessionFactory failedorg.hibernate.service.spi.ServiceException: Unable to create requested service-->
-    <!-- NOTE that after automapping with IDEA property username and password will delete -->
-    <!-- DB schema will be updated if needed -->
-    <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>
 </hibernate-configuration>

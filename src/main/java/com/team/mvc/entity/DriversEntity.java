@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by Nick on 15.03.2017.
+ * Created by vit on 16.03.2017.
  */
 @Entity
 @Table(name = "DRIVERS", schema = "CAPTAIN", catalog = "")
@@ -14,7 +14,7 @@ public class DriversEntity {
     private int driverId;
 
     @Id
-    @Column(name = "DRIVER_ID")
+    @Column(name = "DRIVER_ID", nullable = false, precision = 0)
     public int getDriverId() {
         return driverId;
     }

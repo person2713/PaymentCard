@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Time;
 
 /**
- * Created by Nick on 15.03.2017.
+ * Created by vit on 16.03.2017.
  */
 @Entity
 @Table(name = "CAR_ASSIGN", schema = "CAPTAIN", catalog = "")
@@ -13,7 +13,7 @@ public class CarAssignEntity {
     private Time dateAssign;
 
     @Id
-    @Column(name = "ASSIGN_ID")
+    @Column(name = "ASSIGN_ID", nullable = false, precision = 0)
     public int getAssignId() {
         return assignId;
     }
@@ -22,8 +22,8 @@ public class CarAssignEntity {
         this.assignId = assignId;
     }
 
-
-    @Column(name = "DATE_ASSIGN")
+    @Basic
+    @Column(name = "DATE_ASSIGN", nullable = true)
     public Time getDateAssign() {
         return dateAssign;
     }

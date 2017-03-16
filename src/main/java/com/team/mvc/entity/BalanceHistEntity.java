@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Time;
 
 /**
- * Created by Nick on 15.03.2017.
+ * Created by vit on 16.03.2017.
  */
 @Entity
 @Table(name = "BALANCE_HIST", schema = "CAPTAIN", catalog = "")
@@ -14,7 +14,7 @@ public class BalanceHistEntity {
     private Time dateEvent;
 
     @Id
-    @Column(name = "BALANCE_HIST_ID")
+    @Column(name = "BALANCE_HIST_ID", nullable = false, precision = 0)
     public long getBalanceHistId() {
         return balanceHistId;
     }
@@ -24,7 +24,7 @@ public class BalanceHistEntity {
     }
 
     @Basic
-    @Column(name = "CHANGES")
+    @Column(name = "CHANGES", nullable = false, precision = 0)
     public long getChanges() {
         return changes;
     }
@@ -33,8 +33,8 @@ public class BalanceHistEntity {
         this.changes = changes;
     }
 
-
-    @Column(name = "DATE_EVENT")
+    @Basic
+    @Column(name = "DATE_EVENT", nullable = true)
     public Time getDateEvent() {
         return dateEvent;
     }

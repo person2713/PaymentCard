@@ -3,7 +3,7 @@ package com.team.mvc.entity;
 import javax.persistence.*;
 
 /**
- * Created by Nick on 15.03.2017.
+ * Created by vit on 16.03.2017.
  */
 @Entity
 @Table(name = "PERSONS", schema = "CAPTAIN", catalog = "")
@@ -15,7 +15,7 @@ public class PersonsEntity {
     private String email;
 
     @Id
-    @Column(name = "PERSON_ID")
+    @Column(name = "PERSON_ID", nullable = false, precision = 0)
     public int getPersonId() {
         return personId;
     }
@@ -25,7 +25,7 @@ public class PersonsEntity {
     }
 
     @Basic
-    @Column(name = "FIRST_NAME")
+    @Column(name = "FIRST_NAME", nullable = false, length = 20)
     public String getFirstName() {
         return firstName;
     }
@@ -35,7 +35,7 @@ public class PersonsEntity {
     }
 
     @Basic
-    @Column(name = "LAST_NAME")
+    @Column(name = "LAST_NAME", nullable = false, length = 20)
     public String getLastName() {
         return lastName;
     }
@@ -45,7 +45,7 @@ public class PersonsEntity {
     }
 
     @Basic
-    @Column(name = "MOBILE_NUMBER")
+    @Column(name = "MOBILE_NUMBER", nullable = true, length = 20)
     public String getMobileNumber() {
         return mobileNumber;
     }
@@ -55,7 +55,7 @@ public class PersonsEntity {
     }
 
     @Basic
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", nullable = true, length = 30)
     public String getEmail() {
         return email;
     }
