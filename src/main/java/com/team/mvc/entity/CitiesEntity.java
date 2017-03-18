@@ -22,7 +22,7 @@ public class CitiesEntity {
     }
 
     @Basic
-    @Column(name = "CITY_NAME", nullable = false, length = 30)
+    @Column(name = "city_name", nullable = false, length = 30)
     public String getCityName() {
         return cityName;
     }

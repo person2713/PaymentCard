@@ -1,47 +1,47 @@
 package com.team.mvc.dao;
 
 
-import com.team.mvc.entity.CitiesEntity;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+        import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.team.mvc.hibernate.utils.HibernateSessionFactory.getSessionFactory;
-
+        import com.team.mvc.entity.CitiesEntity;
+        import org.hibernate.Criteria;
+        import org.hibernate.Query;
+        import org.hibernate.criterion.Restrictions;
+        import org.springframework.stereotype.Repository;
 
 /**
- * Created by vit on 16.03.2017.
+ * Created by vit on 17.03.2017.
  */
-@Repository
-public class CitiesDaoImpl  implements CitiesDao{
-    @Autowired
-    private SessionFactory sessionFactory;
-
+@Repository("citiesDao")
+public class citiesDaoImpl extends AbstractDao<Integer,CitiesEntity> implements citiesDao {
     @Override
-    @SuppressWarnings("unchecked")
-    public CitiesEntity getCitiesEntity(String citiname) {
-        List<CitiesEntity> cities = new ArrayList<CitiesEntity>();
-
-        cities = sessionFactory.getCurrentSession()
-                .createQuery("from CitiesEntity where cityName=?")
-                .setParameter(0, citiname)
-                .list();
-
-        if (cities.size() > 0) {
-            return cities.get(0);
-        } else {
-            return null;
-        }
-
+    public CitiesEntity findById(long id) {
+        return getByKey((int) id);
     }
 
     @Override
-    public List<CitiesEntity> getCity() {
-        List list = getSessionFactory().getCurrentSession().createQuery("from  CitiesEntity ").list();
-        return list;
+    public void saveCity(CitiesEntity citiesEntity) {
+        persist(citiesEntity);
+    }
+
+    @Override
+    public void deleteCity(String city_name) {
+        Query query = getSession().createSQLQuery("delete from Cities where city_name = :city_name");
+        query.setString("city_name", city_name);
+        query.executeUpdate();
+
+    }
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<CitiesEntity> findAllCities() {
+        Criteria criteria = createEntityCriteria();
+        return (List<CitiesEntity>) criteria.list();
+    }
+
+    @Override
+    public CitiesEntity findCityByName(String city_name) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("city_name", city_name));
+        return (CitiesEntity) criteria.uniqueResult();
     }
 }
-
