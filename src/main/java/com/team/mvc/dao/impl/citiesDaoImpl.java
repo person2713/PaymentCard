@@ -7,6 +7,7 @@ package com.team.mvc.dao.impl;
         import com.team.mvc.dao.interf.citiesDao;
         import com.team.mvc.entity.CitiesEntity;
         import org.hibernate.Criteria;
+        import org.hibernate.Query;
         import org.springframework.stereotype.Repository;
 
 /**
@@ -28,6 +29,10 @@ public class citiesDaoImpl extends AbstractDao<Long,CitiesEntity> implements cit
 
     @Override
     public void deleteCitybyName(String city_name) {
+
+        Query query = getSession().createSQLQuery("delete from CITIES where city_name = :city_name");
+        query.setParameter("city_name", city_name);
+        query.executeUpdate();
 
     }
 

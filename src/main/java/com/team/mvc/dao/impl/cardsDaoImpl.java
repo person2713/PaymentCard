@@ -3,6 +3,8 @@ package com.team.mvc.dao.impl;
 import com.team.mvc.dao.interf.AbstractDao;
 import com.team.mvc.dao.interf.cardsDao;
 import com.team.mvc.entity.CardsEntity;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 
 import java.util.List;
 
@@ -17,17 +19,21 @@ public class cardsDaoImpl extends AbstractDao<Long, CardsEntity> implements card
 
     @Override
     public void saveCard(CardsEntity cardsEntity) {
-
+        persist(cardsEntity);
     }
 
     @Override
     public void deleteCardbyCardID(long cardId) {
+        Query query = getSession().createSQLQuery("delete from CARDS where CARD_ID = :cardId");
+        query.setParameter("cardId", cardId);
+        query.executeUpdate();
 
     }
 
     @Override
     public List<CardsEntity> findAllCards() {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        return (List<CardsEntity>) criteria.list();
     }
 
     @Override

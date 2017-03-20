@@ -1,6 +1,6 @@
 package com.team.mvc.dao.interf;
 
-import com.team.mvc.entity.BalanceHistEntity;
+import com.team.mvc.entity.BalanceHist;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface balanceHistDao {
     //+ add forei key into entity
-    BalanceHistEntity findBalanceHistByCardID(long card_id);
-    BalanceHistEntity findBalanceHistByBalanceID(long balance_id);
-    void saveCardBalance( BalanceHistEntity balanceHistEntity);
-    List<BalanceHistEntity> findAllBalance();
+    BalanceHist findBalanceHistByCardID(long card_id);
+    BalanceHist findBalanceHistByBalanceID(long balance_id);
+    void saveCardBalance( BalanceHist balanceHistEntity);
+    List<BalanceHist> findAllBalance();
 
     void deleteCardBalancebyBalHistID(long balance_id);
 }

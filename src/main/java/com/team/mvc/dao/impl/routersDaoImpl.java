@@ -3,6 +3,8 @@ package com.team.mvc.dao.impl;
 import com.team.mvc.dao.interf.AbstractDao;
 import com.team.mvc.dao.interf.routersDao;
 import com.team.mvc.entity.RoutesEntity;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 
 import java.util.List;
 
@@ -17,17 +19,20 @@ public class routersDaoImpl extends AbstractDao<Integer,RoutesEntity> implements
 
     @Override
     public void saveRoute(RoutesEntity routesEntity) {
-
+        persist(routesEntity);
     }
 
     @Override
     public void deleteRoutebyRouteID(int routeId) {
-
+        Query query = getSession().createSQLQuery("delete from ROUTES where ROUTE_ID = :routeId");
+        query.setParameter("routeId", routeId);
+        query.executeUpdate();
     }
 
     @Override
     public List<RoutesEntity> findAllRoutes() {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        return (List<RoutesEntity>) criteria.list();
     }
 
     @Override

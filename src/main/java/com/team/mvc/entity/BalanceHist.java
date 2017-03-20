@@ -8,7 +8,7 @@ import java.sql.Time;
  */
 @Entity
 @Table(name = "BALANCE_HIST", schema = "CAPTAIN", catalog = "")
-public class BalanceHistEntity {
+public class BalanceHist {
     private long balanceHistId;
     private long changes;
     private Time dateEvent;
@@ -48,7 +48,7 @@ public class BalanceHistEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BalanceHistEntity that = (BalanceHistEntity) o;
+        BalanceHist that = (BalanceHist) o;
 
         if (balanceHistId != that.balanceHistId) return false;
         if (changes != that.changes) return false;

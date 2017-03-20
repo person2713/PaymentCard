@@ -3,6 +3,8 @@ package com.team.mvc.dao.impl;
 import com.team.mvc.dao.interf.AbstractDao;
 import com.team.mvc.dao.interf.eventsDao;
 import com.team.mvc.entity.EventsEntity;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 
 import java.util.List;
 
@@ -17,17 +19,20 @@ public class eventsDaoImpl extends AbstractDao<Long,EventsEntity> implements eve
 
     @Override
     public void saveEvent(EventsEntity eventsEntity) {
-
+        persist(eventsEntity);
     }
 
     @Override
     public void deleteEventbyEventID(long eventId) {
-
+        Query query = getSession().createSQLQuery("delete from EVENTS where EVENT_ID = :eventId");
+        query.setParameter("eventId", eventId);
+        query.executeUpdate();
     }
 
     @Override
     public List<EventsEntity> findAllEvents() {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        return (List<EventsEntity>) criteria.list();
     }
 
     @Override

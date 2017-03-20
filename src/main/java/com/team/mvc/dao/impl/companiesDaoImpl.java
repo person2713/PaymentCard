@@ -3,6 +3,8 @@ package com.team.mvc.dao.impl;
 import com.team.mvc.dao.interf.AbstractDao;
 import com.team.mvc.dao.interf.companiesDao;
 import com.team.mvc.entity.CompaniesEntity;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 
 import java.util.List;
 
@@ -17,17 +19,20 @@ public class companiesDaoImpl extends AbstractDao<Long,CompaniesEntity>  impleme
 
     @Override
     public void saveCompany(CompaniesEntity companiesEntity) {
-
+        persist(companiesEntity);
     }
 
     @Override
     public void deleteCompanybyName(String companyName) {
-
+        Query query = getSession().createSQLQuery("delete from COMPANIES where COMPANY_NAME = :companyName");
+        query.setString("companyName", companyName);
+        query.executeUpdate();
     }
 
     @Override
     public List<CompaniesEntity> findAllCompany() {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        return (List<CompaniesEntity>) criteria.list();
     }
 
     @Override
