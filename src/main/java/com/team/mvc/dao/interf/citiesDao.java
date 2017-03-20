@@ -1,4 +1,4 @@
-package com.team.mvc.dao;
+package com.team.mvc.dao.interf;
 
 import com.team.mvc.entity.CitiesEntity;
 
@@ -7,12 +7,12 @@ import java.util.List;
 /**
  * Created by vit on 17.03.2017.
  */
-public interface citiesDao {
+public interface citiesDao  {
     CitiesEntity findById(long id);
 
     void saveCity( CitiesEntity citiesEntity);
 
-    void deleteCity(String city_name);
+    void deleteCitybyName(String city_name);
 
     List<CitiesEntity> findAllCities();
 
