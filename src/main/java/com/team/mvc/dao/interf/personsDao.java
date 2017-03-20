@@ -7,6 +7,6 @@ import com.team.mvc.entity.PersonsEntity;
  */
 public interface personsDao {
     PersonsEntity findById(int personId);
-
+    PersonsEntity findById(String SSO_ID);
 
 }
