@@ -5,6 +5,7 @@ import com.team.mvc.dao.interf.cardBalanceDao;
 import com.team.mvc.entity.CardBalanceEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -14,12 +15,14 @@ import java.util.List;
 public class cardBalanceDaoImpl extends AbstractDao<Long,CardBalanceEntity> implements cardBalanceDao {
     @Override
     public CardBalanceEntity findByBalanceID(long balanceId) {
-        return null;
+        return getByKey(balanceId);
     }
 
     @Override
     public CardBalanceEntity findByCardID(long CardID) {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("CardID", CardID));
+        return (CardBalanceEntity) criteria.uniqueResult();
     }
 
     @Override

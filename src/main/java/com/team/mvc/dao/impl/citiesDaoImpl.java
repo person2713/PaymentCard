@@ -8,6 +8,7 @@ package com.team.mvc.dao.impl;
         import com.team.mvc.entity.CitiesEntity;
         import org.hibernate.Criteria;
         import org.hibernate.Query;
+        import org.hibernate.criterion.Restrictions;
         import org.springframework.stereotype.Repository;
 
 /**
@@ -18,8 +19,8 @@ public class citiesDaoImpl extends AbstractDao<Long,CitiesEntity> implements cit
 
 
     @Override
-    public CitiesEntity findById(long id) {
-        return null;
+    public CitiesEntity findById(long cityId) {
+        return getByKey(cityId);
     }
 
     @Override
@@ -44,7 +45,10 @@ public class citiesDaoImpl extends AbstractDao<Long,CitiesEntity> implements cit
 
     @Override
     public CitiesEntity findCityByName(String city_name) {
-        return null;
+
+            Criteria criteria = createEntityCriteria();
+            criteria.add(Restrictions.eq("city_name", city_name));
+            return (CitiesEntity) criteria.uniqueResult();
     }
 }
 

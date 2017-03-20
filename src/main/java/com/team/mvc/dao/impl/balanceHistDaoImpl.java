@@ -5,6 +5,7 @@ import com.team.mvc.entity.BalanceHist;
 import com.team.mvc.dao.interf.AbstractDao;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -14,12 +15,17 @@ import java.util.List;
 public class balanceHistDaoImpl extends AbstractDao<Long,BalanceHist> implements balanceHistDao {
     @Override
     public BalanceHist findBalanceHistByCardID(long card_id) {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("card_id", card_id));
+        return (BalanceHist) criteria.uniqueResult();
     }
 
     @Override
     public BalanceHist findBalanceHistByBalanceID(long balance_id) {
-        return null;
+
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("balance_id", balance_id));
+        return (BalanceHist) criteria.uniqueResult();
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.team.mvc.dao.interf.cardsDao;
 import com.team.mvc.entity.CardsEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class cardsDaoImpl extends AbstractDao<Long, CardsEntity> implements cardsDao {
     @Override
     public CardsEntity findById(long cardId) {
-        return null;
+        return getByKey(cardId);
     }
 
     @Override
@@ -38,6 +39,8 @@ public class cardsDaoImpl extends AbstractDao<Long, CardsEntity> implements card
 
     @Override
     public CardsEntity findCardsByCardID(long cardId) {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("cardId", cardId));
+        return (CardsEntity) criteria.uniqueResult();
     }
 }

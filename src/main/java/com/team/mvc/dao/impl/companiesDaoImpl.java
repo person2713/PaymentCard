@@ -2,9 +2,11 @@ package com.team.mvc.dao.impl;
 
 import com.team.mvc.dao.interf.AbstractDao;
 import com.team.mvc.dao.interf.companiesDao;
+import com.team.mvc.entity.CitiesEntity;
 import com.team.mvc.entity.CompaniesEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -13,8 +15,8 @@ import java.util.List;
  */
 public class companiesDaoImpl extends AbstractDao<Long,CompaniesEntity>  implements companiesDao {
     @Override
-    public CompaniesEntity findById(long id) {
-        return null;
+    public CompaniesEntity findById(long companyId) {
+        return getByKey(companyId);
     }
 
     @Override
@@ -37,11 +39,15 @@ public class companiesDaoImpl extends AbstractDao<Long,CompaniesEntity>  impleme
 
     @Override
     public CompaniesEntity findCompanyByName(String companyName) {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("companyName", companyName));
+        return (CompaniesEntity) criteria.uniqueResult();
     }
 
     @Override
     public CompaniesEntity findCompanyByID(long companyId) {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("companyId", companyId));
+        return (CompaniesEntity) criteria.uniqueResult();
     }
 }

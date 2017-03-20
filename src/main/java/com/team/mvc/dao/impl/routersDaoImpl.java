@@ -5,6 +5,7 @@ import com.team.mvc.dao.interf.routersDao;
 import com.team.mvc.entity.RoutesEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class routersDaoImpl extends AbstractDao<Integer,RoutesEntity> implements routersDao {
     @Override
     public RoutesEntity findById(int routeId) {
-        return null;
+        return getByKey(routeId);
     }
 
     @Override
@@ -37,16 +38,22 @@ public class routersDaoImpl extends AbstractDao<Integer,RoutesEntity> implements
 
     @Override
     public RoutesEntity findRouteByRouterNumber(String routeNumber) {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("routeNumber",routeNumber));
+        return (RoutesEntity) criteria.uniqueResult();
     }
 
     @Override
     public RoutesEntity findRouteByCompanyID(long companyId) {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("companyId", companyId));
+        return (RoutesEntity) criteria.uniqueResult();
     }
 
     @Override
     public RoutesEntity findRouteByRouteID(int routeId) {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("routeId", routeId));
+        return (RoutesEntity) criteria.uniqueResult();
     }
 }

@@ -5,6 +5,7 @@ import com.team.mvc.dao.interf.busesDao;
 import com.team.mvc.entity.BusesEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -19,7 +20,9 @@ public class busesDaoImpl  extends AbstractDao<Short,BusesEntity> implements bus
 
     @Override
     public BusesEntity findByNumber(String busNumber) {
-        return null;
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("busNumber", busNumber));
+        return (BusesEntity) criteria.uniqueResult();
     }
 
     @Override
