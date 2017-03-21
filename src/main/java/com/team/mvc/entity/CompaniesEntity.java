@@ -3,7 +3,7 @@ package com.team.mvc.entity;
 import javax.persistence.*;
 
 /**
- * Created by vit on 16.03.2017.
+ * Created by vit on 21.03.2017.
  */
 @Entity
 @Table(name = "COMPANIES", schema = "CAPTAIN", catalog = "")
@@ -11,6 +11,7 @@ public class CompaniesEntity {
     private long companyId;
     private String companyName;
     private String phoneNumber;
+    private Long cityId;
 
     @Id
     @Column(name = "COMPANY_ID", nullable = false, precision = 0)
@@ -42,6 +43,16 @@ public class CompaniesEntity {
         this.phoneNumber = phoneNumber;
     }
 
+    @Basic
+    @Column(name = "CITY_ID", nullable = true, precision = 0)
+    public Long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,6 +63,7 @@ public class CompaniesEntity {
         if (companyId != that.companyId) return false;
         if (companyName != null ? !companyName.equals(that.companyName) : that.companyName != null) return false;
         if (phoneNumber != null ? !phoneNumber.equals(that.phoneNumber) : that.phoneNumber != null) return false;
+        if (cityId != null ? !cityId.equals(that.cityId) : that.cityId != null) return false;
 
         return true;
     }
@@ -61,6 +73,7 @@ public class CompaniesEntity {
         int result = (int) (companyId ^ (companyId >>> 32));
         result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+        result = 31 * result + (cityId != null ? cityId.hashCode() : 0);
         return result;
     }
 }

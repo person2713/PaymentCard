@@ -9,7 +9,7 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 import com.team.mvc.entity.CitiesEntity;
-import com.team.mvc.service.CitiesService;
+import com.team.mvc.service.interf.CitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;

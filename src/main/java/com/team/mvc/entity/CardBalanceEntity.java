@@ -3,12 +3,13 @@ package com.team.mvc.entity;
 import javax.persistence.*;
 
 /**
- * Created by vit on 16.03.2017.
+ * Created by vit on 21.03.2017.
  */
 @Entity
 @Table(name = "CARD_BALANCE", schema = "CAPTAIN", catalog = "")
 public class CardBalanceEntity {
     private long balanceId;
+    private long cardId;
     private long balance;
 
     @Id
@@ -19,6 +20,16 @@ public class CardBalanceEntity {
 
     public void setBalanceId(long balanceId) {
         this.balanceId = balanceId;
+    }
+
+    @Basic
+    @Column(name = "CARD_ID", nullable = false, precision = 0)
+    public long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(long cardId) {
+        this.cardId = cardId;
     }
 
     @Basic
@@ -39,6 +50,7 @@ public class CardBalanceEntity {
         CardBalanceEntity that = (CardBalanceEntity) o;
 
         if (balanceId != that.balanceId) return false;
+        if (cardId != that.cardId) return false;
         if (balance != that.balance) return false;
 
         return true;
@@ -47,6 +59,7 @@ public class CardBalanceEntity {
     @Override
     public int hashCode() {
         int result = (int) (balanceId ^ (balanceId >>> 32));
+        result = 31 * result + (int) (cardId ^ (cardId >>> 32));
         result = 31 * result + (int) (balance ^ (balance >>> 32));
         return result;
     }

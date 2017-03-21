@@ -3,7 +3,7 @@ package com.team.mvc.entity;
 import javax.persistence.*;
 
 /**
- * Created by vit on 16.03.2017.
+ * Created by vit on 21.03.2017.
  */
 @Entity
 @Table(name = "TYPE_CARD", schema = "CAPTAIN", catalog = "")

@@ -25,6 +25,7 @@ public class citiesDaoImpl extends AbstractDao<Long,CitiesEntity> implements cit
 
     @Override
     public void saveCity(CitiesEntity citiesEntity) {
+        persist(citiesEntity);
 
     }
 

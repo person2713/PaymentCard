@@ -3,12 +3,13 @@ package com.team.mvc.entity;
 import javax.persistence.*;
 
 /**
- * Created by vit on 16.03.2017.
+ * Created by vit on 21.03.2017.
  */
 @Entity
 @Table(name = "ROUTES", schema = "CAPTAIN", catalog = "")
 public class RoutesEntity {
     private int routeId;
+    private long companyId;
     private String routeNumber;
 
     @Id
@@ -19,6 +20,16 @@ public class RoutesEntity {
 
     public void setRouteId(int routeId) {
         this.routeId = routeId;
+    }
+
+    @Basic
+    @Column(name = "COMPANY_ID", nullable = false, precision = 0)
+    public long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(long companyId) {
+        this.companyId = companyId;
     }
 
     @Basic
@@ -39,6 +50,7 @@ public class RoutesEntity {
         RoutesEntity that = (RoutesEntity) o;
 
         if (routeId != that.routeId) return false;
+        if (companyId != that.companyId) return false;
         if (routeNumber != null ? !routeNumber.equals(that.routeNumber) : that.routeNumber != null) return false;
 
         return true;
@@ -47,6 +59,7 @@ public class RoutesEntity {
     @Override
     public int hashCode() {
         int result = routeId;
+        result = 31 * result + (int) (companyId ^ (companyId >>> 32));
         result = 31 * result + (routeNumber != null ? routeNumber.hashCode() : 0);
         return result;
     }

@@ -4,13 +4,14 @@ import javax.persistence.*;
 import java.sql.Time;
 
 /**
- * Created by vit on 16.03.2017.
+ * Created by vit on 21.03.2017.
  */
 @Entity
 @Table(name = "EVENTS", schema = "CAPTAIN", catalog = "")
 public class EventsEntity {
     private long eventId;
     private String coordinates;
+    private long cardId;
     private String secretKey;
     private Time paymentTime;
     private short busId;
@@ -33,6 +34,16 @@ public class EventsEntity {
 
     public void setCoordinates(String coordinates) {
         this.coordinates = coordinates;
+    }
+
+    @Basic
+    @Column(name = "CARD_ID", nullable = false, precision = 0)
+    public long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(long cardId) {
+        this.cardId = cardId;
     }
 
     @Basic
@@ -73,6 +84,7 @@ public class EventsEntity {
         EventsEntity that = (EventsEntity) o;
 
         if (eventId != that.eventId) return false;
+        if (cardId != that.cardId) return false;
         if (busId != that.busId) return false;
         if (coordinates != null ? !coordinates.equals(that.coordinates) : that.coordinates != null) return false;
         if (secretKey != null ? !secretKey.equals(that.secretKey) : that.secretKey != null) return false;
@@ -85,6 +97,7 @@ public class EventsEntity {
     public int hashCode() {
         int result = (int) (eventId ^ (eventId >>> 32));
         result = 31 * result + (coordinates != null ? coordinates.hashCode() : 0);
+        result = 31 * result + (int) (cardId ^ (cardId >>> 32));
         result = 31 * result + (secretKey != null ? secretKey.hashCode() : 0);
         result = 31 * result + (paymentTime != null ? paymentTime.hashCode() : 0);
         result = 31 * result + (int) busId;

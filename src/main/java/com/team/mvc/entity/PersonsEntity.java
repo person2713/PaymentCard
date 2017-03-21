@@ -1,67 +1,131 @@
 package com.team.mvc.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-/**
- * Created by vit on 16.03.2017.
- */
+
 @Entity
-@Table(name = "PERSONS", schema = "CAPTAIN", catalog = "")
+@Table(name = "PERSONS")
 public class PersonsEntity {
-    private int personId;
-    private String firstName;
-    private String lastName;
-    private String mobileNumber;
-    private String email;
 
     @Id
-    @Column(name = "PERSON_ID", nullable = false, precision = 0)
+    @Column(name = "PERSON_ID")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_seq_persons")
+    @SequenceGenerator(name = "id_seq_persons", sequenceName = "PERSONS_SEQ")
+    private int personId;
+
+    @Column(name="FIRST_NAME", nullable=false)
+    private String firstName;
+
+    @Column(name="LAST_NAME", nullable=false)
+    private String lastName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CITY_ID", nullable = false)
+    private CitiesEntity city;
+
+    @Column(name = "MOBILE_NUMBER", length = 50)
+    private String mobileNumber;
+
+    @Column(name = "EMAIL", length = 50, nullable = false)
+    private String email;
+
+    @Column(name="PASSWORD", nullable=false)
+    private String password;
+
+    @Column(name="SSO_ID", unique=true, nullable=false)
+    private String ssoId;
+
+    @Column(name="STATE", nullable=false)
+    private String state=State.ACTIVE.getState();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "PERSONS_PERSONS_PROFILE",
+            joinColumns = { @JoinColumn(name = "PERSON_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "PERSON_PROFILE_ID") })
+    private Set<PersonsProfile> personsProfiles = new HashSet<PersonsProfile>();
+
+    public Set<PersonsProfile> getPersonsProfiles() {
+        return personsProfiles;
+    }
+
+    public void setPersonsProfiles(Set<PersonsProfile> personsProfiles) {
+        this.personsProfiles = personsProfiles;
+    }
+
+    public String getSsoId() {
+        return ssoId;
+    }
+
+    public void setSsoId(String ssoId) {
+        this.ssoId = ssoId;
+    }
+
     public int getPersonId() {
         return personId;
     }
 
-    public void setPersonId(int personId) {
-        this.personId = personId;
-    }
-
-    @Basic
-    @Column(name = "FIRST_NAME", nullable = false, length = 20)
     public String getFirstName() {
         return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public CitiesEntity getCity() {
+        return city;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+
+    public String getState() {
+        return state;
+    }
+
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    @Basic
-    @Column(name = "LAST_NAME", nullable = false, length = 20)
-    public String getLastName() {
-        return lastName;
-    }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    @Basic
-    @Column(name = "MOBILE_NUMBER", nullable = true, length = 20)
-    public String getMobileNumber() {
-        return mobileNumber;
+    public void setCity(CitiesEntity city) {
+        this.city = city;
     }
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
-    @Basic
-    @Column(name = "EMAIL", nullable = true, length = 30)
-    public String getEmail() {
-        return email;
-    }
-
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     @Override

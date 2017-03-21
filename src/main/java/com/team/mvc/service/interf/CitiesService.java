@@ -1,4 +1,4 @@
-package com.team.mvc.service;
+package com.team.mvc.service.interf;
 
 import com.team.mvc.entity.CitiesEntity;
 
