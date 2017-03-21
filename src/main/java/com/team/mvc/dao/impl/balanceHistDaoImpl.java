@@ -14,18 +14,32 @@ import java.util.List;
  */
 public class balanceHistDaoImpl extends AbstractDao<Long,BalanceHistEntity> implements balanceHistDao {
     @Override
-    public BalanceHistEntity findBalanceHistByCardID(long card_id) {
-        Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("card_id", card_id));
-        return (BalanceHistEntity) criteria.uniqueResult();
+    public List<BalanceHistEntity>  findBalanceHistByCardID(long card_id) {
+        Query query = getSession().createSQLQuery(
+                "select * from BALANCE_HIST where CARD_ID = :card_id")
+                .addEntity(BalanceHistEntity.class)
+                .setParameter("card_id", "card_id");
+        List result = query.list();
+        return result;
+
+
+
     }
 
     @Override
-    public BalanceHistEntity findBalanceHistByBalanceID(long balance_id) {
+    public List<BalanceHistEntity> findBalanceHistByBalanceID(long balance_id) {
 
-        Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("balance_id", balance_id));
-        return (BalanceHistEntity) criteria.uniqueResult();
+        Query query = getSession().createSQLQuery(
+                "select * from BALANCE_HIST where BALANCE_ID = :balance_id")
+                .addEntity(BalanceHistEntity.class)
+                .setParameter("balance_id", "balance_id");
+        List result = query.list();
+        return result;
+    }
+
+    @Override
+    public BalanceHistEntity findBalanceHistByBalanceHistID(long balanceHistId) {
+        return getByKey(balanceHistId);
     }
 
     @Override

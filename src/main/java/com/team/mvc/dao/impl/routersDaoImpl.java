@@ -37,23 +37,24 @@ public class routersDaoImpl extends AbstractDao<Integer,RoutesEntity> implements
     }
 
     @Override
-    public RoutesEntity findRouteByRouterNumber(String routeNumber) {
-        Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("routeNumber",routeNumber));
-        return (RoutesEntity) criteria.uniqueResult();
+    public List<RoutesEntity> findRouteByRouterNumber(String routeNumber) {
+        Query query = getSession().createSQLQuery(
+                "select * from ROUTES where ROUTE_NUMBER = :routeNumber")
+                .addEntity(RoutesEntity.class)
+                .setParameter("routeNumber", "routeNumber");
+        List result = query.list();
+        return result;
     }
 
     @Override
-    public RoutesEntity findRouteByCompanyID(long companyId) {
-        Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("companyId", companyId));
-        return (RoutesEntity) criteria.uniqueResult();
+    public List<RoutesEntity> findRouteByCompanyID(long companyId) {
+        Query query = getSession().createSQLQuery(
+                "select * from EVENTS where COMPANY_ID = :companyId")
+                .addEntity(RoutesEntity.class)
+                .setParameter("companyId", "companyId");
+        List result = query.list();
+        return result;
     }
 
-    @Override
-    public RoutesEntity findRouteByRouteID(int routeId) {
-        Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("routeId", routeId));
-        return (RoutesEntity) criteria.uniqueResult();
-    }
+
 }

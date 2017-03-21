@@ -10,8 +10,9 @@ import java.util.List;
  */
 public interface balanceHistDao {
     //+ add forei key into entity
-    BalanceHistEntity findBalanceHistByCardID(long card_id);
-    BalanceHistEntity findBalanceHistByBalanceID(long balance_id);
+    List<BalanceHistEntity> findBalanceHistByCardID(long card_id);
+    List<BalanceHistEntity> findBalanceHistByBalanceID(long balance_id);
+    BalanceHistEntity findBalanceHistByBalanceHistID (long balanceHistId);
     void saveCardBalance( BalanceHistEntity balanceHistEntity);
     List<BalanceHistEntity> findAllBalance();
 

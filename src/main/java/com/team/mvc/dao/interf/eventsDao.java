@@ -16,6 +16,6 @@ public interface eventsDao {
 
     List<EventsEntity> findAllEvents();
 
-    EventsEntity findEventByCardID(long cardId);//add to entity
-    EventsEntity findEventByEventID(long eventId);
+    List<EventsEntity> findEventByCardID(long cardId);//add to entity
+
 }

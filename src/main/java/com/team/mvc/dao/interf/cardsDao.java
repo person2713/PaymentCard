@@ -17,5 +17,5 @@ public interface cardsDao {
 
     List<CardsEntity> findAllCards();
 
-    CardsEntity findCardsByPersonID(int personId);
+    List<CardsEntity> findCardsByPersonID(int personId);
 }

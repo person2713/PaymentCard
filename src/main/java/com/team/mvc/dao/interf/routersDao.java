@@ -16,7 +16,7 @@ public interface routersDao {
 
     List<RoutesEntity> findAllRoutes();
 
-    RoutesEntity findRouteByRouterNumber(String routeNumber);
-    RoutesEntity findRouteByCompanyID(long companyId); //add to entity
-    RoutesEntity findRouteByRouteID(int routeId);
+    List<RoutesEntity> findRouteByRouterNumber(String routeNumber);
+    List<RoutesEntity> findRouteByCompanyID(long companyId); //add to entity
+
 }
