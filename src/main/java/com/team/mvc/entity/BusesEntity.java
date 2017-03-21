@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Nick on 15.03.2017.
  */
 @Entity
-@Table(name = "BUSES", schema = "CAPTAIN", catalog = "")
+@Table(name = "BUSES", schema = "CAPTAIN", catalog = "") //ToDo зачет тут пустое значение catalog? и о стальных Entity
 public class BusesEntity {
     private short busId;
     private String busNumber;
