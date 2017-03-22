@@ -78,7 +78,7 @@ public class AppController {
             return "registrationCity";
         }
 
-        service.saveEmployee(citiesEntity);
+        service.saveCity(citiesEntity);
 
         model.addAttribute("success", "City " + citiesEntity.getCityName() + " registered successfully");
         return "success";
