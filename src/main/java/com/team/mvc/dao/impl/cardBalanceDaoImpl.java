@@ -21,7 +21,7 @@ public class cardBalanceDaoImpl extends AbstractDao<Long,CardBalanceEntity> impl
     @Override
     public CardBalanceEntity findByCardID(long CardID) {
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("CardID", CardID));
+        criteria.add(Restrictions.eq("CARD_ID", CardID));
         return (CardBalanceEntity) criteria.uniqueResult();
     }
 

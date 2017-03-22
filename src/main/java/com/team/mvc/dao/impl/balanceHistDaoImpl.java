@@ -14,14 +14,11 @@ import java.util.List;
  */
 public class balanceHistDaoImpl extends AbstractDao<Long,BalanceHistEntity> implements balanceHistDao {
     @Override
-    public List<BalanceHistEntity>  findBalanceHistByCardID(long card_id) {
-        Query query = getSession().createSQLQuery(
-                "select * from BALANCE_HIST where CARD_ID = :card_id")
-                .addEntity(BalanceHistEntity.class)
-                .setParameter("card_id", "card_id");
-        List result = query.list();
-        return result;
+    public List<BalanceHistEntity>  findBalanceHistByCardID(long cardId) {
 
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("CARD_ID", cardId));
+        return (List<BalanceHistEntity>) criteria.list();
 
 
     }
@@ -29,12 +26,11 @@ public class balanceHistDaoImpl extends AbstractDao<Long,BalanceHistEntity> impl
     @Override
     public List<BalanceHistEntity> findBalanceHistByBalanceID(long balance_id) {
 
-        Query query = getSession().createSQLQuery(
-                "select * from BALANCE_HIST where BALANCE_ID = :balance_id")
-                .addEntity(BalanceHistEntity.class)
-                .setParameter("balance_id", "balance_id");
-        List result = query.list();
-        return result;
+
+
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("BALANCE_ID", balance_id));
+        return (List<BalanceHistEntity>) criteria.list();
     }
 
     @Override

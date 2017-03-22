@@ -36,6 +36,8 @@ public class citiesDaoImpl extends AbstractDao<Long,CitiesEntity> implements cit
         query.setParameter("city_name", city_name);
         query.executeUpdate();
 
+
+
     }
 
     @Override

@@ -20,12 +20,11 @@ public class busesDaoImpl  extends AbstractDao<Short,BusesEntity> implements bus
 
     @Override
     public List<BusesEntity> findByNumber(String busNumber) {
-        Query query = getSession().createSQLQuery(
-                "select * from BUSES where BUS_NUMBER = :busNumber")
-                .addEntity(BusesEntity.class)
-                .setParameter("busNumber", "busNumber");
-        List result = query.list();
-        return result;
+
+
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("BUS_NUMBER",busNumber));
+        return (List<BusesEntity>) criteria.list();
     }
 
     @Override

@@ -7,11 +7,11 @@ import java.util.List;
 /**
  * Created by vit on 17.03.2017.
  */
-public interface CitiesService {
+public interface citiesService {
 
     CitiesEntity findById(long id);
 
-    void saveEmployee(CitiesEntity citiesEntity);
+    void saveCity(CitiesEntity citiesEntity);
 
     void updateCity(CitiesEntity citiesEntity);
 

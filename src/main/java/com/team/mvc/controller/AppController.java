@@ -9,7 +9,7 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 import com.team.mvc.entity.CitiesEntity;
-import com.team.mvc.service.interf.CitiesService;
+import com.team.mvc.service.interf.citiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class AppController {
     @Autowired
-    CitiesService service;
+    citiesService service;
 
     @Autowired
     MessageSource messageSource;

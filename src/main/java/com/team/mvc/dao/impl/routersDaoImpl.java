@@ -38,22 +38,19 @@ public class routersDaoImpl extends AbstractDao<Integer,RoutesEntity> implements
 
     @Override
     public List<RoutesEntity> findRouteByRouterNumber(String routeNumber) {
-        Query query = getSession().createSQLQuery(
-                "select * from ROUTES where ROUTE_NUMBER = :routeNumber")
-                .addEntity(RoutesEntity.class)
-                .setParameter("routeNumber", "routeNumber");
-        List result = query.list();
-        return result;
+
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("ROUTE_NUMBER", routeNumber));
+        return (List<RoutesEntity>) criteria.list();
     }
 
     @Override
     public List<RoutesEntity> findRouteByCompanyID(long companyId) {
-        Query query = getSession().createSQLQuery(
-                "select * from EVENTS where COMPANY_ID = :companyId")
-                .addEntity(RoutesEntity.class)
-                .setParameter("companyId", "companyId");
-        List result = query.list();
-        return result;
+
+
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("COMPANY_ID", companyId));
+        return (List<RoutesEntity>) criteria.list();
     }
 
 

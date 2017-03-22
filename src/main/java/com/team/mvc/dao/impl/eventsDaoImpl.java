@@ -38,12 +38,10 @@ public class eventsDaoImpl extends AbstractDao<Long,EventsEntity> implements eve
 
     @Override
     public List<EventsEntity> findEventByCardID(long cardId) {
-        Query query = getSession().createSQLQuery(
-                "select * from EVENTS where CARD_ID = :cardId")
-                .addEntity(EventsEntity.class)
-                .setParameter("cardId", "cardId");
-        List result = query.list();
-        return result;
+
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("CARD_ID", cardId));
+        return (List<EventsEntity>) criteria.list();
     }
 
 

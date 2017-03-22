@@ -39,11 +39,9 @@ public class cardsDaoImpl extends AbstractDao<Long, CardsEntity> implements card
 
     @Override
     public  List<CardsEntity> findCardsByPersonID(int personId) {
-        Query query = getSession().createSQLQuery(
-                "select * from CARDS where PERSON_ID = :personId")
-                .addEntity(CardsEntity.class)
-                .setParameter("personId", "personId");
-        List result = query.list();
-        return result;
+
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("PERSON_ID", personId));
+        return (List<CardsEntity>) criteria.list();
     }
 }
