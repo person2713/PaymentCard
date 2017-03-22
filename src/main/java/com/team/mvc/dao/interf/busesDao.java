@@ -10,7 +10,7 @@ import java.util.List;
 public interface busesDao {
     BusesEntity findById(short busId);
     List<BusesEntity> findByNumber(String busNumber);
-//+find by company_id + add into entity
+
     void saveBus( BusesEntity busesEntity);
 
     void deleteBusbyBusID(short busId);
