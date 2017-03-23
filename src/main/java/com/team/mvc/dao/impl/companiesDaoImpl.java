@@ -2,8 +2,7 @@ package com.team.mvc.dao.impl;
 
 import com.team.mvc.dao.interf.AbstractDao;
 import com.team.mvc.dao.interf.companiesDao;
-import com.team.mvc.entity.CitiesEntity;
-import com.team.mvc.entity.CompaniesEntity;
+import com.team.mvc.entity.Companies;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
@@ -13,14 +12,14 @@ import java.util.List;
 /**
  * Created by vit on 20.03.2017.
  */
-public class companiesDaoImpl extends AbstractDao<Long,CompaniesEntity>  implements companiesDao {
+public class companiesDaoImpl extends AbstractDao<Long,Companies>  implements companiesDao {
     @Override
-    public CompaniesEntity findById(long companyId) {
+    public Companies findById(long companyId) {
         return getByKey(companyId);
     }
 
     @Override
-    public void saveCompany(CompaniesEntity companiesEntity) {
+    public void saveCompany(Companies companiesEntity) {
         persist(companiesEntity);
     }
 
@@ -32,22 +31,22 @@ public class companiesDaoImpl extends AbstractDao<Long,CompaniesEntity>  impleme
     }
 
     @Override
-    public List<CompaniesEntity> findAllCompany() {
+    public List<Companies> findAllCompany() {
         Criteria criteria = createEntityCriteria();
-        return (List<CompaniesEntity>) criteria.list();
+        return (List<Companies>) criteria.list();
     }
 
     @Override
-    public CompaniesEntity findCompanyByName(String companyName) {
+    public Companies findCompanyByName(String companyName) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("companyName", companyName));
-        return (CompaniesEntity) criteria.uniqueResult();
+        return (Companies) criteria.uniqueResult();
     }
 
     @Override
-    public CompaniesEntity findCompanyByID(long companyId) {
+    public Companies findCompanyByID(long companyId) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("companyId", companyId));
-        return (CompaniesEntity) criteria.uniqueResult();
+        return (Companies) criteria.uniqueResult();
     }
 }

@@ -8,8 +8,8 @@ import java.util.Locale;
 
 import javax.validation.Valid;
 
-import com.team.mvc.entity.CitiesEntity;
-import com.team.mvc.service.interf.citiesService;
+import com.team.mvc.entity.Cities;
+import com.team.mvc.service.citiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -35,7 +35,7 @@ public class AppController {
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public String listCities(ModelMap model) {
 
-        List<CitiesEntity> citiesEntities = service.findAllCities();
+        List<Cities> citiesEntities = service.findAllCities();
         model.addAttribute("itiesEntities", citiesEntities);
         return "allcities";
     }
@@ -45,7 +45,7 @@ public class AppController {
      */
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
     public String newEmployee(ModelMap model) {
-        CitiesEntity citiesEntity = new CitiesEntity();
+        Cities citiesEntity = new Cities();
         model.addAttribute("citiesEntity", citiesEntity);
         model.addAttribute("edit", false);
         return "registrationCity";
@@ -57,7 +57,7 @@ public class AppController {
      * saving employee in database. It also validates the user input
      */
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
-    public String saveEmployee(@Valid CitiesEntity citiesEntity, BindingResult result,
+    public String saveEmployee(@Valid Cities citiesEntity, BindingResult result,
                                ModelMap model) {
 
         if (result.hasErrors()) {
@@ -89,7 +89,7 @@ public class AppController {
      */
     @RequestMapping(value = { "/edit-{city_name}-citiesEntities" }, method = RequestMethod.GET)
     public String editCity(@PathVariable String city_name, ModelMap model) {
-        CitiesEntity citiesEntity = service.findCityByName(city_name);
+        Cities citiesEntity = service.findCityByName(city_name);
         model.addAttribute("citiesEntity", citiesEntity);
         model.addAttribute("edit", true);
         return "registrationCity";
@@ -101,8 +101,8 @@ public class AppController {
    * updating employee in database. It also validates the user input
    */
     @RequestMapping(value = { "/edit-{city_name}-citiesEntities" }, method = RequestMethod.POST)
-    public String updateCity(@Valid CitiesEntity citiesEntity, BindingResult result,
-                                 ModelMap model, @PathVariable String city_name) {
+    public String updateCity(@Valid Cities citiesEntity, BindingResult result,
+                             ModelMap model, @PathVariable String city_name) {
 
         if (result.hasErrors()) {
             return "registrationCity";

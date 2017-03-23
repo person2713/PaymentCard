@@ -1,6 +1,6 @@
 package com.team.mvc.dao.interf;
 
-import com.team.mvc.entity.CardsEntity;
+import com.team.mvc.entity.Cards;
 
 import java.util.List;
 
@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface cardsDao {
 
-    CardsEntity findById(long cardId);
+    Cards findById(long cardId);
 
-    void saveCard( CardsEntity cardsEntity);
+    void saveCard( Cards cardsEntity);
 
     void deleteCardbyCardID(long cardId);
 
-    List<CardsEntity> findAllCards();
+    List<Cards> findAllCards();
 
-    List<CardsEntity> findCardsByPersonID(int personId);
+    List<Cards> findCardsByPersonID(int personId);
 }

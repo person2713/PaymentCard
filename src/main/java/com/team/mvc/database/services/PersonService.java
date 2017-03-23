@@ -1,7 +1,8 @@
 package com.team.mvc.database.services;
 
+import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.repositories.PersonRepository;
-import com.team.mvc.entity.Persons;
+
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

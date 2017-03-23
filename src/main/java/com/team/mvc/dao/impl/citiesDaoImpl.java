@@ -5,7 +5,7 @@ package com.team.mvc.dao.impl;
 
         import com.team.mvc.dao.interf.AbstractDao;
         import com.team.mvc.dao.interf.citiesDao;
-        import com.team.mvc.entity.CitiesEntity;
+        import com.team.mvc.entity.Cities;
         import org.hibernate.Criteria;
         import org.hibernate.Query;
         import org.hibernate.criterion.Restrictions;
@@ -15,16 +15,16 @@ package com.team.mvc.dao.impl;
  * Created by vit on 17.03.2017.
  */
 @Repository("citiesDao")
-public class citiesDaoImpl extends AbstractDao<Long,CitiesEntity> implements citiesDao {
+public class citiesDaoImpl extends AbstractDao<Long,Cities> implements citiesDao {
 
 
     @Override
-    public CitiesEntity findById(long cityId) {
+    public Cities findById(long cityId) {
         return getByKey(cityId);
     }
 
     @Override
-    public void saveCity(CitiesEntity citiesEntity) {
+    public void saveCity(Cities citiesEntity) {
         persist(citiesEntity);
 
     }
@@ -41,28 +41,28 @@ public class citiesDaoImpl extends AbstractDao<Long,CitiesEntity> implements cit
     }
 
     @Override
-    public List<CitiesEntity> findAllCities() {
+    public List<Cities> findAllCities() {
         Criteria criteria = createEntityCriteria();
-        return (List<CitiesEntity>) criteria.list();
+        return (List<Cities>) criteria.list();
     }
 
     @Override
-    public CitiesEntity findCityByName(String city_name) {
+    public Cities findCityByName(String city_name) {
 
             Criteria criteria = createEntityCriteria();
             criteria.add(Restrictions.eq("city_name", city_name));
-            return (CitiesEntity) criteria.uniqueResult();
+            return (Cities) criteria.uniqueResult();
     }
 }
 
 /*
     @Override
-    public CitiesEntity findById(long id) {
+    public Cities findById(long id) {
         return getByKey((int) id);
     }
 
     @Override
-    public void saveCity(CitiesEntity citiesEntity) {
+    public void saveCity(Cities citiesEntity) {
         persist(citiesEntity);
     }
 
@@ -75,44 +75,44 @@ public class citiesDaoImpl extends AbstractDao<Long,CitiesEntity> implements cit
     }
     @SuppressWarnings("unchecked")
     @Override
-    public List<CitiesEntity> findAllCities() {
+    public List<Cities> findAllCities() {
         Criteria criteria = createEntityCriteria();
-        return (List<CitiesEntity>) criteria.list();
+        return (List<Cities>) criteria.list();
     }
 
     @Override
-    public CitiesEntity findCityByName(String city_name) {
+    public Cities findCityByName(String city_name) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("cityName", city_name));
-        return (CitiesEntity) criteria.uniqueResult();
+        return (Cities) criteria.uniqueResult();
     }
 
     @Override
-    public void add(CitiesEntity entity) throws SQLException {
-
-    }
-
-    @Override
-    public void update(CitiesEntity entity) throws SQLException {
+    public void add(Cities entity) throws SQLException {
 
     }
 
     @Override
-    public void remove(CitiesEntity entity) throws SQLException {
+    public void update(Cities entity) throws SQLException {
 
     }
 
     @Override
-    public CitiesEntity get(String key) throws SQLException {
+    public void remove(Cities entity) throws SQLException {
+
+    }
+
+    @Override
+    public Cities get(String key) throws SQLException {
         return null;
     }
 
     @Override
-    public List<CitiesEntity> getAll() throws SQLException {
+    public List<Cities> getAll() throws SQLException {
         return null;
     }
 
     @Override
-    public List<CitiesEntity> getByLikeExpression() throws SQLException {
+    public List<Cities> getByLikeExpression() throws SQLException {
         return null;
     }*/

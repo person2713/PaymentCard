@@ -2,7 +2,7 @@ package com.team.mvc.dao.impl;
 
 import com.team.mvc.dao.interf.AbstractDao;
 import com.team.mvc.dao.interf.cardsDao;
-import com.team.mvc.entity.CardsEntity;
+import com.team.mvc.entity.Cards;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
@@ -12,14 +12,14 @@ import java.util.List;
 /**
  * Created by vit on 20.03.2017.
  */
-public class cardsDaoImpl extends AbstractDao<Long, CardsEntity> implements cardsDao {
+public class cardsDaoImpl extends AbstractDao<Long, Cards> implements cardsDao {
     @Override
-    public CardsEntity findById(long cardId) {
+    public Cards findById(long cardId) {
         return getByKey(cardId);
     }
 
     @Override
-    public void saveCard(CardsEntity cardsEntity) {
+    public void saveCard(Cards cardsEntity) {
         persist(cardsEntity);
     }
 
@@ -32,16 +32,16 @@ public class cardsDaoImpl extends AbstractDao<Long, CardsEntity> implements card
     }
 
     @Override
-    public List<CardsEntity> findAllCards() {
+    public List<Cards> findAllCards() {
         Criteria criteria = createEntityCriteria();
-        return (List<CardsEntity>) criteria.list();
+        return (List<Cards>) criteria.list();
     }
 
     @Override
-    public  List<CardsEntity> findCardsByPersonID(int personId) {
+    public  List<Cards> findCardsByPersonID(int personId) {
 
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("PERSON_ID", personId));
-        return (List<CardsEntity>) criteria.list();
+        return (List<Cards>) criteria.list();
     }
 }

@@ -1,0 +1,66 @@
+package com.team.mvc.database.entities;
+
+import javax.persistence.*;
+
+/**
+ * Created by vit on 23.03.2017.
+ */
+@Entity
+@Table(name = "CARD_BALANCE", schema = "CAPTAIN", catalog = "")
+public class CardBalance {
+    private long balanceId;
+    private long cardId;
+    private long balance;
+
+    @Id
+    @Column(name = "BALANCE_ID", nullable = false, precision = 0)
+    public long getBalanceId() {
+        return balanceId;
+    }
+
+    public void setBalanceId(long balanceId) {
+        this.balanceId = balanceId;
+    }
+
+    @Basic
+    @Column(name = "CARD_ID", nullable = false, precision = 0)
+    public long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(long cardId) {
+        this.cardId = cardId;
+    }
+
+    @Basic
+    @Column(name = "BALANCE", nullable = false, precision = 0)
+    public long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(long balance) {
+        this.balance = balance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CardBalance that = (CardBalance) o;
+
+        if (balanceId != that.balanceId) return false;
+        if (cardId != that.cardId) return false;
+        if (balance != that.balance) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (balanceId ^ (balanceId >>> 32));
+        result = 31 * result + (int) (cardId ^ (cardId >>> 32));
+        result = 31 * result + (int) (balance ^ (balance >>> 32));
+        return result;
+    }
+}

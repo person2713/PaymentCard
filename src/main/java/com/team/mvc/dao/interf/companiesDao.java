@@ -1,6 +1,6 @@
 package com.team.mvc.dao.interf;
 
-import com.team.mvc.entity.CompaniesEntity;
+import com.team.mvc.entity.Companies;
 
 import java.util.List;
 
@@ -8,15 +8,15 @@ import java.util.List;
  * Created by vit on 20.03.2017.
  */
 public interface companiesDao {
-    CompaniesEntity findById(long id);
+    Companies findById(long id);
 
-    void saveCompany( CompaniesEntity companiesEntity);
+    void saveCompany( Companies companiesEntity);
 
     void deleteCompanybyName(String companyName);
 
-    List<CompaniesEntity> findAllCompany();
+    List<Companies> findAllCompany();
 
-    CompaniesEntity findCompanyByName(String companyName);
+    Companies findCompanyByName(String companyName);
 
-    CompaniesEntity findCompanyByID(long companyId);
+    Companies findCompanyByID(long companyId);
 }

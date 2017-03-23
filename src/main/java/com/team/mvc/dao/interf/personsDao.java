@@ -1,12 +1,12 @@
 package com.team.mvc.dao.interf;
 
-import com.team.mvc.entity.PersonsEntity;
+import com.team.mvc.entity.Persons;
 
 /**
  * Created by vit on 20.03.2017.
  */
 public interface personsDao {
-    PersonsEntity findById(int personId);
-    PersonsEntity findById(String SSO_ID);
+    Persons findById(int personId);
+    Persons findById(String SSO_ID);
 
 }

@@ -2,7 +2,7 @@ package com.team.mvc.dao.impl;
 
 import com.team.mvc.dao.interf.AbstractDao;
 import com.team.mvc.dao.interf.cardBalanceDao;
-import com.team.mvc.entity.CardBalanceEntity;
+import com.team.mvc.entity.CardBalance;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
@@ -12,29 +12,29 @@ import java.util.List;
 /**
  * Created by vit on 20.03.2017.
  */
-public class cardBalanceDaoImpl extends AbstractDao<Long,CardBalanceEntity> implements cardBalanceDao {
+public class cardBalanceDaoImpl extends AbstractDao<Long,CardBalance> implements cardBalanceDao {
     @Override
-    public CardBalanceEntity findByBalanceID(long balanceId) {
+    public CardBalance findByBalanceID(long balanceId) {
         return getByKey(balanceId);
     }
 
     @Override
-    public CardBalanceEntity findByCardID(long CardID) {
+    public CardBalance findByCardID(long CardID) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("CARD_ID", CardID));
-        return (CardBalanceEntity) criteria.uniqueResult();
+        return (CardBalance) criteria.uniqueResult();
     }
 
     @Override
-    public void saveCardBalance(CardBalanceEntity cardBalanceEntity) {
+    public void saveCardBalance(CardBalance cardBalanceEntity) {
         persist(cardBalanceEntity);
     }
 
     @Override
-    public List<CardBalanceEntity> findAllBalance() {
+    public List<CardBalance> findAllBalance() {
 
         Criteria criteria = createEntityCriteria();
-        return (List<CardBalanceEntity>) criteria.list();
+        return (List<CardBalance>) criteria.list();
 
     }
 
