@@ -11,7 +11,7 @@ import java.util.List;
 /**
 
  */
-public class AbstractRepository<Entity> {
+public abstract class AbstractRepository<Entity> {
     private Class persistentClass;
 
     public AbstractRepository(Class persistentClass) {

@@ -1,132 +1,68 @@
 package com.team.mvc.controller;
 
-/**
- * Created by vit on 17.03.2017.
- */
-import java.util.List;
-import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import javax.validation.Valid;
-
-import com.team.mvc.entity.Cities;
-import com.team.mvc.service.citiesService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 @Controller
 @RequestMapping("/")
 public class AppController {
-    @Autowired
-    citiesService service;
 
-    @Autowired
-    MessageSource messageSource;
-
-
-    /*
-     * This method will list all existing employees.
-     */
-    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
-    public String listCities(ModelMap model) {
-
-        List<Cities> citiesEntities = service.findAllCities();
-        model.addAttribute("itiesEntities", citiesEntities);
-        return "allcities";
+    @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
+    public String homePage(ModelMap model) {
+        model.addAttribute("greeting", "Hi, Welcome to mysite");
+        return "welcome";
     }
 
-    /*
-     * This method will provide the medium to add a new employee.
-     */
-    @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
-    public String newEmployee(ModelMap model) {
-        Cities citiesEntity = new Cities();
-        model.addAttribute("citiesEntity", citiesEntity);
-        model.addAttribute("edit", false);
-        return "registrationCity";
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String adminPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "admin";
     }
 
+    @RequestMapping(value = "/db", method = RequestMethod.GET)
+    public String dbaPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "dba";
+    }
 
-    /*
-     * This method will be called on form submission, handling POST request for
-     * saving employee in database. It also validates the user input
-     */
-    @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
-    public String saveEmployee(@Valid Cities citiesEntity, BindingResult result,
-                               ModelMap model) {
+    @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
+    public String accessDeniedPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "accessDenied";
+    }
 
-        if (result.hasErrors()) {
-            return "registrationCity";
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage() {
+        return "login";
+    }
+
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-
-         /*
-         * Preferred way to achieve uniqueness of field [ssn] should be implementing custom @Unique annotation
-         * and applying it on field [ssn] of Model class [Employee].
-         *
-         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
-         * framework as well while still using internationalized messages.
-         *
-         */
-        if (!service.isCityNameUnique(citiesEntity.getCityId(), citiesEntity.getCityName())) {
-            FieldError nameError = new FieldError("citiesEntity", "city_name", messageSource.getMessage("non.unique.city_name", new String[]{citiesEntity.getCityName()}, Locale.getDefault()));
-            result.addError(nameError);
-            return "registrationCity";
-        }
-
-        service.saveCity(citiesEntity);
-
-        model.addAttribute("success", "City " + citiesEntity.getCityName() + " registered successfully");
-        return "success";
+        return "redirect:/login?logout";
     }
 
-    /*
-     * This method will provide the medium to update an existing employee.
-     */
-    @RequestMapping(value = { "/edit-{city_name}-citiesEntities" }, method = RequestMethod.GET)
-    public String editCity(@PathVariable String city_name, ModelMap model) {
-        Cities citiesEntity = service.findCityByName(city_name);
-        model.addAttribute("citiesEntity", citiesEntity);
-        model.addAttribute("edit", true);
-        return "registrationCity";
-    }
+    private String getPrincipal(){
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-
-    /*
-   * This method will be called on form submission, handling POST request for
-   * updating employee in database. It also validates the user input
-   */
-    @RequestMapping(value = { "/edit-{city_name}-citiesEntities" }, method = RequestMethod.POST)
-    public String updateCity(@Valid Cities citiesEntity, BindingResult result,
-                             ModelMap model, @PathVariable String city_name) {
-
-        if (result.hasErrors()) {
-            return "registrationCity";
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
         }
-
-        if(!service.isCityNameUnique(citiesEntity.getCityId(),citiesEntity.getCityName())){
-            FieldError city_nameError =new FieldError("citiesEntity","city_name",messageSource.getMessage("non.unique.city_name", new String[]{citiesEntity.getCityName()}, Locale.getDefault()));
-            result.addError(city_nameError);
-            return "registrationCity";
-        }
-
-        service.updateCity(citiesEntity);
-
-        model.addAttribute("success", "City " + citiesEntity.getCityName()  + " updated successfully");
-        return "success";
-    }
-
-
-    /*
-     * This method will delete an employee by it's SSN value.
-     */
-    @RequestMapping(value = { "/delete-{city_name}-citiesEntities" }, method = RequestMethod.GET)
-    public String deleteCity(@PathVariable String city_name) {
-        service.deleteCityByName(city_name);
-        return "redirect:/list";
+        return userName;
     }
 }
