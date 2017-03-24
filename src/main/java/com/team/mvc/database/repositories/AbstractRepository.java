@@ -11,6 +11,7 @@ import java.util.List;
 /**
 
  */
+
 public abstract class AbstractRepository<Entity> {
     private Class persistentClass;
 
@@ -43,4 +44,8 @@ public abstract class AbstractRepository<Entity> {
     public void delete(Entity entity) {
         getSession().delete(entity);
     }
+
+
+
+
 }

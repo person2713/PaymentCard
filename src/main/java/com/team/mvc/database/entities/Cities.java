@@ -12,6 +12,13 @@ import javax.persistence.Id;
 public class Cities {
     private long cityId;
     private String cityName;
+    public Cities() {
+
+    }
+
+    public Cities(String cityName) {
+        this.cityName = cityName;
+    }
 
     @Id
     @Column(name = "CITY_ID", nullable = false, precision = 0)

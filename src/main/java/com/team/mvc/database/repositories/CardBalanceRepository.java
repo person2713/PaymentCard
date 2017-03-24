@@ -11,4 +11,7 @@ public class CardBalanceRepository extends AbstractRepository<CardBalance> {
     public CardBalanceRepository() {
         super(CardBalance.class);
     }
+
+
+
 }
