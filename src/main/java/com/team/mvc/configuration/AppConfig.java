@@ -10,9 +10,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-/**
- * Created by Nick on 13.03.2017.
- */
 
 @Configuration
 @EnableWebMvc

@@ -1,58 +1,64 @@
 package com.team.mvc.database.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-/**
- * Created by vit on 23.03.2017.
- */
+
 @Entity
+@Table(name = "CARDS")
 public class Cards {
-    private long cardId;
-    private Long personId;
-    private long cardKey;
-    private long typeId;
 
     @Id
-    @Column(name = "CARD_ID", nullable = false, precision = 0)
+    @Column(name = "CARD_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARDS_SEQ")
+    @SequenceGenerator(name = "CARDS_SEQ", sequenceName = "CARDS_SEQ")
+    private long cardId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PERSON_ID")
+    private Persons person;
+
+    @Column(name = "CARD_KEY", nullable = false)
+    private long cardKey;
+
+    @OneToOne
+    @JoinColumn(name="TYPE_ID", nullable = false)
+    private TypeCard typeCard;
+
+
+
     public long getCardId() {
         return cardId;
+    }
+
+    public Persons getPerson() {
+        return person;
+    }
+
+    public long getCardKey() {
+        return cardKey;
+    }
+
+    public TypeCard getTypeCard() {
+        return typeCard;
     }
 
     public void setCardId(long cardId) {
         this.cardId = cardId;
     }
 
-    @Basic
-    @Column(name = "PERSON_ID", nullable = true, precision = 0)
-    public Long getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Long personId) {
-        this.personId = personId;
-    }
-
-    @Basic
-    @Column(name = "CARD_KEY", nullable = false, precision = 0)
-    public long getCardKey() {
-        return cardKey;
+    public void setPerson(Persons person) {
+        this.person = person;
     }
 
     public void setCardKey(long cardKey) {
         this.cardKey = cardKey;
     }
 
-    @Basic
-    @Column(name = "TYPE_ID", nullable = false, precision = 0)
-    public long getTypeId() {
-        return typeId;
+    public void setTypeCard(TypeCard typeCard) {
+        this.typeCard = typeCard;
     }
 
-    public void setTypeId(long typeId) {
-        this.typeId = typeId;
+    public Cards() {
     }
 
     @Override
@@ -64,8 +70,8 @@ public class Cards {
 
         if (cardId != cards.cardId) return false;
         if (cardKey != cards.cardKey) return false;
-        if (typeId != cards.typeId) return false;
-        if (personId != null ? !personId.equals(cards.personId) : cards.personId != null) return false;
+        if (typeCard != cards.typeCard) return false;
+        if (person != null ? !person.equals(cards.person) : cards.person != null) return false;
 
         return true;
     }
@@ -73,9 +79,7 @@ public class Cards {
     @Override
     public int hashCode() {
         int result = (int) (cardId ^ (cardId >>> 32));
-        result = 31 * result + (personId != null ? personId.hashCode() : 0);
         result = 31 * result + (int) (cardKey ^ (cardKey >>> 32));
-        result = 31 * result + (int) (typeId ^ (typeId >>> 32));
         return result;
     }
 }

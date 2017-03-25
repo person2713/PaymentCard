@@ -14,9 +14,10 @@ public class PersonRepository extends AbstractRepository<Persons> {
     public PersonRepository() {
         super(Persons.class);
     }
-    public Persons findBySSO(String sso) {
+
+    public Persons findBySSO(String nickname) {
         Criteria crit = createEntityCriteria();
-        crit.add(Restrictions.eq("SSO_ID", sso));
+        crit.add(Restrictions.eq("NICKNAME", nickname));
         return (Persons) crit.uniqueResult();
     }
 }

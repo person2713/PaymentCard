@@ -1,47 +1,61 @@
 package com.team.mvc.database.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by vit on 23.03.2017.
- */
 @Entity
+@Table(name = "BUSES")
 public class Buses {
-    private long busId;
-    private String busNumber;
-    private long companyId;
 
     @Id
-    @Column(name = "BUS_ID", nullable = false, precision = 0)
+    @Column(name = "BUS_ID")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "BUSES_SEQ")
+    @SequenceGenerator(name = "BUSES_SEQ", sequenceName = "BUSES_SEQ")
+    private long busId;
+
+
+    @Column(name = "BUS_NUMBER", nullable = false, length = 20)
+    private String busNumber;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_ID")
+    private Companies company;
+
+
+    @ManyToMany(mappedBy="buses")
+    private List<Routes> routes = new ArrayList<Routes>();
+
+    @ManyToMany(mappedBy="buses")
+    private List<Drivers> drivers = new ArrayList<Drivers>();
+
+    public Buses() {
+    }
+
+
     public long getBusId() {
         return busId;
+    }
+
+    public String getBusNumber() {
+        return busNumber;
+    }
+
+    public Companies getCompany() {
+        return company;
     }
 
     public void setBusId(long busId) {
         this.busId = busId;
     }
 
-    @Basic
-    @Column(name = "BUS_NUMBER", nullable = false, length = 20)
-    public String getBusNumber() {
-        return busNumber;
-    }
-
     public void setBusNumber(String busNumber) {
         this.busNumber = busNumber;
     }
 
-    @Basic
-    @Column(name = "COMPANY_ID", nullable = false, precision = 0)
-    public long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(long companyId) {
-        this.companyId = companyId;
+    public void setCompany(Companies company) {
+        this.company = company;
     }
 
     @Override
@@ -52,7 +66,7 @@ public class Buses {
         Buses buses = (Buses) o;
 
         if (busId != buses.busId) return false;
-        if (companyId != buses.companyId) return false;
+        if (company != buses.company) return false;
         if (busNumber != null ? !busNumber.equals(buses.busNumber) : buses.busNumber != null) return false;
 
         return true;
@@ -62,7 +76,6 @@ public class Buses {
     public int hashCode() {
         int result = (int) (busId ^ (busId >>> 32));
         result = 31 * result + (busNumber != null ? busNumber.hashCode() : 0);
-        result = 31 * result + (int) (companyId ^ (companyId >>> 32));
         return result;
     }
 }

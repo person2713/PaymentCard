@@ -1,48 +1,42 @@
 package com.team.mvc.database.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by vit on 23.03.2017.
- */
+
 @Entity
+@Table(name = "ROUTES")
 public class Routes {
-    private long routeId;
-    private long companyId;
-    private String routeNumber;
 
     @Id
-    @Column(name = "ROUTE_ID", nullable = false, precision = 0)
-    public long getRouteId() {
-        return routeId;
-    }
+    @Column(name = "ROUTE_ID")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "ROUTES_SEQ")
+    @SequenceGenerator(name = "ROUTES_SEQ", sequenceName = "ROUTES_SEQ")
+    private long routeId;
 
-    public void setRouteId(long routeId) {
-        this.routeId = routeId;
-    }
 
-    @Basic
-    @Column(name = "COMPANY_ID", nullable = false, precision = 0)
-    public long getCompanyId() {
-        return companyId;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_ID")
+    private Companies company;
 
-    public void setCompanyId(long companyId) {
-        this.companyId = companyId;
-    }
 
-    @Basic
     @Column(name = "ROUTE_NUMBER", nullable = false, length = 10)
-    public String getRouteNumber() {
-        return routeNumber;
-    }
+    private String routeNumber;
 
-    public void setRouteNumber(String routeNumber) {
-        this.routeNumber = routeNumber;
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "CAR_ASSIGN",
+            joinColumns = { @JoinColumn(name = "ROUTE_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "BUS_ID") })
+    private List<Buses> buses = new ArrayList<Buses>();
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "CAR_ASSIGN",
+            joinColumns = { @JoinColumn(name = "ROUTE_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "DRIVER_ID") })
+    private List<Drivers> drivers = new ArrayList<Drivers>();
+
 
     @Override
     public boolean equals(Object o) {
@@ -52,7 +46,7 @@ public class Routes {
         Routes routes = (Routes) o;
 
         if (routeId != routes.routeId) return false;
-        if (companyId != routes.companyId) return false;
+        if (company != routes.company) return false;
         if (routeNumber != null ? !routeNumber.equals(routes.routeNumber) : routes.routeNumber != null) return false;
 
         return true;
@@ -61,7 +55,6 @@ public class Routes {
     @Override
     public int hashCode() {
         int result = (int) (routeId ^ (routeId >>> 32));
-        result = 31 * result + (int) (companyId ^ (companyId >>> 32));
         result = 31 * result + (routeNumber != null ? routeNumber.hashCode() : 0);
         return result;
     }

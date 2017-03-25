@@ -1,27 +1,28 @@
 package com.team.mvc.database.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-/**
- * Created by vit on 23.03.2017.
- */
+
 @Entity
+@Table(name = "CITIES")
 public class Cities {
+
+
+
+    @Id
+    @Column(name = "CITY_ID")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "CITIES_SEQ")
+    @SequenceGenerator(name = "CITIES_SEQ", sequenceName = "CITIES_SEQ")
     private long cityId;
+
+    @Column(name = "CITY_NAME", nullable = false, length = 100, unique = true)
     private String cityName;
+
+
     public Cities() {
 
     }
 
-    public Cities(String cityName) {
-        this.cityName = cityName;
-    }
-
-    @Id
-    @Column(name = "CITY_ID", nullable = false, precision = 0)
     public long getCityId() {
         return cityId;
     }
@@ -30,8 +31,7 @@ public class Cities {
         this.cityId = cityId;
     }
 
-    @Basic
-    @Column(name = "CITY_NAME", nullable = false, length = 100)
+
     public String getCityName() {
         return cityName;
     }

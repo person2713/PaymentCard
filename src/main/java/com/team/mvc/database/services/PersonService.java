@@ -7,9 +7,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
 
- */
 @Service
 public class PersonService {
     @Autowired
@@ -19,7 +17,7 @@ public class PersonService {
         return personRepository.getById(id);
     }
 
-    public Persons findBySso(String sso) {
-        return personRepository.findBySSO(sso);
+    public Persons findByNickName(String nickname) {
+        return personRepository.findBySSO(nickname);
     }
 }

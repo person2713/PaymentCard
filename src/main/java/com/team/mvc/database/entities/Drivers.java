@@ -1,48 +1,30 @@
 package com.team.mvc.database.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-/**
- * Created by vit on 23.03.2017.
- */
+
 @Entity
+@Table(name = "DRIVERS")
 public class Drivers {
-    private long driverId;
-    private long personId;
-    private long companyId;
+
 
     @Id
-    @Column(name = "DRIVER_ID", nullable = false, precision = 0)
-    public long getDriverId() {
-        return driverId;
-    }
+    @Column(name = "DRIVER_ID")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "DRIVERS_SEQ")
+    @SequenceGenerator(name = "DRIVERS_SEQ", sequenceName = "DRIVERS_SEQ")
+    private long driverId;
 
-    public void setDriverId(long driverId) {
-        this.driverId = driverId;
-    }
+    @OneToOne
+    @Column(name = "PERSON_ID", nullable = false)
+    private Persons person;
 
-    @Basic
-    @Column(name = "PERSON_ID", nullable = false, precision = 0)
-    public long getPersonId() {
-        return personId;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_ID")
+    private Companies company;
 
-    public void setPersonId(long personId) {
-        this.personId = personId;
-    }
 
-    @Basic
-    @Column(name = "COMPANY_ID", nullable = false, precision = 0)
-    public long getCompanyId() {
-        return companyId;
-    }
 
-    public void setCompanyId(long companyId) {
-        this.companyId = companyId;
-    }
+
 
     @Override
     public boolean equals(Object o) {

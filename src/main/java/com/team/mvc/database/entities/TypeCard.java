@@ -2,40 +2,47 @@ package com.team.mvc.database.entities;
 
 import javax.persistence.*;
 
-/**
- * Created by vit on 23.03.2017.
- */
+
+
 @Entity
-@Table(name = "TYPE_CARD", schema = "CAPTAIN", catalog = "")
+@Table(name = "TYPE_CARD")
 public class TypeCard {
-    private long typeId;
-    private String status;
-    private String cardType;
+
 
     @Id
-    @Column(name = "TYPE_ID", nullable = false, precision = 0)
+    @Column(name = "TYPE_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TYPE_CARD_SEQ")
+    @SequenceGenerator(name = "TYPE_CARD_SEQ", sequenceName = "TYPE_CARD_SEQ")
+    private long typeId;
+
+    @Column(name = "STATUS", nullable = false, length = 20)
+    private String status;
+
+    @Column(name = "CARD_TYPE", nullable = false, length = 20)
+    private String cardType;
+
+
+    public TypeCard() {
+    }
+
     public long getTypeId() {
         return typeId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getCardType() {
+        return cardType;
     }
 
     public void setTypeId(long typeId) {
         this.typeId = typeId;
     }
 
-    @Basic
-    @Column(name = "STATUS", nullable = false, length = 20)
-    public String getStatus() {
-        return status;
-    }
-
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @Basic
-    @Column(name = "CARD_TYPE", nullable = false, length = 20)
-    public String getCardType() {
-        return cardType;
     }
 
     public void setCardType(String cardType) {

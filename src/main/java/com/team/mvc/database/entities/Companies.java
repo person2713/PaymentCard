@@ -1,58 +1,66 @@
 package com.team.mvc.database.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
-/**
- * Created by vit on 23.03.2017.
- */
+
 @Entity
+@Table(name = "COMPANIES")
 public class Companies {
-    private long companyId;
-    private String companyName;
-    private String phoneNumber;
-    private Long cityId;
+
 
     @Id
-    @Column(name = "COMPANY_ID", nullable = false, precision = 0)
+    @Column(name = "COMPANY_ID")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "COMPANIES_SEQ")
+    @SequenceGenerator(name = "COMPANIES_SEQ", sequenceName = "COMPANIES_SEQ")
+    private long companyId;
+
+    @Column(name = "COMPANY_NAME", nullable = false, length = 30)
+    private String companyName;
+
+    @Column(name = "PHONE_NUMBER", length = 30)
+    private String phoneNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CITY_ID")
+    private Cities city;
+
+    @OneToMany(mappedBy = "Companies")
+    private List<Drivers> drivers;
+
+    public Companies() {
+    }
+
     public long getCompanyId() {
         return companyId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public Cities getCity() {
+        return city;
     }
 
     public void setCompanyId(long companyId) {
         this.companyId = companyId;
     }
 
-    @Basic
-    @Column(name = "COMPANY_NAME", nullable = false, length = 30)
-    public String getCompanyName() {
-        return companyName;
-    }
-
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
-    }
-
-    @Basic
-    @Column(name = "PHONE_NUMBER", nullable = true, length = 20)
-    public String getPhoneNumber() {
-        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    @Basic
-    @Column(name = "CITY_ID", nullable = true, precision = 0)
-    public Long getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
+    public void setCity(Cities cities) {
+        this.city = cities;
     }
 
     @Override
@@ -67,7 +75,7 @@ public class Companies {
             return false;
         if (phoneNumber != null ? !phoneNumber.equals(companies.phoneNumber) : companies.phoneNumber != null)
             return false;
-        if (cityId != null ? !cityId.equals(companies.cityId) : companies.cityId != null) return false;
+        if (city != null ? !city.equals(companies.city) : companies.city != null) return false;
 
         return true;
     }
@@ -77,7 +85,7 @@ public class Companies {
         int result = (int) (companyId ^ (companyId >>> 32));
         result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
-        result = 31 * result + (cityId != null ? cityId.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
         return result;
     }
 }

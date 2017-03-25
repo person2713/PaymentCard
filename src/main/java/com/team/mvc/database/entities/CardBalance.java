@@ -1,44 +1,50 @@
 package com.team.mvc.database.entities;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
-/**
- * Created by vit on 23.03.2017.
- */
+
+
 @Entity
-@Table(name = "CARD_BALANCE", schema = "CAPTAIN", catalog = "")
+@Table(name = "CARD_BALANCE")
 public class CardBalance {
-    private long balanceId;
-    private long cardId;
-    private long balance;
 
     @Id
-    @Column(name = "BALANCE_ID", nullable = false, precision = 0)
+    @Column(name = "BALANCE_ID")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "CARD_BALANCE_SEQ")
+    @SequenceGenerator(name = "CARD_BALANCE_SEQ", sequenceName = "CARD_BALANCE_SEQ")
+    private long balanceId;
+
+    @OneToOne
+    @Column(name = "CARD_ID", nullable = false)
+    private Cards card;
+
+    @Column(name = "BALANCE", nullable = false)
+    private BigDecimal balance;
+
+    public CardBalance() {}
+
     public long getBalanceId() {
         return balanceId;
+    }
+
+    public Cards getCard() {
+        return card;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
     }
 
     public void setBalanceId(long balanceId) {
         this.balanceId = balanceId;
     }
 
-    @Basic
-    @Column(name = "CARD_ID", nullable = false, precision = 0)
-    public long getCardId() {
-        return cardId;
+    public void setCard(Cards card) {
+        this.card = card;
     }
 
-    public void setCardId(long cardId) {
-        this.cardId = cardId;
-    }
-
-    @Basic
-    @Column(name = "BALANCE", nullable = false, precision = 0)
-    public long getBalance() {
-        return balance;
-    }
-
-    public void setBalance(long balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -50,7 +56,7 @@ public class CardBalance {
         CardBalance that = (CardBalance) o;
 
         if (balanceId != that.balanceId) return false;
-        if (cardId != that.cardId) return false;
+        if (card != that.card) return false;
         if (balance != that.balance) return false;
 
         return true;
@@ -59,8 +65,7 @@ public class CardBalance {
     @Override
     public int hashCode() {
         int result = (int) (balanceId ^ (balanceId >>> 32));
-        result = 31 * result + (int) (cardId ^ (cardId >>> 32));
-        result = 31 * result + (int) (balance ^ (balance >>> 32));
+        result = 31 * result + (int) (balance.intValue() ^ (balance.intValue() >>> 32));
         return result;
     }
 }

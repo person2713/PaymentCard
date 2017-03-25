@@ -3,9 +3,7 @@ package com.team.mvc.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-/**
- * Created by Nick on 13.03.2017.
- */
+
 public class PaymentCardWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override

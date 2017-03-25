@@ -1,113 +1,49 @@
 package com.team.mvc.database.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-/**
- * Created by vit on 23.03.2017.
- */
+
 @Entity
+@Table(name = "PERSONS")
 public class Persons {
-    private long personId;
-    private String firstName;
-    private String lastName;
-    private long cityId;
-    private String mobileNumber;
-    private String email;
-    private String password;
-    private String ssoId;
-    private String state;
 
     @Id
-    @Column(name = "PERSON_ID", nullable = false, precision = 0)
-    public long getPersonId() {
-        return personId;
-    }
+    @Column(name = "PERSON_ID")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "PERSONS_SEQ")
+    @SequenceGenerator(name = "PERSONS_SEQ", sequenceName = "PERSONS_SEQ")
+    private long personId;
 
-    public void setPersonId(long personId) {
-        this.personId = personId;
-    }
 
-    @Basic
-    @Column(name = "FIRST_NAME", nullable = false, length = 20)
-    public String getFirstName() {
-        return firstName;
-    }
+    @Column(name = "NICKNAME", nullable = false, length = 30, unique = true)
+    private String Nickname;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
-    @Basic
-    @Column(name = "LAST_NAME", nullable = false, length = 20)
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @Basic
-    @Column(name = "CITY_ID", nullable = false, precision = 0)
-    public long getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(long cityId) {
-        this.cityId = cityId;
-    }
-
-    @Basic
-    @Column(name = "MOBILE_NUMBER", nullable = true, length = 20)
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    @Basic
-    @Column(name = "EMAIL", nullable = false, length = 30)
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Basic
     @Column(name = "PASSWORD", nullable = false, length = 100)
-    public String getPassword() {
-        return password;
-    }
+    private String password;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    @Basic
-    @Column(name = "SSO_ID", nullable = false, length = 30)
-    public String getSsoId() {
-        return ssoId;
-    }
+    @Column(name = "FIRST_NAME", nullable = false, length = 30)
+    private String firstName;
 
-    public void setSsoId(String ssoId) {
-        this.ssoId = ssoId;
-    }
+    @Column(name = "LAST_NAME", nullable = false, length = 30)
+    private String lastName;
 
-    @Basic
-    @Column(name = "STATE", nullable = false, length = 30)
-    public String getState() {
-        return state;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CITY_ID")
+    private Cities city;
 
-    public void setState(String state) {
-        this.state = state;
+    @Column(name = "MOBILE_NUMBER", nullable = true, length = 30)
+    private String mobileNumber;
+
+    @Column(name = "EMAIL", nullable = false, length = 30)
+    private String email;
+
+    @OneToOne
+    @Column(name = "ROLE_ID", nullable = false)
+    private Rollers role;
+
+
+    public Persons() {
     }
 
     @Override
@@ -118,15 +54,14 @@ public class Persons {
         Persons persons = (Persons) o;
 
         if (personId != persons.personId) return false;
-        if (cityId != persons.cityId) return false;
+        if (city != null ? !city.equals(persons.city) : persons.city != null) return false;
         if (firstName != null ? !firstName.equals(persons.firstName) : persons.firstName != null) return false;
         if (lastName != null ? !lastName.equals(persons.lastName) : persons.lastName != null) return false;
         if (mobileNumber != null ? !mobileNumber.equals(persons.mobileNumber) : persons.mobileNumber != null)
             return false;
         if (email != null ? !email.equals(persons.email) : persons.email != null) return false;
         if (password != null ? !password.equals(persons.password) : persons.password != null) return false;
-        if (ssoId != null ? !ssoId.equals(persons.ssoId) : persons.ssoId != null) return false;
-        if (state != null ? !state.equals(persons.state) : persons.state != null) return false;
+        if (Nickname != null ? !Nickname.equals(persons.Nickname) : persons.Nickname != null) return false;
 
         return true;
     }
@@ -136,12 +71,9 @@ public class Persons {
         int result = (int) (personId ^ (personId >>> 32));
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (int) (cityId ^ (cityId >>> 32));
         result = 31 * result + (mobileNumber != null ? mobileNumber.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (ssoId != null ? ssoId.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
     }
 }
