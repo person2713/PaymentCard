@@ -139,7 +139,10 @@
             <artifactId>hibernate-java8</artifactId>
             <version>${hibernate-version}</version>
         </dependency>
-        <!--Либа для датысорса-->
+
+
+
+
 
 
     </dependencies>
