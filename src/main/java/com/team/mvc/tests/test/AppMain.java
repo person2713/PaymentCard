@@ -47,7 +47,3 @@ public class AppMain {
                     session.close();
                 }
             }
-
-
-
-

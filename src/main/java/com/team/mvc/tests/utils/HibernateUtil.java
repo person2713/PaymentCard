@@ -17,8 +17,8 @@ public class HibernateUtil {
 
     static{
         try{
-            Locale.setDefault(Locale.ENGLISH);
-            Configuration configuration = new Configuration().configure();
+           Locale.setDefault(Locale.ENGLISH);
+           Configuration configuration = new Configuration().configure();
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().
                     applySettings(configuration.getProperties());
             sessionFactory = configuration.buildSessionFactory(builder.build());
