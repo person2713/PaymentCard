@@ -3,7 +3,6 @@ package com.team.mvc.database.entities;
 import javax.persistence.*;
 
 
-
 @Entity
 @Table(name = "TYPE_CARD")
 public class TypeCard {

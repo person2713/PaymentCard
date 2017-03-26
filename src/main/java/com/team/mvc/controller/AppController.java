@@ -29,9 +29,16 @@ public class AppController {
     }
 
     @RequestMapping(value = "/driver", method = RequestMethod.GET)
-    public String dbaPage(ModelMap model) {
+    public String driverPage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
         return "driver";
+    }
+
+
+    @RequestMapping(value = "/owner", method = RequestMethod.GET)
+    public String ownerPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "owner";
     }
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)

@@ -26,9 +26,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/", "/home").permitAll()
-                .antMatchers("/admin/**").access("hasRole('ADMIN')")
-                .antMatchers("/driver/**").access("hasRole('DRIVER')")
-                .antMatchers("/owner/**").access("hasRole('OWNER')")
+                .antMatchers("/admin/admin**").access("hasRole('ADMIN')")
+                .antMatchers("/driver/driver**").access("hasRole('DRIVER')")
+                .antMatchers("/owner/owner**").access("hasRole('OWNER')")
                 .and().formLogin().loginPage("/login")
                 .usernameParameter("ssoId").passwordParameter("password")
                 .and().csrf()
