@@ -17,7 +17,7 @@ public class Persons {
 
 
     @Column(name = "NICKNAME", nullable = false, length = 30, unique = true)
-    private String Nickname;
+    private String nickname;
 
 
     @Column(name = "PASSWORD", nullable = false, length = 100)
@@ -41,7 +41,7 @@ public class Persons {
     private String email;
 
     @OneToOne
-    @Column(name = "ROLE_ID", nullable = false)
+    @JoinColumn(name="ROLE_ID")
     private Rollers role;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
@@ -56,7 +56,7 @@ public class Persons {
     }
 
     public String getNickname() {
-        return Nickname;
+        return nickname;
     }
 
     public String getPassword() {
@@ -96,7 +96,7 @@ public class Persons {
     }
 
     public void setNickname(String nickname) {
-        Nickname = nickname;
+        this.nickname = nickname;
     }
 
     public void setPassword(String password) {
@@ -146,7 +146,7 @@ public class Persons {
             return false;
         if (email != null ? !email.equals(persons.email) : persons.email != null) return false;
         if (password != null ? !password.equals(persons.password) : persons.password != null) return false;
-        if (Nickname != null ? !Nickname.equals(persons.Nickname) : persons.Nickname != null) return false;
+        if (nickname != null ? !nickname.equals(persons.nickname) : persons.nickname != null) return false;
 
         return true;
     }

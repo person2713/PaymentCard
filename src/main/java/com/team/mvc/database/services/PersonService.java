@@ -17,7 +17,7 @@ public class PersonService {
         return personRepository.getById(id);
     }
 
-    public Persons findByNickName(String nickname) {
-        return personRepository.findBySSO(nickname);
+    public Persons findByNickname(String nickname) {
+        return personRepository.findByNickname(nickname);
     }
 }

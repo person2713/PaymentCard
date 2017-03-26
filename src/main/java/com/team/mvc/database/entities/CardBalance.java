@@ -19,7 +19,7 @@ public class CardBalance {
     private long balanceId;
 
     @OneToOne
-    @Column(name = "CARD_ID", nullable = false)
+    @JoinColumn(name="CARD_ID")
     private Cards card;
 
     @Column(name = "BALANCE", nullable = false)

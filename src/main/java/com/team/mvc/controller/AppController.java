@@ -28,10 +28,10 @@ public class AppController {
         return "admin";
     }
 
-    @RequestMapping(value = "/db", method = RequestMethod.GET)
+    @RequestMapping(value = "/driver", method = RequestMethod.GET)
     public String dbaPage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
-        return "dba";
+        return "driver";
     }
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)

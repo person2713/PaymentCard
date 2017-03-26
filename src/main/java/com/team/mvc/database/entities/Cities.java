@@ -10,10 +10,9 @@ import java.util.List;
 public class Cities {
 
 
-
     @Id
     @Column(name = "CITY_ID")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "CITIES_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CITIES_SEQ")
     @SequenceGenerator(name = "CITIES_SEQ", sequenceName = "CITIES_SEQ")
     private long cityId;
 

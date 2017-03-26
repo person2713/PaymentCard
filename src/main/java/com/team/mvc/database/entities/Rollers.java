@@ -15,6 +15,7 @@ public class Rollers {
 
     @Column(name = "ROLE_TYPE", unique = true)
     private String roleType;
+//    = PersonRole.USER.getPersonRole();
 
 
     public Rollers() {

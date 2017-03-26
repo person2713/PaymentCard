@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Autowired
@@ -28,6 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/", "/home").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/admin/**").access("hasRole('DRIVER')")
                 .antMatchers("/owner/**").access("hasRole('OWNER')")
                 .and().formLogin().loginPage("/login")
                 .usernameParameter("nickname").passwordParameter("password")

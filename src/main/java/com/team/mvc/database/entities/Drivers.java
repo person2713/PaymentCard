@@ -17,7 +17,7 @@ public class Drivers {
     private long driverId;
 
     @OneToOne
-    @Column(name = "PERSON_ID", nullable = false)
+    @JoinColumn(name="PERSON_ID")
     private Persons person;
 
     @ManyToOne(fetch = FetchType.LAZY)
