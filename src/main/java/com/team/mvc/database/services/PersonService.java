@@ -20,4 +20,8 @@ public class PersonService {
     public Persons findByNickname(String nickname) {
         return personRepository.findByNickname(nickname);
     }
+    public void saveUser(Persons persons) {
+        persons.setPassword(persons.getPassword());
+        personRepository.save(persons);
+    }
 }

@@ -1,11 +1,8 @@
 package com.team.mvc.tests.test;
 
-import com.team.mvc.database.entities.Cities;
-import com.team.mvc.database.repositories.CitiesRepository;
-import com.team.mvc.tests.utils.HibernateSessionFactory;
+import com.team.mvc.database.entities.*;
+import com.team.mvc.tests.utils.HibernateUtil;
 import org.hibernate.Session;
-
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
 
@@ -36,7 +33,7 @@ public class AppMain {
 
                     System.out.println("Hibernate tutorial");
 
-                    Session session = HibernateSessionFactory.getSessionFactory().openSession();
+                    Session session = HibernateUtil.getSessionFactory().openSession();
 
                     session.beginTransaction();
 

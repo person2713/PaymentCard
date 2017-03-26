@@ -15,7 +15,8 @@ public class PersonRepository extends AbstractRepository<Persons> {
 
     public Persons findByNickname(String nickname) {
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("NICKNAME", nickname));
+        criteria.add(Restrictions.eq("nickname", nickname));
         return (Persons) criteria.uniqueResult();
     }
+
 }
