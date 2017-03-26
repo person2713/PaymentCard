@@ -24,19 +24,14 @@ public class Routes {
     @Column(name = "ROUTE_NUMBER", nullable = false, length = 10)
     private String routeNumber;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "CAR_ASSIGN",
-            joinColumns = { @JoinColumn(name = "ROUTE_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "BUS_ID") })
-    private List<Buses> buses = new ArrayList<Buses>();
-
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "CAR_ASSIGN",
-            joinColumns = { @JoinColumn(name = "ROUTE_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "DRIVER_ID") })
+    @ManyToMany(mappedBy="routes")
     private List<Drivers> drivers = new ArrayList<Drivers>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name = "CAR_ASSIGN",
+            joinColumns={@JoinColumn(name = "ROUTE_ID")},
+            inverseJoinColumns={@JoinColumn(name = "BUS_ID")})
+    private List<Buses> busesList = new ArrayList<Buses>();
 
     @Override
     public boolean equals(Object o) {

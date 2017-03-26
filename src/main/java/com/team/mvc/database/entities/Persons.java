@@ -1,6 +1,8 @@
 package com.team.mvc.database.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -42,6 +44,8 @@ public class Persons {
     @Column(name = "ROLE_ID", nullable = false)
     private Rollers role;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+    public List<Cards> cards = new ArrayList<Cards>();
 
     public Persons() {
     }

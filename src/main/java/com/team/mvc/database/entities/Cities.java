@@ -1,6 +1,8 @@
 package com.team.mvc.database.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -17,6 +19,13 @@ public class Cities {
 
     @Column(name = "CITY_NAME", nullable = false, length = 100, unique = true)
     private String cityName;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
+    public List<Persons> persons = new ArrayList<Persons>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
+    public List<Companies> companies = new ArrayList<Companies>();
 
 
     public Cities() {

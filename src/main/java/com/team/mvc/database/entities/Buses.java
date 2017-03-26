@@ -24,11 +24,14 @@ public class Buses {
     private Companies company;
 
 
-    @ManyToMany(mappedBy="buses")
-    private List<Routes> routes = new ArrayList<Routes>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus")
+    public List<Events> events = new ArrayList<Events>();
 
     @ManyToMany(mappedBy="buses")
     private List<Drivers> drivers = new ArrayList<Drivers>();
+
+    @ManyToMany(mappedBy="busesList")
+    private List<Routes> routes = new ArrayList<Routes>();
 
     public Buses() {
     }

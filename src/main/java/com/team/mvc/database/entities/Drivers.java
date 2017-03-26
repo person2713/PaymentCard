@@ -1,6 +1,8 @@
 package com.team.mvc.database.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -23,7 +25,18 @@ public class Drivers {
     private Companies company;
 
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name = "CAR_ASSIGN",
+            joinColumns={@JoinColumn(name = "DRIVER_ID")},
+            inverseJoinColumns={@JoinColumn(name = "BUS_ID")})
+    private List<Buses> buses = new ArrayList<Buses>();
 
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name = "CAR_ASSIGN",
+            joinColumns={@JoinColumn(name = "DRIVER_ID")},
+            inverseJoinColumns={@JoinColumn(name = "ROUTE_ID")})
+    private List<Routes> routes = new ArrayList<Routes>();
 
 
     @Override
@@ -34,8 +47,8 @@ public class Drivers {
         Drivers drivers = (Drivers) o;
 
         if (driverId != drivers.driverId) return false;
-        if (personId != drivers.personId) return false;
-        if (companyId != drivers.companyId) return false;
+        if (person != drivers.person) return false;
+        if (company != drivers.company) return false;
 
         return true;
     }
@@ -43,8 +56,8 @@ public class Drivers {
     @Override
     public int hashCode() {
         int result = (int) (driverId ^ (driverId >>> 32));
-        result = 31 * result + (int) (personId ^ (personId >>> 32));
-        result = 31 * result + (int) (companyId ^ (companyId >>> 32));
+        result = 31 * result + (int) (person.hashCode() ^ (person.hashCode() >>> 32));
+        result = 31 * result + (int) (company.hashCode() ^ (company.hashCode() >>> 32));
         return result;
     }
 }

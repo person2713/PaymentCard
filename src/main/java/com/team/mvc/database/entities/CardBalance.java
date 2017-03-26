@@ -2,7 +2,10 @@ package com.team.mvc.database.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -21,6 +24,10 @@ public class CardBalance {
 
     @Column(name = "BALANCE", nullable = false)
     private BigDecimal balance;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardBalance")
+    public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();
 
     public CardBalance() {}
 

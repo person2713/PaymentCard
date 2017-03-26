@@ -1,7 +1,10 @@
 package com.team.mvc.database.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -25,8 +28,14 @@ public class Companies {
     @JoinColumn(name = "CITY_ID")
     private Cities city;
 
-    @OneToMany(mappedBy = "Companies")
-    private List<Drivers> drivers;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    public List<Buses> buses = new ArrayList<Buses>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    private List<Drivers> drivers = new ArrayList<Drivers>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    public List<Routes> routes = new ArrayList<Routes>();
 
     public Companies() {
     }

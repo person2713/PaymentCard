@@ -1,6 +1,10 @@
 package com.team.mvc.database.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -23,6 +27,12 @@ public class Cards {
     @OneToOne
     @JoinColumn(name="TYPE_ID", nullable = false)
     private TypeCard typeCard;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
+    public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
+    public List<Events> events = new ArrayList<Events>();
 
 
 
