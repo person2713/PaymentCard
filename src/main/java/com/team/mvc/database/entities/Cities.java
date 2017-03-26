@@ -10,40 +10,41 @@ import java.util.List;
 public class Cities {
 
 
-    @Id
-    @Column(name = "CITY_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CITIES_SEQ")
-    @SequenceGenerator(name = "CITIES_SEQ", sequenceName = "CITIES_SEQ")
+
     private long cityId;
 
-    @Column(name = "CITY_NAME", nullable = false, length = 100, unique = true)
+
     private String cityName;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
-    public List<Persons> persons = new ArrayList<Persons>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
-    public List<Companies> companies = new ArrayList<Companies>();
+    private List<Persons> persons ;
+
+
+    private List<Companies> companies;
 
 
     public Cities() {
 
     }
 
-
+    @Id
+    @Column(name = "CITY_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CITIES_SEQ")
+    @SequenceGenerator(name = "CITIES_SEQ", sequenceName = "CITIES_SEQ")
     public long getCityId() {
         return cityId;
     }
 
+    @Column(name = "CITY_NAME", nullable = false, length = 100, unique = true)
     public String getCityName() {
         return cityName;
     }
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
     public List<Persons> getPersons() {
         return persons;
     }
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
     public List<Companies> getCompanies() {
         return companies;
     }
