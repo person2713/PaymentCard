@@ -9,7 +9,7 @@ public class Rollers {
 
     @Id
     @Column(name = "ROLE_ID")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "ROLLERS_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLLERS_SEQ")
     @SequenceGenerator(name = "ROLLERS_SEQ", sequenceName = "ROLLERS_SEQ")
     private long roleId;
 
@@ -27,8 +27,6 @@ public class Rollers {
     public void setRoleId(long roleId) {
         this.roleId = roleId;
     }
-
-
 
     public String getRoleType() {
         return roleType;

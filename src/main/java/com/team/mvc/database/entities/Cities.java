@@ -32,21 +32,37 @@ public class Cities {
 
     }
 
+
     public long getCityId() {
         return cityId;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public List<Persons> getPersons() {
+        return persons;
+    }
+
+    public List<Companies> getCompanies() {
+        return companies;
     }
 
     public void setCityId(long cityId) {
         this.cityId = cityId;
     }
 
-
-    public String getCityName() {
-        return cityName;
-    }
-
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    public void setPersons(List<Persons> persons) {
+        this.persons = persons;
+    }
+
+    public void setCompanies(List<Companies> companies) {
+        this.companies = companies;
     }
 
     @Override

@@ -49,6 +49,18 @@ public class Buses {
         return company;
     }
 
+    public List<Events> getEvents() {
+        return events;
+    }
+
+    public List<Drivers> getDrivers() {
+        return drivers;
+    }
+
+    public List<Routes> getRoutes() {
+        return routes;
+    }
+
     public void setBusId(long busId) {
         this.busId = busId;
     }
@@ -59,6 +71,18 @@ public class Buses {
 
     public void setCompany(Companies company) {
         this.company = company;
+    }
+
+    public void setEvents(List<Events> events) {
+        this.events = events;
+    }
+
+    public void setDrivers(List<Drivers> drivers) {
+        this.drivers = drivers;
+    }
+
+    public void setRoutes(List<Routes> routes) {
+        this.routes = routes;
     }
 
     @Override

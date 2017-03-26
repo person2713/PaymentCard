@@ -11,7 +11,7 @@ public class Persons {
 
     @Id
     @Column(name = "PERSON_ID")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "PERSONS_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONS_SEQ")
     @SequenceGenerator(name = "PERSONS_SEQ", sequenceName = "PERSONS_SEQ")
     private long personId;
 
@@ -48,6 +48,87 @@ public class Persons {
     public List<Cards> cards = new ArrayList<Cards>();
 
     public Persons() {
+    }
+
+
+    public long getPersonId() {
+        return personId;
+    }
+
+    public String getNickname() {
+        return Nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Cities getCity() {
+        return city;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Rollers getRole() {
+        return role;
+    }
+
+    public List<Cards> getCards() {
+        return cards;
+    }
+
+    public void setPersonId(long personId) {
+        this.personId = personId;
+    }
+
+    public void setNickname(String nickname) {
+        Nickname = nickname;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setCity(Cities city) {
+        this.city = city;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(Rollers role) {
+        this.role = role;
+    }
+
+    public void setCards(List<Cards> cards) {
+        this.cards = cards;
     }
 
     @Override

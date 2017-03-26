@@ -39,6 +39,49 @@ public class Drivers {
     private List<Routes> routes = new ArrayList<Routes>();
 
 
+    public Drivers() {
+    }
+
+    public long getDriverId() {
+        return driverId;
+    }
+
+    public Persons getPerson() {
+        return person;
+    }
+
+    public Companies getCompany() {
+        return company;
+    }
+
+    public List<Buses> getBuses() {
+        return buses;
+    }
+
+    public void setDriverId(long driverId) {
+        this.driverId = driverId;
+    }
+
+    public void setPerson(Persons person) {
+        this.person = person;
+    }
+
+    public void setCompany(Companies company) {
+        this.company = company;
+    }
+
+    public void setBuses(List<Buses> buses) {
+        this.buses = buses;
+    }
+
+    public void setRoutes(List<Routes> routes) {
+        this.routes = routes;
+    }
+
+    public List<Routes> getRoutes() {
+        return routes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -2,9 +2,8 @@ package com.team.mvc.database.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 
 @Entity
@@ -35,7 +34,6 @@ public class Cards {
     public List<Events> events = new ArrayList<Events>();
 
 
-
     public long getCardId() {
         return cardId;
     }
@@ -52,6 +50,14 @@ public class Cards {
         return typeCard;
     }
 
+    public List<BalanceHist> getBalanceHists() {
+        return balanceHists;
+    }
+
+    public List<Events> getEvents() {
+        return events;
+    }
+
     public void setCardId(long cardId) {
         this.cardId = cardId;
     }
@@ -66,6 +72,14 @@ public class Cards {
 
     public void setTypeCard(TypeCard typeCard) {
         this.typeCard = typeCard;
+    }
+
+    public void setBalanceHists(List<BalanceHist> balanceHists) {
+        this.balanceHists = balanceHists;
+    }
+
+    public void setEvents(List<Events> events) {
+        this.events = events;
     }
 
     public Cards() {

@@ -2,9 +2,7 @@ package com.team.mvc.database.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -14,7 +12,7 @@ public class Companies {
 
     @Id
     @Column(name = "COMPANY_ID")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "COMPANIES_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPANIES_SEQ")
     @SequenceGenerator(name = "COMPANIES_SEQ", sequenceName = "COMPANIES_SEQ")
     private long companyId;
 
@@ -56,6 +54,18 @@ public class Companies {
         return city;
     }
 
+    public List<Buses> getBuses() {
+        return buses;
+    }
+
+    public List<Drivers> getDrivers() {
+        return drivers;
+    }
+
+    public List<Routes> getRoutes() {
+        return routes;
+    }
+
     public void setCompanyId(long companyId) {
         this.companyId = companyId;
     }
@@ -68,8 +78,20 @@ public class Companies {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setCity(Cities cities) {
-        this.city = cities;
+    public void setCity(Cities city) {
+        this.city = city;
+    }
+
+    public void setBuses(List<Buses> buses) {
+        this.buses = buses;
+    }
+
+    public void setDrivers(List<Drivers> drivers) {
+        this.drivers = drivers;
+    }
+
+    public void setRoutes(List<Routes> routes) {
+        this.routes = routes;
     }
 
     @Override
