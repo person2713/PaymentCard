@@ -6,9 +6,7 @@ import com.team.mvc.database.repositories.CitiesRepository;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-/**
 
- */
 public class AppMain {
 
         public static void main(String[] args) {

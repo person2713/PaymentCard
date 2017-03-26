@@ -27,11 +27,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/", "/home").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
-                .antMatchers("/admin/**").access("hasRole('DRIVER')")
+                .antMatchers("/driver/**").access("hasRole('DRIVER')")
                 .antMatchers("/owner/**").access("hasRole('OWNER')")
                 .and().formLogin().loginPage("/login")
-                .usernameParameter("nickname").passwordParameter("password")
+                .usernameParameter("ssoId").passwordParameter("password")
                 .and().csrf()
                 .and().exceptionHandling().accessDeniedPage("/Access_Denied");
     }
+
+
 }
