@@ -3,10 +3,10 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Driver page</title>
+	<title>Owner page</title>
 </head>
 <body>
-	Dear <strong>${user}</strong>, Welcome to driver Page.
+	Dear <strong>${user}</strong>, Welcome to owner Page.
 	<a href="<c:url value="/logout" />">Logout</a>
 </body>
 </html>

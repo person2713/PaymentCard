@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Autowired
+    CustomSuccessHandler customSuccessHandler;
+
+    @Autowired
     @Qualifier("customUserDetailsService")
     UserDetailsService userDetailsService;
 
@@ -26,10 +29,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/", "/home").permitAll()
-                .antMatchers("/admin/admin**").access("hasRole('ADMIN')")
-                .antMatchers("/driver/driver**").access("hasRole('DRIVER')")
-                .antMatchers("/owner/owner**").access("hasRole('OWNER')")
-                .and().formLogin().loginPage("/login")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/driver/**").hasRole("DRIVER")
+                .antMatchers("/owner/**").hasRole("OWNER")
+                .and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
                 .usernameParameter("ssoId").passwordParameter("password")
                 .and().csrf()
                 .and().exceptionHandling().accessDeniedPage("/Access_Denied");

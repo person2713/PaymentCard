@@ -18,27 +18,33 @@ public class AppController {
 
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
-        model.addAttribute("greeting", "Hi, Welcome to mysite");
+        model.addAttribute("greeting", "Hello on first page");
         return "welcome";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
-        return "admin";
+        return "admin/admin";
     }
 
     @RequestMapping(value = "/driver", method = RequestMethod.GET)
     public String driverPage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
-        return "driver";
+        return "driver/driver";
     }
 
 
     @RequestMapping(value = "/owner", method = RequestMethod.GET)
     public String ownerPage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
-        return "owner";
+        return "owner/owner";
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String userPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "user/user";
     }
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
