@@ -2,19 +2,43 @@ package com.team.mvc.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
+import com.team.mvc.database.entities.Persons;
+import com.team.mvc.database.entities.Rollers;
+import com.team.mvc.database.services.PersonService;
+import com.team.mvc.database.services.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/")
 public class AppController {
+
+
+//    @Autowired
+//    PersonService personService;
+//
+//    @Autowired
+//    MessageSource messageSource;
+//
+//    @Autowired
+//    RoleService roleService;
+
 
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
@@ -57,6 +81,19 @@ public class AppController {
     public String loginPage() {
         return "login";
     }
+
+
+
+
+//    @ModelAttribute("roles")
+//    public List<Rollers> initializeProfiles() {
+//        return roleService.findAll();
+//    }
+
+//    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+//    public String registrationPage() {
+//        return "registration";
+//    }
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {

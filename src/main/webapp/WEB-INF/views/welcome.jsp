@@ -8,6 +8,6 @@
 <body>
 	Greeting : ${greeting} <br/>
 	<a href="<c:url value="/login" />">Sign in</a> <br/>
-	<a href="<c:url value="/redistration" />">Sign up</a>
+	<a href="<c:url value="/registration" />">Sign up</a>
 </body>
 </html>

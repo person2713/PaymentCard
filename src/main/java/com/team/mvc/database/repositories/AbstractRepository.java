@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 
-
 public abstract class AbstractRepository<Entity> {
     private Class persistentClass;
 
@@ -17,33 +16,37 @@ public abstract class AbstractRepository<Entity> {
         this.persistentClass = persistentClass;
     }
 
-    protected Criteria createEntityCriteria() {
-        return getSession().createCriteria(persistentClass);
-    }
+
 
     @Autowired
     private SessionFactory sessionFactory;
 
+    protected Criteria createEntityCriteria() {
+
+        return getSession().createCriteria(persistentClass);
+    }
+
     protected Session getSession() {
+
         return sessionFactory.getCurrentSession();
     }
 
-    public Entity getById(Long id) throws NotFoundException {
+    public Entity getById(int id) throws NotFoundException {
         return (Entity) getSession().get(persistentClass, id);
     }
 
     public List<Entity> getAll() {
         return getSession().createCriteria(persistentClass).list();
     }
+
     public void save(Entity entity) {
         getSession().persist(entity);
+
     }
 
     public void delete(Entity entity) {
         getSession().delete(entity);
     }
-
-
 
 
 }

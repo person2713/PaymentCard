@@ -18,4 +18,10 @@ public class PersonRepository extends AbstractRepository<Persons> {
         criteria.add(Restrictions.eq("nickname", nickname));
         return (Persons) criteria.uniqueResult();
     }
+
+    public void save(Persons persons) {
+        super.save(persons);
+    }
+
+
 }

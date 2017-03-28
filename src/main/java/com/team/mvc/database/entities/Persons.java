@@ -13,7 +13,7 @@ public class Persons {
     @Column(name = "PERSON_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONS_SEQ")
     @SequenceGenerator(name = "PERSONS_SEQ", sequenceName = "PERSONS_SEQ")
-    private long personId;
+    private Integer personId;
 
 
     @Column(name = "NICKNAME", nullable = false, length = 30, unique = true)
@@ -41,7 +41,7 @@ public class Persons {
     private String email;
 
     @OneToOne
-    @JoinColumn(name="ROLE_ID")
+    @JoinColumn(name = "ROLE_ID")
     private Rollers role;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
@@ -51,7 +51,7 @@ public class Persons {
     }
 
 
-    public long getPersonId() {
+    public Integer getPersonId() {
         return personId;
     }
 
@@ -91,7 +91,7 @@ public class Persons {
         return cards;
     }
 
-    public void setPersonId(long personId) {
+    public void setPersonId(Integer personId) {
         this.personId = personId;
     }
 
