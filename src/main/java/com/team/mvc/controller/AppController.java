@@ -3,6 +3,8 @@ package com.team.mvc.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team.mvc.database.repositories.CitiesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/")
 public class AppController {
+    @Autowired
+    CitiesRepository citiesRepository;
 
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
+        System.out.println(citiesRepository.getAll());
         model.addAttribute("greeting", "Hi, Welcome to mysite");
         return "welcome";
     }
@@ -55,6 +60,7 @@ public class AppController {
     }
 
     private String getPrincipal(){
+
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

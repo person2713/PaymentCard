@@ -19,4 +19,9 @@ public class PersonRepository extends AbstractRepository<Persons> {
         return (Persons) criteria.uniqueResult();
     }
 
+    public void save(Persons persons) {
+        super.save(persons);
+    }
+
+
 }

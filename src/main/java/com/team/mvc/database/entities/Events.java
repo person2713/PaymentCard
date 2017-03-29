@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 @Table(name = "EVENTS")
 public class Events {
 
+
     @Id
     @Column(name = "EVENT_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EVENTS_SEQ")
@@ -36,6 +37,13 @@ public class Events {
     private Buses bus;
 
     public Events() {
+    }
+
+    public Events(double latitude, double longitude, Timestamp paymentTime, Buses bus) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.paymentTime = paymentTime;
+        this.bus = bus;
     }
 
     public long getEventId() {
