@@ -120,7 +120,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="City">City</label>
 					<div class="col-md-7">
-						<form:select path="City" items="${cities}" multiple="true" itemValue="cityId" itemLabel="cityName" class="form-control input-sm" />
+						<form:select path="City" items="${cities}" multiple="false" itemValue="cityId" itemLabel="cityName" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="City" class="help-inline"/>
 						</div>

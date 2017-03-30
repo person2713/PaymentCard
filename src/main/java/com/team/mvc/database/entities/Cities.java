@@ -48,7 +48,7 @@ public class Cities {
         return companies;
     }
 
-    public void setCityId(long cityId) {
+    public void setCityId(int cityId) {
         this.cityId = cityId;
     }
 

@@ -5,6 +5,6 @@
     <title>Success</title>
 </head>
 <body>
-
+Congratilation. You are registrating successful!
 </body>
 </html>

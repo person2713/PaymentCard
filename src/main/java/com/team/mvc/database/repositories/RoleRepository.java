@@ -18,7 +18,6 @@ public class RoleRepository extends AbstractRepository<Rollers> {
     }
 
 
-
     public Rollers findByType(String type) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("roleType", type));

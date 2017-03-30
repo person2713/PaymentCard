@@ -10,6 +10,7 @@ import java.util.List;
 
 
 public abstract class AbstractRepository<Entity> {
+
     private Class persistentClass;
 
     public AbstractRepository(Class persistentClass) {
@@ -27,13 +28,12 @@ public abstract class AbstractRepository<Entity> {
     }
 
     protected Session getSession() {
-
         return sessionFactory.getCurrentSession();
     }
 
-    public Entity getById(int id) throws NotFoundException {
+    public Entity getById(long id) throws NotFoundException {
         return (Entity) getSession().get(persistentClass, id);
-    }
+            }
 
     public List<Entity> getAll() {
         return getSession().createCriteria(persistentClass).list();
@@ -45,6 +45,7 @@ public abstract class AbstractRepository<Entity> {
     }
 
     public void delete(Entity entity) {
+
         getSession().delete(entity);
     }
 
