@@ -22,7 +22,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
 
     @Autowired
-    CityConverter roleToPersonConverter;
+    CityConverter cityConverter;
 
     @Bean
     public ViewResolver viewResolver() {
@@ -47,6 +47,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(roleToPersonConverter);
+        registry.addConverter(cityConverter);
     }
+
+
+
 }

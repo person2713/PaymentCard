@@ -40,24 +40,61 @@ public class RegistrationController {
         Persons person = new Persons();
 
         model.addAttribute("userForm", person);
+        model.addAttribute("edit", false);
+//        model.addAttribute("loggedinuser", getPrincipal());
         return "registration";
     }
 
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
-    public String saveUser(@Valid Persons person, BindingResult result,
+    public String saveUser(@Valid @ModelAttribute("userForm") Persons person, BindingResult result,
                            ModelMap model) {
 
         if (result.hasErrors()) {
             return "errorPage";
         }
 
-        if(!personService.isPersonsNicknameUnique(person.getPersonId(), person.getNickname())){
-            FieldError nicknameError =new FieldError("person","nickname",messageSource.getMessage("non.unique.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
+        if (person.getNickname().isEmpty()) {
+            FieldError nicknameError = new FieldError("person", "nickname", messageSource.getMessage("NotEmpty.person.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
+            result.addError(nicknameError);
+            return "registration";
+        }
+
+        if (!personService.isPersonsNicknameUnique(person.getPersonId(), person.getNickname())) {
+            FieldError nicknameError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
             result.addError(nicknameError);
             return "registration";
         }
 
 
+        if (person.getPassword().isEmpty()) {
+            FieldError nicknameError = new FieldError("person", "password", messageSource.getMessage("NotEmpty.person.password", new String[]{person.getNickname()}, Locale.getDefault()));
+            result.addError(nicknameError);
+            return "registration";
+        }
+
+        if (person.getFirstName().isEmpty()) {
+            FieldError nicknameError = new FieldError("person", "firstName", messageSource.getMessage("NotEmpty.person.firstName", new String[]{person.getNickname()}, Locale.getDefault()));
+            result.addError(nicknameError);
+            return "registration";
+        }
+
+        if (person.getLastName().isEmpty()) {
+            FieldError nicknameError = new FieldError("person", "lastName", messageSource.getMessage("NotEmpty.person.lastName", new String[]{person.getNickname()}, Locale.getDefault()));
+            result.addError(nicknameError);
+            return "registration";
+        }
+
+        if (person.getEmail().isEmpty()) {
+            FieldError nicknameError = new FieldError("person", "email", messageSource.getMessage("NotEmpty.person.email", new String[]{person.getNickname()}, Locale.getDefault()));
+            result.addError(nicknameError);
+            return "registration";
+        }
+
+        if (person.getCity().equals(null)) {
+            FieldError nicknameError = new FieldError("person", "city", messageSource.getMessage("NotEmpty.person.city", new String[]{person.getNickname()}, Locale.getDefault()));
+            result.addError(nicknameError);
+            return "registration";
+        }
         person.setRole(roleService.findByType("USER"));
         personService.savePerson(person);
 
@@ -65,7 +102,7 @@ public class RegistrationController {
     }
 
     @ModelAttribute("cities")
-    public List<Cities> InitializeCities(){
+    public List<Cities> InitializeCities() {
         return cityService.getAll();
     }
 }

@@ -30,14 +30,6 @@ import java.util.Locale;
 public class AppController {
 
 
-//    @Autowired
-//    PersonService personService;
-//
-//    @Autowired
-//    MessageSource messageSource;
-//
-//    @Autowired
-//    RoleService roleService;
 
 
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
@@ -50,19 +42,6 @@ public class AppController {
     public String adminPage(ModelMap model) {
         model.addAttribute("user", getPrincipal());
         return "admin/admin";
-    }
-
-    @RequestMapping(value = "/driver", method = RequestMethod.GET)
-    public String driverPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
-        return "driver/driver";
-    }
-
-
-    @RequestMapping(value = "/owner", method = RequestMethod.GET)
-    public String ownerPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
-        return "owner/owner";
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -82,18 +61,6 @@ public class AppController {
         return "login";
     }
 
-
-
-
-//    @ModelAttribute("roles")
-//    public List<Rollers> initializeProfiles() {
-//        return roleService.findAll();
-//    }
-
-//    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-//    public String registrationPage() {
-//        return "registration";
-//    }
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
