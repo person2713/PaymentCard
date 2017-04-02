@@ -2,6 +2,7 @@ package com.team.mvc.database.services;
 
 import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.repositories.CitiesRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,5 +23,9 @@ public class CityService {
 
     public List<Cities> getAll(){
         return citiesRepository.getAll();
+    }
+
+    public Cities findById(long id) throws NotFoundException {
+        return citiesRepository.getById(id);
     }
 }

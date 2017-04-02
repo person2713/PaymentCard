@@ -8,7 +8,7 @@ public class PaymentCardWebAppInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { AppConfig.class };
+        return new Class[]{AppConfig.class};
     }
 
     @Override
@@ -18,7 +18,7 @@ public class PaymentCardWebAppInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected String[] getServletMappings() {
-        return new String[] { "/" };
+        return new String[]{"/"};
     }
 }
 

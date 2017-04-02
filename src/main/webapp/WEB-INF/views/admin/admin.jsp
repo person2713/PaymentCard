@@ -3,10 +3,10 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>AccessDenied page</title>
+	<title>Admin page</title>
 </head>
 <body>
-	Dear <strong>${user}</strong>, You are not authorized to access this page
+	Dear <strong>${user}</strong>, Welcome to Admin Page.
 	<a href="<c:url value="/logout" />">Logout</a>
 </body>
 </html>

@@ -31,9 +31,9 @@ public abstract class AbstractRepository<Entity> {
         return sessionFactory.getCurrentSession();
     }
 
-    public Entity getById(Long id) throws NotFoundException {
+    public Entity getById(long id) throws NotFoundException {
         return (Entity) getSession().get(persistentClass, id);
-    }
+            }
 
     public List<Entity> getAll() {
         return getSession().createCriteria(persistentClass).list();

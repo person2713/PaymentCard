@@ -5,7 +5,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import com.team.mvc.database.entities.Cities;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,7 +44,6 @@ public class HibernateConfiguration {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.team.mvc.database.entities");
-        sessionFactory.setAnnotatedClasses(Cities.class);
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

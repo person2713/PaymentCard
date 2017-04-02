@@ -5,23 +5,36 @@ import com.team.mvc.database.repositories.PersonRepository;
 
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional
 public class PersonService {
+
     @Autowired
     PersonRepository personRepository;
 
-    public Persons findById(long id) throws NotFoundException {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public Persons findById(int id) throws NotFoundException {
         return personRepository.getById(id);
     }
 
     public Persons findByNickname(String nickname) {
         return personRepository.findByNickname(nickname);
     }
-    public void saveUser(Persons persons) {
-        persons.setPassword(persons.getPassword());
+
+    public void savePerson(Persons persons){
+        persons.setPassword(passwordEncoder.encode(persons.getPassword()));
         personRepository.save(persons);
+    }
+
+    public boolean isPersonsNicknameUnique(Integer id, String nickname) {
+        Persons persons = findByNickname(nickname);
+        return ( persons == null || ((id != null) && (persons.getPersonId() == id)));
     }
 }
