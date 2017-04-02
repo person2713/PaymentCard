@@ -4,10 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.team.mvc.database.entities.Cards;
+import com.team.mvc.database.services.CustomUserDetailsService;
+
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.entities.Rollers;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.RoleService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
@@ -28,6 +32,8 @@ import java.util.Locale;
 @Controller
 @RequestMapping("/")
 public class AppController {
+    @Autowired
+    PersonService userService;
 
 
 
@@ -43,10 +49,36 @@ public class AppController {
         model.addAttribute("user", getPrincipal());
         return "admin/admin";
     }
+    @ModelAttribute("person")
+    public Persons InitializePerson() {
+        return userService.findByNickname(getPrincipal());
+    }
+    @ModelAttribute("cards")
+    public List<Cards> InitializeCards() {
+        return userService.findCradsByNickname(getPrincipal());
+    }
+
+
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String userPage(ModelMap model) {
+    public String userPage(ModelMap model) throws NotFoundException {
+
+
+     /*   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         model.addAttribute("user", getPrincipal());
+        Persons customUser = (Persons)auth.getPrincipal();
+        int userId = (int) customUser.getPersonId();
+
+        Persons users = userService.findById(userId);
+
+
+        // Persons users = userService.findById(1);
+         model.addAttribute("users", users);*/
+
+
+
+
         return "user/user";
     }
 

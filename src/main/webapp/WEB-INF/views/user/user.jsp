@@ -7,6 +7,42 @@
 </head>
 <body>
 	Dear <strong>${user}</strong>, Welcome to user Page.
+	User Name: <b>${user}</b>
 	<a href="<c:url value="/logout" />">Logout</a>
+
+
+
+
+
+	<div class="generic-container">
+
+		<div class="panel panel-default">
+			<!-- Default panel contents -->
+			<div class="panel-heading"><span class="lead">List of Users </span></div>
+			<table class="table table-hover">
+				<thead>
+				<tr>
+					<th>CardId</th>
+
+
+
+
+				</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${cards}" var="card">
+					<tr>
+						<td>${card.cardId}</td>
+
+
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+
 </body>
 </html>
