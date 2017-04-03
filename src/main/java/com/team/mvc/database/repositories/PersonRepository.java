@@ -4,6 +4,7 @@ package com.team.mvc.database.repositories;
 import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Persons;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -27,9 +28,18 @@ public class PersonRepository extends AbstractRepository<Persons> {
     }
 
     public List<Cards> findCardsByNickname(String nickname) {
-        Criteria criteria = createEntityCriteria();
+
+        Query query = getSession().createQuery("SELECT C FROM Cards  C WHERE C.person.nickname=:nickname");
+
+        query.setParameter("nickname", nickname);
+        return query.list();
+
+
+
+
+     /*   Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("nickname", nickname));
-        return ((Persons) criteria.uniqueResult()).getCards();
+        return ((Persons) criteria.uniqueResult()).getCards();*/
     }
 
 

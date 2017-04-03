@@ -49,10 +49,10 @@ public class AppController {
         model.addAttribute("user", getPrincipal());
         return "admin/admin";
     }
-    @ModelAttribute("person")
+   /* @ModelAttribute("person")
     public Persons InitializePerson() {
         return userService.findByNickname(getPrincipal());
-    }
+    }*/
     @ModelAttribute("cards")
     public List<Cards> InitializeCards() {
         return userService.findCradsByNickname(getPrincipal());
