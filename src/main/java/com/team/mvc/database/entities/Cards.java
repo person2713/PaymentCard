@@ -27,6 +27,10 @@ public class Cards {
     @JoinColumn(name="TYPE_ID", nullable = false)
     private TypeCard typeCard;
 
+    @OneToOne
+    @JoinColumn(name="CARD_ID", nullable = false)
+    private CardBalance cardBalance;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
     public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();
 

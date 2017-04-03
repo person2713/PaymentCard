@@ -45,10 +45,11 @@ public class PersonRepository extends AbstractRepository<Persons> {
 
     public CardBalance findBalanceByNickname(String nickname) {
 
-        Query query = getSession().createQuery("SELECT CB FROM CardBalance CB WHERE CB.card.person.nickname=:nickname ");
+        Query query = getSession().createQuery("SELECT CB FROM CardBalance  CB WHERE CB.card.person.nickname=:nickname");
 
         query.setParameter("nickname", nickname);
-        return (CardBalance)query;
+
+        return (CardBalance) query.uniqueResult();
 
 
 
