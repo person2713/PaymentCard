@@ -1,5 +1,6 @@
 package com.team.mvc.database.services;
 
+import com.team.mvc.database.entities.CardBalance;
 import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.repositories.PersonRepository;
@@ -42,4 +43,5 @@ public class PersonService {
     }
 
     public List<Cards> findCradsByNickname(String nickname) {return personRepository.findCardsByNickname(nickname);}
+    public CardBalance findBalanceByNickname(String nickname) {return personRepository.findBalanceByNickname(nickname);}
 }

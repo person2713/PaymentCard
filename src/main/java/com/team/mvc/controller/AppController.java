@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.team.mvc.database.entities.CardBalance;
 import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.services.CustomUserDetailsService;
 
@@ -49,14 +50,21 @@ public class AppController {
         model.addAttribute("user", getPrincipal());
         return "admin/admin";
     }
-   /* @ModelAttribute("person")
+    @ModelAttribute("person")
     public Persons InitializePerson() {
         return userService.findByNickname(getPrincipal());
-    }*/
+    }
     @ModelAttribute("cards")
     public List<Cards> InitializeCards() {
         return userService.findCradsByNickname(getPrincipal());
     }
+
+    @ModelAttribute("balance")
+    public CardBalance InitializeBalance() {
+        return userService.findBalanceByNickname(getPrincipal());
+    }
+
+
 
 
 

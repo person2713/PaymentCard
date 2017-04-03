@@ -23,6 +23,9 @@
 				<thead>
 				<tr>
 					<th>CardId</th>
+					<th>FirstName</th>
+					<th>LastName</th>
+					<th>Balance</th>
 
 
 
@@ -33,10 +36,11 @@
 				<c:forEach items="${cards}" var="card">
 					<tr>
 						<td>${card.cardId}</td>
-
-
 					</tr>
 				</c:forEach>
+				<td>${person.firstName}</td>
+				<td>${person.lastName}</td>
+				<td>${balance.balance}</td>
 				</tbody>
 			</table>
 		</div>

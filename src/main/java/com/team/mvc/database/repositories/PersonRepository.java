@@ -1,6 +1,7 @@
 package com.team.mvc.database.repositories;
 
 
+import com.team.mvc.database.entities.CardBalance;
 import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Persons;
 import org.hibernate.Criteria;
@@ -33,6 +34,21 @@ public class PersonRepository extends AbstractRepository<Persons> {
 
         query.setParameter("nickname", nickname);
         return query.list();
+
+
+
+
+     /*   Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("nickname", nickname));
+        return ((Persons) criteria.uniqueResult()).getCards();*/
+    }
+
+    public CardBalance findBalanceByNickname(String nickname) {
+
+        Query query = getSession().createQuery("SELECT CB FROM CardBalance CB WHERE CB.card.person.nickname=:nickname ");
+
+        query.setParameter("nickname", nickname);
+        return (CardBalance)query;
 
 
 
