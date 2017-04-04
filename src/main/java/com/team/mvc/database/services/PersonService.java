@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -32,6 +34,11 @@ public class PersonService {
         persons.setPassword(passwordEncoder.encode(persons.getPassword()));
         personRepository.save(persons);
     }
+
+    public List<Persons> getAllUser(){
+        return personRepository.getAll();
+    }
+
 
     public boolean isPersonsNicknameUnique(Integer id, String nickname) {
         Persons persons = findByNickname(nickname);

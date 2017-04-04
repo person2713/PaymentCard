@@ -4,6 +4,8 @@ package com.team.mvc.database.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.entities.Rollers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService{
+
+    static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
+
 
     @Autowired
     private PersonService personService;
@@ -39,9 +44,9 @@ public class CustomUserDetailsService implements UserDetailsService{
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
         Rollers userRole = person.getRole();
-        System.out.println("UserRole : " + userRole);
+        logger.info("UserRole : {}", userRole);
         authorities.add(new SimpleGrantedAuthority("ROLE_" + userRole.getRoleType()));
-        System.out.print("authorities :" + authorities);
+        logger.info("authorities : {}", authorities);
         return authorities;
     }
 }

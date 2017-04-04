@@ -18,7 +18,7 @@
 
     <div class="well lead">User Registration Form</div>
     <form:form method="POST" modelAttribute="userForm" action="/registration/newUser" class="form-horizontal">
-        <%--<form:input type="hidden" path="personId" id="personId"/>--%>
+        <form:input type="hidden" path="personId" id="personId"/>
 
 
         <div class="row">

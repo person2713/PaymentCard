@@ -7,6 +7,8 @@ import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,7 +44,7 @@ public class RegistrationController {
 
         model.addAttribute("userForm", person);
         model.addAttribute("edit", false);
-//        model.addAttribute("loggedinuser", getPrincipal());
+        model.addAttribute("loggedinuser", getPrincipal());
         return "registration";
     }
 
@@ -49,50 +52,52 @@ public class RegistrationController {
     public String saveUser(@Valid @ModelAttribute("userForm") Persons person, BindingResult result,
                            ModelMap model) {
 
+        List<FieldError> errors = new ArrayList<>();
+
         if (result.hasErrors()) {
             return "errorPage";
         }
 
         if (person.getNickname().isEmpty()) {
             FieldError nicknameError = new FieldError("person", "nickname", messageSource.getMessage("NotEmpty.person.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
-            result.addError(nicknameError);
-            return "registration";
+            errors.add(nicknameError);
         }
 
         if (!personService.isPersonsNicknameUnique(person.getPersonId(), person.getNickname())) {
-            FieldError nicknameError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
-            result.addError(nicknameError);
-            return "registration";
+            FieldError nicknameUniqError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
+            errors.add(nicknameUniqError);
         }
 
 
         if (person.getPassword().isEmpty()) {
-            FieldError nicknameError = new FieldError("person", "password", messageSource.getMessage("NotEmpty.person.password", new String[]{person.getNickname()}, Locale.getDefault()));
-            result.addError(nicknameError);
-            return "registration";
+            FieldError passwordError = new FieldError("person", "password", messageSource.getMessage("NotEmpty.person.password", new String[]{person.getNickname()}, Locale.getDefault()));
+            errors.add(passwordError);
         }
 
         if (person.getFirstName().isEmpty()) {
-            FieldError nicknameError = new FieldError("person", "firstName", messageSource.getMessage("NotEmpty.person.firstName", new String[]{person.getNickname()}, Locale.getDefault()));
-            result.addError(nicknameError);
-            return "registration";
+            FieldError firstNameError = new FieldError("person", "firstName", messageSource.getMessage("NotEmpty.person.firstName", new String[]{person.getNickname()}, Locale.getDefault()));
+            errors.add(firstNameError);
         }
 
         if (person.getLastName().isEmpty()) {
-            FieldError nicknameError = new FieldError("person", "lastName", messageSource.getMessage("NotEmpty.person.lastName", new String[]{person.getNickname()}, Locale.getDefault()));
-            result.addError(nicknameError);
-            return "registration";
+            FieldError lastNameError = new FieldError("person", "lastName", messageSource.getMessage("NotEmpty.person.lastName", new String[]{person.getNickname()}, Locale.getDefault()));
+            errors.add(lastNameError);
         }
 
         if (person.getEmail().isEmpty()) {
-            FieldError nicknameError = new FieldError("person", "email", messageSource.getMessage("NotEmpty.person.email", new String[]{person.getNickname()}, Locale.getDefault()));
-            result.addError(nicknameError);
-            return "registration";
+            FieldError emailError = new FieldError("person", "email", messageSource.getMessage("NotEmpty.person.email", new String[]{person.getNickname()}, Locale.getDefault()));
+            errors.add(emailError);
         }
 
         if (person.getCity().equals(null)) {
-            FieldError nicknameError = new FieldError("person", "city", messageSource.getMessage("NotEmpty.person.city", new String[]{person.getNickname()}, Locale.getDefault()));
-            result.addError(nicknameError);
+            FieldError cityError = new FieldError("person", "city", messageSource.getMessage("NotEmpty.person.city", new String[]{person.getNickname()}, Locale.getDefault()));
+            errors.add(cityError);
+        }
+        if(!errors.isEmpty()){
+
+            for(FieldError error: errors){
+                result.addError(error);
+            }
             return "registration";
         }
         person.setRole(roleService.findByType("USER"));
@@ -104,5 +109,17 @@ public class RegistrationController {
     @ModelAttribute("cities")
     public List<Cities> InitializeCities() {
         return cityService.getAll();
+    }
+
+    private String getPrincipal(){
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
     }
 }
