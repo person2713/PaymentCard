@@ -26,6 +26,8 @@
 					<th>FirstName</th>
 					<th>LastName</th>
 					<th>Balance</th>
+					<th>BalanceHist</th>
+					<th>Events</th>
 
 
 
@@ -41,6 +43,16 @@
 				<td>${person.firstName}</td>
 				<td>${person.lastName}</td>
 				<td>${balance.balance}</td>
+				<c:forEach items="${balanceHist}" var="bh">
+					<tr>
+						<td>${bh.changes}</td>
+					</tr>
+				</c:forEach>
+				<c:forEach items="${events}" var="e">
+					<tr>
+						<td>${e.bus}</td>
+					</tr>
+				</c:forEach>
 				</tbody>
 			</table>
 		</div>

@@ -4,12 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import com.team.mvc.database.entities.CardBalance;
-import com.team.mvc.database.entities.Cards;
+import com.team.mvc.database.entities.*;
 import com.team.mvc.database.services.CustomUserDetailsService;
 
-import com.team.mvc.database.entities.Persons;
-import com.team.mvc.database.entities.Rollers;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.RoleService;
 import javassist.NotFoundException;
@@ -62,6 +59,14 @@ public class AppController {
     @ModelAttribute("balance")
     public CardBalance InitializeBalance() {
         return userService.findBalanceByNickname(getPrincipal());
+    }
+    @ModelAttribute("balanceHist")
+    public List<BalanceHist> InitializeBalanceHist() {
+        return userService.findBalanceHistByNickname(getPrincipal());}
+
+    @ModelAttribute("events")
+    public List<Events> InitializeEvents() {
+        return userService.findEventsByNickname(getPrincipal());
     }
 
 
