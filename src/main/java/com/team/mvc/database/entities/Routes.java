@@ -16,7 +16,7 @@ public class Routes {
     private long routeId;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
     private Companies company;
 

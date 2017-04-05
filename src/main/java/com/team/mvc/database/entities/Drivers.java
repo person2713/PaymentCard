@@ -20,7 +20,7 @@ public class Drivers {
     @JoinColumn(name="PERSON_ID")
     private Persons person;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
     private Companies company;
 

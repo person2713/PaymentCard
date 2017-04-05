@@ -22,7 +22,7 @@ public class Companies {
     @Column(name = "PHONE_NUMBER", length = 30)
     private String phoneNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CITY_ID")
     private Cities city;
 
@@ -36,6 +36,10 @@ public class Companies {
     public List<Routes> routes = new ArrayList<Routes>();
 
     public Companies() {
+    }
+
+    public String getCityName(){
+        return city.getCityName();
     }
 
     public long getCompanyId() {

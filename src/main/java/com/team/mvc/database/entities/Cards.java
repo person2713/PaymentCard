@@ -16,7 +16,7 @@ public class Cards {
     @SequenceGenerator(name = "CARDS_SEQ", sequenceName = "CARDS_SEQ")
     private long cardId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "PERSON_ID")
     private Persons person;
 

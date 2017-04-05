@@ -15,7 +15,7 @@ public class BalanceHist {
     @SequenceGenerator(name = "BALANCE_HIST_SEQ", sequenceName = "BALANCE_HIST_SEQ")
     private long balanceHistId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "CARD_ID", nullable = false)
     private Cards card;
 
@@ -27,7 +27,7 @@ public class BalanceHist {
     @Column(name = "DATE_EVENT")
     private Timestamp dateEvent;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "BALANCE_ID", nullable = false)
     private CardBalance cardBalance;
 

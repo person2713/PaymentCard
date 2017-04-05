@@ -30,7 +30,7 @@ public class Persons {
     @Column(name = "LAST_NAME", nullable = false, length = 30)
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "CITY_ID")
     private Cities city;
 

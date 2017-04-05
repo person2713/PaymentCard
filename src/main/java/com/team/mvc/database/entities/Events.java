@@ -15,7 +15,7 @@ public class Events {
     private long eventId;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "CARD_ID")
     private Cards card;
 
@@ -31,7 +31,7 @@ public class Events {
     private Timestamp paymentTime;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "BUS_ID")
     private Buses bus;
 

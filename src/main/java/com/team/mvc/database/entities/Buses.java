@@ -19,7 +19,7 @@ public class Buses {
     private String busNumber;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
     private Companies company;
 
@@ -27,10 +27,10 @@ public class Buses {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus")
     public List<Events> events = new ArrayList<Events>();
 
-    @ManyToMany(mappedBy="buses")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy="buses")
     private List<Drivers> drivers = new ArrayList<Drivers>();
 
-    @ManyToMany(mappedBy="busesList")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy="busesList")
     private List<Routes> routes = new ArrayList<Routes>();
 
     public Buses() {

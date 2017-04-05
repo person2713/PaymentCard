@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CompanyService {
@@ -21,5 +23,9 @@ public class CompanyService {
     public boolean isCompanyNameUnique(Integer id, String companyName) {
         Companies company = companiesRepository.findByCompanyName(companyName);
         return ( company == null || ((id != null) && (company.getCompanyId() == id)));
+    }
+
+    public List<Companies> getAll(){
+        return companiesRepository.getAll();
     }
 }

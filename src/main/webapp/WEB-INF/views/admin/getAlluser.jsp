@@ -5,6 +5,12 @@
 
 <html>
 
+<style>
+    .prokrutka{
+        overflow: auto;
+    }
+</style>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Users List</title>
@@ -12,7 +18,7 @@
     <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
 
-<body>
+<body class="prokrutka">
 <div class="generic-container">
     <%--<%@include file="authheader.jsp" %>--%>
     <div class="panel panel-default">
@@ -26,10 +32,10 @@
                 <%--<th>Password</th>--%>
                 <th>First name</th>
                 <th>Last name</th>
-                <%--<th>city name</th>--%>
+                <th>city name</th>
                 <th>mobile number</th>
                 <th>email</th>
-                <%--<th>role</th>--%>
+                <th>role</th>
                 <%--<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">--%>
                     <%--<th width="100"></th>--%>
                 <%--</sec:authorize>--%>
@@ -47,10 +53,10 @@
                     <%--<td>${persons.password}</td>--%>
                     <td>${persons.firstName}</td>
                     <td>${persons.lastName}</td>
-                    <%--<td>${persons.city.getCityName()}</td>--%>
+                    <td>${persons.city.getCityName()}</td>
                     <td>${persons.mobileNumber}</td>
                     <td>${persons.email}</td>
-                    <%--<td>${persons.role.roleType}</td>--%>
+                    <td>${persons.role.roleType}</td>
                 <%--<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">--%>
                         <%--<td><a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success custom-width">edit</a></td>--%>
                     <%--</sec:authorize>--%>
