@@ -1,6 +1,6 @@
 package com.team.mvc.database.services;
 
-import com.team.mvc.database.entities.Persons;
+import com.team.mvc.database.entities.*;
 import com.team.mvc.database.repositories.PersonRepository;
 
 import javassist.NotFoundException;
@@ -43,5 +43,11 @@ public class PersonService {
     public boolean isPersonsNicknameUnique(Integer id, String nickname) {
         Persons persons = findByNickname(nickname);
         return ( persons == null || ((id != null) && (persons.getPersonId() == id)));
+
     }
+
+    public List<Cards> findCradsByNickname(String nickname) {return personRepository.findCardsByNickname(nickname);}
+    public CardBalance findBalanceByNickname(String nickname) {return personRepository.findBalanceByNickname(nickname);}
+    public List<BalanceHist> findBalanceHistByNickname(String nickname) {return personRepository.findBalanceHistByNickname(nickname);}
+    public List<Events> findEventsByNickname(String nickname) {return personRepository.findEventsByNickname(nickname);}
 }
