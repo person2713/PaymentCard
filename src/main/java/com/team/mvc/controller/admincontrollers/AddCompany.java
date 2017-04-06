@@ -6,6 +6,7 @@ import com.team.mvc.database.entities.Companies;
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.CompanyService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,7 +25,7 @@ import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin/addcompany")
-public class AddCompanyController {
+public class AddCompany {
 
     @Autowired
     CompanyService companyService;
@@ -41,6 +43,8 @@ public class AddCompanyController {
         model.addAttribute("companyForm", company);
         return "admin/addcompany";
     }
+
+
 
     @RequestMapping(value = "/newCompany", method = RequestMethod.POST)
     public String saveCompany(@Valid @ModelAttribute("companyForm") Companies company, BindingResult result,
@@ -75,8 +79,38 @@ public class AddCompanyController {
 
 
         companyService.saveCompany(company);
-        return "success";
+        return "/admin/registrationsuccess";
     }
+
+    @RequestMapping(value = { "/edit-company-{companyName}" }, method = RequestMethod.GET)
+    public String editCompany(@PathVariable String companyName, ModelMap model) {
+        Companies company = companyService.getByCompanyName(companyName);
+        model.addAttribute("companyForm", company);
+        model.addAttribute("edit", true);
+//        model.addAttribute("loggedinuser", getPrincipal());
+        return "admin/addcompany";
+    }
+
+    @RequestMapping(value = { "/edit-company-{companyName}" }, method = RequestMethod.POST)
+    public String updateCompany(@Valid Companies company, BindingResult result,
+                             ModelMap model, @PathVariable String companyName) throws NotFoundException {
+
+        if (result.hasErrors()) {
+            return "registration";
+        }
+
+		/*//Uncomment below 'if block' if you WANT TO ALLOW UPDATING SSO_ID in UI which is a unique key to a User.
+		if(!userService.isUserSSOUnique(user.getId(), user.getSsoId())){
+			FieldError ssoError =new FieldError("user","ssoId",messageSource.getMessage("non.unique.ssoId", new String[]{user.getSsoId()}, Locale.getDefault()));
+		    result.addError(ssoError);
+			return "registration";
+		}*/
+
+        companyService.updateCompany(company);
+
+        return "/admin/registrationsuccess";
+    }
+
 
     @ModelAttribute("cities")
     public List<Cities> InitializeCities() {

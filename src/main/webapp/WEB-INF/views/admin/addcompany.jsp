@@ -44,7 +44,6 @@
         </div>
 
 
-
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="City">City</label>
@@ -60,15 +59,16 @@
 
         <div class="row">
             <div class="form-actions floatRight">
-                    <%--<c:choose>--%>
-                    <%--<c:when test="${edit}">--%>
-                    <%--<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>--%>
-                    <%--</c:when>--%>
-                    <%--<c:otherwise>--%>
-                <input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a
-                    href="<c:url value='/list' />">Cancel</a>
-                    <%--</c:otherwise>--%>
-                    <%--</c:choose>--%>
+                <c:choose>
+                    <c:when test="${edit}">
+                        <input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a
+                            href="<c:url value='/admin' />">Cancel</a>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a
+                            href="<c:url value='/admin' />">Cancel</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </form:form>

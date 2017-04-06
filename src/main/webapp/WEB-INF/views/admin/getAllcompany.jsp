@@ -41,6 +41,8 @@
                     <td>${companies.companyName}</td>
                     <td>${companies.phoneNumber}</td>
                     <td>${companies.getCityName()}</td>
+                    <td><a href="<c:url value='/edit-company-${companies.companyName}' />" class="btn btn-success custom-width">edit</a></td>
+                    <%--<td><a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger custom-width">delete</a></td>--%>
 
                 </tr>
             </c:forEach>

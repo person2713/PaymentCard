@@ -80,6 +80,6 @@ public class AppController {
 
     private boolean isCurrentAuthenticationAnonymous() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authenticationTrustResolver.isAnonymous(authentication);
+        return authenticationTrustResolver. isAnonymous(authentication);
     }
 }
