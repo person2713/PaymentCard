@@ -78,27 +78,27 @@ public class RegistrationController {
 
 
         if (person.getPassword().isEmpty()) {
-            FieldError passwordError = new FieldError("person", "password", messageSource.getMessage("NotEmpty.person.password", new String[]{person.getNickname()}, Locale.getDefault()));
+            FieldError passwordError = new FieldError("person", "password", messageSource.getMessage("NotEmpty.person.password", new String[]{person.getPassword()}, Locale.getDefault()));
             errors.add(passwordError);
         }
 
         if (person.getFirstName().isEmpty()) {
-            FieldError firstNameError = new FieldError("person", "firstName", messageSource.getMessage("NotEmpty.person.firstName", new String[]{person.getNickname()}, Locale.getDefault()));
+            FieldError firstNameError = new FieldError("person", "firstName", messageSource.getMessage("NotEmpty.person.firstName", new String[]{person.getFirstName()}, Locale.getDefault()));
             errors.add(firstNameError);
         }
 
         if (person.getLastName().isEmpty()) {
-            FieldError lastNameError = new FieldError("person", "lastName", messageSource.getMessage("NotEmpty.person.lastName", new String[]{person.getNickname()}, Locale.getDefault()));
+            FieldError lastNameError = new FieldError("person", "lastName", messageSource.getMessage("NotEmpty.person.lastName", new String[]{person.getLastName()}, Locale.getDefault()));
             errors.add(lastNameError);
         }
 
         if (person.getEmail().isEmpty()) {
-            FieldError emailError = new FieldError("person", "email", messageSource.getMessage("NotEmpty.person.email", new String[]{person.getNickname()}, Locale.getDefault()));
+            FieldError emailError = new FieldError("person", "email", messageSource.getMessage("NotEmpty.person.email", new String[]{person.getEmail()}, Locale.getDefault()));
             errors.add(emailError);
         }
 
-        if (person.getCity().equals(null)) {
-            FieldError cityError = new FieldError("person", "city", messageSource.getMessage("NotEmpty.person.city", new String[]{person.getNickname()}, Locale.getDefault()));
+        if (person.getCity()==null) {
+            FieldError cityError = new FieldError("person", "city", messageSource.getMessage("NotEmpty.person.city", new Cities[]{person.getCity()}, Locale.getDefault()));
             errors.add(cityError);
         }
         if (!errors.isEmpty()) {

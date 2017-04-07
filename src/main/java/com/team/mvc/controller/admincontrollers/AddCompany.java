@@ -64,12 +64,12 @@ public class AddCompany {
             errors.add(companyNameError);
         }
         if (!companyService.isCompanyNameUnique((int)company.getCompanyId(), company.getCompanyName())) {
-            FieldError companyNameUniqError = new FieldError("company", "companyName", messageSource.getMessage("non.unique.companyname", new String[]{company.getCompanyName()}, Locale.getDefault()));
+            FieldError companyNameUniqError = new FieldError("company", "companyName", messageSource.getMessage("non.unique.company.name", new String[]{company.getCompanyName()}, Locale.getDefault()));
             errors.add(companyNameUniqError);
         }
 
-        if (company.getCity().equals(null)) {
-            FieldError cityError = new FieldError("company", "city", messageSource.getMessage("NotEmpty.company.city", new String[]{company.getCompanyName()}, Locale.getDefault()));
+        if (company.getCity()==null) {
+            FieldError cityError = new FieldError("company", "city", messageSource.getMessage("NotEmpty.company.city", new Cities[]{company.getCity()}, Locale.getDefault()));
             errors.add(cityError);
         }
         if(!errors.isEmpty()){
