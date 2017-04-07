@@ -25,18 +25,8 @@ public class Drivers {
     private Companies company;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable(name = "CAR_ASSIGN",
-            joinColumns={@JoinColumn(name = "DRIVER_ID")},
-            inverseJoinColumns={@JoinColumn(name = "BUS_ID")})
-    private List<Buses> buses = new ArrayList<Buses>();
-
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable(name = "CAR_ASSIGN",
-            joinColumns={@JoinColumn(name = "DRIVER_ID")},
-            inverseJoinColumns={@JoinColumn(name = "ROUTE_ID")})
-    private List<Routes> routes = new ArrayList<Routes>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver")
+    private List<CarAssign> carAssign = new ArrayList<>();
 
 
     public Drivers() {
@@ -54,9 +44,6 @@ public class Drivers {
         return company;
     }
 
-    public List<Buses> getBuses() {
-        return buses;
-    }
 
     public void setDriverId(long driverId) {
         this.driverId = driverId;
@@ -70,16 +57,12 @@ public class Drivers {
         this.company = company;
     }
 
-    public void setBuses(List<Buses> buses) {
-        this.buses = buses;
+    public List<CarAssign> getCarAssign() {
+        return carAssign;
     }
 
-    public void setRoutes(List<Routes> routes) {
-        this.routes = routes;
-    }
-
-    public List<Routes> getRoutes() {
-        return routes;
+    public void setCarAssign(List<CarAssign> carAssign) {
+        this.carAssign = carAssign;
     }
 
     @Override
@@ -98,9 +81,9 @@ public class Drivers {
 
     @Override
     public int hashCode() {
-        int result = (int) (driverId ^ (driverId >>> 32));
-        result = 31 * result + (int) (person.hashCode() ^ (person.hashCode() >>> 32));
-        result = 31 * result + (int) (company.hashCode() ^ (company.hashCode() >>> 32));
+        int result = (int) (driverId ^ (driverId >>> 31));
+        result = 31 * result + (int) (person.hashCode() ^ (person.hashCode() >>> 31));
+        result = 31 * result + (int) (company.hashCode() ^ (company.hashCode() >>> 31));
         return result;
     }
 }

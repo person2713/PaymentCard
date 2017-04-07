@@ -2,6 +2,8 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 
 <html>
 
@@ -116,6 +118,21 @@
             </div>
         </div>
 
+        <sec:authorize access="hasRole('ADMIN')">
+        <div class="row">
+
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="Role">Role</label>
+                <div class="col-md-7">
+                    <form:select path="role" items="${rollers}" multiple="false" itemValue="roleId" itemLabel="roleType"
+                                 class="form-control input-sm"/>
+                    <div class="has-error">
+                        <form:errors path="role" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </sec:authorize>
         <div class="row">
             <div class="form-actions floatRight">
                     <%--<c:choose>--%>

@@ -17,7 +17,7 @@ public class RoleService {
     @Autowired
     RoleRepository roleRepository;
 
-    public Rollers findById(int id) throws NotFoundException {
+    public Rollers findById(long id) throws NotFoundException {
         return roleRepository.getById(id);
     }
 

@@ -56,7 +56,7 @@ public class Events {
 
 
     public Timestamp getPaymentTime() {
-        return paymentTime;
+        return new Timestamp(paymentTime.getTime());
     }
 
     public Buses getBus() {
@@ -77,10 +77,6 @@ public class Events {
 
     public void setCard(Cards card) {
         this.card = card;
-    }
-
-    public void setPaymentTime(Timestamp paymentTime) {
-        this.paymentTime = paymentTime;
     }
 
     public void setBus(Buses bus) {

@@ -10,6 +10,7 @@
 	<a href="<c:url value="/admin/getAlluser"/> ">getAlluser</a> <br>
 	<a href="<c:url value="/admin/getAllcompany"/> ">getAllcompany</a> <br>
 	<a href="<c:url value="/admin/addcompany"/> ">AddCompany</a> <br>
+	<a href="<c:url value="/admin/AddUser"/> ">AddUser</a> <br>
 	<a href="<c:url value="/logout" />">Logout</a>
 </body>
 </html>

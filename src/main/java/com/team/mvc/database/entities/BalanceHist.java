@@ -47,7 +47,7 @@ public class BalanceHist {
     }
 
     public Timestamp getDateEvent() {
-        return dateEvent;
+        return new Timestamp(dateEvent.getTime());
     }
 
     public CardBalance getCardBalance() {
@@ -64,10 +64,6 @@ public class BalanceHist {
 
     public void setChanges(BigDecimal changes) {
         this.changes = changes;
-    }
-
-    public void setDateEvent(Timestamp dateEvent) {
-        this.dateEvent = dateEvent;
     }
 
     public void setCardBalance(CardBalance cardBalance) {
@@ -90,8 +86,8 @@ public class BalanceHist {
 
     @Override
     public int hashCode() {
-        int result = (int) (balanceHistId ^ (balanceHistId >>> 32));
-        result = 31 * result + (int) (changes.intValue() ^ (changes.intValue() >>> 32));
+        int result = (int) (balanceHistId ^ (balanceHistId >>> 31));
+        result = 31 * result + (int) (changes.intValue() ^ (changes.intValue() >>> 31));
         result = 31 * result + (dateEvent != null ? dateEvent.hashCode() : 0);
         return result;
     }

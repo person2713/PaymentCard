@@ -24,14 +24,41 @@ public class Routes {
     @Column(name = "ROUTE_NUMBER", nullable = false, length = 10)
     private String routeNumber;
 
-    @ManyToMany(mappedBy="routes")
-    private List<Drivers> drivers = new ArrayList<Drivers>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
+    private List<CarAssign> carAssign = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable(name = "CAR_ASSIGN",
-            joinColumns={@JoinColumn(name = "ROUTE_ID")},
-            inverseJoinColumns={@JoinColumn(name = "BUS_ID")})
-    private List<Buses> busesList = new ArrayList<Buses>();
+
+    public void setRouteId(long routeId) {
+        this.routeId = routeId;
+    }
+
+    public void setCompany(Companies company) {
+        this.company = company;
+    }
+
+    public void setRouteNumber(String routeNumber) {
+        this.routeNumber = routeNumber;
+    }
+
+    public void setCarAssign(List<CarAssign> carAssign) {
+        this.carAssign = carAssign;
+    }
+
+    public long getRouteId() {
+        return routeId;
+    }
+
+    public Companies getCompany() {
+        return company;
+    }
+
+    public String getRouteNumber() {
+        return routeNumber;
+    }
+
+    public List<CarAssign> getCarAssign() {
+        return carAssign;
+    }
 
     @Override
     public boolean equals(Object o) {

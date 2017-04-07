@@ -3,10 +3,11 @@ package com.team.mvc.controller.admincontrollers;
 
 import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.entities.Companies;
-import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.CompanyService;
+import com.team.mvc.log.Const;
 import javassist.NotFoundException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,8 @@ import java.util.Locale;
 @Controller
 @RequestMapping("/admin/addcompany")
 public class AddCompany {
+
+    private static final Logger logger = Logger.getLogger(AddCompany.class.getName());
 
     @Autowired
     CompanyService companyService;
@@ -79,6 +82,15 @@ public class AddCompany {
 
 
         companyService.saveCompany(company);
+
+        if(Const.DEBUG) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("company: id-" + company.getCompanyId() +
+                        " companyName-" +company.getCompanyName() +
+                        " phoneNumber-" + company.getPhoneNumber() +
+                        " city"+ company.getCityName());
+            }
+        }
         return "/admin/registrationsuccess";
     }
 
@@ -113,7 +125,7 @@ public class AddCompany {
 
 
     @ModelAttribute("cities")
-    public List<Cities> InitializeCities() {
+    public List<Cities> initializeCities() {
         return cityService.getAll();
     }
 
