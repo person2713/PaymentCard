@@ -52,7 +52,7 @@ public class RegistrationController {
 
         model.addAttribute("userForm", person);
         model.addAttribute("edit", false);
-        model.addAttribute("loggedinuser", getPrincipal());
+        model.addAttribute("loggedinuser", GetRole.getPrincipal());
         return "registration";
     }
 
@@ -109,7 +109,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        if (hasRole("ROLE_ADMIN"))
+        if (GetRole.hasRole("ROLE_ADMIN"))
             personService.savePerson(person);
         else{
             person.setRole(roleService.findByType("USER"));
@@ -140,34 +140,6 @@ public class RegistrationController {
         return cityService.getAll();
     }
 
-    private String getPrincipal() {
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails) principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
-    }
 
-    //метод для определения роли
-    protected boolean hasRole(String role) {
-        // get security context from thread local
-        SecurityContext context = SecurityContextHolder.getContext();
-        if (context == null)
-            return false;
-
-        Authentication authentication = context.getAuthentication();
-        if (authentication == null)
-            return false;
-
-        for (GrantedAuthority auth : authentication.getAuthorities()) {
-            if (role.equals(auth.getAuthority()))
-                return true;
-        }
-
-        return false;
-    }
 }

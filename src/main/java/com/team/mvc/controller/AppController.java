@@ -39,19 +39,19 @@ public class AppController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
+        model.addAttribute("user", GetRole.getPrincipal());
         return "admin/admin";
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
+        model.addAttribute("user", GetRole.getPrincipal());
         return "user/user";
     }
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
+        model.addAttribute("user", GetRole.getPrincipal());
         return "accessDenied";
     }
 
@@ -61,7 +61,7 @@ public class AppController {
         if (isCurrentAuthenticationAnonymous())
             return "login";
         else {
-            if (hasRole("ROLE_ADMIN"))
+            if (GetRole.hasRole("ROLE_ADMIN"))
                 return "redirect:/admin";
             else
                 return "redirect:/user";
@@ -77,37 +77,6 @@ public class AppController {
         }
         return "redirect:/login?logout";
     }
-
-    private String getPrincipal() {
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails) principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
-    }
-    //метод для определения роли
-    protected boolean hasRole(String role) {
-        // get security context from thread local
-        SecurityContext context = SecurityContextHolder.getContext();
-        if (context == null)
-            return false;
-
-        Authentication authentication = context.getAuthentication();
-        if (authentication == null)
-            return false;
-
-        for (GrantedAuthority auth : authentication.getAuthorities()) {
-            if (role.equals(auth.getAuthority()))
-                return true;
-        }
-
-        return false;
-    }
-
-
 
 
     private boolean isCurrentAuthenticationAnonymous() {
