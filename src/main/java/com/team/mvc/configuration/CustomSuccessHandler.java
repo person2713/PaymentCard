@@ -43,55 +43,37 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-        List<String> roles = new ArrayList<String>();
+        // для одной роли
+        GrantedAuthority auth = authorities.iterator().next();
+        String role = auth.getAuthority();
 
-        for (GrantedAuthority a : authorities) {
-            roles.add(a.getAuthority());
+
+        // для нескольких ролей
+//        List<String> roles = new ArrayList<String>();
+//        for (GrantedAuthority a : authorities) {
+//            roles.add(a.getAuthority());
+//        }
+
+        switch (role) {
+            case "ROLE_USER":
+                url = "/user";
+                break;
+            case "ROLE_DRIVER":
+                url = "/driver";
+                break;
+            case "ROLE_OWNER":
+                url = "/owner";
+                break;
+            case "ROLE_ADMIN":
+                url = "/admin";
+                break;
+            default:
+                url = "/accessDenied";
         }
-
-        if (isUser(roles)) {
-            url = "/user";
-        } else if (isDriver(roles)) {
-            url = "/driver";
-        } else if (isOwner(roles)) {
-            url = "/owner";
-        } else if (isAdmin(roles)) {
-            url = "/admin";
-        } else {
-            url = "/accessDenied";
-        }
-
         return url;
+
     }
 
-    private boolean isUser(List<String> roles) {
-        if (roles.contains("ROLE_USER")) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isDriver(List<String> roles) {
-        if (roles.contains("ROLE_DRIVER")) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isOwner(List<String> roles) {
-        if (roles.contains("ROLE_OWNER")) {
-            return true;
-        }
-        return false;
-    }
-
-
-    private boolean isAdmin(List<String> roles) {
-        if (roles.contains("ROLE_ADMIN")) {
-            return true;
-        }
-        return false;
-    }
 
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
