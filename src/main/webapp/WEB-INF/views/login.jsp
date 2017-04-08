@@ -16,7 +16,7 @@
 					<div class="login-form">
 						<c:url var="loginUrl" value="/login" />
 						<form action="${loginUrl}" method="post" class="form-horizontal">
-							<c:if test="${param.error != null}">
+							<c:if test="${flag}">
 								<div class="alert alert-danger">
 									<p>Invalid username and password.</p>
 								</div>
@@ -31,7 +31,7 @@
 								<input type="text" class="form-control" id="nickName" name="nickName" placeholder="Enter Username" required>
 							</div>
 							<div class="input-group input-sm">
-								<label class="input-group-addon" for="password"><i class="fa fa-lock"></i></label> 
+								<label class="input-group-addon" for="password"><i class="fa fa-lock"></i></label>
 								<input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
 							</div>
 							<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />

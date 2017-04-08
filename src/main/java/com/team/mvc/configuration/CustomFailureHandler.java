@@ -1,6 +1,7 @@
 package com.team.mvc.configuration;
 
 
+import com.team.mvc.controller.Flag;
 import com.team.mvc.log.Const;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
@@ -9,6 +10,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
+import sun.util.locale.provider.FallbackLocaleProviderAdapter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,7 @@ public class CustomFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
 
-
+        Flag.setFlag(true);
         String targetUrl = "/login";
 
         redirectStrategy.sendRedirect(request, response, targetUrl);

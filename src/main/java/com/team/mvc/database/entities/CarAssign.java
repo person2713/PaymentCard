@@ -28,6 +28,15 @@ public class CarAssign {
     private Routes route;
 
 
+
+    public CarAssign() {
+    }
+
+    public CarAssign(Timestamp dateAssign) {
+        this.dateAssign = dateAssign;
+    }
+
+
     public void setBus(Buses bus) {
         this.bus = bus;
     }

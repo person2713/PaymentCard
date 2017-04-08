@@ -51,8 +51,14 @@ public class AppController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage() {
+    public String loginPage(ModelMap model) {
         // как перенаправить пользователя на определенную страницу в зависимости от роли?
+        if(Flag.isFlag()){
+            model.addAttribute("flag",Flag.isFlag());
+            Flag.setFlag(false);
+        }
+
+
         if (isCurrentAuthenticationAnonymous())
             return "login";
         else {
