@@ -58,7 +58,6 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                 logger.debug("Success login: " +
                         " person: id-" + person.getPersonId() +
                         " Nickname-" + person.getNickname() +
-                        " Password-" + person.getPassword() +
                         " Lastname-" + person.getLastName() +
                         " FirstName-" + person.getFirstName() +
                         " Email-" + person.getEmail() +

@@ -120,7 +120,6 @@ public class RegistrationController {
             if (logger.isDebugEnabled()) {
                 logger.debug("person: id-" + person.getPersonId() +
                         " Nickname-" + person.getNickname() +
-                        " Password-" + person.getPassword() +
                         " Lastname-" + person.getLastName() +
                         " FirstName-" + person.getFirstName() +
                         " Email-" + person.getEmail() +
