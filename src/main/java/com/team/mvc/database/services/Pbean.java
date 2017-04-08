@@ -26,6 +26,6 @@ public class Pbean {
     }
 
     public CardBalance getByNic(String name){
-        System.out.println(name);
+
         return  personService.findBalanceByNickname(name);}
 }
