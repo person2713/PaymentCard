@@ -6,11 +6,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team.mvc.database.entities.Persons;
+import com.team.mvc.database.services.PersonService;
+import com.team.mvc.log.Const;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -18,6 +25,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+    public static final Logger logger = Logger.getLogger(CustomSuccessHandler.class.getName());
+
+    @Autowired
+    PersonService personService;
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -32,64 +44,72 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         }
 
         redirectStrategy.sendRedirect(request, response, targetUrl);
+
+        String nickName;
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof UserDetails) {
+            nickName = ((UserDetails) principal).getUsername();
+        } else {
+            nickName = principal.toString();
+        }
+        Persons person = personService.findByNickname(nickName);
+        if (Const.DEBUG) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Success login: " +
+                        " person: id-" + person.getPersonId() +
+                        " Nickname-" + person.getNickname() +
+                        " Password-" + person.getPassword() +
+                        " Lastname-" + person.getLastName() +
+                        " FirstName-" + person.getFirstName() +
+                        " Email-" + person.getEmail() +
+                        " City-" + person.getCity().getCityName() +
+                        " MobileNumber-" + person.getMobileNumber() +
+                        " Role-" + person.getRole().getRoleType());
+            }
+        }
     }
 
+
     /*
-     * This method extracts the roles of currently logged-in user and returns
-     * appropriate URL according to his/her role.
-     */
+         * This method extracts the roles of currently logged-in user and returns
+         * appropriate URL according to his/her role.
+         */
     protected String determineTargetUrl(Authentication authentication) {
         String url = "";
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-        List<String> roles = new ArrayList<String>();
+        // для одной роли
+        GrantedAuthority auth = authorities.iterator().next();
+        String role = auth.getAuthority();
 
-        for (GrantedAuthority a : authorities) {
-            roles.add(a.getAuthority());
-        }
 
-        if (isUser(roles)) {
-            url = "/user";
-        } else if (isDriver(roles)) {
-            url = "/driver";
-        } else if (isOwner(roles)) {
-            url = "/owner";
-        } else if (isAdmin(roles)) {
-            url = "/admin";
-        } else {
-            url = "/accessDenied";
+        // для нескольких ролей
+//        List<String> roles = new ArrayList<String>();
+//        for (GrantedAuthority a : authorities) {
+//            roles.add(a.getAuthority());
+//        }
+
+        switch (role) {
+            case "ROLE_USER":
+                url = "/user";
+                break;
+            case "ROLE_DRIVER":
+                url = "/driver";
+                break;
+            case "ROLE_OWNER":
+                url = "/owner";
+                break;
+            case "ROLE_ADMIN":
+                url = "/admin";
+                break;
+            default:
+                url = "/accessDenied";
         }
 
         return url;
     }
 
-    private boolean isUser(List<String> roles) {
-        if (roles.contains("ROLE_USER")) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isDriver(List<String> roles) {
-        if (roles.contains("ROLE_DRIVER")) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isOwner(List<String> roles) {
-        if (roles.contains("ROLE_OWNER")) {
-            return true;
-        }
-        return false;
-    }
-    private boolean isAdmin(List<String> roles) {
-        if (roles.contains("ROLE_ADMIN")) {
-            return true;
-        }
-        return false;
-    }
 
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;

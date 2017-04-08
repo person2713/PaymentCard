@@ -1,9 +1,6 @@
 package com.team.mvc.database.services;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.entities.Rollers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +12,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService{
+
 
     @Autowired
     private PersonService personService;
@@ -39,9 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService{
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
         Rollers userRole = person.getRole();
-        System.out.println("UserRole : " + userRole);
         authorities.add(new SimpleGrantedAuthority("ROLE_" + userRole.getRoleType()));
-        System.out.print("authorities :" + authorities);
         return authorities;
     }
 }

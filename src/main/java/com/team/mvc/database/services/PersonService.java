@@ -22,7 +22,7 @@ public class PersonService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Persons findById(Integer id) throws NotFoundException {
+    public Persons findById(int id) throws NotFoundException {
         return personRepository.getById(id);
     }
 
@@ -35,15 +35,19 @@ public class PersonService {
         personRepository.save(persons);
     }
 
+    public List<Persons> getAllUser(){
+        return personRepository.getAll();
+    }
+
+
     public boolean isPersonsNicknameUnique(Integer id, String nickname) {
         Persons persons = findByNickname(nickname);
         return ( persons == null || ((id != null) && (persons.getPersonId() == id)));
+
     }
 
     public List<Cards> findCradsByNickname(String nickname) {return personRepository.findCardsByNickname(nickname);}
-    public CardBalance findBalanceByNickname(String nickname) {
-        System.out.println("dsdgsfdgv"); return personRepository.findBalanceByNickname(nickname);}
+    public CardBalance findBalanceByNickname(String nickname) {return personRepository.findBalanceByNickname(nickname);}
     public List<BalanceHist> findBalanceHistByNickname(String nickname) {return personRepository.findBalanceHistByNickname(nickname);}
     public List<Events> findEventsByNickname(String nickname) {return personRepository.findEventsByNickname(nickname);}
 }
-

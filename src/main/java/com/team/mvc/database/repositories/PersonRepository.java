@@ -4,6 +4,7 @@ package com.team.mvc.database.repositories;
 import com.team.mvc.database.entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +26,7 @@ public class PersonRepository extends AbstractRepository<Persons> {
     public void save(Persons persons) {
         super.save(persons);
     }
+
 
     public List<Cards> findCardsByNickname(String nickname) {
 
@@ -75,5 +77,11 @@ public class PersonRepository extends AbstractRepository<Persons> {
         return  query.list();
     }
 
+    @Override
+    public List<Persons> getAll() {
+        Criteria criteria = createEntityCriteria();
+        criteria.addOrder(Order.asc("personId"));
+        return criteria.list();
+    }
 
 }

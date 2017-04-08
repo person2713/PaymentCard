@@ -38,6 +38,10 @@ public class Companies {
     public Companies() {
     }
 
+    public String getCityName(){
+        return city.getCityName();
+    }
+
     public long getCompanyId() {
         return companyId;
     }

@@ -1,39 +1,29 @@
 package com.team.mvc.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import com.team.mvc.database.entities.*;
-import com.team.mvc.database.services.CustomUserDetailsService;
-
-import com.team.mvc.database.services.PersonService;
-import com.team.mvc.database.services.RoleService;
-import javassist.NotFoundException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
-import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/")
 public class AppController {
+
+
+
+    private static final Logger logger = Logger.getLogger(AppController.class.getName());
+
     @Autowired
-    PersonService userService;
-
-
+    AuthenticationTrustResolver authenticationTrustResolver;
 
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
@@ -44,87 +34,48 @@ public class AppController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
+        model.addAttribute("user", GetRole.getPrincipal());
         return "admin/admin";
     }
-    @ModelAttribute("person")
-    public Persons InitializePerson() {
-        return userService.findByNickname(getPrincipal());
-    }
-    @ModelAttribute("cards")
-    public List<Cards> InitializeCards() {
-        return userService.findCradsByNickname(getPrincipal());
-    }
-
-    @ModelAttribute("balance")
-    public CardBalance InitializeBalance() {
-        return userService.findBalanceByNickname(getPrincipal());
-    }
-    @ModelAttribute("balanceHist")
-    public List<BalanceHist> InitializeBalanceHist() {
-        return userService.findBalanceHistByNickname(getPrincipal());}
-
-    @ModelAttribute("events")
-    public List<Events> InitializeEvents() {
-        return userService.findEventsByNickname(getPrincipal());
-    }
-
-
-
-
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String userPage(ModelMap model) throws NotFoundException {
-
-
-     /*   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        model.addAttribute("user", getPrincipal());
-        Persons customUser = (Persons)auth.getPrincipal();
-        int userId = (int) customUser.getPersonId();
-
-        Persons users = userService.findById(userId);
-
-
-        // Persons users = userService.findById(1);
-         model.addAttribute("users", users);*/
-
-
-
-
+    public String userPage(ModelMap model) {
+        model.addAttribute("user", GetRole.getPrincipal());
         return "user/user";
     }
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
+        model.addAttribute("user", GetRole.getPrincipal());
         return "accessDenied";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
-        return "login";
+        // как перенаправить пользователя на определенную страницу в зависимости от роли?
+        if (isCurrentAuthenticationAnonymous())
+            return "login";
+        else {
+            if (GetRole.hasRole("ROLE_ADMIN"))
+                return "redirect:/admin";
+            else
+                return "redirect:/user";
+        }
     }
 
 
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/login?logout";
     }
 
-    private String getPrincipal(){
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails)principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
+    private boolean isCurrentAuthenticationAnonymous() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authenticationTrustResolver. isAnonymous(authentication);
     }
 }
