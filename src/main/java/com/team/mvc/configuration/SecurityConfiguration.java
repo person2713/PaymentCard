@@ -13,13 +13,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
+//
+//    @Autowired
+//    LoginSuccess loginSuccess;
+
     @Autowired
     CustomSuccessHandler customSuccessHandler;
+
+    @Autowired
+    CustomFailureHandler customFailureHandler;
 
     @Autowired
     @Qualifier("customUserDetailsService")
@@ -44,7 +52,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/driver/**").hasRole("DRIVER")
                 .antMatchers("/owner/**").hasRole("OWNER")
                 .and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
-                .usernameParameter("ssoId").passwordParameter("password")
+                .failureHandler(customFailureHandler)
+                .usernameParameter("nickName").passwordParameter("password")
                 .and().csrf()
                 .and().exceptionHandling().accessDeniedPage("/Access_Denied");
     }

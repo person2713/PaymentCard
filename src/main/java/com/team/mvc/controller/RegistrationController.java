@@ -125,7 +125,8 @@ public class RegistrationController {
                         " FirstName-" + person.getFirstName() +
                         " Email-" + person.getEmail() +
                         " City-" + person.getCity().getCityName() +
-                        " MobileNumber-" + person.getMobileNumber());
+                        " MobileNumber-" + person.getMobileNumber() +
+                        " Role-"+person.getRole().getRoleType());
             }
         }
 
