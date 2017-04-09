@@ -8,10 +8,12 @@ import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.RoleService;
 
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.util.List;
 
 /**
@@ -33,9 +35,7 @@ public class RegistrationBean {
     private CityService cityService;
 
     @ManagedProperty("#{roleService}")
-    private  RoleService roleService;
-
-
+    private RoleService roleService;
 
 
     public PersonService getPersonService() {
@@ -62,7 +62,7 @@ public class RegistrationBean {
         this.roleService = roleService;
     }
 
-   private Persons persons;
+    private Persons persons;
 
     public Persons getPersons() {
         return persons;
@@ -72,16 +72,22 @@ public class RegistrationBean {
         this.persons = persons;
     }
 
-    public void saveUser(){
+    public String saveUser() {
         personService.savePerson(persons);
+        return "user?facesRedirect=true";
 
     }
+
     private Rollers rollers;
     private Cities city;
+
     public List<Cities> getCities() {
         return cityService.getAll();
     }
-    public List<Rollers> getRollers() { return roleService.findAll();}
+
+    public List<Rollers> getRollers() {
+        return roleService.findAll();
+    }
 
     public void setRollers(Rollers rollers) {
         this.rollers = rollers;
@@ -94,4 +100,9 @@ public class RegistrationBean {
     public void setCity(Cities city) {
         this.city = city;
     }
+
+
+
+
+
 }

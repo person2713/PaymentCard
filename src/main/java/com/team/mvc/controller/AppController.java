@@ -31,8 +31,8 @@ public class AppController {
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
         return "registration";
-    }
-
+    }}
+/*
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(ModelMap model) {
         model.addAttribute("user", GetRole.getPrincipal());
@@ -80,3 +80,4 @@ public class AppController {
         return authenticationTrustResolver. isAnonymous(authentication);
     }
 }
+*/

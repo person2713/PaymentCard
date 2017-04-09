@@ -72,31 +72,33 @@
 
 
 
-                <h:outputLabel value="city" />
-                <h:selectOneRadio id="cities"
-                                  value="#{registrationBean.persons.city}" >
-                    <f:selectItems value="#{registrationBean.cities}"
-                                   var="gOp"
-                                   itemLabel="#{gOp}"
-                                   itemValue="#{gOp}"/>
-                </h:selectOneRadio>
-                <p:message for="city" />
 
-
-                <h:outputLabel value="Role" />
-                <h:selectOneRadio id="role"
-                                  value="#{registrationBean.persons.role}" >
+                <h:outputLabel for="role" value="Role" />
+                <h:selectOneMenu id="role"  value="#{registrationBean.persons.role}" >
                     <f:selectItems value="#{registrationBean.rollers}"
                                    var="gOp"
                                    itemLabel="#{gOp}"
                                    itemValue="#{gOp}"/>
-                </h:selectOneRadio>
-                <p:message for="Role" />
+                </h:selectOneMenu>
+                <p:message for="role" />
 
 
 
 
-                <p:commandButton value="Register" action="#{registrationBean.saveUser}" ajax="false"></p:commandButton>
+
+                        <p:outputLabel for="city" value="City: " />
+                        <p:selectOneMenu id="city" value="#{registrationBean.persons.city}" >
+                           <f:selectItems value="#{registrationBean.cities}" />
+                        </p:selectOneMenu>
+                        <p:message for="city" />
+
+
+
+
+
+
+                <h:button value="Register" action="user/user?faces-redirect = true" ajax="false"></h:button>
+
             </h:panelGrid>
         </p:fieldset>
 

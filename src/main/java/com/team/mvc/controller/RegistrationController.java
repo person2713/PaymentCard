@@ -1,4 +1,4 @@
-package com.team.mvc.controller;
+/*package com.team.mvc.controller;
 
 import com.team.mvc.beans.RegistrationBean;
 import com.team.mvc.database.entities.Cities;
@@ -27,11 +27,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-
+import java.util.Locale;*/
+/*
 @Controller
-@RequestMapping("/registration")
-public class RegistrationController {
+@RequestMapping("/registration")*/
+/*public class RegistrationController {
 
     private static final Logger logger = Logger.getLogger(RegistrationController.class.getName());
 
@@ -146,3 +146,4 @@ public class RegistrationController {
 
 
 }
+*/
