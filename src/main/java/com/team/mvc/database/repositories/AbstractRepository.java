@@ -23,6 +23,7 @@ public abstract class AbstractRepository<Entity> {
     private SessionFactory sessionFactory;
 
     protected Criteria createEntityCriteria() {
+
         return getSession().createCriteria(persistentClass);
     }
 
@@ -33,6 +34,9 @@ public abstract class AbstractRepository<Entity> {
     public Entity getById(long id) throws NotFoundException {
         return (Entity) getSession().get(persistentClass, id);
             }
+    public Entity getById(Integer id) throws NotFoundException {
+        return (Entity) getSession().get(persistentClass, id);
+    }
 
     public List<Entity> getAll() {
         return getSession().createCriteria(persistentClass).list();

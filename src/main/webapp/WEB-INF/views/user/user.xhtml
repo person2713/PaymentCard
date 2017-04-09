@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+    <h:form id="jsfexample">
+        <p:panelGrid columns="2">
+            <f:facet name="header">
+                Basic PanelGrid
+            </f:facet>
+            <h:outputLabel for="key" value="Enter key" />
+            <p:inputText id="key" value="" />
+
+            <h:outputLabel for="value" value="Enter value" />
+            <p:inputText id="value" value="" />
+
+            <p:commandButton
+                    value="Save" icon="ui-icon-check" style="margin:0" />
+
+        </p:panelGrid>
+
+        <h:outputText value="#{pbean.getByNic('v').balanceId}" />
+
+
+    </h:form>
+</h:body>
+</html>

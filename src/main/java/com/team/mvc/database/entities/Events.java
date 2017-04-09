@@ -79,6 +79,10 @@ public class Events {
         this.card = card;
     }
 
+    public void setPaymentTime(Timestamp paymentTime) {
+        this.paymentTime = paymentTime;
+    }
+
     public void setBus(Buses bus) {
         this.bus = bus;
     }

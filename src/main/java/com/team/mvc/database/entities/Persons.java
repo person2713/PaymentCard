@@ -34,6 +34,7 @@ public class Persons {
     @JoinColumn(name = "CITY_ID")
     private Cities city;
 
+
     @Column(name = "MOBILE_NUMBER", nullable = true, length = 30)
     private String mobileNumber;
 

@@ -29,7 +29,7 @@ public class AppController {
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
-        return "welcome";
+        return "page1";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -52,13 +52,13 @@ public class AppController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(ModelMap model) {
-        // как перенаправить пользователя на определенную страницу в зависимости от роли?
+
         if(Flag.isFlag()){
             model.addAttribute("flag",Flag.isFlag());
             Flag.setFlag(false);
         }
 
-
+// перенавправляем пользователя после его входа и при попытке повторного доступа к страничке login
         if (isCurrentAuthenticationAnonymous())
             return "login";
         else {

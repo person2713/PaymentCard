@@ -27,7 +27,7 @@ public class Companies {
     private Cities city;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
-    public List<Persons> persons = new ArrayList<Persons>();
+    public List<Owners> owners = new ArrayList<Owners>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
     public List<Buses> buses = new ArrayList<Buses>();
@@ -101,12 +101,12 @@ public class Companies {
         this.routes = routes;
     }
 
-    public List<Persons> getPersons() {
-        return persons;
+    public List<Owners> getOwners() {
+        return owners;
     }
 
-    public void setPersons(List<Persons> persons) {
-        this.persons = persons;
+    public void setOwners(List<Owners> persons) {
+        this.owners = persons;
     }
 
     @Override
