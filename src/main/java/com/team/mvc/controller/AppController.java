@@ -1,5 +1,6 @@
 package com.team.mvc.controller;
 
+import com.team.mvc.beans.RegistrationBean;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -24,12 +25,14 @@ public class AppController {
 
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
+    @Autowired
+    RegistrationBean registrationBean;
 
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
-        return "login";
+        return "registration";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)

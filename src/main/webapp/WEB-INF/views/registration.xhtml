@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<h:body>
+    <h2>Registration Form</h2>
+    <h:form>
+        <p:fieldset legend="Registration Form" widgetVar="regWidget" style="width: 600px;">
+            <h:panelGrid columns="3" width="550" border="0">
+                <h:outputLabel value="nickname" />
+                <p:inputText value="#{registrationBean.persons.nickname}"
+                             id="nickname"
+                             required="true"
+                             requiredMessage="UserName is required"
+                             validatorMessage="UsesrName should be of length from 5 to 15 chars"
+                >
+                    <!--<f:validateLength minimum="5" maximum="15" for="userName"></f:validateLength>-->
+                </p:inputText>
+                <p:message for="nickname"/>
+
+
+                <h:outputLabel value="password" />
+                <p:password value=""
+                            id="password"
+                            required="true"
+                            requiredMessage="Password is required"
+                            validatorMessage="Password should be of length from 5 to 15 chars"
+                >
+                    <!--<f:validateLength minimum="5" maximum="15" for="password"></f:validateLength>-->
+                </p:password>
+                <p:message for="password" />
+
+                <h:outputLabel value="firstName" />
+                <p:inputText value=""
+                             id="firstName"
+                             required="true"
+                             requiredMessage="FirstName is required"
+                             validatorMessage="FirstName should be of length from 5 to 15 chars"
+                >
+                    <!--<f:validateLength minimum="5" maximum="15" for="firstName"></f:validateLength>-->
+                </p:inputText>
+                <p:message for="firstName" />
+
+
+                <h:outputLabel value="lastName" />
+                <p:inputText value=""
+                             id="lastName"
+                             required="true"
+                             requiredMessage="LastName is required"
+                             validatorMessage="LastName should be of length from 5 to 15 chars"
+                >
+                    <!--<f:validateLength minimum="5" maximum="15" for="firstName"></f:validateLength>-->
+                </p:inputText>
+                <p:message for="lastName" />
+
+
+                <h:outputLabel value="email" />
+                <p:inputText value=""
+                             id="email"
+                             validatorMessage="Invalid Email">
+                    <!--<f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>-->
+                </p:inputText>
+                <p:message for="email" />
+
+
+
+
+
+
+                <h:outputLabel value="cities" />
+                <h:selectOneRadio id="cities"
+                                  value="" >
+                    <f:selectItems value=""
+                                   var="gOp"
+                                   itemLabel="#{gOp}"
+                                   itemValue="#{gOp}"/>
+                </h:selectOneRadio>
+                <p:message for="cities" />
+
+
+
+
+                <!--<p:commandButton value="Register" action="#{registrationBean.register}" ajax="false"></p:commandButton>-->
+            </h:panelGrid>
+        </p:fieldset>
+
+    </h:form>
+</h:body>
+</html>

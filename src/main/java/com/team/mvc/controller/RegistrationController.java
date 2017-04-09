@@ -1,5 +1,6 @@
 package com.team.mvc.controller;
 
+import com.team.mvc.beans.RegistrationBean;
 import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.entities.Rollers;
@@ -36,6 +37,7 @@ public class RegistrationController {
 
     @Autowired
     PersonService personService;
+
 
     @Autowired
     CityService cityService;
