@@ -19,51 +19,51 @@
                              requiredMessage="UserName is required"
                              validatorMessage="UsesrName should be of length from 5 to 15 chars"
                 >
-                    <!--<f:validateLength minimum="5" maximum="15" for="userName"></f:validateLength>-->
+                    <f:validateLength minimum="5" maximum="15" for="nickname"></f:validateLength>
                 </p:inputText>
                 <p:message for="nickname"/>
 
 
                 <h:outputLabel value="password" />
-                <p:password value=""
+                <p:password value="#{registrationBean.persons.password}"
                             id="password"
                             required="true"
                             requiredMessage="Password is required"
                             validatorMessage="Password should be of length from 5 to 15 chars"
                 >
-                    <!--<f:validateLength minimum="5" maximum="15" for="password"></f:validateLength>-->
+                    <f:validateLength minimum="5" maximum="15" for="password"></f:validateLength>
                 </p:password>
                 <p:message for="password" />
 
                 <h:outputLabel value="firstName" />
-                <p:inputText value=""
+                <p:inputText value="#{registrationBean.persons.firstName}"
                              id="firstName"
                              required="true"
                              requiredMessage="FirstName is required"
                              validatorMessage="FirstName should be of length from 5 to 15 chars"
                 >
-                    <!--<f:validateLength minimum="5" maximum="15" for="firstName"></f:validateLength>-->
+                    <f:validateLength minimum="5" maximum="15" for="firstName"></f:validateLength>
                 </p:inputText>
                 <p:message for="firstName" />
 
 
                 <h:outputLabel value="lastName" />
-                <p:inputText value=""
+                <p:inputText value="#{registrationBean.persons.lastName}"
                              id="lastName"
                              required="true"
                              requiredMessage="LastName is required"
                              validatorMessage="LastName should be of length from 5 to 15 chars"
                 >
-                    <!--<f:validateLength minimum="5" maximum="15" for="firstName"></f:validateLength>-->
+                    <f:validateLength minimum="5" maximum="15" for="firstName"></f:validateLength>
                 </p:inputText>
                 <p:message for="lastName" />
 
 
                 <h:outputLabel value="email" />
-                <p:inputText value=""
+                <p:inputText value="#{registrationBean.persons.email}"
                              id="email"
                              validatorMessage="Invalid Email">
-                    <!--<f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>-->
+                    <f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z]+.[a-zA-Z]{2,3}"></f:validateRegex>
                 </p:inputText>
                 <p:message for="email" />
 
@@ -72,20 +72,31 @@
 
 
 
-                <h:outputLabel value="cities" />
+                <h:outputLabel value="city" />
                 <h:selectOneRadio id="cities"
-                                  value="" >
-                    <f:selectItems value=""
+                                  value="#{registrationBean.persons.city}" >
+                    <f:selectItems value="#{registrationBean.cities}"
                                    var="gOp"
                                    itemLabel="#{gOp}"
                                    itemValue="#{gOp}"/>
                 </h:selectOneRadio>
-                <p:message for="cities" />
+                <p:message for="city" />
+
+
+                <h:outputLabel value="Role" />
+                <h:selectOneRadio id="role"
+                                  value="#{registrationBean.persons.role}" >
+                    <f:selectItems value="#{registrationBean.rollers}"
+                                   var="gOp"
+                                   itemLabel="#{gOp}"
+                                   itemValue="#{gOp}"/>
+                </h:selectOneRadio>
+                <p:message for="Role" />
 
 
 
 
-                <!--<p:commandButton value="Register" action="#{registrationBean.register}" ajax="false"></p:commandButton>-->
+                <p:commandButton value="Register" action="#{registrationBean.saveUser}" ajax="false"></p:commandButton>
             </h:panelGrid>
         </p:fieldset>
 

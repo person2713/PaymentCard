@@ -2,6 +2,7 @@ package com.team.mvc.beans;
 
 import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.entities.Persons;
+import com.team.mvc.database.entities.Rollers;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.RoleService;
@@ -11,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import java.util.List;
 
 /**
 
@@ -20,6 +22,8 @@ import javax.faces.bean.ViewScoped;
 public class RegistrationBean {
     public RegistrationBean() {
         persons = new Persons();
+        city = new Cities();
+        rollers = new Rollers();
     }
 
     @ManagedProperty("#{personService}")
@@ -72,8 +76,22 @@ public class RegistrationBean {
         personService.savePerson(persons);
 
     }
+    private Rollers rollers;
+    private Cities city;
+    public List<Cities> getCities() {
+        return cityService.getAll();
+    }
+    public List<Rollers> getRollers() { return roleService.findAll();}
 
-    private Cities cities;
+    public void setRollers(Rollers rollers) {
+        this.rollers = rollers;
+    }
 
+    public Cities getCity() {
+        return city;
+    }
 
+    public void setCity(Cities city) {
+        this.city = city;
+    }
 }

@@ -25,8 +25,6 @@ public class AppController {
 
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
-    @Autowired
-    RegistrationBean registrationBean;
 
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
