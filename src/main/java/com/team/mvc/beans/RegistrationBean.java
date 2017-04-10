@@ -20,7 +20,7 @@ import java.util.List;
 
  */
 @ManagedBean(name = "registrationBean")
-@ViewScoped
+@SessionScoped
 public class RegistrationBean {
     public RegistrationBean() {
         persons = new Persons();
@@ -71,13 +71,15 @@ public class RegistrationBean {
     public void setPersons(Persons persons) {
         this.persons = persons;
     }
-
+    /**
+     * @return
+     */
     public String saveUser() {
         personService.savePerson(persons);
-        return "user?facesRedirect=true";
+        return "user";
 
     }
-
+//?facesRedirect=true
     private Rollers rollers;
     private Cities city;
 
