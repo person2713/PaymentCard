@@ -15,7 +15,7 @@ public class Events {
     private long eventId;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "CARD_ID")
     private Cards card;
 
@@ -31,7 +31,7 @@ public class Events {
     private Timestamp paymentTime;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "BUS_ID")
     private Buses bus;
 
@@ -56,7 +56,7 @@ public class Events {
 
 
     public Timestamp getPaymentTime() {
-        return paymentTime;
+        return new Timestamp(paymentTime.getTime());
     }
 
     public Buses getBus() {
@@ -77,10 +77,6 @@ public class Events {
 
     public void setCard(Cards card) {
         this.card = card;
-    }
-
-    public void setPaymentTime(Timestamp paymentTime) {
-        this.paymentTime = paymentTime;
     }
 
     public void setBus(Buses bus) {

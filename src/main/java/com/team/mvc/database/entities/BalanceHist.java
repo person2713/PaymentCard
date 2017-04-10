@@ -15,7 +15,7 @@ public class BalanceHist {
     @SequenceGenerator(name = "BALANCE_HIST_SEQ", sequenceName = "BALANCE_HIST_SEQ")
     private long balanceHistId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "CARD_ID", nullable = false)
     private Cards card;
 
@@ -27,7 +27,7 @@ public class BalanceHist {
     @Column(name = "DATE_EVENT")
     private Timestamp dateEvent;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "BALANCE_ID", nullable = false)
     private CardBalance cardBalance;
 
@@ -66,10 +66,6 @@ public class BalanceHist {
         this.changes = changes;
     }
 
-    public void setDateEvent(Timestamp dateEvent) {
-        this.dateEvent = dateEvent;
-    }
-
     public void setCardBalance(CardBalance cardBalance) {
         this.cardBalance = cardBalance;
     }
@@ -90,8 +86,8 @@ public class BalanceHist {
 
     @Override
     public int hashCode() {
-        int result = (int) (balanceHistId ^ (balanceHistId >>> 32));
-        result = 31 * result + (int) (changes.intValue() ^ (changes.intValue() >>> 32));
+        int result = (int) (balanceHistId ^ (balanceHistId >>> 31));
+        result = 31 * result + (int) (changes.intValue() ^ (changes.intValue() >>> 31));
         result = 31 * result + (dateEvent != null ? dateEvent.hashCode() : 0);
         return result;
     }

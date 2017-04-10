@@ -1,6 +1,7 @@
 package com.team.mvc.controller;
 
-import com.team.mvc.beans.RegistrationBean;
+import com.team.mvc.database.entities.Cards;
+import com.team.mvc.database.services.BlackListService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -9,11 +10,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import com.team.mvc.database.services.BlackListService;
 
 @Controller
 @RequestMapping("/")
@@ -23,19 +27,23 @@ public class AppController {
 
     private static final Logger logger = Logger.getLogger(AppController.class.getName());
 
+
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
+    @Autowired
+    BlackListService blackListService;
+
+    @ModelAttribute("blockCards")
+    public List<Cards> getAllBlockCards() { return blackListService.getAllBlockCards();}
 
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
-        return "registration";
+        return "welcome";
     }
 
-
-
- /*   @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(ModelMap model) {
         model.addAttribute("user", GetRole.getPrincipal());
         return "admin/admin";
@@ -80,5 +88,5 @@ public class AppController {
     private boolean isCurrentAuthenticationAnonymous() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authenticationTrustResolver. isAnonymous(authentication);
-    }*/
+    }
 }

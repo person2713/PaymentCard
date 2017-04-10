@@ -16,7 +16,7 @@ public class Cards {
     @SequenceGenerator(name = "CARDS_SEQ", sequenceName = "CARDS_SEQ")
     private long cardId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "PERSON_ID")
     private Persons person;
 
@@ -26,10 +26,6 @@ public class Cards {
     @OneToOne
     @JoinColumn(name="TYPE_ID", nullable = false)
     private TypeCard typeCard;
-
-    @OneToOne
-    @JoinColumn(name="CARD_ID", nullable = false)
-    private CardBalance cardBalance;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
     public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();

@@ -19,7 +19,7 @@ public class Buses {
     private String busNumber;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
     private Companies company;
 
@@ -27,11 +27,9 @@ public class Buses {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus")
     public List<Events> events = new ArrayList<Events>();
 
-    @ManyToMany(mappedBy="buses")
-    private List<Drivers> drivers = new ArrayList<Drivers>();
 
-    @ManyToMany(mappedBy="busesList")
-    private List<Routes> routes = new ArrayList<Routes>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus")
+    public List<CarAssign> carAssign = new ArrayList<>();
 
     public Buses() {
     }
@@ -53,12 +51,8 @@ public class Buses {
         return events;
     }
 
-    public List<Drivers> getDrivers() {
-        return drivers;
-    }
-
-    public List<Routes> getRoutes() {
-        return routes;
+    public List<CarAssign> getCarAssign() {
+        return carAssign;
     }
 
     public void setBusId(long busId) {
@@ -77,12 +71,8 @@ public class Buses {
         this.events = events;
     }
 
-    public void setDrivers(List<Drivers> drivers) {
-        this.drivers = drivers;
-    }
-
-    public void setRoutes(List<Routes> routes) {
-        this.routes = routes;
+    public void setCarAssign(List<CarAssign> carAssign) {
+        this.carAssign = carAssign;
     }
 
     @Override

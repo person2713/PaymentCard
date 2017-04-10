@@ -23,7 +23,6 @@ public abstract class AbstractRepository<Entity> {
     private SessionFactory sessionFactory;
 
     protected Criteria createEntityCriteria() {
-
         return getSession().createCriteria(persistentClass);
     }
 

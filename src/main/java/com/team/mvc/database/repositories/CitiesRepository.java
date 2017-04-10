@@ -2,6 +2,7 @@ package com.team.mvc.database.repositories;
 
 import com.team.mvc.database.entities.Cities;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -15,9 +16,9 @@ public class CitiesRepository extends AbstractRepository<Cities> {
     }
 
     public Cities findByName(String cityName) {
-        Criteria crit = createEntityCriteria();
-        crit.add(Restrictions.eq("cityName", cityName));
-        return (Cities) crit.uniqueResult();
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("cityName", cityName));
+        return (Cities) criteria.uniqueResult();
     }
 
     public List<Cities> getAll() {

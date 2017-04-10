@@ -71,8 +71,8 @@ public class CardBalance {
 
     @Override
     public int hashCode() {
-        int result = (int) (balanceId ^ (balanceId >>> 32));
-        result = 31 * result + (int) (balance.intValue() ^ (balance.intValue() >>> 32));
+        int result = (int) (balanceId ^ (balanceId >>> 31));
+        result = 31 * result + (int) (balance.intValue() ^ (balance.intValue() >>> 31));
         return result;
     }
 }

@@ -35,7 +35,7 @@
 				</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${cards}" var="card">
+				<c:forEach items="${blockCards}" var="card">
 					<tr>
 						<td>${card.cardId}</td>
 					</tr>

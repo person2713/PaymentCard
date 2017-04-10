@@ -6,25 +6,25 @@
 <html>
 
 <head>
-    <%--<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">--%>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>User Registration Form</title>
-    <%--<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>--%>
-    <%--<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"/>--%>
+    <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"/>
 </head>
 
 <body>
-<%--<div class="generic-container">--%>
+<div class="generic-container">
     <%--<%@include file="authheader.jsp" %>--%>
 
-    <%--<div class="well lead">User Registration Form</div>--%>
+    <div class="well lead">User Registration Form</div>
     <form:form method="POST" modelAttribute="userForm" action="/registration/newUser" class="form-horizontal">
-        <%--<form:input type="hidden" path="personId" id="personId"/>--%>
+        <form:input type="hidden" path="personId" id="personId"/>
 
 
-        <%--<div class="row">--%>
-            <%--<div class="form-group col-md-12">--%>
-                <%--<label class="col-md-3 control-lable" for="nickname">Nickname</label>--%>
-                <%--<div class="col-md-7">--%>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="nickname">Nickname</label>
+                <div class="col-md-7">
                     <c:choose>
                         <c:when test="${edit}">
                             <form:input type="text" path="nickname" id="nickname" class="form-control input-sm"/>
@@ -116,6 +116,21 @@
             </div>
         </div>
 
+        <sec:authorize access="hasRole('ADMIN')">
+        <div class="row">
+
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="Role">Role</label>
+                <div class="col-md-7">
+                    <form:select path="role" items="${rollers}" multiple="false" itemValue="roleId" itemLabel="roleType"
+                                 class="form-control input-sm"/>
+                    <div class="has-error">
+                        <form:errors path="role" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </sec:authorize>
         <div class="row">
             <div class="form-actions floatRight">
                     <%--<c:choose>--%>
