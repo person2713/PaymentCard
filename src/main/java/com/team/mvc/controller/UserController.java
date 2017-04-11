@@ -26,7 +26,7 @@ public class UserController {
     public Persons InitializePerson() {
         return userService.findByNickname(getPrincipal());
     }
-    @ModelAttribute("cards")
+  /*  @ModelAttribute("cards")
     public List<Cards> InitializeCards() {
         return userService.findCradsByNickname(getPrincipal());
     }
@@ -42,7 +42,7 @@ public class UserController {
     @ModelAttribute("events")
     public List<Events> InitializeEvents() {
         return userService.findEventsByNickname(getPrincipal());
-    }
+    }*/
 
 
     @RequestMapping(method = RequestMethod.GET)

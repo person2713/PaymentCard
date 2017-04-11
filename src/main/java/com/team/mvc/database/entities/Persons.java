@@ -30,9 +30,10 @@ public class Persons {
     @Column(name = "LAST_NAME", nullable = false, length = 30)
     private String lastName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CITY_ID")
     private Cities city;
+
 
     @Column(name = "MOBILE_NUMBER", nullable = true, length = 30)
     private String mobileNumber;
@@ -44,7 +45,7 @@ public class Persons {
     @JoinColumn(name = "ROLE_ID")
     private Rollers role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "person")
     public List<Cards> cards = new ArrayList<Cards>();
 
     public Persons() {
@@ -138,7 +139,7 @@ public class Persons {
 
         Persons persons = (Persons) o;
 
-        if (!personId.equals(persons.personId)) return false;
+        if (personId != persons.personId) return false;
         if (city != null ? !city.equals(persons.city) : persons.city != null) return false;
         if (firstName != null ? !firstName.equals(persons.firstName) : persons.firstName != null) return false;
         if (lastName != null ? !lastName.equals(persons.lastName) : persons.lastName != null) return false;

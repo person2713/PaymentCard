@@ -8,12 +8,14 @@ import com.team.mvc.database.services.BlackListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-@RestController
+@Controller
 public class TestRestController {
 
     @Autowired
@@ -21,12 +23,16 @@ public class TestRestController {
 
 
     @RequestMapping(value = "/blockCards/", method = RequestMethod.GET)
-    public ResponseEntity<List<Cards>> listAllBlockCards() {
+    @ResponseBody
+
+    public List<Cards> listAllBlockCards() {
         List<Cards> cardsList = blackListService.getAllBlockCards();
         if (cardsList.isEmpty()) {
-            return new ResponseEntity<List<Cards>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+            return  cardsList;//You many decide to return HttpStatus.NOT_FOUND
         }
-        return new ResponseEntity<List<Cards>>(cardsList, HttpStatus.OK);
+       
+
+        return  cardsList;
     }
 }
 

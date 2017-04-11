@@ -46,8 +46,8 @@ public class PersonService {
 
     }
 
-    public List<Cards> findCradsByNickname(String nickname) {return personRepository.findCardsByNickname(nickname);}
+   /* public List<Cards> findCradsByNickname(String nickname) {return personRepository.findCardsByNickname(nickname);}
     public CardBalance findBalanceByNickname(String nickname) {return personRepository.findBalanceByNickname(nickname);}
     public List<BalanceHist> findBalanceHistByNickname(String nickname) {return personRepository.findBalanceHistByNickname(nickname);}
-    public List<Events> findEventsByNickname(String nickname) {return personRepository.findEventsByNickname(nickname);}
+    public List<Events> findEventsByNickname(String nickname) {return personRepository.findEventsByNickname(nickname);}*/
 }

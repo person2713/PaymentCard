@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,9 @@ public class Cards {
     @SequenceGenerator(name = "CARDS_SEQ", sequenceName = "CARDS_SEQ")
     private long cardId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PERSON_ID")
+    @JsonIgnore
     private Persons person;
 
     @Column(name = "CARD_KEY", nullable = false)
@@ -32,9 +35,11 @@ public class Cards {
     private CardBalance cardBalance;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
+    @JsonIgnore
     public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
+    @JsonIgnore
     public List<Events> events = new ArrayList<Events>();
 
 
