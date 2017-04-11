@@ -96,11 +96,12 @@ public class Drivers {
         return true;
     }
 
+
     @Override
     public int hashCode() {
-        int result = (int) (driverId ^ (driverId >>> 32));
-        result = 31 * result + (int) (person.hashCode() ^ (person.hashCode() >>> 32));
-        result = 31 * result + (int) (company.hashCode() ^ (company.hashCode() >>> 32));
+        int result = (int) (driverId ^ (driverId >>> 31));
+        result = 31 * result + (int) (person.hashCode() ^ (person.hashCode() >>> 31));
+        result = 31 * result + (int) (company.hashCode() ^ (company.hashCode() >>> 31));
         return result;
     }
 }

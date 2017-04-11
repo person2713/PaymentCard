@@ -4,12 +4,15 @@ import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.services.BlackListService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +38,16 @@ public class AppController {
 
     @ModelAttribute("blockCards")
     public List<Cards> getAllBlockCards() { return blackListService.getAllBlockCards();}
+
+   /* @RequestMapping(value = "/blockCards/", method = RequestMethod.GET)
+    public ResponseEntity<List<Cards>> listAllBlockCards() {
+        List<Cards> cardsList = blackListService.getAllBlockCards();
+        if(cardsList.isEmpty()){
+            return new ResponseEntity< List<Cards>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity< List<Cards>>(cardsList, HttpStatus.OK);
+    }*/
+
 
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)

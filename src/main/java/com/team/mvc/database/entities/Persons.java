@@ -138,7 +138,7 @@ public class Persons {
 
         Persons persons = (Persons) o;
 
-        if (personId != persons.personId) return false;
+        if (!personId.equals(persons.personId)) return false;
         if (city != null ? !city.equals(persons.city) : persons.city != null) return false;
         if (firstName != null ? !firstName.equals(persons.firstName) : persons.firstName != null) return false;
         if (lastName != null ? !lastName.equals(persons.lastName) : persons.lastName != null) return false;

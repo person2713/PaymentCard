@@ -42,7 +42,7 @@ public class PersonService {
 
     public boolean isPersonsNicknameUnique(Integer id, String nickname) {
         Persons persons = findByNickname(nickname);
-        return ( persons == null || ((id != null) && (persons.getPersonId() == id)));
+        return ( persons==null || ((id != null) && (persons.getPersonId().equals(id) )));
 
     }
 

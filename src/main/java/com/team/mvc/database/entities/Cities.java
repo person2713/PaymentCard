@@ -20,7 +20,7 @@ public class Cities {
     private String cityName;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "city")
     public List<Persons> persons = new ArrayList<Persons>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")

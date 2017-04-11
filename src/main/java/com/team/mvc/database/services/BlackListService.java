@@ -11,7 +11,7 @@ import java.util.List;
 /**
 
  */
-@Service
+@Service("blackListService")
 @Transactional
 public class BlackListService {
     @Autowired

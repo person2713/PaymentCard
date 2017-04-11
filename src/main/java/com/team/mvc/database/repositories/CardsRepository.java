@@ -12,9 +12,9 @@ public class CardsRepository extends AbstractRepository<Cards> {
         super(Cards.class);
     }
     public List<Cards> getAllBlockCards(){
-        Query query = getSession().createQuery("SELECT C FROM Cards  C WHERE C.typeCard=:typeCard");
+        Query query = getSession().createQuery("SELECT C FROM Cards  C ");
 
-        query.setLong("typeCard", Long.parseLong("21"));
+//        query.setLong("typeCard", Long.parseLong("21")); WHERE C.typeCard=:typeCard
         return query.list();
 
     }

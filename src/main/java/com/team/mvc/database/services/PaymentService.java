@@ -13,12 +13,12 @@ import java.sql.Timestamp;
 
 
 public class PaymentService {
-    @Autowired
+ /*   @Autowired
     CardBalanceRepository cardBalanceRepository;
     EventsRepository eventsRepository;
     public boolean paymentpossibility(long id, BigDecimal cost, double latitude, double longitude, Timestamp paymentTime, long busId) throws NotFoundException {
         if(cardBalanceRepository.getById(id).getBalance().compareTo(cost)<0) return false;
         else {cardBalanceRepository.getById(id).setBalance(cardBalanceRepository.getById(id).getBalance().subtract(cost)); Events events = new Events();
-            events.setLatitude(latitude); events.setLongitude(longitude);  eventsRepository.save(events);  return true;}
-    }
+          eventsRepository.save(events);  return true;}
+    }*/
 }

@@ -27,6 +27,10 @@ public class Cards {
     @JoinColumn(name="TYPE_ID", nullable = false)
     private TypeCard typeCard;
 
+    @OneToOne
+    @JoinColumn(name="CARD_ID", nullable = false)
+    private CardBalance cardBalance;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
     public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();
 
@@ -102,8 +106,8 @@ public class Cards {
 
     @Override
     public int hashCode() {
-        int result = (int) (cardId ^ (cardId >>> 32));
-        result = 31 * result + (int) (cardKey ^ (cardKey >>> 32));
+        int result = (int) (cardId ^ (cardId >>> 31));
+        result = 31 * result + (int) (cardKey ^ (cardKey >>> 31));
         return result;
     }
 }
