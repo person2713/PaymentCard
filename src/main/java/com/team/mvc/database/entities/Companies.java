@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class Companies {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CITY_ID")
+    @JsonIgnore
     private Cities city;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")

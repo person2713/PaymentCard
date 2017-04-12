@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -17,22 +19,27 @@ public class Events {
 
     @ManyToOne
     @JoinColumn(name = "CARD_ID")
+    @JsonIgnore
     private Cards card;
 
 
     @Column(name = "LATITUDE", nullable = false)
+    @JsonIgnore
     private double latitude;
 
     @Column(name = "LONGITUDE", nullable = false)
+    @JsonIgnore
     private double longitude;
 
 
     @Column(name = "PAYMENT_TIME", nullable = true)
+    @JsonIgnore
     private Timestamp paymentTime;
 
 
     @ManyToOne
     @JoinColumn(name = "BUS_ID")
+    @JsonIgnore
     private Buses bus;
 
     public Events() {

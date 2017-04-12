@@ -14,7 +14,7 @@
 
 <body>
 <div class="generic-container">
-    <%--<%@include file="authheader.jsp" %>--%>
+    <%--<%@include file="header.jsp" %>--%>
 
     <div class="well lead">User Registration Form</div>
     <form:form method="POST" modelAttribute="companyForm" action="/admin/addcompany/newCompany" class="form-horizontal">

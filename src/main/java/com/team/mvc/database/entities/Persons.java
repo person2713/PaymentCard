@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class Persons {
 
     @ManyToOne
     @JoinColumn(name = "CITY_ID")
+    @JsonIgnore
     private Cities city;
 
 
@@ -161,5 +164,17 @@ public class Persons {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Person [personId=" + personId +
+                ", Nickname=" + nickname +
+                ", firstname=" + firstName +
+                ", lastname=" + lastName +
+                ", city=" + city.getCityName() +
+                ", mobile_number=" + mobileNumber +
+                ", email=" + email +
+                ", role=" + role.getRoleType() + "]";
     }
 }

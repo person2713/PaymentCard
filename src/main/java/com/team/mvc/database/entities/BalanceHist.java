@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -17,6 +19,7 @@ public class BalanceHist {
 
     @ManyToOne
     @JoinColumn(name = "CARD_ID", nullable = false)
+    @JsonIgnore
     private Cards card;
 
 
@@ -29,6 +32,7 @@ public class BalanceHist {
 
     @ManyToOne
     @JoinColumn(name = "BALANCE_ID", nullable = false)
+    @JsonIgnore
     private CardBalance cardBalance;
 
     public BalanceHist() {

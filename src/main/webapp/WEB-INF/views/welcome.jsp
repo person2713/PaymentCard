@@ -14,7 +14,9 @@
                 <a href="<c:url value="/login" />">Sign in</a>
             </div>
             <div class="row">
+                <div class="form-actions">
                 <a href="<c:url value="/registration" />">Sign up</a>
+                </div>
             </div>
         </div>
     </body>

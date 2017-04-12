@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -17,14 +19,17 @@ public class CarAssign {
 
     @ManyToOne
     @JoinColumn(name="BUS_ID")
+    @JsonIgnore
     private Buses bus;
 
     @ManyToOne
     @JoinColumn(name="DRIVER_ID")
+    @JsonIgnore
     private Drivers driver;
 
     @ManyToOne
     @JoinColumn(name="ROUTE_ID")
+    @JsonIgnore
     private Routes route;
 
 

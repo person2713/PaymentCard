@@ -1,8 +1,7 @@
 package com.team.mvc.controller;
 
-/**
- * Created by Nick on 08.04.2017.
- */
+
+
 public class Flag {
     private static boolean flag = false;
 

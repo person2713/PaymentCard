@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class Buses {
 
     @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
+    @JsonIgnore
     private Companies company;
 
 

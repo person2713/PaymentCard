@@ -6,13 +6,7 @@
 	<title>User page</title>
 </head>
 <body>
-Dear <strong>${user}</strong>, Welcome to user Page.
-User Name: <b>${user}</b>
-<a href="<c:url value="/logout" />">Logout</a>
-
-
-
-
+<%@include file="../header.jsp" %>
 
 <div class="generic-container">
 

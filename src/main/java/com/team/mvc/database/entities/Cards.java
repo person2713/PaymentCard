@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ public class Cards {
 
     @ManyToOne
     @JoinColumn(name = "PERSON_ID")
+    @JsonIgnore
     private Persons person;
 
     @Column(name = "CARD_KEY", nullable = false)

@@ -66,6 +66,7 @@ public class HibernateConfiguration {
         properties.put("hibernate.c3p0.max_size", environment.getRequiredProperty("hibernate.c3p0.max_size"));
         properties.put("hibernate.c3p0.timeout", environment.getRequiredProperty("hibernate.c3p0.timeout"));
         properties.put("hibernate.c3p0.max_statements", environment.getRequiredProperty("hibernate.c3p0.max_statements"));
+        properties.put("hibernate.enable_lazy_load_no_trans", true);
         return properties;
     }
 }

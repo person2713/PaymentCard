@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div class="generic-container">
-		<%--<%@include file="authheader.jsp" %>--%>
+		<%--<%@include file="header.jsp" %>--%>
 		<div class="well lead">Company add succesfully </div>
 		<div class="alert alert-success lead">
 	    	${success}
