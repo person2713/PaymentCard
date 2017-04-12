@@ -1,5 +1,6 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class BalanceHist {
 
     @ManyToOne
     @JoinColumn(name = "CARD_ID", nullable = false)
-    @JsonIgnore
+    @JsonBackReference
     private Cards card;
 
 
@@ -32,7 +33,7 @@ public class BalanceHist {
 
     @ManyToOne
     @JoinColumn(name = "BALANCE_ID", nullable = false)
-    @JsonIgnore
+    @JsonBackReference
     private CardBalance cardBalance;
 
     public BalanceHist() {

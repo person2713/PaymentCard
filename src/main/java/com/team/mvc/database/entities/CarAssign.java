@@ -1,5 +1,6 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -19,17 +20,17 @@ public class CarAssign {
 
     @ManyToOne
     @JoinColumn(name="BUS_ID")
-    @JsonIgnore
+    @JsonBackReference
     private Buses bus;
 
     @ManyToOne
     @JoinColumn(name="DRIVER_ID")
-    @JsonIgnore
+    @JsonBackReference
     private Drivers driver;
 
     @ManyToOne
     @JoinColumn(name="ROUTE_ID")
-    @JsonIgnore
+    @JsonBackReference
     private Routes route;
 
 

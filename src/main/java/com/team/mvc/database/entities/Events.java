@@ -1,5 +1,6 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class Events {
 
     @ManyToOne
     @JoinColumn(name = "CARD_ID")
-    @JsonIgnore
+    @JsonBackReference
     private Cards card;
 
 
@@ -39,7 +40,7 @@ public class Events {
 
     @ManyToOne
     @JoinColumn(name = "BUS_ID")
-    @JsonIgnore
+    @JsonBackReference
     private Buses bus;
 
     public Events() {

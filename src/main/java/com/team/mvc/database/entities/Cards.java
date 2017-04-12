@@ -1,6 +1,8 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class Cards {
 
     @ManyToOne
     @JoinColumn(name = "PERSON_ID")
-    @JsonIgnore
+    @JsonBackReference
     private Persons person;
 
     @Column(name = "CARD_KEY", nullable = false)
@@ -35,9 +37,11 @@ public class Cards {
     private CardBalance cardBalance;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
+    @JsonManagedReference
     public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
+    @JsonManagedReference
     public List<Events> events = new ArrayList<Events>();
 
 

@@ -1,5 +1,6 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ public class Owners {
 
     @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
-    @JsonIgnore
+    @JsonBackReference
     private Companies company;
 
 

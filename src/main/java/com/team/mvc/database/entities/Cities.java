@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,11 @@ public class Cities {
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
+    @JsonManagedReference
     public List<Persons> persons = new ArrayList<Persons>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
+    @JsonManagedReference
     public List<Companies> companies = new ArrayList<Companies>();
 
 

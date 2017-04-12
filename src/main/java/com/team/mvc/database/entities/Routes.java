@@ -1,6 +1,8 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class Routes {
 
     @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
-    @JsonIgnore
+    @JsonBackReference
     private Companies company;
 
 
@@ -28,6 +30,7 @@ public class Routes {
     private String routeNumber;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
+    @JsonManagedReference
     private List<CarAssign> carAssign = new ArrayList<>();
 
 
