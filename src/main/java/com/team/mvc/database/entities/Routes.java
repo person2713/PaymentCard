@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class Routes {
     @JsonBackReference
     private Companies company;
 
+    @Column(name="ROUTE_PRICE", nullable = false)
+    private BigDecimal routePrice;
 
     @Column(name = "ROUTE_NUMBER", nullable = false, length = 10)
     private String routeNumber;
@@ -33,6 +36,14 @@ public class Routes {
     @JsonManagedReference
     private List<CarAssign> carAssign = new ArrayList<>();
 
+
+    public void setRoutePrice(BigDecimal routePrice) {
+        this.routePrice = routePrice;
+    }
+
+    public BigDecimal getRoutePrice() {
+        return routePrice;
+    }
 
     public void setRouteId(long routeId) {
         this.routeId = routeId;

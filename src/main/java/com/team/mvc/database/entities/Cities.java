@@ -1,6 +1,9 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ public class Cities {
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
-    @JsonManagedReference
+    @JsonBackReference
     public List<Persons> persons = new ArrayList<Persons>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")

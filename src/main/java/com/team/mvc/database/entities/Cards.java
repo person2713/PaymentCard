@@ -20,6 +20,10 @@ public class Cards {
     @SequenceGenerator(name = "CARDS_SEQ", sequenceName = "CARDS_SEQ")
     private long cardId;
 
+    @Column(name = "CARD_NAME", length = 30, unique = true)
+    private String cardName;
+
+
     @ManyToOne
     @JoinColumn(name = "PERSON_ID")
     @JsonBackReference
@@ -44,6 +48,21 @@ public class Cards {
     @JsonManagedReference
     public List<Events> events = new ArrayList<Events>();
 
+
+
+
+    public void setCardBalance(CardBalance cardBalance) {
+        this.cardBalance = cardBalance;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
+
+
+    public String getCardName() {
+        return cardName;
+    }
 
     public long getCardId() {
         return cardId;

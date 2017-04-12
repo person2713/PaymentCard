@@ -41,7 +41,7 @@ public class AppController {
         return "welcome";
     }
 
-    @RequestMapping(value="/getlAllUsers", method = RequestMethod.GET)
+    @RequestMapping(value="/admin/getlAllUsers", method = RequestMethod.GET)
     public @ResponseBody
     List<Persons> getAllUsers(){
         return personService.getAllUser();

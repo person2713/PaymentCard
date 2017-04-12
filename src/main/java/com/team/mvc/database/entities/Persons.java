@@ -1,6 +1,5 @@
 package com.team.mvc.database.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -36,7 +35,7 @@ public class Persons {
 
     @ManyToOne
     @JoinColumn(name = "CITY_ID")
-    @JsonBackReference
+    @JsonManagedReference
     private Cities city;
 
 
@@ -51,7 +50,6 @@ public class Persons {
     private Rollers role;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
-    @JsonManagedReference
     public List<Cards> cards = new ArrayList<Cards>();
 
     public Persons() {

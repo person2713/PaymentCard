@@ -78,16 +78,20 @@
                                 function doAjaxPost() {
 
                                     $.ajax({
-                                        datatype: "json",
                                         type: "GET",
                                         url: "/admin/getlAllUsers",
-                                        data:$('#subViewDiv').serialize(),
-                                        success: function(response) {
-                                            $.each(response, function(key, card){
-
-                                            }
-                                            $("#subViewDiv").html( response );
+                                        datatype: "json",
+                                        success: function (response) {
+//                                            $.each(response, function (key, card) {
+//                                                var htmlrow = "<tr><td>" + person.nickname + "</td></tr>";
+//                                                $("dataTable").append(htmlrow);
+//                                            })
+                                            $("#bb").append("<p>" + response + "</p>");
+                                        },
+                                        error: function () {
+                                            alert("error")
                                         }
+
                                     });
                                 }
                             </script>
@@ -148,11 +152,33 @@
         </div>
 
 
+        <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <h2>Section title</h2>
+            <div class="table-responsive">
+                <table id="dataTable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nickname</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>city name</th>
+                        <th>mobile number</th>
+                        <th>email</th>
+                        <th>role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-
-        <div id="subViewDiv">
+        <div id="bb">
 
         </div>
+
+
     </div>
     <div id="footer">
 
@@ -163,11 +189,10 @@
 <!-- Placed at the end of the document so the pages load faster -->
 
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <%--<script src="/static/css/jquery-3.1.1.slim.min.js"--%>
-        <%--integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"--%>
-        <%--crossorigin="anonymous"></script>--%>
+<%--integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"--%>
+<%--crossorigin="anonymous"></script>--%>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="/static/css/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
