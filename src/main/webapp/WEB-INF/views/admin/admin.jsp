@@ -82,11 +82,19 @@
                                         url: "/admin/getlAllUsers",
                                         datatype: "json",
                                         success: function (response) {
-//                                            $.each(response, function (key, card) {
-//                                                var htmlrow = "<tr><td>" + person.nickname + "</td></tr>";
-//                                                $("dataTable").append(htmlrow);
-//                                            })
-                                            $("#bb").append("<p>" + response + "</p>");
+                                            var trHTML = '';
+                                            $.each(response, function (i, item) {
+                                                trHTML += '<tr><td>' +
+                                                    item.nickname + '</td><td>' +
+                                                    item.firstName + '</td><td>' +
+                                                    item.lastName + '</td><td>' +
+                                                    item.mobileNumber + '</td><td>' +
+                                                    item.email + '</td><td>'+
+                                                    item.city.cityName + '</td><td>' +
+                                                    item.role.roleType + '</td></tr>';
+
+                                            });
+                                            $("#dataTable").append(trHTML);
                                         },
                                         error: function () {
                                             alert("error")
@@ -158,13 +166,12 @@
                 <table id="dataTable" class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nickname</th>
                         <th>First name</th>
                         <th>Last name</th>
-                        <th>city name</th>
                         <th>mobile number</th>
                         <th>email</th>
+                        <th>city</th>
                         <th>role</th>
                     </tr>
                     </thead>
@@ -172,10 +179,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-
-        <div id="bb">
-
         </div>
 
 
