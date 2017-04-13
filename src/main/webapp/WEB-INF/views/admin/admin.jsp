@@ -1,22 +1,24 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<!-- saved from url=(0054)https://v4-alpha.getbootstrap.com/examples/dashboard/# -->
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <link rel="icon" href="https://v4-alpha.getbootstrap.com/favicon.ico">
 
     <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/css/bootstraptheme-min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/static/css/dashboard.css" rel="stylesheet">
+    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>--%>
+    <script src="/static/css/jquery-3.2.1.js"></script>
     <style>
         .ofset {
             padding-left: 30px;
@@ -78,11 +80,11 @@
                                                     item.firstName + '</td><td>' +
                                                     item.lastName + '</td><td>' +
                                                     item.mobileNumber + '</td><td>' +
-                                                    item.email + '</td><td>'+
+                                                    item.email + '</td><td>' +
                                                     item.city.cityName + '</td><td>' +
                                                     item.role.roleType + '</td><td>' +
                                                     '<input type="checkbox" value=""/>'
-                                                    '</td></tr>';
+                                                '</td></tr>';
                                             });
                                             $("#dataTable").append(trHTML);
                                         },
@@ -90,7 +92,7 @@
                                             alert("error")
                                         }
                                     });
-                                        }
+                                }
                             </script>
                             <li><input type="button" value="GO!" onclick="doAjaxPost();"/></li>
                             <li><a href="#">Список владельцев</a></li>
@@ -128,47 +130,53 @@
                         </ul>
                     </div>
 
-                    <div>
-                        <input type="button" value="Delete" onclick="doAjaxPost();"/>
-                    </div>
-
+                    <%--<script type="text/javascript">--%>
+                            <%--$.ajax({--%>
+                            <%--url: "/admin/getJson",--%>
+                            <%--type: "POST",--%>
+                            <%--contentType: "application/json; charset=utf-8",--%>
+                            <%--dataType: "json",--%>
+                            <%--data: JSON.stringify("json"), //Stringified Json Object--%>
+                            <%--success: function (response) {--%>
+                                <%--alert("success!");--%>
+                            <%--},--%>
+                            <%--error: function (data, status, er) {--%>
+                                <%--alert("error: " + data + " status: " + status + " er:" + er);--%>
+                            <%--}--%>
+                        <%--});--%>
+                    <%--</script>--%>
+                    <%--<button id="but" type="button" onclick="GO!"/>GO</li>--%>
                     <script type="text/javascript">
-                        function doGetJson() {
-
-                            var obj=new Object();
-                            obj.sm=startMonth;
-                            obj.sd=startDay;
-                            obj.em=endMonth;
-                            obj.ed=endDay;
-
-                            var jsonDate= JSON.stringify(obj);
-
+                        function searchText() {
+                            var token = $("meta[name='_csrf']").attr("content");
+                            var header = $("meta[name='_csrf_header']").attr("content");
+                            var search = {
+                                "pName": "bhanu",
+                                "lName": "prasad"
+                            }
                             $.ajax({
-                                type: 'POST',
+                                type: "POST",
+                                contentType: 'application/json; charset=utf-8',
                                 dataType: 'json',
-                                url:"/admin/getJson",
-                                data:jsonDate,
-
-                                success: function(response) {//upto this line from my browser debugger it works
-                                    if (response == jsonDate)
-                                    {
-                                        alert("success and json passed");
-                                    } else {
-                                        alert("not success"+response);
-                                    }
+                                url: "/admin/get",
+                                data: search,//JSON.stringify(search), // Note it is important
+                                beforeSend: function(xhr) {
+                                    // here it is
+                                    xhr.setRequestHeader(header, token);
                                 },
-                                error:function(xhr, errorType, exception) {
-
-                                    alert("inside error function 1(xhr)"+JSON.stringify(xhr));
-                                    alert("inside error function 2(errorType)"+errorType);
-                                    alert("inside error function 3(exception)"+exception);
+                                success: function (result) {
+                                    console.log("SUCCESS: ", result);
+                                    alert("success");
+                                },
+                                error: function (result) {
+                                    console.log("ERROR: ", result);
+                                    alert("error");
                                 }
                             });
                         }
-                    </script>
-                    <li><input type="button" value="GO!" onclick="doGetJson();"/></li>
-                    <li><a href="#">Список владельцев</a></li>
-                </div>
+              </script>
+                    <button id="but" type="button" onclick="searchText()"/>GO</li>
+            </div>
 
             </div>
         </div>
@@ -207,7 +215,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <%--<script src="/static/css/jquery-3.1.1.slim.min.js"--%>
 <%--integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"--%>
 <%--crossorigin="anonymous"></script>--%>

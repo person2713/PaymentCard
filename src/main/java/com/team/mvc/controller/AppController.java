@@ -11,10 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,12 +47,12 @@ public class AppController {
     }
 
     @RequestMapping(value = "/admin/getJson", method = RequestMethod.POST)
-    public @ResponseBody String getJson(@RequestParam(value = "jsonDate", required = true) String jsonDate){
-        JOptionPane.showMessageDialog(null, jsonDate);
-        System.out.println("JSON Success"+jsonDate);
-        return jsonDate;
-
+    public @ResponseBody String save(@RequestBody String json) {
+        System.out.println("Success"+json);
+        return "success";
     }
+
+
 
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -84,6 +81,8 @@ public class AppController {
             Flag.setFlag(false);
         }
 
+
+
 // перенавправляем пользователя после его входа и при попытке повторного доступа к страничке login
         if (isCurrentAuthenticationAnonymous())
             return "login";
@@ -105,7 +104,16 @@ public class AppController {
         return "redirect:/login?logout";
     }
 
+    @RequestMapping(value="/admin/get",method=RequestMethod.POST)
+    public  @ResponseBody String  getSearchUserProfiles(@RequestBody Search search, HttpServletRequest request) {
+        String pName = search.getlName();
+        String lName = search.getlName();
 
+
+        System.out.println(pName+lName);
+        // your logic next
+        return "Success";
+    }
 
     // метод для проверки авторизации пользователя
     private boolean isCurrentAuthenticationAnonymous() {
