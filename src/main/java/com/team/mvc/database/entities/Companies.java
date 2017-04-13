@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,10 @@ public class Companies {
 
     @Column(name = "PHONE_NUMBER", length = 30)
     private String phoneNumber;
+
+
+    @Column(name = "COMP_BALANCE")
+    private BigDecimal compBalance;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CITY_ID")
@@ -48,6 +53,13 @@ public class Companies {
     public List<Routes> routes = new ArrayList<Routes>();
 
     public Companies() {
+    }
+
+
+
+
+    public BigDecimal getCompBalance() {
+        return compBalance;
     }
 
     public String getCityName(){
@@ -94,6 +106,9 @@ public class Companies {
         this.phoneNumber = phoneNumber;
     }
 
+    public void setCompBalance(BigDecimal compBalance) {
+        this.compBalance = compBalance;
+    }
     public void setCity(Cities city) {
         this.city = city;
     }

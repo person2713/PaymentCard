@@ -13,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,13 @@ public class AppController {
         return personService.getAllUser();
     }
 
+    @RequestMapping(value = "/admin/getJson", method = RequestMethod.POST)
+    public @ResponseBody String getJson(@RequestParam(value = "jsonDate", required = true) String jsonDate){
+        JOptionPane.showMessageDialog(null, jsonDate);
+        System.out.println("JSON Success"+jsonDate);
+        return jsonDate;
 
+    }
 
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)

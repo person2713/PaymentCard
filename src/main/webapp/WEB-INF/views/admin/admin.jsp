@@ -55,20 +55,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-                    <!-- <ul class="nav nav-pills flex-column">
-                      <li class="nav-item">
-                        <a class="nav-link" href="https://v4-alpha.getbootstrap.com/examples/dashboard/#">Список пользователей</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="https://v4-alpha.getbootstrap.com/examples/dashboard/#">Список компаний</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="https://v4-alpha.getbootstrap.com/examples/dashboard/#">Список машин</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="https://v4-alpha.getbootstrap.com/examples/dashboard/#">Список карт</a>
-                      </li>
-                    </ul> -->
+
                     <div class="dropdown ofset">
                         <button class="btn btn-primary dropdown-toggle btn-block" type="button" data-toggle="dropdown">
                             Показать
@@ -82,6 +69,8 @@
                                         url: "/admin/getlAllUsers",
                                         datatype: "json",
                                         success: function (response) {
+
+
                                             var trHTML = '';
                                             $.each(response, function (i, item) {
                                                 trHTML += '<tr><td>' +
@@ -91,17 +80,17 @@
                                                     item.mobileNumber + '</td><td>' +
                                                     item.email + '</td><td>'+
                                                     item.city.cityName + '</td><td>' +
-                                                    item.role.roleType + '</td></tr>';
-
+                                                    item.role.roleType + '</td><td>' +
+                                                    '<input type="checkbox" value=""/>'
+                                                    '</td></tr>';
                                             });
                                             $("#dataTable").append(trHTML);
                                         },
                                         error: function () {
                                             alert("error")
                                         }
-
                                     });
-                                }
+                                        }
                             </script>
                             <li><input type="button" value="GO!" onclick="doAjaxPost();"/></li>
                             <li><a href="#">Список владельцев</a></li>
@@ -114,21 +103,6 @@
                         </ul>
                     </div>
 
-
-                    <!-- <ul class="nav nav-pills flex-column">
-                      <li class="nav-item">
-                        <a class="nav-link" href="https://v4-alpha.getbootstrap.com/examples/dashboard/#">Добавить пользователя</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="https://v4-alpha.getbootstrap.com/examples/dashboard/#">Добавить пользователя</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="https://v4-alpha.getbootstrap.com/examples/dashboard/#">Добавить пользователя</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="https://v4-alpha.getbootstrap.com/examples/dashboard/#">Добавить пользователя</a>
-                      </li>
-                    </ul> -->
 
                     <div class="dropdown ofset">
                         <button class="btn btn-primary dropdown-toggle btn-block" type="button" data-toggle="dropdown">
@@ -154,6 +128,46 @@
                         </ul>
                     </div>
 
+                    <div>
+                        <input type="button" value="Delete" onclick="doAjaxPost();"/>
+                    </div>
+
+                    <script type="text/javascript">
+                        function doGetJson() {
+
+                            var obj=new Object();
+                            obj.sm=startMonth;
+                            obj.sd=startDay;
+                            obj.em=endMonth;
+                            obj.ed=endDay;
+
+                            var jsonDate= JSON.stringify(obj);
+
+                            $.ajax({
+                                type: 'POST',
+                                dataType: 'json',
+                                url:"/admin/getJson",
+                                data:jsonDate,
+
+                                success: function(response) {//upto this line from my browser debugger it works
+                                    if (response == jsonDate)
+                                    {
+                                        alert("success and json passed");
+                                    } else {
+                                        alert("not success"+response);
+                                    }
+                                },
+                                error:function(xhr, errorType, exception) {
+
+                                    alert("inside error function 1(xhr)"+JSON.stringify(xhr));
+                                    alert("inside error function 2(errorType)"+errorType);
+                                    alert("inside error function 3(exception)"+exception);
+                                }
+                            });
+                        }
+                    </script>
+                    <li><input type="button" value="GO!" onclick="doGetJson();"/></li>
+                    <li><a href="#">Список владельцев</a></li>
                 </div>
 
             </div>
@@ -173,6 +187,7 @@
                         <th>email</th>
                         <th>city</th>
                         <th>role</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
