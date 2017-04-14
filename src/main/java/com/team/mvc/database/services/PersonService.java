@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,6 +38,39 @@ public class PersonService {
 
     public List<Persons> getAllUser(){
         return personRepository.getAll();
+    }
+
+    public List<Persons> getUsers(){
+        List<Persons> personList = new ArrayList<>();
+        for (Persons person:personRepository.getAll()) {
+            if(person.getRole().getRoleType().equals("USER"))
+                personList.add(person);
+        }
+        return personList;
+    }
+
+
+    public List<Persons> getOwners(){
+        List<Persons> personList = new ArrayList<>();
+        for (Persons person:personRepository.getAll()) {
+            if(person.getRole().getRoleType().equals("OWNER"))
+                personList.add(person);
+        }
+        return personList;
+    }
+
+
+    public List<Persons> getDrivers(){
+        List<Persons> personList = new ArrayList<>();
+        for (Persons person:personRepository.getAll()) {
+            if(person.getRole().getRoleType().equals("DRIVER"))
+                personList.add(person);
+        }
+        return personList;
+    }
+
+    public void deleteByNickName(String nickname){
+        personRepository.deleteByNickName(nickname);
     }
 
 

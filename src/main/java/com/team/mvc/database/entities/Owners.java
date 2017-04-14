@@ -2,6 +2,8 @@ package com.team.mvc.database.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -19,6 +21,7 @@ public class Owners {
 
     @OneToOne
     @JoinColumn(name="PERSON_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Persons person;
 
     @ManyToOne

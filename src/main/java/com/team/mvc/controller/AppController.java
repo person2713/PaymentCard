@@ -24,7 +24,6 @@ import java.util.List;
 public class AppController {
 
 
-
     private static final Logger logger = Logger.getLogger(AppController.class.getName());
 
     @Autowired
@@ -40,17 +39,47 @@ public class AppController {
         return "welcome";
     }
 
-    @RequestMapping(value="/admin/getlAllUsers", method = RequestMethod.GET)
-    public @ResponseBody
-    List<Persons> getAllUsers(){
-        return personService.getAllUser();
+    @RequestMapping(value = "/admin/getlAllUsers", method = RequestMethod.GET)
+    public @ResponseBody List<Persons> getAllUsers() {
+        List<Persons> listPerson = personService.getAllUser();
+        Persons person = personService.findByNickname(GetRole.getPrincipal());
+        listPerson.remove(person);
+        return listPerson;
     }
 
-    @RequestMapping(value = "/admin/getJson", method = RequestMethod.POST)
-    public @ResponseBody String save(@RequestBody String json) {
-        System.out.println("Success"+json);
-        return "success";
+
+    @RequestMapping(value = "/admin/getUsers", method = RequestMethod.GET)
+    public @ResponseBody List<Persons> getUsers() {
+        return personService.getUsers();
     }
+
+    @RequestMapping(value = "/admin/getOwners", method = RequestMethod.GET)
+    public @ResponseBody List<Persons> getOwners() {
+        return personService.getOwners();
+    }
+
+    @RequestMapping(value = "/admin/getDrivers", method = RequestMethod.GET)
+    public @ResponseBody List<Persons> getDrives() {
+        return personService.getDrivers();
+    }
+
+
+
+    @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String deleteUser(@RequestBody List<String> list, HttpServletRequest request) {
+
+        for (String nickName : list) {
+            personService.deleteByNickName(nickName);
+            System.out.println("Delete " + nickName);
+        }
+        return "Success";
+    }
+
+
+
+
 
 
 
@@ -76,11 +105,10 @@ public class AppController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(ModelMap model) {
 
-        if(Flag.isFlag()){
-            model.addAttribute("flag",Flag.isFlag());
+        if (Flag.isFlag()) {
+            model.addAttribute("flag", Flag.isFlag());
             Flag.setFlag(false);
         }
-
 
 
 // перенавправляем пользователя после его входа и при попытке повторного доступа к страничке login
@@ -104,20 +132,11 @@ public class AppController {
         return "redirect:/login?logout";
     }
 
-    @RequestMapping(value="/admin/get",method=RequestMethod.POST)
-    public  @ResponseBody String  getSearchUserProfiles(@RequestBody Search search, HttpServletRequest request) {
-        String pName = search.getlName();
-        String lName = search.getlName();
 
-
-        System.out.println(pName+lName);
-        // your logic next
-        return "Success";
-    }
 
     // метод для проверки авторизации пользователя
     private boolean isCurrentAuthenticationAnonymous() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authenticationTrustResolver. isAnonymous(authentication);
+        return authenticationTrustResolver.isAnonymous(authentication);
     }
 }

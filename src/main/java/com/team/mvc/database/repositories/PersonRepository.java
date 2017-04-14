@@ -84,4 +84,7 @@ public class PersonRepository extends AbstractRepository<Persons> {
         return criteria.list();
     }
 
+    public void deleteByNickName(String nickname){
+        super.delete(this.findByNickname(nickname));
+    }
 }

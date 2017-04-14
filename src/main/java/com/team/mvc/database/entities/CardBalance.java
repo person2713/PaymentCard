@@ -1,6 +1,8 @@
 package com.team.mvc.database.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,6 +24,7 @@ public class CardBalance {
 
     @OneToOne
     @JoinColumn(name="CARD_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Cards card;
 
     @Column(name = "BALANCE", nullable = false)

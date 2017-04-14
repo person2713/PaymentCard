@@ -49,7 +49,7 @@ public class Persons {
     @JoinColumn(name = "ROLE_ID")
     private Rollers role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.REMOVE)
     public List<Cards> cards = new ArrayList<Cards>();
 
     public Persons() {

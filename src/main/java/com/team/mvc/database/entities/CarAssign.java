@@ -2,6 +2,8 @@ package com.team.mvc.database.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -26,6 +28,7 @@ public class CarAssign {
     @ManyToOne
     @JoinColumn(name="DRIVER_ID")
     @JsonBackReference
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Drivers driver;
 
     @ManyToOne

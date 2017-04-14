@@ -2,6 +2,8 @@ package com.team.mvc.database.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,6 +23,7 @@ public class BalanceHist {
     @ManyToOne
     @JoinColumn(name = "CARD_ID", nullable = false)
     @JsonBackReference
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Cards card;
 
 
