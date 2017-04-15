@@ -1,4 +1,4 @@
-﻿package com.team.mvc.API.DriverTerminal;
+package com.team.mvc.API.DriverTerminal;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.team.mvc.database.entities.Buses;
@@ -6,23 +6,24 @@ import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.services.BusesService;
 import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.PaymentService;
+import com.team.mvc.log.Const;
+import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*; 
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * Created by dronp on 09.04.2017.
- */
 @RestController
 @RequestMapping(value = "/API/newEvent", method = RequestMethod.POST)
 public class NewEventAPI {
-//    ObjectMapper mapper = new ObjectMapper();
+    ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     PaymentService paymentService;
@@ -31,30 +32,48 @@ public class NewEventAPI {
     @Autowired
     BusesService busesService;
 
+    public static final Logger logger = Logger.getLogger(DriverLoginAPI.class.getName());
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public ResponseEntity<?> onNewEvent(@RequestBody NewEventClass newEvent) {
+    public ResponseEntity<?> onNewEvent(HttpServletRequest request, @RequestBody NewEventClass newEvent) {
+        String log = "";
         try {
-            Cards card=cardsService.findByCardKey(newEvent.getTagID());
-            if (card==null)
-                return new ResponseEntity<Object>("Карта не найдена",HttpStatus.NOT_FOUND);
-            Buses bus=busesService.findById(newEvent.getBusId());
+            log += request.getRemoteAddr() + "\t";
+            log += "newEvent: " + mapper.writeValueAsString(newEvent) + ", ";
+            Cards card = cardsService.findByCardKey(newEvent.getTagID());
+            if (card == null) {
+                log += "Card not found";
+                return new ResponseEntity<Object>("Карта не найдена", HttpStatus.NOT_FOUND);
+            }
+            Buses bus = busesService.findById(newEvent.getBusId());
             if (paymentService.paymentPossibility(card,
-                                                    getCost(card),
-                                                    newEvent.getLatitude(),
-                                                    newEvent.getLongitude(),
-                                                    new Timestamp((new Date()).getTime()),
-                                                    bus))
-                return new ResponseEntity<Object>("OK",HttpStatus.OK);
-            return new ResponseEntity<Object>("Недостаточно средств", HttpStatus.PAYMENT_REQUIRED);
+                    getCost(card),
+                    newEvent.getLatitude(),
+                    newEvent.getLongitude(),
+                    new Timestamp((new Date()).getTime()),
+                    bus)) {
+                log += "OK";
+                CSRFTokenSerializable<String> serToken = new CSRFTokenSerializable<>(Utils.getCsrfToken(request), "OK");
+                return new ResponseEntity<Object>(serToken, HttpStatus.OK);
+            }
+            log += "Not enough money";
+            CSRFTokenSerializable<String> serToken = new CSRFTokenSerializable<>(Utils.getCsrfToken(request), "Недостаточно средств");
+            return new ResponseEntity<Object>(serToken, HttpStatus.PAYMENT_REQUIRED);
         } catch (Exception ex) {
+            log += "Error: " + ex.getMessage();
             return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } finally {
+            if (Const.DEBUG) {
+                if (logger.isDebugEnabled()) {
+                    logger.debug("POST : /API/newEvent\n " +
+                            "" + log);
+                }
+            }
         }
     }
 
-    public BigDecimal getCost(Cards card)
-    {
+    public BigDecimal getCost(Cards card) {
         return new BigDecimal(15);
     }
 

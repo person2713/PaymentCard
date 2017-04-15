@@ -1,11 +1,17 @@
 package com.team.mvc.API.DriverTerminal;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.team.mvc.controller.GetRole;
+import com.team.mvc.database.entities.Drivers;
+import com.team.mvc.database.entities.Persons;
+import com.team.mvc.database.services.DriversService;
+import com.team.mvc.database.services.PersonService;
+import com.team.mvc.log.Const;
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,23 +24,36 @@ import java.io.Serializable;
 @RequestMapping(value = "/API/driverLogin")
 public class DriverLoginAPI {
 
-//    public static final Logger logger = Logger.getLogger(DriverLogin.class.getName());
+    @Autowired
+    PersonService personService;
+    @Autowired
+    DriversService driversService;
+
+    public static final Logger logger = Logger.getLogger(DriverLoginAPI.class.getName());
     ObjectMapper mapper = new ObjectMapper();
 
     @RequestMapping(method = RequestMethod.GET/*,consumes = "application/json"*/)
     @ResponseBody
     public ResponseEntity<?> onLoginDriver(HttpServletRequest request/*,@RequestBody UserNamePass user*/) {
-
-//        if (Const.DEBUG) {
-//            if (logger.isDebugEnabled()) {
-//                logger.debug("POST : /API/driverLogin\n " +
-//                            ""+request.getRemoteUser());
-//            }
-//        }
+        String log="";
         try {
-            return new ResponseEntity<Object>(4, HttpStatus.OK);
+            log+=request.getRemoteAddr()+"\t";
+            Persons driverPerson=personService.findByNickname(GetRole.getPrincipal());
+            log+="PersonId:"+driverPerson.getPersonId()+", ";
+            Drivers driver=driversService.findByPerson(driverPerson);
+            log+="DriverId:"+driver.getDriverId();
+            CSRFTokenSerializable<Long> serToken = new CSRFTokenSerializable<>(Utils.getCsrfToken(request),driver.getDriverId());
+            return new ResponseEntity<Object>(serToken, HttpStatus.OK);
         } catch (Exception ex) {
+            log += "Error: " + ex.getMessage();
             return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } finally {
+            if (Const.DEBUG) {
+                if (logger.isDebugEnabled()) {
+                    logger.debug("POST : /API/driverLogin\n " +
+                            "" + log);
+                }
+            }
         }
     }
 
@@ -42,80 +61,39 @@ public class DriverLoginAPI {
     @ResponseBody
     public ResponseEntity<?> getCsrfToken(HttpServletRequest request) {
 //        CsrfToken token = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-        CsrfToken token = new HttpSessionCsrfTokenRepository().loadToken(request);
-            if (token==null){
-                token=new HttpSessionCsrfTokenRepository().generateToken(request);
-                new HttpSessionCsrfTokenRepository().saveToken(token,request,null);}
-        CSRFTokenSerializable serToken = new CSRFTokenSerializable(token);
+
+        CSRFTokenSerializable serToken = new CSRFTokenSerializable(Utils.getCsrfToken(request));
         try {
-            return new ResponseEntity<Object>(mapper.writeValueAsString(serToken), HttpStatus.OK);
+             return new ResponseEntity<Object>(mapper.writeValueAsString(serToken), HttpStatus.OK);
         }
         catch (Exception ex)
         {
             return new ResponseEntity<Object>("Error in converting object",HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
-    protected class CSRFTokenSerializable implements Serializable{
-        public String getX_CSRF_HEADER() {
-            return X_CSRF_HEADER;
-        }
-
-        public void setX_CSRF_HEADER(String x_CSRF_HEADER) {
-            X_CSRF_HEADER = x_CSRF_HEADER;
-        }
-
-        public String getX_CSRF_PARAM() {
-            return X_CSRF_PARAM;
-        }
-
-        public void setX_CSRF_PARAM(String x_CSRF_PARAM) {
-            X_CSRF_PARAM = x_CSRF_PARAM;
-        }
-
-        public String getX_CSRF_TOKEN() {
-            return X_CSRF_TOKEN;
-        }
-
-        public void setX_CSRF_TOKEN(String x_CSRF_TOKEN) {
-            X_CSRF_TOKEN = x_CSRF_TOKEN;
-        }
-
-        private String X_CSRF_HEADER;
-        private String X_CSRF_PARAM;
-        private String X_CSRF_TOKEN;
-
-        public CSRFTokenSerializable(CsrfToken token) {
-            X_CSRF_HEADER = token.getHeaderName();
-            X_CSRF_PARAM = token.getParameterName();
-            X_CSRF_TOKEN = token.getToken();
-        }
-//"X-CSRF-HEADER", token.getHeaderName()
-//"X-CSRF-PARAM", token.getParameterName()
-//"X-CSRF-TOKEN", token.getToken()
-    }
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-    static protected class UserNamePass implements Serializable{
-        private String username;
-        private String passHash;
-        public UserNamePass() {
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getPassHash() {
-            return passHash;
-        }
-
-        public void setPassHash(String passHash) {
-            this.passHash = passHash;
-        }
+protected class UserNamePass implements Serializable{
+    private String username;
+    private String passHash;
+    public UserNamePass() {
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassHash() {
+        return passHash;
+    }
+
+    public void setPassHash(String passHash) {
+        this.passHash = passHash;
+    }
+}
+
 }

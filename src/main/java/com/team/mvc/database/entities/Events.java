@@ -2,6 +2,7 @@ package com.team.mvc.database.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 
 @Entity
@@ -28,7 +29,7 @@ public class Events {
 
 
     @Column(name = "PAYMENT_TIME", nullable = true)
-    private Timestamp paymentTime;
+    private Timestamp paymentTime=new Timestamp(Calendar.getInstance().getTime().getTime());
 
 
     @ManyToOne
