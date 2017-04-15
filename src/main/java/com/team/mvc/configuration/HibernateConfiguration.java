@@ -15,6 +15,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
@@ -26,7 +27,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class HibernateConfiguration {
     @Autowired
     private Environment environment;
-
+    @Bean
+    public MethodInvokingJobDetailFactoryBean methodInvokingJobDetailFactoryBean() {
+        MethodInvokingJobDetailFactoryBean obj = new MethodInvokingJobDetailFactoryBean();
+        obj.setTargetBeanName("PaymentJob");
+        obj.setTargetMethod("update");
+        return obj;
+    }
 
     @Bean
     public DataSource dataSource() {

@@ -1,5 +1,8 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +33,9 @@ public class Persons {
     @Column(name = "LAST_NAME", nullable = false, length = 30)
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "CITY_ID")
+    @JsonBackReference
     private Cities city;
 
 
@@ -45,7 +49,8 @@ public class Persons {
     @JoinColumn(name = "ROLE_ID")
     private Rollers role;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "person")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+    @JsonManagedReference
     public List<Cards> cards = new ArrayList<Cards>();
 
     public Persons() {

@@ -1,5 +1,9 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,23 +24,15 @@ public class Drivers {
     @JoinColumn(name="PERSON_ID")
     private Persons person;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
+    @JsonBackReference
     private Companies company;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable(name = "CAR_ASSIGN",
-            joinColumns={@JoinColumn(name = "DRIVER_ID")},
-            inverseJoinColumns={@JoinColumn(name = "BUS_ID")})
-    private List<Buses> buses = new ArrayList<Buses>();
-
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable(name = "CAR_ASSIGN",
-            joinColumns={@JoinColumn(name = "DRIVER_ID")},
-            inverseJoinColumns={@JoinColumn(name = "ROUTE_ID")})
-    private List<Routes> routes = new ArrayList<Routes>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver")
+    @JsonManagedReference
+    private List<CarAssign> carAssign = new ArrayList<>();
 
 
     public Drivers() {
@@ -54,9 +50,6 @@ public class Drivers {
         return company;
     }
 
-    public List<Buses> getBuses() {
-        return buses;
-    }
 
     public void setDriverId(long driverId) {
         this.driverId = driverId;
@@ -70,16 +63,12 @@ public class Drivers {
         this.company = company;
     }
 
-    public void setBuses(List<Buses> buses) {
-        this.buses = buses;
+    public List<CarAssign> getCarAssign() {
+        return carAssign;
     }
 
-    public void setRoutes(List<Routes> routes) {
-        this.routes = routes;
-    }
-
-    public List<Routes> getRoutes() {
-        return routes;
+    public void setCarAssign(List<CarAssign> carAssign) {
+        this.carAssign = carAssign;
     }
 
     @Override
@@ -95,7 +84,6 @@ public class Drivers {
 
         return true;
     }
-
 
     @Override
     public int hashCode() {

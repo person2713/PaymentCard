@@ -1,5 +1,9 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +25,17 @@ public class Buses {
 
     @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
+    @JsonBackReference
     private Companies company;
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus")
+    @JsonManagedReference
     public List<Events> events = new ArrayList<Events>();
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus")
+    @JsonManagedReference
     public List<CarAssign> carAssign = new ArrayList<>();
 
     public Buses() {

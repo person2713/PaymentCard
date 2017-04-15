@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class CardBalance {
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardBalance")
+    @JsonManagedReference
     public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();
 
     public CardBalance() {}

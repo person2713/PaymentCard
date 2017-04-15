@@ -1,5 +1,9 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +28,23 @@ public class Companies {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CITY_ID")
+    @JsonBackReference
     private Cities city;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    @JsonManagedReference
+    public List<Owners> owners = new ArrayList<Owners>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    @JsonManagedReference
     public List<Buses> buses = new ArrayList<Buses>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    @JsonManagedReference
     private List<Drivers> drivers = new ArrayList<Drivers>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    @JsonManagedReference
     public List<Routes> routes = new ArrayList<Routes>();
 
     public Companies() {
@@ -96,6 +108,14 @@ public class Companies {
 
     public void setRoutes(List<Routes> routes) {
         this.routes = routes;
+    }
+
+    public List<Owners> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(List<Owners> persons) {
+        this.owners = persons;
     }
 
     @Override

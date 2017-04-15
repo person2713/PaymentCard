@@ -20,7 +20,7 @@ public abstract class AbstractRepository<Entity> {
 
 
     @Autowired
-    private SessionFactory sessionFactory;
+    public SessionFactory sessionFactory;
 
     protected Criteria createEntityCriteria() {
         return getSession().createCriteria(persistentClass);
