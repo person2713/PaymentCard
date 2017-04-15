@@ -32,7 +32,7 @@ public class Routes {
     @Column(name = "ROUTE_NUMBER", nullable = false, length = 10)
     private String routeNumber;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "route", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<CarAssign> carAssign = new ArrayList<>();
 

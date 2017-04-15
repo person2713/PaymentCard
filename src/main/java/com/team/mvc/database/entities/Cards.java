@@ -43,11 +43,11 @@ public class Cards {
     @JoinColumn(name="CARD_ID", nullable = false)
     private CardBalance cardBalance;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     public List<Events> events = new ArrayList<Events>();
 

@@ -36,19 +36,19 @@ public class Companies {
     @JsonBackReference
     private Cities city;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     public List<Owners> owners = new ArrayList<Owners>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     public List<Buses> buses = new ArrayList<Buses>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<Drivers> drivers = new ArrayList<Drivers>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     public List<Routes> routes = new ArrayList<Routes>();
 

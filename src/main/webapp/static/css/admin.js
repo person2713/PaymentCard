@@ -2,6 +2,7 @@ function deleteUser() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
 
+
     var mass = new Array();
     $("#dataTable").find("tr").each(function () {
         if ($(this).find("input").is(":checked")) {
@@ -14,10 +15,10 @@ function deleteUser() {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         url: "/admin/delete",
-//                                headers : {
-//                                    'Accept' : 'application/json',
-//                                    'Content-Type' : 'application/json'
-//                                },
+                               // headers : {
+                               //     'Accept' : 'application/json',
+                               //     'Content-Type' : 'application/json'
+                               // },
         data: JSON.stringify(mass), // Note it is important
         beforeSend: function (xhr) {
             // here it is
@@ -138,6 +139,7 @@ function getDrivers() {
                 "Электронная почта" + '</th><th>' +
                 "Город" + '</th><th>' +
                 '</th></tr></thead><tbody>'
+
             ;
 
             $.each(response, function (i, item) {

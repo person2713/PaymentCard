@@ -31,7 +31,7 @@ public class CardBalance {
     private BigDecimal balance;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardBalance")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardBalance", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();
 

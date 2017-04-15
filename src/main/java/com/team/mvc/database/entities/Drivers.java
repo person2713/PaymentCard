@@ -33,7 +33,7 @@ public class Drivers {
     private Companies company;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<CarAssign> carAssign = new ArrayList<>();
 

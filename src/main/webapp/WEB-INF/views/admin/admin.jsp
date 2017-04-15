@@ -1,35 +1,57 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- saved from url=(0027)http://localhost:8081/admin -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="_csrf" content="${_csrf.token}"/>
-    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <meta name="_csrf" content="6417ec49-aa65-48f9-a7e5-1da3bbff98c2">
     <link rel="icon" href="https://v4-alpha.getbootstrap.com/favicon.ico">
 
-    <title>Payment Card</title>
+    <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath}/static/css/dashboard.css" rel="stylesheet">
-    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>--%>
-    <script src="${pageContext.request.contextPath}/static/css/jquery-3.2.1.js"></script>
-
-    <script src="${pageContext.request.contextPath}/static/css/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="${pageContext.request.contextPath}/static/css/admin.js"></script>
-    <script src="${pageContext.request.contextPath}/static/css/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/static/css/bootstrap-table-contextmenu.js"></script>
-    <script src="${pageContext.request.contextPath}/static/css/bootstrapTable/bootstrap-table.js"></script>
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="${pageContext.request.contextPath}/static/css/ie10-viewport-bug-workaround.js"></script>
+    <link href="/static/css/dashboard.css" rel="stylesheet">
 
 
+
+    <!-- <link href="./Dashboard Template for Bootstrap_files/css" rel="stylesheet" type="text/css"> -->
+    <!-- <link href="./Dashboard Template for Bootstrap_files/todc-bootstrap.css" rel="stylesheet"> -->
+
+    <!-- <link rel="stylesheet" href="./Dashboard Template for Bootstrap_files/bootstrap-table.min.css"> -->
+    <!-- <link rel="stylesheet" href="./Dashboard Template for Bootstrap_files/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="./Dashboard Template for Bootstrap_files/github.min.css"> -->
+
+    <script src="/static/css/jquery-3.2.1.js"></script>
+
+
+
+
+    <!-- <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script> -->
+    <script src="/static/css/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="/static/css/admin.js"></script>
+    <script src="/static/css/bootstrap.min.js"></script>
+    <script src="/static/css/bootstrap-table-contextmenu.js"></script>
+    <script src="/static/css/bootstrap-table.js"></script>
+
+
+
+
+    <!-- <script src="./Dashboard Template for Bootstrap_files/jquery-2.1.4.min.js.Без названия"></script> -->
+    <!-- <script src="./Dashboard Template for Bootstrap_files/bootstrap.min.js.Без названия"></script> -->
+    <!-- <script src="./Dashboard Template for Bootstrap_files/bootstrap-table.min.js.Без названия"></script> -->
+    <!-- <script src="./Dashboard Template for Bootstrap_files/bootstrap-table-en-US.min.js.Без названия"></script> -->
+    <!-- <script src="./Dashboard Template for Bootstrap_files/highlight.min.js.Без названия"></script> -->
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+    <script src="/static/css/bootstrap-table-contextmenu.js"></script>
     <style>
         .dropdown-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:160px;padding:5px 0;margin:2px 0 0;font-size:14px;text-align:left;list-style:none;background-color:#fff;-webkit-background-clip:padding-box;background-clip:padding-box;border:1px solid #ccc;border:1px solid rgba(0,0,0,.15);border-radius:4px;-webkit-box-shadow:0 6px 12px rgba(0,0,0,.175);box-shadow:0 6px 12px rgba(0,0,0,.175)}
         .dropdown-menu>li>a{display:block;padding:3px 20px;clear:both;font-weight:400;line-height:1.42857143;color:#333;white-space:nowrap}
@@ -82,6 +104,11 @@
             background-repeat: repeat-x;
         }
 
+
+        .striped {
+            background-color: #f7f7f7;
+        }
+
         .ofset {
             padding-left: 30px;
             padding-right: 30px;
@@ -109,16 +136,14 @@
 <div id="wrapper">
     <div id="header">
         <div class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-            <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse"
-                    data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
-                    aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="https://v4-alpha.getbootstrap.com/examples/dashboard/#">PaymentCard</a>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="#">User</a></li>
-                    <li><a href="#">Выйти</a></li>
+                    <li class="active"><a href="http://localhost:8081/admin#">User</a></li>
+                    <li><a href="http://localhost:8081/admin#">Выйти</a></li>
                 </ul>
             </div>
         </div>
@@ -129,7 +154,7 @@
                 <div class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
 
                     <div class="dropdown ofset">
-                        <button class="btn btn-primary dropdown-toggle btn-block" type="button" data-toggle="dropdown">
+                        <button class="btn btn-primary dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-expanded="false">
                             Показать
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu contmenu">
@@ -145,35 +170,37 @@
                             Добавить
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu contmenu">
-                            <button type="button" class="btn btn-link" onclick="getUser();">Пользователя</button><br/>
-                            <button type="button" class="btn btn-link" onclick="getUser();">Компанию</button><br/>
-                            <button type="button" class="btn btn-link" onclick="getUser();">Карту</button><br/>
-                            <button type="button" class="btn btn-link" onclick="getUser();">Машину</button><br/>
+                            <button type="button" class="btn btn-link" onclick="getUser();">Пользователя</button><br>
+                            <button type="button" class="btn btn-link" onclick="getUser();">Компанию</button><br>
+                            <button type="button" class="btn btn-link" onclick="getUser();">Карту</button><br>
+                            <button type="button" class="btn btn-link" onclick="getUser();">Машину</button><br>
                         </ul>
                     </div>
                     <div class="dropdown">
-                    <button type="button" class="btn btn-primary ofset btn-block" onclick="deleteUser()">Удалить</button>
+                        <button type="button" class="btn btn-primary ofset btn-block" onclick="deleteUser()">Удалить</button>
                     </div>
-            </div>
+                </div>
 
             </div>
         </div>
 
 
         <div id="head" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-        </div>
 
 
-
-        <ul id="context-menu" class="dropdown-menu">
+    <%--контекстное меню для таблицы -пока не получается --%>
+        <ul id="context-menu" class="dropdown-menu" style="position: absolute; left: 561px; top: 1169px; z-index: 1100; display: none;">
             <li data-item="edit"><a>Edit</a></li>
             <li data-item="delete"><a>Delete</a></li>
             <li data-item="action1"><a>Action Here</a></li>
             <li data-item="action2"><a>And Action Here</a></li>
         </ul>
 
+
+            <%--для контекстного меню, не рабо--%>
         <script>
-            $(function () {
+            $(document).ready((function (){
+
                 $("#dataTable").bootstrapTable({
                     rowStyle: "rowStyle",
                     contextMenu: '#context-menu',
@@ -194,7 +221,7 @@
                         }
                     }
                 });
-            });
+            }));
 
             // Special row styling
             var striped = 1;
@@ -223,5 +250,5 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-</body>
-</html>
+
+</body></html>

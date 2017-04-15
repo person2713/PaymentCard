@@ -29,12 +29,12 @@ public class Buses {
     private Companies company;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     public List<Events> events = new ArrayList<Events>();
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     public List<CarAssign> carAssign = new ArrayList<>();
 
