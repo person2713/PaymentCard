@@ -4,7 +4,7 @@ function deleteUser() {
 
 
     var mass = [];
-    $("#dataTable").find("tr").each(function () {
+    $("table").find("tr").each(function () {
         if ($(this).find("input").is(":checked")) {
             mass.push($(this).find("td").eq(0).html());
             $(this).remove();
@@ -80,8 +80,6 @@ function saveChanges() {
 // переменная для поиска
 var forSearch;
 
-// массив для взятий информации о пользователе из таблицы
-var userInfo = [];
 
 function searchUser() {
     // var a = [];
@@ -98,7 +96,7 @@ function searchUser() {
         }
 
     });
-    if(count1==count2){
+    if (count1 == count2) {
         alert("Результаты не найдены")
         if ($("#tableForUser").length != 0) {
             getUsers();
@@ -130,6 +128,55 @@ function searchUser() {
 
 
 function editUser() {
+// массив для взятий информации о пользователе из таблицы
+    var userInfo = [];
+
+    // $("table").find("tr").each(function () {
+    //
+    //     if($(this).is(":visible")){
+    //         alert("success");
+    //         console.log("SUCCESS")
+    //     }
+    // })
+    var count = 0;
+    // здесь надо передать одно значение, то есть один ряд с инфой о пользователе иначе кинуть alert
+    $("table").find("tr").each(function () {
+        if ($(this).find("input").is(":checked")) {
+            count++;
+        }
+    });
+    if (count <= 1) {
+        $("table").find("tr").each(function () {
+            if ($(this).find("input").is(":checked")) {
+                $(this).find("td").each(function () {
+                    userInfo.push(this.innerHTML);
+                })
+                return false;
+            }
+            count = 0;
+        });
+    }
+    else {
+        alert("Выбрано больше одного значения");
+        if ($("#tableForUser").length != 0) {
+            getUsers();
+            count = 0;
+            return;
+        }
+        if ($("#tableForOwners").length != 0) {
+            getOwners();
+            count = 0;
+            return;
+        }
+        if ($("#tableForDrivers").length != 0) {
+            getDrivers();
+            count = 0;
+            return;
+        }
+    }
+    console.log(userInfo);
+    // alert("SUCCESS");
+
 
     $("#head").children().remove();
     var trHTML = '';
@@ -205,14 +252,14 @@ function editUser() {
         '</form>';
     $("#head").append(trHTML);
 
-    document.getElementById("inputNick").value = userInfo[0];
-    massChanges.push(userInfo[0]);
-    document.getElementById("inputFirstname").value = userInfo[1];
-    document.getElementById("inputLastname").value = userInfo[2];
-    document.getElementById("inputMobile").value = userInfo[3];
-    document.getElementById("inputEmail").value = userInfo[4];
-    document.getElementById("inputPassword1").value = userInfo[6];
-    document.getElementById("inputPassword2").value = userInfo[6];
+    document.getElementById("inputNick").value = userInfo[1];
+    // massChanges.push(userInfo[0]);
+    document.getElementById("inputFirstname").value = userInfo[2];
+    document.getElementById("inputLastname").value = userInfo[3];
+    document.getElementById("inputMobile").value = userInfo[4];
+    document.getElementById("inputEmail").value = userInfo[5];
+    document.getElementById("inputPassword1").value = userInfo[7];
+    document.getElementById("inputPassword2").value = userInfo[7];
 
     userInfo = [];
 }
@@ -231,7 +278,7 @@ function getUsers() {
                 var trHTML = '';
                 trHTML += '<div class="row">' +
                     '<div class="col-sm-3">' +
-                    '<h2>Пользователи</h2>' +
+                    '<h2>Водители</h2>' +
                     '</div>' +
                     '<div class="offset-sm-5">' +
                     '<form class="navbar-form navbar-right">' +
@@ -257,9 +304,9 @@ function getUsers() {
                     "Город" + '</th><th>' +
                     '</th></tr></thead><tbody>'
                 ;
-
                 $.each(response, function (i, item) {
-                    trHTML += '<tr><td id="tdNick">' +
+                    trHTML += '<tr><td style="display:none">' +
+                        item.personId + '</td><td id="tdNick">' +
                         item.nickname + '</td><td>' +
                         item.firstName + '</td><td>' +
                         item.lastName + '</td><td>' +
@@ -333,7 +380,8 @@ function getOwners() {
                 ;
 
                 $.each(response, function (i, item) {
-                    trHTML += '<tr><td id="tdNick">' +
+                    trHTML += '<tr><td style="display:none">' +
+                        item.personId + '</td><td id="tdNick">' +
                         item.nickname + '</td><td>' +
                         item.firstName + '</td><td>' +
                         item.lastName + '</td><td>' +
@@ -407,7 +455,8 @@ function getDrivers() {
                 ;
 
                 $.each(response, function (i, item) {
-                    trHTML += '<tr><td id="tdNick">' +
+                    trHTML += '<tr><td style="display:none">' +
+                        item.personId + '</td><td id="tdNick">' +
                         item.nickname + '</td><td>' +
                         item.firstName + '</td><td>' +
                         item.lastName + '</td><td>' +

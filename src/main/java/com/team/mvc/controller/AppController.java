@@ -1,6 +1,8 @@
 package com.team.mvc.controller;
 
+import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.entities.Persons;
+import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.PersonService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +25,9 @@ public class AppController {
 
 
     private static final Logger logger = Logger.getLogger(AppController.class.getName());
+
+    @Autowired
+    CityService cityService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -75,6 +77,12 @@ public class AppController {
         return personService.getDrivers();
     }
 
+    @RequestMapping(value = "/admin/getCities", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Cities> getCities() {
+        return cityService.getAll();
+    }
 
     @RequestMapping(value = "/admin/saveChanges", method = RequestMethod.POST)
     public
@@ -160,6 +168,12 @@ public class AppController {
         }
         return "redirect:/login?logout";
     }
+
+    @ModelAttribute("cities")
+    public List<Cities> initializeCities() {
+        return cityService.getAll();
+    }
+
 
 
     // метод для проверки авторизации пользователя
