@@ -1,3 +1,6 @@
+// массив для сохранения изменений
+var massChanges = [];
+
 function deleteUser() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
@@ -37,8 +40,7 @@ function deleteUser() {
 }
 
 
-// массив для сохранения изменений
-var massChanges = [];
+
 
 function saveChanges() {
     var token = $("meta[name='_csrf']").attr("content");
@@ -48,6 +50,7 @@ function saveChanges() {
         $("#changeForm").find("input").each(function () {
             massChanges.push(this.value);
         })
+        massChanges.push($( "#cities option:selected" ).text());
         console.log(massChanges);
     })
     $.ajax({
@@ -176,11 +179,13 @@ function editUser() {
     }
     console.log(userInfo);
     // alert("SUCCESS");
-
+    getCities();
+    console.log(listCities);
 
     $("#head").children().remove();
     var trHTML = '';
     trHTML += '<form id="changeForm" class="form-horizontal" role="form">' +
+        '<input id="inputID" class="form-control" type="text" style="visibility:hidden">' +
         '<div class="form-group">' +
         '<label class="col-lg-3 control-label">Ник:</label>' +
         '<div class="col-lg-8">' +
@@ -215,15 +220,15 @@ function editUser() {
         '<label class="col-lg-3 control-label">Город:</label>' +
         '<div class="col-lg-8">' +
         '<div class="ui-select">' +
-        '<select id="user_time_zone" class="form-control">' +
-        '<option value="Hawaii">(GMT-10:00) Hawaii</option>' +
-        '<option value="Alaska">(GMT-09:00) Alaska</option>' +
-        '<option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>' +
-        '<option value="Arizona">(GMT-07:00) Arizona</option>' +
-        '<option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>' +
-        '<option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>' +
-        '<option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>' +
-        '<option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>' +
+        '<select id="cities" class="form-control">' +
+        // '<option value="Hawaii">(GMT-10:00) Hawaii</option>' +
+        // '<option value="Alaska">(GMT-09:00) Alaska</option>' +
+        // '<option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>' +
+        // '<option value="Arizona">(GMT-07:00) Arizona</option>' +
+        // '<option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>' +
+        // '<option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>' +
+        // '<option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>' +
+        // '<option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>' +
         '</select>' +
         '</div>' +
         '</div>' +
@@ -244,24 +249,33 @@ function editUser() {
         '<label class="col-md-3 control-label"></label>' +
         '<div class="col-md-8">' +
         // '<input type="button" class="btn btn-primary" onclick="saveChanges();" value="Save Changes">'
-        '<button type="button" class="btn btn-link" onclick="saveChanges();">Сохранить</button><br>' +
+        '<button type="button" class="btn btn-primary" onclick="saveChanges();">Сохранить</button><br>' +
         '<span></span>' +
         '<input type="reset" class="btn btn-default" value="Cancel">' +
         '</div>' +
         '</div>' +
         '</form>';
     $("#head").append(trHTML);
+    if (userInfo[1] == null) {
+        alert("Выберите пользователя для редактирования");
+        $("#head").children().remove();
+    }
+    else {
+        //Записываем индекс
+        // massChanges.push(userInfo[0]);
+        // console.log(massChanges);
+        document.getElementById("inputID").value = userInfo[0];
+        document.getElementById("inputNick").value = userInfo[1];
+        document.getElementById("inputFirstname").value = userInfo[2];
+        document.getElementById("inputLastname").value = userInfo[3];
+        document.getElementById("inputMobile").value = userInfo[4];
+        document.getElementById("inputEmail").value = userInfo[5];
+        document.getElementById("cities").value = userInfo[6];
+        document.getElementById("inputPassword1").value = userInfo[7];
+        document.getElementById("inputPassword2").value = userInfo[7];
 
-    document.getElementById("inputNick").value = userInfo[1];
-    // massChanges.push(userInfo[0]);
-    document.getElementById("inputFirstname").value = userInfo[2];
-    document.getElementById("inputLastname").value = userInfo[3];
-    document.getElementById("inputMobile").value = userInfo[4];
-    document.getElementById("inputEmail").value = userInfo[5];
-    document.getElementById("inputPassword1").value = userInfo[7];
-    document.getElementById("inputPassword2").value = userInfo[7];
-
-    userInfo = [];
+        userInfo = [];
+    }
 }
 
 function getUsers() {
@@ -335,6 +349,30 @@ function getUsers() {
             }
         )
     }
+}
+
+var listCities = [];
+var city;
+function getCities() {
+
+    $.ajax({
+        type: "GET",
+        url: "/admin/getCities",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+                listCities.push(item);
+            });
+            $.each(listCities, function (i, item) {
+
+                city += '<option>' + item + '</option>';
+            })
+            $("#cities").append(city);
+        },
+        error: function () {
+            alert("error")
+        }
+    })
 }
 
 function getOwners() {

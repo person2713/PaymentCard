@@ -80,8 +80,21 @@ public class AppController {
     @RequestMapping(value = "/admin/getCities", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<Cities> getCities() {
-        return cityService.getAll();
+    List<String> getCities() {
+        return cityService.stringCities();
+    }
+
+
+    @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String deleteUser(@RequestBody List<String> list) {
+
+        for (String nickName : list) {
+            personService.deleteByNickName(nickName);
+            System.out.println("Delete " + nickName);
+        }
+        return "Success";
     }
 
     @RequestMapping(value = "/admin/saveChanges", method = RequestMethod.POST)
@@ -89,7 +102,7 @@ public class AppController {
     @ResponseBody
     String saveChanges(@RequestBody List<String> list) {
 
-
+        System.out.println("SAVECHANGES");
         for (String s:list) {
             System.out.println(s);
         }
@@ -108,17 +121,7 @@ public class AppController {
     }
 
 
-    @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String deleteUser(@RequestBody List<String> list) {
 
-        for (String nickName : list) {
-            personService.deleteByNickName(nickName);
-            System.out.println("Delete " + nickName);
-        }
-        return "Success";
-    }
 
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)

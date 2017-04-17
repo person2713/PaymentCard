@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,5 +28,13 @@ public class CityService {
 
     public Cities findById(long id) throws NotFoundException {
         return citiesRepository.getById(id);
+    }
+
+    public List<String> stringCities(){
+        List<String> list = new ArrayList<>();
+        for (Cities city: citiesRepository.getAll()) {
+            list.add(city.getCityName());
+        }
+        return list;
     }
 }
