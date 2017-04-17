@@ -52,5 +52,8 @@ public abstract class AbstractRepository<Entity> {
         getSession().delete(entity);
     }
 
+    public void update(Entity entity){
+        getSession().update(entity);
+    }
 
 }

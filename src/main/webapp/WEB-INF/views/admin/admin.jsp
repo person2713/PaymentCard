@@ -1,12 +1,10 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<!-- saved from url=(0027)http://localhost:8081/admin -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
     <meta name="_csrf" content="${_csrf.token}"/>
-    <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -31,7 +29,14 @@
     <!-- <link rel="stylesheet" href="./Dashboard Template for Bootstrap_files/github.min.css"> -->
 
     <script src="/static/css/jquery-3.2.1.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+
+    <!-- Latest compiled and minified Locales -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
 
 
 
@@ -39,19 +44,13 @@
     <script src="/static/css/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="/static/css/admin.js"></script>
     <script src="/static/css/bootstrap.min.js"></script>
+    <script src="/static/css/bootstrap-table.min.js"></script>
     <script src="/static/css/bootstrap-table-contextmenu.js"></script>
     <script src="/static/css/bootstrap-table.js"></script>
-
-
-
-
-    <!-- <script src="./Dashboard Template for Bootstrap_files/jquery-2.1.4.min.js.Без названия"></script> -->
-    <!-- <script src="./Dashboard Template for Bootstrap_files/bootstrap.min.js.Без названия"></script> -->
-    <!-- <script src="./Dashboard Template for Bootstrap_files/bootstrap-table.min.js.Без названия"></script> -->
-    <!-- <script src="./Dashboard Template for Bootstrap_files/bootstrap-table-en-US.min.js.Без названия"></script> -->
-    <!-- <script src="./Dashboard Template for Bootstrap_files/highlight.min.js.Без названия"></script> -->
-    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
-    <script src="/static/css/bootstrap-table-contextmenu.js"></script>
+    <script src="/static/css/highlight.min.js"></script>
+    <%--<script src="/static/css/bootstrap-table-en-US.min.js"></script>--%>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <%--<script src="/static/css/bootstrap-table-contextmenu.js"></script>--%>
     <style>
         .dropdown-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:160px;padding:5px 0;margin:2px 0 0;font-size:14px;text-align:left;list-style:none;background-color:#fff;-webkit-background-clip:padding-box;background-clip:padding-box;border:1px solid #ccc;border:1px solid rgba(0,0,0,.15);border-radius:4px;-webkit-box-shadow:0 6px 12px rgba(0,0,0,.175);box-shadow:0 6px 12px rgba(0,0,0,.175)}
         .dropdown-menu>li>a{display:block;padding:3px 20px;clear:both;font-weight:400;line-height:1.42857143;color:#333;white-space:nowrap}
@@ -170,7 +169,7 @@
                             Добавить
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu contmenu">
-                            <button type="button" class="btn btn-link" onclick="getUser();">Пользователя</button><br>
+                            <button type="button" class="btn btn-link" onclick="getUsers();">Пользователя</button><br>
                             <button type="button" class="btn btn-link" onclick="getUser();">Компанию</button><br>
                             <button type="button" class="btn btn-link" onclick="getUser();">Карту</button><br>
                             <button type="button" class="btn btn-link" onclick="getUser();">Машину</button><br>
@@ -179,6 +178,9 @@
                     <div class="dropdown">
                         <button type="button" class="btn btn-primary ofset btn-block" onclick="deleteUser()">Удалить</button>
                     </div>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-primary ofset btn-block" onclick="editUser()">Редактировать</button>
+                    </div>
                 </div>
 
             </div>
@@ -186,6 +188,7 @@
 
 
         <div id="head" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+        </div>
 
 
     <%--контекстное меню для таблицы -пока не получается --%>
@@ -196,51 +199,52 @@
             <li data-item="action2"><a>And Action Here</a></li>
         </ul>
 
+            <%--&lt;%&ndash;для контекстного меню, не рабо&ndash;%&gt;--%>
+        <%--<script>--%>
+            <%--$(document).ready((function (){--%>
 
-            <%--для контекстного меню, не рабо--%>
-        <script>
-            $(document).ready((function (){
+                <%--$("#dataTable").bootstrapTable({--%>
+                    <%--rowStyle: "rowStyle",--%>
+                    <%--contextMenu: '#context-menu',--%>
+                    <%--contextMenuTrigger: 'right',--%>
+                    <%--onClickRow: function(row, $el){--%>
+                        <%--$("#dataTable").find(".success").removeClass('success');--%>
+                        <%--$el.addClass('success');--%>
+                    <%--},--%>
+                    <%--onContextMenuItem: function(row, $el){--%>
+                        <%--if($el.data("item") == "edit"){--%>
+                            <%--alert("Edit: " + row.itemid + ' ' + row.name + ' ' + row.price);--%>
+                        <%--} else if($el.data("item") == "delete"){--%>
+                            <%--alert("Delete: " + row.itemid + ' ' + row.name + ' ' + row.price);--%>
+                        <%--} else if($el.data("item") == "action1"){--%>
+                            <%--alert("Action1: " + row.itemid + ' ' + row.name + ' ' + row.price);--%>
+                        <%--} else if($el.data("item") == "action2"){--%>
+                            <%--alert("Action2: " + row.itemid + ' ' + row.name + ' ' + row.price);--%>
+                        <%--}--%>
+                    <%--}--%>
+                <%--});--%>
+            <%--}));--%>
 
-                $("#dataTable").bootstrapTable({
-                    rowStyle: "rowStyle",
-                    contextMenu: '#context-menu',
-                    contextMenuTrigger: 'right',
-                    onClickRow: function(row, $el){
-                        $("#dataTable").find(".success").removeClass('success');
-                        $el.addClass('success');
-                    },
-                    onContextMenuItem: function(row, $el){
-                        if($el.data("item") == "edit"){
-                            alert("Edit: " + row.itemid + ' ' + row.name + ' ' + row.price);
-                        } else if($el.data("item") == "delete"){
-                            alert("Delete: " + row.itemid + ' ' + row.name + ' ' + row.price);
-                        } else if($el.data("item") == "action1"){
-                            alert("Action1: " + row.itemid + ' ' + row.name + ' ' + row.price);
-                        } else if($el.data("item") == "action2"){
-                            alert("Action2: " + row.itemid + ' ' + row.name + ' ' + row.price);
-                        }
-                    }
-                });
-            }));
+            <%--// Special row styling--%>
+            <%--var striped = 1;--%>
+            <%--var stripeClass = '';--%>
+            <%--function rowStyle(row, index) {--%>
+                <%--striped++;--%>
+                <%--if(striped % 2 == 0){--%>
+                    <%--stripeClass = 'striped';--%>
+                <%--}--%>
+                <%--else{--%>
+                    <%--stripeClass = '';--%>
+                <%--}--%>
 
-            // Special row styling
-            var striped = 1;
-            var stripeClass = '';
-            function rowStyle(row, index) {
-                striped++;
-                if(striped % 2 == 0){
-                    stripeClass = 'striped';
-                }
-                else{
-                    stripeClass = '';
-                }
+                <%--return {--%>
+                    <%--classes: stripeClass--%>
+                <%--};--%>
+            <%--}--%>
 
-                return {
-                    classes: stripeClass
-                };
-            }
+        <%--</script>--%>
 
-        </script>
+
     </div>
     <div id="footer">
 

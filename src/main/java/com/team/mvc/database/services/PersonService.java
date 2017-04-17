@@ -84,4 +84,8 @@ public class PersonService {
     public CardBalance findBalanceByNickname(String nickname) {return personRepository.findBalanceByNickname(nickname);}
     public List<BalanceHist> findBalanceHistByNickname(String nickname) {return personRepository.findBalanceHistByNickname(nickname);}
     public List<Events> findEventsByNickname(String nickname) {return personRepository.findEventsByNickname(nickname);}
+
+    public void update(Persons person){
+        personRepository.update(person);
+    }
 }

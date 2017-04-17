@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +28,9 @@ public class AppController {
     private static final Logger logger = Logger.getLogger(AppController.class.getName());
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     PersonService personService;
 
     @Autowired
@@ -40,7 +44,9 @@ public class AppController {
     }
 
     @RequestMapping(value = "/admin/getlAllUsers", method = RequestMethod.GET)
-    public @ResponseBody List<Persons> getAllUsers() {
+    public
+    @ResponseBody
+    List<Persons> getAllUsers() {
         List<Persons> listPerson = personService.getAllUser();
         Persons person = personService.findByNickname(GetRole.getPrincipal());
         listPerson.remove(person);
@@ -49,26 +55,55 @@ public class AppController {
 
 
     @RequestMapping(value = "/admin/getUsers", method = RequestMethod.GET)
-    public @ResponseBody List<Persons> getUsers() {
+    public
+    @ResponseBody
+    List<Persons> getUsers() {
         return personService.getUsers();
     }
 
     @RequestMapping(value = "/admin/getOwners", method = RequestMethod.GET)
-    public @ResponseBody List<Persons> getOwners() {
+    public
+    @ResponseBody
+    List<Persons> getOwners() {
         return personService.getOwners();
     }
 
     @RequestMapping(value = "/admin/getDrivers", method = RequestMethod.GET)
-    public @ResponseBody List<Persons> getDrives() {
+    public
+    @ResponseBody
+    List<Persons> getDrives() {
         return personService.getDrivers();
     }
 
+
+    @RequestMapping(value = "/admin/saveChanges", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String saveChanges(@RequestBody List<String> list) {
+
+
+        for (String s:list) {
+            System.out.println(s);
+        }
+
+//        Persons person = personService.findByNickname(list.get(0));
+//        person.setNickname(list.get(1).toString());
+//        person.setFirstName(list.get(2).toString());
+//        person.setLastName(list.get(3).toString());
+//        person.setMobileNumber(list.get(4).toString());
+//        person.setEmail(list.get(5).toString());
+//        person.setPassword(passwordEncoder.encode(list.get(6)));
+
+//        personService.update(person);
+        System.out.println("Success changes");
+        return "Success changes";
+    }
 
 
     @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
     public
     @ResponseBody
-    String deleteUser(@RequestBody List<String> list, HttpServletRequest request) {
+    String deleteUser(@RequestBody List<String> list) {
 
         for (String nickName : list) {
             personService.deleteByNickName(nickName);
@@ -76,12 +111,6 @@ public class AppController {
         }
         return "Success";
     }
-
-
-
-
-
-
 
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -131,7 +160,6 @@ public class AppController {
         }
         return "redirect:/login?logout";
     }
-
 
 
     // метод для проверки авторизации пользователя
