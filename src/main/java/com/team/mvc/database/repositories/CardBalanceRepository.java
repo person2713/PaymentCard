@@ -7,8 +7,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import com.team.mvc.database.entities.Cards;
+import com.team.mvc.database.entities.Persons;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 
 @Repository
@@ -50,6 +55,24 @@ public class CardBalanceRepository extends AbstractRepository<CardBalance> {
         session.getTransaction().commit();
 
          }
+
+    public CardBalance findByCard(Cards card) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("card", card));
+        return (CardBalance) criteria.uniqueResult();
+    }
+
+    public void save(CardBalance cardBalance) {
+        super.save(cardBalance);
+    }
+
+    @Override
+    public List<CardBalance> getAll() {
+        Criteria criteria = createEntityCriteria();
+        criteria.addOrder(Order.asc("balanceId"));
+        return criteria.list();
+    }
+
 
 
 
