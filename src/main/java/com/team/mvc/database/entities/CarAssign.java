@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 
 @Entity
@@ -16,7 +17,7 @@ public class CarAssign {
     private long carAssignId;
 
     @Column(name = "DATE_ASSIGN")
-    private Timestamp dateAssign;
+    private Timestamp dateAssign=new Timestamp(Calendar.getInstance().getTime().getTime());
 
     @ManyToOne
     @JoinColumn(name="BUS_ID")

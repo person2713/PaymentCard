@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -46,12 +47,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasRole("USER")
                 .antMatchers("/driver/**").hasRole("DRIVER")
+                .antMatchers("/API/**").hasRole("DRIVER")
                 .antMatchers("/owner/**").hasRole("OWNER")
                 .and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
                 .failureHandler(customFailureHandler)
                 .usernameParameter("nickName").passwordParameter("password")
+                .and().httpBasic()
                 .and().csrf()
                 .and().exceptionHandling().accessDeniedPage("/Access_Denied");
+    }
+
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/API/driverLogin/csrf-token")
+                .antMatchers("/API/getBlockedCards")
+        ;
     }
 
     @Bean

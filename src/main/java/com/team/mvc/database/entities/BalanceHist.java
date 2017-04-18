@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 
 @Entity
@@ -29,7 +30,7 @@ public class BalanceHist {
 
 
     @Column(name = "DATE_EVENT")
-    private Timestamp dateEvent;
+    private Timestamp dateEvent=new Timestamp(Calendar.getInstance().getTime().getTime());
 
     @ManyToOne
     @JoinColumn(name = "BALANCE_ID", nullable = false)

@@ -18,7 +18,7 @@ public class BlackListService {
     @Autowired
     CardsRepository cardsRepository;
 
-    public List<Cards> getAllBlockCards(){
+    public List<Cards> getAllBlockCards() {
         return cardsRepository.getAllBlockCards();
     }
 
