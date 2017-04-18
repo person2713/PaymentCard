@@ -56,4 +56,7 @@ public abstract class AbstractRepository<Entity> {
         getSession().update(entity);
     }
 
+//    public Entity load(int id){
+//        getSession().load(Entity.class, id);
+//    }
 }

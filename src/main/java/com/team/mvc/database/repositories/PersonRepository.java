@@ -4,6 +4,7 @@ package com.team.mvc.database.repositories;
 import com.team.mvc.database.entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -87,4 +88,21 @@ public class PersonRepository extends AbstractRepository<Persons> {
     public void deleteByNickName(String nickname){
         super.delete(this.findByNickname(nickname));
     }
+
+
+
+    public void update(int id, String nickname, String firstName, String lastName, String mobileNumber,
+                       String email, Cities city, String password) {
+        Session session = getSession();
+        Persons persons = session.load(Persons.class, id);
+        persons.setNickname(nickname);
+        persons.setPassword(password);
+        persons.setFirstName(firstName);
+        persons.setLastName(lastName);
+        persons.setCity(city);
+        persons.setMobileNumber(mobileNumber);
+        persons.setEmail(email);
+        session.update(persons);
+    }
+
 }

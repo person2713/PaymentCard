@@ -1,8 +1,10 @@
 package com.team.mvc.database.services;
 
 import com.team.mvc.database.entities.*;
+import com.team.mvc.database.repositories.CitiesRepository;
 import com.team.mvc.database.repositories.PersonRepository;
 
+import com.team.mvc.database.repositories.RoleRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +21,13 @@ public class PersonService {
 
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    CitiesRepository citiesRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -85,7 +94,9 @@ public class PersonService {
     public List<BalanceHist> findBalanceHistByNickname(String nickname) {return personRepository.findBalanceHistByNickname(nickname);}
     public List<Events> findEventsByNickname(String nickname) {return personRepository.findEventsByNickname(nickname);}
 
-    public void update(Persons person){
-        personRepository.update(person);
+    public void update(int id, String nickname, String firstName, String lastName, String mobileNumber,
+                       String email, String stringCity, String password){
+        Cities city =  citiesRepository.findByName(stringCity);
+        personRepository.update(id, nickname, firstName, lastName, mobileNumber, email, city, passwordEncoder.encode(password));
     }
 }

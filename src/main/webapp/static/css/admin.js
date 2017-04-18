@@ -40,19 +40,17 @@ function deleteUser() {
 }
 
 
-
-
 function saveChanges() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
-    $("#changeForm").ready(function () {
+    // $("#changeForm").ready(function () {
 
-        $("#changeForm").find("input").each(function () {
-            massChanges.push(this.value);
-        })
-        massChanges.push($( "#cities option:selected" ).text());
-        console.log(massChanges);
+    $("#changeForm").find("input").each(function () {
+        massChanges.push(this.value);
     })
+    massChanges.push($("#cities option:selected").text());
+    console.log(massChanges);
+    // })
     $.ajax({
         type: "POST",
         contentType: 'application/json; charset=utf-8',
@@ -77,7 +75,19 @@ function saveChanges() {
 //                                    alert("Error" + result);
 //                                }
     });
+
+    if (massChanges[8] == "USER") {
+        getUsers();
+    }
+    if (massChanges[8] == "DRIVER") {
+        getDrivers();
+    }
+    if (massChanges[8] == "OWNER") {
+        getOwners();
+    }
+    alert("User edit successfully");
     massChanges = [];
+
 }
 
 // переменная для поиска
@@ -179,13 +189,13 @@ function editUser() {
     }
     console.log(userInfo);
     // alert("SUCCESS");
-    getCities();
-    console.log(listCities);
+
+    // console.log(listCities);
 
     $("#head").children().remove();
     var trHTML = '';
     trHTML += '<form id="changeForm" class="form-horizontal" role="form">' +
-        '<input id="inputID" class="form-control" type="text" style="visibility:hidden">' +
+        '<input id="inputID" class="form-control" type="text" style="visibility:hidden"/>' +
         '<div class="form-group">' +
         '<label class="col-lg-3 control-label">Ник:</label>' +
         '<div class="col-lg-8">' +
@@ -221,14 +231,15 @@ function editUser() {
         '<div class="col-lg-8">' +
         '<div class="ui-select">' +
         '<select id="cities" class="form-control">' +
-        // '<option value="Hawaii">(GMT-10:00) Hawaii</option>' +
-        // '<option value="Alaska">(GMT-09:00) Alaska</option>' +
-        // '<option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>' +
-        // '<option value="Arizona">(GMT-07:00) Arizona</option>' +
-        // '<option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>' +
-        // '<option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>' +
-        // '<option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>' +
-        // '<option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>' +
+        '</select>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="col-lg-3 control-label">Роль:</label>' +
+        '<div class="col-lg-8">' +
+        '<div class="ui-select">' +
+        '<select id="rollers" class="form-control">' +
         '</select>' +
         '</div>' +
         '</div>' +
@@ -245,13 +256,19 @@ function editUser() {
         '<input id="inputPassword2" class="form-control" type="password">' +
         '</div>' +
         '</div>' +
+        '<input id="role" class="form-control" type="text" style="visibility:hidden"/>' +
         '<div class="form-group">' +
         '<label class="col-md-3 control-label"></label>' +
         '<div class="col-md-8">' +
-        // '<input type="button" class="btn btn-primary" onclick="saveChanges();" value="Save Changes">'
+        '<div class="row">' +
+        '<div class="ofset">' +
         '<button type="button" class="btn btn-primary" onclick="saveChanges();">Сохранить</button><br>' +
+        '</div>' +
         '<span></span>' +
-        '<input type="reset" class="btn btn-default" value="Cancel">' +
+        '<div>' +
+        '<button type="button" class="btn btn-default" onclick="Cancel();">Отменить</button><br>' +
+        '</div>' +
+        '</div>' +
         '</div>' +
         '</div>' +
         '</form>';
@@ -264,17 +281,24 @@ function editUser() {
         //Записываем индекс
         // massChanges.push(userInfo[0]);
         // console.log(massChanges);
-        document.getElementById("inputID").value = userInfo[0];
-        document.getElementById("inputNick").value = userInfo[1];
-        document.getElementById("inputFirstname").value = userInfo[2];
-        document.getElementById("inputLastname").value = userInfo[3];
-        document.getElementById("inputMobile").value = userInfo[4];
-        document.getElementById("inputEmail").value = userInfo[5];
-        document.getElementById("cities").value = userInfo[6];
-        document.getElementById("inputPassword1").value = userInfo[7];
-        document.getElementById("inputPassword2").value = userInfo[7];
 
-        userInfo = [];
+        console.log(getRollers());
+        getCities().done(
+            getRollers().done(function () {
+                document.getElementById("inputID").value = userInfo[0];
+                document.getElementById("inputNick").value = userInfo[1];
+                document.getElementById("inputFirstname").value = userInfo[2];
+                document.getElementById("inputLastname").value = userInfo[3];
+                document.getElementById("inputMobile").value = userInfo[4];
+                document.getElementById("inputEmail").value = userInfo[5];
+                $("#cities").val(userInfo[6]);
+                $("#rollers").val(userInfo[8]);
+                // $('cities option:contains(userInfo[6])').prop('selected',true);
+                document.getElementById("inputPassword1").value = userInfo[7];
+                document.getElementById("inputPassword2").value = userInfo[7];
+                document.getElementById("role").value = userInfo[8];
+                userInfo = [];
+            }))
     }
 }
 
@@ -327,7 +351,8 @@ function getUsers() {
                         item.mobileNumber + '</td><td>' +
                         item.email + '</td><td>' +
                         item.city.cityName + '</td><td style="display:none;">' +
-                        item.password + '</td><td>' +
+                        item.password + '</td><td style="display:none;">' +
+                        item.role.roleType + '</td><td>' +
                         '<input type="checkbox" value=""/>' +
                         '</td></tr>';
                 });
@@ -351,11 +376,35 @@ function getUsers() {
     }
 }
 
+var listRole = [];
+var role;
+function getRollers() {
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getRollers",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+                listRole.push(item);
+            });
+            $.each(listRole, function (i, item) {
+
+                role += '<option>' + item + '</option>';
+            })
+            $("#rollers").append(role);
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+
+
 var listCities = [];
 var city;
 function getCities() {
 
-    $.ajax({
+    return $.ajax({
         type: "GET",
         url: "/admin/getCities",
         datatype: "json",
@@ -426,7 +475,8 @@ function getOwners() {
                         item.mobileNumber + '</td><td>' +
                         item.email + '</td><td>' +
                         item.city.cityName + '</td><td style="display:none;">' +
-                        item.password + '</td><td>' +
+                        item.password + '</td><td style="display:none;">' +
+                        item.role.roleType + '</td><td>' +
                         '<input type="checkbox" value=""/>' +
                         '</td></tr>';
                 });
@@ -449,6 +499,11 @@ function getOwners() {
         )
     }
 }
+
+function Cancel(){
+    $("#head").children().remove();
+}
+
 
 function getDrivers() {
 
@@ -501,7 +556,85 @@ function getDrivers() {
                         item.mobileNumber + '</td><td>' +
                         item.email + '</td><td>' +
                         item.city.cityName + '</td><td style="display:none;">' +
-                        item.password + '</td><td>' +
+                        item.password + '</td><td style="display:none;">' +
+                        item.role.roleType + '</td><td>' +
+                        '<input type="checkbox" value=""/>' +
+                        '</td></tr>';
+                });
+                trHTML += '</tbody>' + '</table>';
+                $("#head").append(trHTML);
+            },
+            error: function () {
+                alert("error")
+            }
+        }).done(function onload() {
+                forSearch = document.getElementById('inNick');
+            },
+            function () {
+                $('table tr').click(function (event) {
+                    if (event.target.type !== 'checkbox') {
+                        $(':checkbox', this).trigger('click');
+                    }
+                });
+            }
+        )
+    }
+}
+
+
+function getCards() {
+
+    if ($("#tableForCards").length != 0) {
+        $("tr").show();
+    }
+    else {
+        $("#head").children().remove();
+        $.ajax({
+            type: "GET",
+            url: "/admin/getDrivers",
+            datatype: "json",
+            success: function (response) {
+                var trHTML = '';
+                trHTML += '<div class="row">' +
+                    '<div class="col-sm-3">' +
+                    '<h2>Водители</h2>' +
+                    '</div>' +
+                    '<div class="offset-sm-5">' +
+                    '<form class="navbar-form navbar-right">' +
+                    '<div class="row">' +
+                    '<div>' +
+                    '<input id="inNick" name="inNick" type="text" class="form-control" placeholder="Search">' +
+                    '</div>' +
+                    '<div style="padding-left:10px">' +
+                    '<button type="button" class="btn btn-link" onclick="searchUser();">Найти</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</form>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="table-responsive">' +
+                    '<table id="tableForDrivers" class="table table-hover">' +
+                    '<thead ><tr id="tableHead"><th data-field="nickname">' +
+                    'Ник' + '</th><th data-field="firstName">' +
+                    "Имя" + '</th><th data-field="lastName">' +
+                    "Фамилия" + '</th><th data-field="mobilePhone">' +
+                    "Мобильный телефон" + '</th><th data-field="email">' +
+                    "Электронная почта" + '</th><th data-field="city">' +
+                    "Город" + '</th><th>' +
+                    '</th></tr></thead><tbody>'
+                ;
+
+                $.each(response, function (i, item) {
+                    trHTML += '<tr><td style="display:none">' +
+                        item.personId + '</td><td id="tdNick">' +
+                        item.nickname + '</td><td>' +
+                        item.firstName + '</td><td>' +
+                        item.lastName + '</td><td>' +
+                        item.mobileNumber + '</td><td>' +
+                        item.email + '</td><td>' +
+                        item.city.cityName + '</td><td style="display:none;">' +
+                        item.password + '</td><td style="display:none;">' +
+                        item.role.roleType + '</td><td>' +
                         '<input type="checkbox" value=""/>' +
                         '</td></tr>';
                 });
