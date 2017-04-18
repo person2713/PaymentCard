@@ -164,11 +164,6 @@
             <artifactId>quartz</artifactId>
             <version>2.2.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.10</version>
-        </dependency>
 
         <!-- convert object to json -->
         <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->

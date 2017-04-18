@@ -29,7 +29,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
     }
 
 //        query.setLong("typeCard", Long.parseLong("21")); WHERE C.typeCard=:typeCard
-        return query.list();}
+//        return query.list();}
 
     public Cards findByCardKey(long key) {
         Criteria criteria = createEntityCriteria();
