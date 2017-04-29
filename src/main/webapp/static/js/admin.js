@@ -9,19 +9,19 @@ function deleteUser() {
     var mass = [];
     $("table").find("tr").each(function () {
         if ($(this).find("input").is(":checked")) {
-            mass.push($(this).find("td").eq(0).html());
+            mass.push($(this).find("td").eq(1).html());
             $(this).remove();
         }
     });
+    if(mass.length==0){
+        alert("Выберите пользователя");
+    }
+
     $.ajax({
         type: "POST",
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         url: "/admin/delete",
-        // headers : {
-        //     'Accept' : 'application/json',
-        //     'Content-Type' : 'application/json'
-        // },
         data: JSON.stringify(mass), // Note it is important
         beforeSend: function (xhr) {
             // here it is
@@ -31,19 +31,13 @@ function deleteUser() {
             console.log("SUCCESS: ", result);
             alert("success" + result);
         }
-//                                ,
-//                                error: function (result) {
-//                                    console.log("ERROR: ", result);
-//                                    alert("Error" + result);
-//                                }
     });
 }
 
-
+// метод для сохранении информации о пользователе, например после редактирования
 function saveChanges() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
-    // $("#changeForm").ready(function () {
 
     $("#changeForm").find("input").each(function () {
         massChanges.push(this.value);
@@ -56,10 +50,6 @@ function saveChanges() {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         url: "/admin/saveChanges",
-        // headers : {
-        //     'Accept' : 'application/json',
-        //     'Content-Type' : 'application/json'
-        // },
         data: JSON.stringify(massChanges), // Note it is important
         beforeSend: function (xhr) {
             // here it is
@@ -69,21 +59,17 @@ function saveChanges() {
             console.log("SUCCESS: ", result);
             alert("success" + result);
         }
-//                                ,
-//                                error: function (result) {
-//                                    console.log("ERROR: ", result);
-//                                    alert("Error" + result);
-//                                }
     });
-
-    if (massChanges[8] == "USER") {
-        getUsers();
-    }
-    if (massChanges[8] == "DRIVER") {
-        getDrivers();
-    }
-    if (massChanges[8] == "OWNER") {
-        getOwners();
+    switch (massChanges[8]){
+        case "USER":
+            getUsers();
+            break;
+        case "DRIVER":
+            getDrivers();
+            break;
+        case "OWNER":
+            getOwners();
+            break;
     }
     alert("User edit successfully");
     massChanges = [];
@@ -122,35 +108,13 @@ function searchUser() {
         }
 
     }
-
-    // console.log(count1);
-    // console.log(count2);
-
-    // console.log(a);
-    // $("table").find("td").each(function () {
-    //     userInfo.push(this.innerHTML);
-    //
-    // })
-    // console.log(userInfo);
-
-    // console.log(userInfo);
-    // console.log(userInfo[0]);
-    // console.log($("#inputNick").value);
-    // console.log(document.getElementById("inputNick").value);
 }
 
 
-function editUser() {
+function edit() {
 // массив для взятий информации о пользователе из таблицы
     var userInfo = [];
 
-    // $("table").find("tr").each(function () {
-    //
-    //     if($(this).is(":visible")){
-    //         alert("success");
-    //         console.log("SUCCESS")
-    //     }
-    // })
     var count = 0;
     // здесь надо передать одно значение, то есть один ряд с инфой о пользователе иначе кинуть alert
     $("table").find("tr").each(function () {
@@ -187,10 +151,6 @@ function editUser() {
             return;
         }
     }
-    console.log(userInfo);
-    // alert("SUCCESS");
-
-    // console.log(listCities);
 
     $("#head").children().remove();
     var trHTML = '';
@@ -278,11 +238,6 @@ function editUser() {
         $("#head").children().remove();
     }
     else {
-        //Записываем индекс
-        // massChanges.push(userInfo[0]);
-        // console.log(massChanges);
-
-        console.log(getRollers());
         getCities().done(
             getRollers().done(function () {
                 document.getElementById("inputID").value = userInfo[0];
@@ -376,7 +331,6 @@ function getUsers() {
     }
 }
 
-var listRole = [];
 var role;
 function getRollers() {
     return $.ajax({
@@ -385,13 +339,10 @@ function getRollers() {
         datatype: "json",
         success: function (response) {
             $.each(response, function (i, item) {
-                listRole.push(item);
-            });
-            $.each(listRole, function (i, item) {
-
                 role += '<option>' + item + '</option>';
-            })
+            });
             $("#rollers").append(role);
+            role = '';
         },
         error: function () {
             alert("error")
@@ -400,7 +351,6 @@ function getRollers() {
 }
 
 
-var listCities = [];
 var city;
 function getCities() {
 
@@ -410,12 +360,8 @@ function getCities() {
         datatype: "json",
         success: function (response) {
             $.each(response, function (i, item) {
-                listCities.push(item);
-            });
-            $.each(listCities, function (i, item) {
-
                 city += '<option>' + item + '</option>';
-            })
+            });
             $("#cities").append(city);
         },
         error: function () {
@@ -500,7 +446,7 @@ function getOwners() {
     }
 }
 
-function Cancel(){
+function Cancel() {
     $("#head").children().remove();
 }
 
@@ -591,61 +537,18 @@ function getCards() {
         $("#head").children().remove();
         $.ajax({
             type: "GET",
-            url: "/admin/getDrivers",
+            url: "/admin/getCards",
             datatype: "json",
             success: function (response) {
                 var trHTML = '';
-                trHTML += '<div class="row">' +
-                    '<div class="col-sm-3">' +
-                    '<h2>Водители</h2>' +
-                    '</div>' +
-                    '<div class="offset-sm-5">' +
-                    '<form class="navbar-form navbar-right">' +
-                    '<div class="row">' +
-                    '<div>' +
-                    '<input id="inNick" name="inNick" type="text" class="form-control" placeholder="Search">' +
-                    '</div>' +
-                    '<div style="padding-left:10px">' +
-                    '<button type="button" class="btn btn-link" onclick="searchUser();">Найти</button>' +
-                    '</div>' +
-                    '</div>' +
-                    '</form>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="table-responsive">' +
-                    '<table id="tableForDrivers" class="table table-hover">' +
-                    '<thead ><tr id="tableHead"><th data-field="nickname">' +
-                    'Ник' + '</th><th data-field="firstName">' +
-                    "Имя" + '</th><th data-field="lastName">' +
-                    "Фамилия" + '</th><th data-field="mobilePhone">' +
-                    "Мобильный телефон" + '</th><th data-field="email">' +
-                    "Электронная почта" + '</th><th data-field="city">' +
-                    "Город" + '</th><th>' +
-                    '</th></tr></thead><tbody>'
-                ;
-
-                $.each(response, function (i, item) {
-                    trHTML += '<tr><td style="display:none">' +
-                        item.personId + '</td><td id="tdNick">' +
-                        item.nickname + '</td><td>' +
-                        item.firstName + '</td><td>' +
-                        item.lastName + '</td><td>' +
-                        item.mobileNumber + '</td><td>' +
-                        item.email + '</td><td>' +
-                        item.city.cityName + '</td><td style="display:none;">' +
-                        item.password + '</td><td style="display:none;">' +
-                        item.role.roleType + '</td><td>' +
-                        '<input type="checkbox" value=""/>' +
-                        '</td></tr>';
-                });
-                trHTML += '</tbody>' + '</table>';
+                trHTML+=createTableHeader('Список карт', 'tableForCards') + createTableBody(response, 'tdCardName');
                 $("#head").append(trHTML);
             },
             error: function () {
                 alert("error")
             }
         }).done(function onload() {
-                forSearch = document.getElementById('inNick');
+                forSearch = document.getElementById('CardName');
             },
             function () {
                 $('table tr').click(function (event) {
@@ -659,5 +562,118 @@ function getCards() {
 }
 
 
+function addCards() {
+
+    $("#head").children().remove();
+    $("#head").load("tableForm.jsp #cardForm");
+    getAllUser();
+}
 
 
+
+var person;
+function getAllUser() {
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getAllUser",
+        datatype: "json",
+
+        success: function (response) {
+
+            console.log(response),
+                $.each(response, function (i, item) {
+                    person += '<option>' + item + '</option>';
+                });
+            console.log(person);
+            $("#persons").append(person);
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+
+var infoCard = [];
+function saveCard() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $("#cardForm").find("input").each(function () {
+        infoCard.push(this.value);
+    })
+    infoCard.push($("#persons option:selected").text());
+    console.log(infoCard);
+    // })
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        url: "/admin/addCard",
+        data: JSON.stringify(infoCard), // Note it is important
+        beforeSend: function (xhr) {
+            // here it is
+            xhr.setRequestHeader(header, token);
+        },
+        success: function (result) {
+            console.log("SUCCESS: ", result);
+            alert("success" + result);
+        }
+    });
+
+    alert("Card add successfully");
+    infoCard = [];
+
+}
+
+
+
+//функция для создания заголовка таблицы
+function createTableHeader(tableName, tableId){
+
+    var tHeader = '';
+    tHeader += '<div class="row">' +
+        '<div class="col-sm-3">' +
+        '<h2>'+tableName+'</h2>' +
+        '</div>' +
+        '<div class="offset-sm-5">' +
+        '<form class="navbar-form navbar-right">' +
+        '<div class="row">' +
+        '<div>' +
+        '<input id="CardName" name="CardName" type="text" class="form-control" placeholder="Search">' +
+        '</div>' +
+        '<div style="padding-left:10px">' +
+        '<button type="button" class="btn btn-link" onclick="searchUser();">Найти</button>' +
+        '</div>' +
+        '</div>' +
+        '</form>' +
+        '</div>' +
+        '</div>' +
+        '<div class="table-responsive">' +
+        '<table id="'+tableId+'" class="table table-hover">' +
+        '<thead ><tr id="tableHead"><th>' +
+        'Название карты' + '</th><th>' +
+        "Ключ" + '</th><th>' +
+        "Тип" + '</th><th>' +
+        "Статус" + '</th><th>' +
+        // "Ник владельца" + '</th><th>' +
+        '</th></tr></thead>'
+    ;
+    return tHeader;
+}
+//функция для заполнения таблицы
+function createTableBody(response, tdCardName) {
+    var tBody='';
+    tBody+='<tbody>';
+    $.each(response, function (i, item) {
+        tBody += '<tr><td id="'+tdCardName+'">' +
+            item.cardName + '</td><td>' +
+            item.cardKey + '</td><td>' +
+            item.typeCard.cardType + '</td><td>' +
+            item.typeCard.status + '</td><td>' +
+            // item.person.nickname + '</td><td>' +
+            '<input type="checkbox" value=""/>' +
+            '</td></tr>';
+    });
+    tBody += '</tbody>' + '</table>';
+    return tBody;
+}

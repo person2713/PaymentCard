@@ -26,7 +26,7 @@ public class Cards {
     private String cardName;
 
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "PERSON_ID")
     @JsonBackReference
     @OnDelete(action = OnDeleteAction.CASCADE)

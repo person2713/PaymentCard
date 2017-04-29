@@ -18,4 +18,8 @@ public class CardService {
     public List<Cards> getAll(){
         return cardsRepository.getAll();
     }
+
+    public void saveCard(Cards cards){
+        cardsRepository.save(cards);
+    }
 }

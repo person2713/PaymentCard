@@ -30,7 +30,7 @@ h1 {
   padding: 20px;
   overflow-x: hidden;
   overflow-y:hidden; /* Scrollable contents if viewport is shorter than content. */
-  border-right: 1px solid #eee;
+  /*border-right: 1px solid #eee;*/
 }
 
 /* Sidebar navigation */
@@ -67,4 +67,34 @@ h1 {
 .placeholder img {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.ofset {
+   padding-left: 30px;
+   padding-right: 30px;
+ }
+
+.dropdown {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.contmenu {
+  /*padding-top: 5px;*/
+  /*padding-bottom: 5px;*/
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: 	#ffffff;
 }

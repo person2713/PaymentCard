@@ -9,16 +9,15 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>User Registration Form</title>
+    <title>Registration</title>
     <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
-    <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"/>
+
 </head>
 
 <body>
-<div class="generic-container">
-    <%@include file="header.jsp" %>
+<div class="container">
 
-    <div class="well lead">User Registration Form</div>
+    <div class="well lead">Регистрация</div>
     <form:form method="POST" modelAttribute="userForm" action="/registration/newUser" class="form-horizontal">
         <form:input type="hidden" path="personId" id="personId"/>
 
@@ -119,34 +118,36 @@
         </div>
 
         <sec:authorize access="hasRole('ADMIN')">
-        <div class="row">
+            <div class="row">
 
-            <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="Role">Role</label>
-                <div class="col-md-7">
-                    <form:select path="role" items="${rollers}" multiple="false" itemValue="roleId" itemLabel="roleType"
-                                 class="form-control input-sm"/>
-                    <div class="has-error">
-                        <form:errors path="role" class="help-inline"/>
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable" for="Role">Role</label>
+                    <div class="col-md-7">
+                        <form:select path="role" items="${rollers}" multiple="false" itemValue="roleId" itemLabel="roleType"
+                                     class="form-control input-sm"/>
+                        <div class="has-error">
+                            <form:errors path="role" class="help-inline"/>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </sec:authorize>
         <div class="row">
-            <div class="form-actions floatRight">
-                    <%--<c:choose>--%>
-                    <%--<c:when test="${edit}">--%>
-                    <%--<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>--%>
-                    <%--</c:when>--%>
-                    <%--<c:otherwise>--%>
-                <input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a
-                    href="<c:url value='/list' />">Cancel</a>
-                    <%--</c:otherwise>--%>
-                    <%--</c:choose>--%>
+
+            <div class="btn-group floatRight">
+
+                <input type="submit" value="Зарегистрироваться" class="btn btn-primary btn-sm"/>
+                <input type="submit" value="Отмена" class="btn btn-primary btn-sm"/>
+                    <%--<a href="<c:url value='/welcome' />">Cancel</a>--%>
+
             </div>
         </div>
     </form:form>
+
+    <div class="navbar navbar-inner  navbar-fixed-bottom">
+        <p><center  class="text-muted">© NetCracker Education Center 2017</center></p>
+    </div>
+
 </div>
 </body>
 </html>

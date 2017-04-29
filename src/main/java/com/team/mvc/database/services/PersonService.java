@@ -40,63 +40,86 @@ public class PersonService {
         return personRepository.findByNickname(nickname);
     }
 
-    public void savePerson(Persons persons){
+    public void savePerson(Persons persons) {
         persons.setPassword(passwordEncoder.encode(persons.getPassword()));
         personRepository.save(persons);
     }
 
-    public List<Persons> getAllUser(){
+    public List<Persons> getAllUser() {
         return personRepository.getAll();
     }
 
-    public List<Persons> getUsers(){
+    public List<Persons> getUsers() {
         List<Persons> personList = new ArrayList<>();
-        for (Persons person:personRepository.getAll()) {
-            if(person.getRole().getRoleType().equals("USER"))
+        for (Persons person : personRepository.getAll()) {
+            if (person.getRole().getRoleType().equals("USER"))
                 personList.add(person);
         }
         return personList;
     }
 
 
-    public List<Persons> getOwners(){
+    public List<Persons> getOwners() {
         List<Persons> personList = new ArrayList<>();
-        for (Persons person:personRepository.getAll()) {
-            if(person.getRole().getRoleType().equals("OWNER"))
+        for (Persons person : personRepository.getAll()) {
+            if (person.getRole().getRoleType().equals("OWNER"))
                 personList.add(person);
         }
         return personList;
     }
 
 
-    public List<Persons> getDrivers(){
+    public List<Persons> getDrivers() {
         List<Persons> personList = new ArrayList<>();
-        for (Persons person:personRepository.getAll()) {
-            if(person.getRole().getRoleType().equals("DRIVER"))
+        for (Persons person : personRepository.getAll()) {
+            if (person.getRole().getRoleType().equals("DRIVER"))
                 personList.add(person);
         }
         return personList;
     }
 
-    public void deleteByNickName(String nickname){
+    public void deleteByNickName(String nickname) {
         personRepository.deleteByNickName(nickname);
     }
 
 
     public boolean isPersonsNicknameUnique(Integer id, String nickname) {
         Persons persons = findByNickname(nickname);
-        return ( persons == null || ((id != null) && (persons.getPersonId() == id)));
+        return (persons == null || ((id != null) && (persons.getPersonId() == id)));
 
     }
 
-    public List<Cards> findCradsByNickname(String nickname) {return personRepository.findCardsByNickname(nickname);}
-    public CardBalance findBalanceByNickname(String nickname) {return personRepository.findBalanceByNickname(nickname);}
-    public List<BalanceHist> findBalanceHistByNickname(String nickname) {return personRepository.findBalanceHistByNickname(nickname);}
-    public List<Events> findEventsByNickname(String nickname) {return personRepository.findEventsByNickname(nickname);}
+
+    public List<String> stringPersons() {
+        List<String> list = new ArrayList<>();
+        for (Persons person : personRepository.getAll()) {
+            if (person.getRole().getRoleType().equals("ADMIN"))
+                continue;
+            else
+                list.add(person.getNickname());
+        }
+        return list;
+    }
+
+    public List<Cards> findCradsByNickname(String nickname) {
+        return personRepository.findCardsByNickname(nickname);
+    }
+
+    public CardBalance findBalanceByNickname(String nickname) {
+        return personRepository.findBalanceByNickname(nickname);
+    }
+
+    public List<BalanceHist> findBalanceHistByNickname(String nickname) {
+        return personRepository.findBalanceHistByNickname(nickname);
+    }
+
+    public List<Events> findEventsByNickname(String nickname) {
+        return personRepository.findEventsByNickname(nickname);
+    }
 
     public void update(int id, String nickname, String firstName, String lastName, String mobileNumber,
-                       String email, String stringCity, String password){
-        Cities city =  citiesRepository.findByName(stringCity);
+                       String email, String stringCity, String password) {
+        Cities city = citiesRepository.findByName(stringCity);
         personRepository.update(id, nickname, firstName, lastName, mobileNumber, email, city, passwordEncoder.encode(password));
     }
 }
