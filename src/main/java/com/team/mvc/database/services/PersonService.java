@@ -118,8 +118,9 @@ public class PersonService {
     }
 
     public void update(int id, String nickname, String firstName, String lastName, String mobileNumber,
-                       String email, String stringCity, String password) {
+                       String email, String stringCity, String stringRole, String password) {
         Cities city = citiesRepository.findByName(stringCity);
-        personRepository.update(id, nickname, firstName, lastName, mobileNumber, email, city, passwordEncoder.encode(password));
+        Rollers role = roleRepository.findByType(stringRole);
+        personRepository.update(id, nickname, firstName, lastName, mobileNumber, email, city, role, passwordEncoder.encode(password));
     }
 }

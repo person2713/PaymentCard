@@ -71,7 +71,7 @@
                         <br>
                         <button type="button" class="btn btn-link" onclick="getUser();">Компанию</button>
                         <br>
-                        <button type="button" class="btn btn-link" onclick="addCards();">Карту</button>
+                        <button type="button" class="btn btn-link" onclick="prepareAddCards();">Карту</button>
                         <br>
                         <button type="button" class="btn btn-link" onclick="getUser();">Машину</button>
                         <br>

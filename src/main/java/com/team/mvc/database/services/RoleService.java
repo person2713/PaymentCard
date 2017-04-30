@@ -29,13 +29,4 @@ public class RoleService {
     public List<Rollers> findAll() {
         return roleRepository.findAll();
     }
-
-
-    public List<String> stringRollers(){
-        List<String> list = new ArrayList<>();
-        for (Rollers role: roleRepository.getAll()) {
-            list.add(role.getRoleType());
-        }
-        return list;
-    }
 }

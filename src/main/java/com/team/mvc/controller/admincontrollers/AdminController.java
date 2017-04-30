@@ -1,14 +1,13 @@
 package com.team.mvc.controller.admincontrollers;
 
 import com.team.mvc.controller.GetRole;
-import com.team.mvc.database.entities.Cards;
-import com.team.mvc.database.entities.Persons;
-import com.team.mvc.database.entities.Routes;
+import com.team.mvc.database.entities.*;
 import com.team.mvc.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,14 +33,16 @@ public class AdminController {
     @Autowired
     RoleService roleService;
 
-    @Autowired
-    CardService cardService;
+
 
     @Autowired
     RouteService routeService;
 
     @Autowired
     TypeCardService typeCardService;
+
+    @Autowired
+    CardService cardService;
 
     @RequestMapping(value = "/getlAllUsers", method = RequestMethod.GET)
     public
@@ -53,6 +54,15 @@ public class AdminController {
         return listPerson;
     }
 
+    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
+    public String editUser(ModelMap model) {
+        return "admin/editUser";
+    }
+
+    @RequestMapping(value = "/editCard", method = RequestMethod.GET)
+    public String editCard(ModelMap model) {
+        return "admin/editCard";
+    }
 
     @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
     public
@@ -67,6 +77,7 @@ public class AdminController {
     List<Cards> getCards() {
         return cardService.getAll();
     }
+
 
     @RequestMapping(value = "/getRoute", method = RequestMethod.GET)
     public
@@ -97,6 +108,14 @@ public class AdminController {
         return cityService.stringCities();
     }
 
+    @RequestMapping(value = "/getTypeCard", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<TypeCard> getTypeCard() {
+        return typeCardService.getAll();
+    }
+
+
     @RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -105,18 +124,11 @@ public class AdminController {
     }
 
 
-
-
     @RequestMapping(value = "/getRollers", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<String> getRollers() {
-        System.out.println("USER ROLE:");
-        for (String s: roleService.stringRollers()) {
-            System.out.println(s);
-
-        }
-        return roleService.stringRollers();
+    List<Rollers> getRollers() {
+        return roleService.findAll();
     }
 
 
@@ -132,26 +144,29 @@ public class AdminController {
         return "Success";
     }
 
-    @RequestMapping(value = "/saveChanges", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveChangesForUsers", method = RequestMethod.POST)
     public
     @ResponseBody
-    String saveChanges(@RequestBody List<String> list) {
+    String saveChangesForUsers(@RequestBody List<String> list) {
 
-        System.out.println("SAVECHANGES");
-        for (String s : list) {
-            System.out.println(s);
-        }
-        if (list.isEmpty()) {
-            return "FAILRY";
-        } else {
-
-            personService.update(Integer.parseInt(list.get(0)), list.get(1), list.get(2), list.get(3),
-                    list.get(4), list.get(5), list.get(9), list.get(6));
-            System.out.println("Success changes");
-            return "Success changes";
-        }
+        personService.update(Integer.parseInt(list.get(0)), list.get(1), list.get(2), list.get(3),
+                list.get(4), list.get(5), list.get(6), list.get(7), list.get(8));
+        return "Success changes";
     }
 
+
+    @RequestMapping(value = "/saveChangesForCards", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String saveChangesForCards(@RequestBody List<String> list) {
+//        cardService.update();
+        System.out.println("LIST");
+        for (String str : list) {
+            System.out.println(str);
+        }
+        cardService.update(Integer.parseInt(list.get(0)), list.get(1), list.get(2), list.get(3), list.get(4));
+        return "Success changes";
+    }
 
     @RequestMapping(value = "/addCard", method = RequestMethod.POST)
     public
@@ -171,7 +186,6 @@ public class AdminController {
             cards.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
             cards.setPerson(personService.findByNickname(list.get(2)));
             cardService.saveCard(cards);
-////            cards.se
             return "SUCCESS";
         }
 

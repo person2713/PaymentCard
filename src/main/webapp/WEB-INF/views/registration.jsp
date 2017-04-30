@@ -8,6 +8,7 @@
 <html>
 
 <head>
+
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Registration</title>
     <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
@@ -16,8 +17,7 @@
 
 <body>
 <div class="container">
-
-    <div class="well lead">Регистрация</div>
+    <div class="well lead"><h1 style="margin-top: 15px; margin-bottom: 15px">Регистрация</h1></div>
     <form:form method="POST" modelAttribute="userForm" action="/registration/newUser" class="form-horizontal">
         <form:input type="hidden" path="personId" id="personId"/>
 
@@ -147,7 +147,6 @@
     <div class="navbar navbar-inner  navbar-fixed-bottom">
         <p><center  class="text-muted">© NetCracker Education Center 2017</center></p>
     </div>
-
 </div>
 </body>
 </html>

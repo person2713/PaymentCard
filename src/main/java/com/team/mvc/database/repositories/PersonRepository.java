@@ -91,17 +91,18 @@ public class PersonRepository extends AbstractRepository<Persons> {
 
 
 
-    public void update(int id, String nickname, String firstName, String lastName, String mobileNumber,
-                       String email, Cities city, String password) {
+    public void update(int personId, String nickname, String firstName, String lastName, String mobileNumber,
+                       String email, Cities city, Rollers role, String password) {
         Session session = getSession();
-        Persons persons = session.load(Persons.class, id);
+        Persons persons = session.load(Persons.class, personId);
         persons.setNickname(nickname);
-        persons.setPassword(password);
         persons.setFirstName(firstName);
         persons.setLastName(lastName);
-        persons.setCity(city);
         persons.setMobileNumber(mobileNumber);
         persons.setEmail(email);
+        persons.setCity(city);
+        persons.setRole(role);
+        persons.setPassword(password);
         session.update(persons);
     }
 

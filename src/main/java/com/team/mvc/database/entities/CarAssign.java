@@ -17,6 +17,7 @@ public class CarAssign {
     @Column(name = "CAR_ASSIGN_ID")
     private long carAssignId;
 
+    @JsonIgnore
     @Column(name = "DATE_ASSIGN")
     private Timestamp dateAssign;
 
