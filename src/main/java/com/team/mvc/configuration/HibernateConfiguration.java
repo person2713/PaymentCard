@@ -27,13 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class HibernateConfiguration {
     @Autowired
     private Environment environment;
-    @Bean
-    public MethodInvokingJobDetailFactoryBean methodInvokingJobDetailFactoryBean() {
-        MethodInvokingJobDetailFactoryBean obj = new MethodInvokingJobDetailFactoryBean();
-        obj.setTargetBeanName("PaymentJob");
-        obj.setTargetMethod("update");
-        return obj;
-    }
+
 
     @Bean
     public DataSource dataSource() {

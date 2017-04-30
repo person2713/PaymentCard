@@ -27,6 +27,12 @@ public class PersonRepository extends AbstractRepository<Persons> {
         super.save(persons);
     }
 
+    public Persons findByEmail(String email){
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("email", email));
+        return (Persons) criteria.uniqueResult();
+    }
+
 
     public List<Cards> findCardsByNickname(String nickname) {
 

@@ -19,7 +19,7 @@ public class PaymentJob {
 //    }
 @Autowired
 CardBalanceRepository cardBalanceRepository;
-    @Scheduled(cron ="*/10 * * * * *")
+  //  @Scheduled(cron ="*/100000 * * * * *")
     public void update() {
         cardBalanceRepository.update();
     }

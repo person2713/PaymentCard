@@ -1,11 +1,13 @@
 package com.team.mvc.controller;
 
 import com.team.mvc.database.entities.Cards;
+import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.services.BlackListService;
+import com.team.mvc.database.services.PersonService;
+import com.team.mvc.util.GenericResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,14 +15,18 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Period;
 import java.util.List;
+import java.util.Locale;
+
 import com.team.mvc.database.services.BlackListService;
+import org.springframework.mail.MailAuthenticationException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @Controller
 @RequestMapping("/")
@@ -35,6 +41,12 @@ public class AppController {
     AuthenticationTrustResolver authenticationTrustResolver;
     @Autowired
     BlackListService blackListService;
+    @Autowired
+    PersonService personService;
+    @Autowired
+    private JavaMailSender mailSender;
+    @Autowired
+    private MessageSource messages;
 
     @ModelAttribute("blockCards")
     public List<Cards> getAllBlockCards() { return blackListService.getAllBlockCards();}
@@ -96,6 +108,58 @@ public class AppController {
         }
         return "redirect:/login?logout";
     }
+
+ /*   @RequestMapping(value = "/resetPassword",
+            method = RequestMethod.POST)
+    @ResponseBody
+    public void resetPassword(HttpServletRequest request,
+                                         @RequestParam("email") String userEmail) {
+        Persons person = personService.findByEmail(userEmail);
+        if (person == null) {
+         //   throw new UserNotFoundException();
+        }
+
+
+        mailSender.send(constructResetTokenEmail(person,request.getLocale()));}*/
+
+
+
+
+
+
+
+  /*  private final SimpleMailMessage constructResetTokenEmail(final Persons person,final Locale locale) {
+
+        final String message = messages.getMessage("We will send an email with a new registration token to your email account",null, locale);
+        final SimpleMailMessage email = new SimpleMailMessage();
+        email.setTo(person.getEmail());
+        email.setSubject("Password");
+        email.setText(message + person.getPassword());
+        email.setFrom("trebvit@gmail.com");
+        return email;
+    }
+*/
+
+    @RequestMapping(value = "/resetPassword/{email}", method = RequestMethod.GET)
+    @ResponseBody
+
+    public void    resetPassword(@PathVariable("email") String email) {
+
+        Persons person = personService.findByEmail(email);
+        mailSender.send(constructResetTokenEmail(person));}
+    private final SimpleMailMessage constructResetTokenEmail(final Persons person) {
+
+        //  final String message = messages.getMessage("We will send an email with a new registration token to your email account",null, locale);
+        final SimpleMailMessage email = new SimpleMailMessage();
+        email.setTo(person.getEmail());
+        email.setSubject("Password");
+        email.setText( person.getPassword());
+        email.setFrom("trebvit@gmail.com");
+        return email;
+    }
+
+
+
 
 
     private boolean isCurrentAuthenticationAnonymous() {

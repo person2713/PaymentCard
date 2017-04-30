@@ -22,6 +22,8 @@ public class PersonService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public Persons findByEmail(String email){return personRepository.findByEmail(email);}
+
     public Persons findById(int id) throws NotFoundException {
         return personRepository.getById(id);
     }

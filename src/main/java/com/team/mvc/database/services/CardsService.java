@@ -31,4 +31,8 @@ public class CardsService {
     public List<Cards> getAllCards(){
         return cardsRepository.getAll();
     }
+
+    public void blockCardById(long cardId){
+        cardsRepository.blockCardById(cardId);
+    }
 }
