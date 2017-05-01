@@ -17,6 +17,9 @@ public class CardService {
     @Autowired
     CardsRepository cardsRepository;
 
+    @Autowired
+    TypeCardService typeCardService;
+
     public List<Cards> getAll() {
         return cardsRepository.getAll();
     }
@@ -28,9 +31,9 @@ public class CardService {
     public void update(int cardId, String cardName, String cardKey, String cardStatus,
                        String cardType) {
 
-        TypeCard typeCard = new TypeCard();
-        typeCard.setCardType(cardType);
-        typeCard.setStatus(cardStatus);
+        TypeCard typeCard = typeCardService.getTypeCardbyStatus(cardStatus);
+        System.out.println("TYPECARD1");
+        System.out.println(typeCard.getStatus() + " " + typeCard.getCardType() );
         cardsRepository.update(cardId, cardName, null, Long.parseLong(cardKey),
                 typeCard, null, null, null);
     }

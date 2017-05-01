@@ -31,4 +31,8 @@ public class TypeCardService {
         }
         return list;
     }
+//
+//    public TypeCard findTypeCardByStatus(String status){
+//        return typeCardRepository.getTypeCarbyStatus(status);
+//    }
 }

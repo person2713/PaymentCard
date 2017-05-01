@@ -160,11 +160,11 @@ public class AdminController {
     @ResponseBody
     String saveChangesForCards(@RequestBody List<String> list) {
 //        cardService.update();
-        System.out.println("LIST");
+        System.out.println("LIST1");
         for (String str : list) {
             System.out.println(str);
         }
-        cardService.update(Integer.parseInt(list.get(0)), list.get(1), list.get(2), list.get(3), list.get(4));
+        cardService.update(Integer.parseInt(list.get(0)), list.get(1), list.get(2), list.get(4), list.get(3));
         return "Success changes";
     }
 

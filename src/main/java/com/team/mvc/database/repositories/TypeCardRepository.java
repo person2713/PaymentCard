@@ -1,6 +1,9 @@
 package com.team.mvc.database.repositories;
 
 import com.team.mvc.database.entities.TypeCard;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +25,11 @@ public class TypeCardRepository extends AbstractRepository<TypeCard> {
         }
         return null;
     }
+
+//
+//    public TypeCard findTypeCardByStatus(String status) {
+//        Criteria criteria = createEntityCriteria();
+//        criteria.add(Restrictions.eq("status", status));
+//        return (TypeCard) criteria.uniqueResult();
+//    }
 }
