@@ -6,6 +6,7 @@ import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.services.BlackListService;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.util.GenericResponse;
+import io.jsonwebtoken.Claims;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -33,6 +34,13 @@ import com.team.mvc.database.services.BlackListService;
 import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.crypto.MacProvider;
+import java.security.Key;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/")
@@ -146,13 +154,16 @@ public class AppController {
     }
 */
 
-    @RequestMapping(value = "/resetPassword/{email}", method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value="/forgotPassword")
+    public String forgotPassword()
+    {
+        return "forgotPassword";
+    }
 
-   public void    resetPassword(@PathVariable("email") String email) throws MessagingException {
+    @RequestMapping(value="/resetPassword" , method=RequestMethod.POST)
+    public String resetRequest(@RequestParam(value="email") String email){
 
         Persons person = personService.findByEmail(email);
-        String pass = person.getPassword();
         String mail = person.getEmail();
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
         ctx.register(MailConfig.class);
@@ -184,9 +195,28 @@ public class AppController {
         System.out.println("---Done---");
 
 
-
-
+        return "checkMail";
     }
+
+
+
+
+
+    public String createToken( String mail )
+    {
+
+        Claims claims = Jwts.claims().setSubject( String.valueOf( mail ) );
+
+        claims.put( "mail", mail );
+        Date currentTime = new Date();
+        currentTime.setTime( currentTime. +  * 60000 );
+        return Jwts.builder()
+                .setClaims( claims )
+                .setExpiration( currentTime )
+                .signWith( SignatureAlgorithm.HS512, salt.getBytes() )
+                .compact();
+    }
+
 
 
 
