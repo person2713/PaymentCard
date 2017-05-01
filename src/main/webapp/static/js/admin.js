@@ -76,7 +76,7 @@ function deleteUser() {
 // }
 
 // переменная для поиска
-var forSearch='';
+var forSearch = '';
 
 
 function searchUser() {
@@ -110,177 +110,6 @@ function searchUser() {
 }
 
 
-function edit() {
-// массив для взятий информации о объекте из таблицы
-    var userInfo = [];
-
-    var count = 0;
-    // здесь надо передать одно значение, то есть один ряд с инфой о пользователе иначе кинуть alert
-    $("table").find("tr").each(function () {
-        if ($(this).find("input").is(":checked")) {
-            count++;
-        }
-    });
-    if (count == 1) {
-        $("table").find("tr").each(function () {
-            if ($(this).find("input").is(":checked")) {
-                $(this).find("td").each(function () {
-                    userInfo.push(this.innerHTML);
-                })
-                return false;
-            }
-            count = 0;
-        });
-    }
-    else if (count == 0) {
-        alert("Выберите поле для редактирования")
-        return;
-    }
-    else {
-        alert("Выбрано больше одного значения");
-        if ($("#tableForUser").length != 0) {
-            getUsers();
-            count = 0;
-            return;
-        }
-        if ($("#tableForOwners").length != 0) {
-            getOwners();
-            count = 0;
-            return;
-        }
-        if ($("#tableForDrivers").length != 0) {
-            getDrivers();
-            count = 0;
-            return;
-        }
-        if ($("#tableForCards").length != 0) {
-            getCards();
-            count = 0;
-            return;
-        }
-    }
-//
-//     $("#head").children().remove();
-//     var trHTML = '';
-//     trHTML += '<form id="changeForm" class="form-horizontal" role="form">' +
-//         '<input id="inputID" class="form-control" type="text" style="visibility:hidden"/>' +
-//         '<div class="form-group">' +
-//         '<label class="col-lg-3 control-label">Ник:</label>' +
-//         '<div class="col-lg-8">' +
-//         '<input id="inputNick" class="form-control" type="text">' +
-//         '</div>' +
-//         '</div>' +
-//         '<div class="form-group">' +
-//         '<label class="col-lg-3 control-label">Имя:</label>' +
-//         '<div class="col-lg-8">' +
-//         '<input id="inputFirstname" class="form-control" type="text">' +
-//         '</div>' +
-//         '</div>' +
-//         '<div class="form-group">' +
-//         '<label class="col-lg-3 control-label">Фамилия:</label>' +
-//         '<div class="col-lg-8">' +
-//         '<input id="inputLastname" class="form-control" type="text" >' +
-//         '</div>' +
-//         '</div>' +
-//         '<div class="form-group">' +
-//         '<label class="col-lg-3 control-label">Мобильный телефон:</label>' +
-//         '<div class="col-lg-8">' +
-//         '<input id="inputMobile"class="form-control" type="text">' +
-//         '</div>' +
-//         '</div>' +
-//         '<div class="form-group">' +
-//         '<label class="col-lg-3 control-label">Электронная почта:</label>' +
-//         '<div class="col-lg-8">' +
-//         '<input id="inputEmail" class="form-control" type="text">' +
-//         '</div>' +
-//         '</div>' +
-//         '<div class="form-group">' +
-//         '<label class="col-lg-3 control-label">Город:</label>' +
-//         '<div class="col-lg-8">' +
-//         '<div class="ui-select">' +
-//         '<select id="cities" class="form-control">' +
-//         '</select>' +
-//         '</div>' +
-//         '</div>' +
-//         '</div>' +
-//         '<div class="form-group">' +
-//         '<label class="col-lg-3 control-label">Роль:</label>' +
-//         '<div class="col-lg-8">' +
-//         '<div class="ui-select">' +
-//         '<select id="rollers" class="form-control">' +
-//         '</select>' +
-//         '</div>' +
-//         '</div>' +
-//         '</div>' +
-//         '<div class="form-group">' +
-//         '<label class="col-md-3 control-label">Пароль:</label>' +
-//         '<div class="col-md-8">' +
-//         '<input id="inputPassword1" class="form-control" type="password">' +
-//         '</div>' +
-//         '</div>' +
-//         '<div class="form-group">' +
-//         '<label class="col-md-3 control-label">Подтвердите пароль:</label>' +
-//         '<div class="col-md-8">' +
-//         '<input id="inputPassword2" class="form-control" type="password">' +
-//         '</div>' +
-//         '</div>' +
-//         '<input id="role" class="form-control" type="text" style="visibility:hidden"/>' +
-//         '<div class="form-group">' +
-//         '<label class="col-md-3 control-label"></label>' +
-//         '<div class="col-md-8">' +
-//         '<div class="row">' +
-//         '<div class="ofset">' +
-//         '<button type="button" class="btn btn-primary" onclick="saveChanges();">Сохранить</button><br>' +
-//         '</div>' +
-//         '<span></span>' +
-//         '<div>' +
-//         '<button type="button" class="btn btn-default" onclick="Cancel();">Отменить</button><br>' +
-//         '</div>' +
-//         '</div>' +
-//         '</div>' +
-//         '</div>' +
-//         '</form>';
-//     $("#head").append(trHTML);
-//     getCities().done(
-//         getRollers().done(function () {
-//             document.getElementById("inputID").value = userInfo[0];
-//             document.getElementById("inputNick").value = userInfo[1];
-//             document.getElementById("inputFirstname").value = userInfo[2];
-//             document.getElementById("inputLastname").value = userInfo[3];
-//             document.getElementById("inputMobile").value = userInfo[4];
-//             document.getElementById("inputEmail").value = userInfo[5];
-//             $("#cities").val(userInfo[6]);
-//             $("#rollers").val(userInfo[8]);
-//             // $('cities option:contains(userInfo[6])').prop('selected',true);
-//             document.getElementById("inputPassword1").value = userInfo[7];
-//             document.getElementById("inputPassword2").value = userInfo[7];
-//             document.getElementById("role").value = userInfo[8];
-//             userInfo = [];
-//         }))
-
-            switch (document.getElementById("tableName").innerHTML){
-
-                case 'Пользователи':
-                    window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-                    window.location = "http://localhost:8081/admin/editUser";
-                    break;
-                case 'Владельцы':
-                    window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-                    window.location = "http://localhost:8081/admin/editUser";
-                    break;
-                case 'Водители':
-                    window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-                    window.location = "http://localhost:8081/admin/editUser";
-                    break;
-                case 'Список карт':
-                    window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-                    window.location = "http://localhost:8081/admin/editCard";
-                    console.log(userInfo);
-                    break;
-            }
-
-}
-
 function getUsers() {
     if ($("#tableForUser").length != 0) {
         $("tr").show();
@@ -294,7 +123,6 @@ function getUsers() {
             success: function (response) {
                 var trHTML = '';
                 trHTML += createTableHeader('Пользователи') + createTableBody(response, 'Пользователи');
-                trHTML += '</tbody>' + '</table>';
                 $("#head").append(trHTML);
             },
             error: function () {
@@ -313,9 +141,6 @@ function getUsers() {
         )
     }
 }
-
-
-
 
 
 function getOwners() {
@@ -332,7 +157,6 @@ function getOwners() {
             success: function (response) {
                 var trHTML = '';
                 trHTML += createTableHeader('Владельцы') + createTableBody(response, 'Владельцы');
-                trHTML += '</tbody>' + '</table>';
                 $("#head").append(trHTML);
             },
             error: function () {
@@ -352,9 +176,9 @@ function getOwners() {
     }
 }
 
-// function Cancel() {
-//     $("#head").children().remove();
-// }
+function Cancel() {
+    $("#head").children().remove();
+}
 
 
 function getDrivers() {
@@ -429,12 +253,10 @@ function getCards() {
 function prepareAddCards() {
 
     $("#head").children().remove();
-
-
 }
 
 
-var person='';
+var person = '';
 function getAllUser() {
     return $.ajax({
         type: "GET",
@@ -638,4 +460,407 @@ function createTableBodyForCards(response, tdCardName) {
     });
     tBody += '</tbody>' + '</table>';
     return tBody;
+}
+
+//функция для создания формы для редактирования пользователя
+function createFormForEditUser() {
+    $("#head").children().remove();
+    var tForm = '';
+    tForm += '<form id="changeForm" class="form-horizontal" role="form">' +
+        '<input id="inputID" class="form-control" type="text" style="visibility:hidden"/>' +
+        '<div class="form-group">' +
+        '<label class="col-lg-3 control-label">Ник:</label>' +
+        '<div class="col-lg-8">' +
+        '<input id="inputNick" class="form-control" type="text">' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="col-lg-3 control-label">Имя:</label>' +
+        '<div class="col-lg-8">' +
+        '<input id="inputFirstname" class="form-control" type="text">' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="col-lg-3 control-label">Фамилия:</label>' +
+        '<div class="col-lg-8">' +
+        '<input id="inputLastname" class="form-control" type="text" >' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="col-lg-3 control-label">Мобильный телефон:</label>' +
+        '<div class="col-lg-8">' +
+        '<input id="inputMobile"class="form-control" type="text">' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="col-lg-3 control-label">Электронная почта:</label>' +
+        '<div class="col-lg-8">' +
+        '<input id="inputEmail" class="form-control" type="text">' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="col-lg-3 control-label">Город:</label>' +
+        '<div class="col-lg-8">' +
+        '<div class="ui-select">' +
+        '<select id="cities" class="form-control">' +
+        '</select>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="col-lg-3 control-label">Роль:</label>' +
+        '<div class="col-lg-8">' +
+        '<div class="ui-select">' +
+        '<select id="rollers" class="form-control">' +
+        '</select>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="col-md-3 control-label">Пароль:</label>' +
+        '<div class="col-md-8">' +
+        '<input id="inputPassword1" class="form-control" type="password">' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="col-md-3 control-label">Подтвердите пароль:</label>' +
+        '<div class="col-md-8">' +
+        '<input id="inputPassword2" class="form-control" type="password">' +
+        '</div>' +
+        '</div>' +
+        '<input id="role" class="form-control" type="text" style="visibility:hidden"/>' +
+        '<div class="form-group">' +
+        '<label class="col-md-3 control-label"></label>' +
+        '<div class="col-md-8">' +
+        '<div class="row">' +
+        '<div class="ofset">' +
+        '<button type="button" class="btn btn-primary" onclick="saveChangesForUsers();">Сохранить</button><br>' +
+        '</div>' +
+        '<span></span>' +
+        '<div>' +
+        '<button type="button" class="btn btn-default" onclick="Cancel();">Отменить</button><br>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</form>';
+    $("#head").append(tForm);
+    getCities().done(
+        getRollers().done(function () {
+                document.getElementById("inputID").value = userInfo[0];
+                document.getElementById("inputNick").value = userInfo[1];
+                document.getElementById("inputFirstname").value = userInfo[2];
+                document.getElementById("inputLastname").value = userInfo[3];
+                document.getElementById("inputMobile").value = userInfo[4];
+                document.getElementById("inputEmail").value = userInfo[5];
+                document.getElementById("cities").value = userInfo[6];
+                document.getElementById("rollers").value = userInfo[8];
+                document.getElementById("inputPassword1").value = userInfo[7];
+                document.getElementById("inputPassword2").value = userInfo[7];
+                userInfo = [];
+            }
+        )
+    );
+    return;
+}
+
+
+//функция для создания формы для редактирования карты
+function createFormForEditCard() {
+    $("#head").children().remove();
+    var tForm = '';
+    tForm += '<form id="changeForm" class="form-horizontal" role="form">' +
+        '<input id="inputID" class="form-control" type="text" style="visibility:hidden">' +
+        '<div class="form-group">' +
+        '<label class="control-label">Название карты:</label>' +
+        '<div>' +
+        '<input id="cardName" class="form-control" type="text">' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="control-label">Ключ:</label>' +
+        '<div>' +
+        '<input id="cardKey" class="form-control" type="text">' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="control-label">Тип:</label>' +
+        '<div>' +
+        '<div class="ui-select">' +
+        '<select id="cardType" class="form-control">' +
+        '</select>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label class="control-label">Статус:</label>' +
+        '<div>' +
+        '<div class="ui-select">' +
+        '<select id="cardStatus" class="form-control">' +
+        '</select>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<input id="role" class="form-control" type="text" style="visibility:hidden">' +
+        '<div class="form-group">' +
+        '<label class="control-label"></label>' +
+        '<div>' +
+        '<div class="row">' +
+        '<div class="ofset">' +
+        '<button type="button" class="btn btn-primary" onclick="saveChangesForCards();">Сохранить</button>' +
+        '<br>' +
+        '</div>' +
+        '<span></span>' +
+        '<div>' +
+        '<button type="button" class="btn btn-default" onclick="Cancel();">Отменить </button>' +
+        '<br>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</form>';
+    $("#head").append(tForm);
+    getTypeCard().done(function () {
+        document.getElementById("inputID").value = userInfo[0];
+        document.getElementById("cardName").value = userInfo[1];
+        document.getElementById("cardKey").value = userInfo[2];
+        document.getElementById("cardType").value = userInfo[3];
+        document.getElementById("cardStatus").value = userInfo[4];
+        userInfo = [];
+    });
+    return;
+}
+
+
+// функция для создания и заполнения формы
+function createFormForEdit() {
+    switch (document.getElementById("tableName").innerHTML) {
+
+        case 'Пользователи':
+        case 'Владельцы':
+        case 'Водители':
+            // window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
+            // window.location = "http://localhost:8081/admin/editUser";
+            createFormForEditUser();
+
+            break;
+        case 'Список карт':
+            // window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
+            // window.location = "http://localhost:8081/admin/editCard";
+            // console.log(userInfo);
+            createFormForEditCard();
+
+            break;
+    }
+}
+
+
+// массив для взятий информации о объекте из таблицы
+var userInfo = [];
+function edit() {
+    var count = 0;
+    // здесь надо передать одно значение, то есть один ряд с инфой о пользователе иначе кинуть alert
+    $("table").find("tr").each(function () {
+        if ($(this).find("input").is(":checked")) {
+            count++;
+        }
+    });
+    if (count == 1) { // если выделено одно поле
+        $("table").find("tr").each(function () {
+            if ($(this).find("input").is(":checked")) {
+                $(this).find("td").each(function () {
+                    userInfo.push(this.innerHTML);
+                })
+                console.log(userInfo);
+                return;
+            }
+            count = 0;
+        });
+    }
+    else if (count == 0) { // если выделено 0 поля
+        alert("Выберите поле для редактирования")
+        return;
+    }
+    else {
+        alert("Выбрано больше одного значения");
+        if ($("#tableForUser").length != 0) {
+            getUsers();
+            count = 0;
+            return;
+        }
+        if ($("#tableForOwners").length != 0) {
+            getOwners();
+            count = 0;
+            return;
+        }
+        if ($("#tableForDrivers").length != 0) {
+            getDrivers();
+            count = 0;
+            return;
+        }
+        if ($("#tableForCards").length != 0) {
+            getCards();
+            count = 0;
+            return;
+        }
+    }
+    createFormForEdit();
+
+}
+
+
+var cardsStatus = [];
+var cardStatus = '';
+var cardType = '';
+function getTypeCard() {
+
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getTypeCard",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+                cardStatus += '<option>' + item.status + '</option>';
+                cardType += '<option>' + item.cardType + '</option>';
+                cardsStatus.push(item);
+            });
+            document.getElementById("cardType").insertAdjacentHTML('beforeend', cardType);
+            document.getElementById("cardStatus").insertAdjacentHTML('beforeend', cardStatus);
+
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+
+
+var cities = [];
+var city = '';
+function getCities() {
+
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getCities",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+//                    city += '<option>' + item.cityName + '</option>';
+                city += '<option>' + item + '</option>';
+                cities.push(item);
+            });
+//                console.log(city);
+            $("#cities").append(city);
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+
+
+var rollers = [];
+var role = '';
+function getRollers() {
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getRollers",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+                role += '<option>' + item.roleType + '</option>';
+                rollers.push(item);
+            });
+            $("#rollers").append(role);
+            role = '';
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+
+// массив для сохранения изменений
+var massChanges = [];
+
+// метод для сохранении информации о пользователе, например после редактирования
+function saveChangesForUsers() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+
+    var fieldPass1 = $("#inputPassword1").val();
+    var fieldPass2 = $("#inputPassword2").val();
+    if(fieldPass1!=fieldPass2){
+        alert("Пароли не совпадают!");
+        return;
+    }
+    $("#changeForm").find('.form-control').each(function () {
+        massChanges.push($(this).val());
+    })
+
+    console.log(massChanges);
+    // })
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        url: "/admin/saveChangesForUsers",
+        data: JSON.stringify(massChanges), // Note it is important
+        beforeSend: function (xhr) {
+            // here it is
+            xhr.setRequestHeader(header, token);
+        },
+        success: function (result) {
+            console.log("SUCCESS: ", result);
+            alert("success" + result);
+        }
+    });
+       switch (massChanges[7]) {
+           case "USER":
+               getUsers();
+               break;
+           case "DRIVER":
+               getDrivers();
+               break;
+           case "OWNER":
+               getOwners();
+               break;
+       }
+    alert("User edit successfully");
+
+    massChanges = [];
+}
+
+
+// метод для сохранении информации о пользователе, например после редактирования
+function saveChangesForCards() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $("#changeForm").find('.form-control').each(function () {
+        massChanges.push($(this).val());
+    })
+
+    console.log(massChanges);
+
+
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        url: "/admin/saveChangesForCards",
+        data: JSON.stringify(massChanges), // Note it is important
+        beforeSend: function (xhr) {
+            // here it is
+            xhr.setRequestHeader(header, token);
+        },
+        success: function (result) {
+            console.log("SUCCESS: ", result);
+            alert("success" + result);
+        }
+    });
+    alert("Card edit successfully");
+    getCards();
+    massChanges = [];
 }
