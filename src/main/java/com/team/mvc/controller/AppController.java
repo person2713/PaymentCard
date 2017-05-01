@@ -1,5 +1,6 @@
 package com.team.mvc.controller;
 
+import com.team.mvc.configuration.MailConfig;
 import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.services.BlackListService;
@@ -8,6 +9,9 @@ import com.team.mvc.util.GenericResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +21,8 @@ import org.springframework.ui.ModelMap;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.Period;
@@ -143,19 +149,43 @@ public class AppController {
     @RequestMapping(value = "/resetPassword/{email}", method = RequestMethod.GET)
     @ResponseBody
 
-    public void    resetPassword(@PathVariable("email") String email) {
+   public void    resetPassword(@PathVariable("email") String email) throws MessagingException {
 
         Persons person = personService.findByEmail(email);
-        mailSender.send(constructResetTokenEmail(person));}
-    private final SimpleMailMessage constructResetTokenEmail(final Persons person) {
+        String pass = person.getPassword();
+        String mail = person.getEmail();
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(MailConfig.class);
+        ctx.refresh();
+        JavaMailSenderImpl mailSender = ctx.getBean(JavaMailSenderImpl.class);
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
+        try {
+            mailMsg.setFrom("trebvit@gmail.com");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        try {
+            mailMsg.setTo(mail);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        try {
+            mailMsg.setSubject("Test mail");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        try {
+            mailMsg.setText(pass);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        mailSender.send(mimeMessage);
+        System.out.println("---Done---");
 
-        //  final String message = messages.getMessage("We will send an email with a new registration token to your email account",null, locale);
-        final SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(person.getEmail());
-        email.setSubject("Password");
-        email.setText( person.getPassword());
-        email.setFrom("trebvit@gmail.com");
-        return email;
+
+
+
     }
 
 

@@ -28,52 +28,43 @@ public class BlockCardsJob {
     public void block() {
 
         List<TemporaryEvents> temporaryEventsList = temporaryEventsRepository.getAllTemporaryEvents();
-        List<TemporaryEvents> cardIDList = new ArrayList<>(temporaryEventsList.size());
+
      /*   for (TemporaryEvents events :
                 temporaryEventsList) {
             cardIDList.add(events.getCard().getCardId());
 
         }*/
-     for(int w = 0; w<temporaryEventsList.size(); w++){
-         System.out.println(temporaryEventsList.get(w)+"  "+w+"  index");
-     }
-
+        for (int w = 0; w < temporaryEventsList.size(); w++) {
+            System.out.println(temporaryEventsList.get(w) + "  " + w + "  index");
+        }
 
 
         List<TemporaryEvents> cardIDCOMMONList = new ArrayList<>(temporaryEventsList.size());
         for (int i = 0; i < temporaryEventsList.size(); i++) {
             for (int k = 0; k < temporaryEventsList.size(); k++) {
-                if ((temporaryEventsList.get(i).getCard().getCardId()==temporaryEventsList.get(k).getCard().getCardId()) && i!=k) cardIDCOMMONList.add(temporaryEventsList.get(i));
+                if (((Math.abs(((int)temporaryEventsList.get(i).getLatitude() - (int)temporaryEventsList.get(k).getLatitude()))+Math.abs(((int)temporaryEventsList.get(i).getLongitude() - (int)temporaryEventsList.get(k).getLongitude()))))>30 && (temporaryEventsList.get(i).getCard().getCardId() == temporaryEventsList.get(k).getCard().getCardId())&& (i != k) )
+                    cardIDCOMMONList.add(temporaryEventsList.get(i));
             }
         }
-
-        for(int c = 0; c<temporaryEventsList.size(); c++){
-            System.out.println(cardIDCOMMONList.get(c)+"  "+c+"  indexCOMMON");
+       // (temporaryEventsList.get(i).getCard().getCardId() == temporaryEventsList.get(k).getCard().getCardId())&& (i != k)
+        for (int c = 0; c < cardIDCOMMONList.size(); c++) {
+            System.out.println(cardIDCOMMONList.get(c) + "  " + c + "  indexCOMMON");
         }
-        for(int b = 0; b<cardIDCOMMONList.size(); b++){
+        for (int b = 0; b < cardIDCOMMONList.size(); b++) {
             cardsRepository.blockCardById(cardIDCOMMONList.get(b).getCard().getCardId());
         }
 
-
-
-
-
-
-
-
-
-      /*  for (TemporaryEvents events :
+         /*  for (TemporaryEvents events :
                 cardIDCOMMONList) {
-            //cardsRepository.blockCardById(events.getCard().getCardId());
+            cardsRepository.blockCardById(events.getCard().getCardId());
             cardsRepository.blockCardById(22);
-            System.out.println(events.getCard().getCardId());
+            System.out.println(events.getCard().getCardId());*/
 
 
-        }*/
+        }
 
 
     }
-}
 
 
 
