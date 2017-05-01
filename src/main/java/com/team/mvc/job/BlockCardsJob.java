@@ -53,6 +53,7 @@ public class BlockCardsJob {
         for (int b = 0; b < cardIDCOMMONList.size(); b++) {
             cardsRepository.blockCardById(cardIDCOMMONList.get(b).getCard().getCardId());
         }
+        temporaryEventsRepository.delAll();
 
          /*  for (TemporaryEvents events :
                 cardIDCOMMONList) {
