@@ -1,11 +1,12 @@
 package com.team.mvc.database.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "ROLLERS")
-public class Rollers {
+public class Rollers implements Serializable {
 
     @Id
     @Column(name = "ROLE_ID")

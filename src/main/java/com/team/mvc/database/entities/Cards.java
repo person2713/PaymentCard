@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "CARDS")
-public class Cards {
+public class Cards implements Serializable {
 
     @Id
     @Column(name = "CARD_ID")
@@ -26,9 +27,9 @@ public class Cards {
     private String cardName;
 
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "PERSON_ID")
-    @JsonBackReference
+    @JsonBackReference (value="person-cards")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Persons person;
 
@@ -38,6 +39,11 @@ public class Cards {
     @OneToOne
     @JoinColumn(name="TYPE_ID", nullable = false)
     private TypeCard typeCard;
+
+    public CardBalance getCardBalance() {
+        return cardBalance;
+
+    }
 
     @OneToOne
     @JoinColumn(name="CARD_ID", nullable = false)

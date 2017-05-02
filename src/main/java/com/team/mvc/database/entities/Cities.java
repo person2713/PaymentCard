@@ -6,13 +6,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
 @Table(name = "CITIES")
-public class Cities {
+public class Cities implements Serializable {
 
 
     @Id
@@ -26,11 +27,11 @@ public class Cities {
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
-    @JsonBackReference
+    @JsonBackReference(value="person-city")
     public List<Persons> persons = new ArrayList<Persons>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
-    @JsonManagedReference
+    @JsonBackReference(value = "company-city")
     public List<Companies> companies = new ArrayList<Companies>();
 
 
@@ -69,6 +70,10 @@ public class Cities {
 
     public void setCompanies(List<Companies> companies) {
         this.companies = companies;
+    }
+
+    public void setCityId(long cityId) {
+        this.cityId = cityId;
     }
 
     @Override

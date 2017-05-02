@@ -149,9 +149,9 @@
                 document.getElementById("inputEmail").value = userInfo[5];
                 document.getElementById("cities").value = userInfo[6];
                 document.getElementById("rollers").value = userInfo[8];
-//                $("#cities").val(userInfo[6]);
-//                $("#rollers").val(userInfo[8]);
-                // $('cities option:contains(userInfo[6])').prop('selected',true);
+//                $("#cities").val(rowInfo[6]);
+//                $("#rollers").val(rowInfo[8]);
+                // $('cities option:contains(rowInfo[6])').prop('selected',true);
                 document.getElementById("inputPassword1").value = userInfo[7];
                 document.getElementById("inputPassword2").value = userInfo[7];
                 userInfo = [];
@@ -253,7 +253,7 @@
 //        }
         alert("User edit successfully");
         massChanges = [];
-//        window.location = "http://localhost:8081/admin"
+        window.location = "http://localhost:8081/admin"
     }
 
     function Cancel() {

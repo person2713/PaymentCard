@@ -104,8 +104,8 @@ public class AdminController {
     @RequestMapping(value = "/getCities", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<String> getCities() {
-        return cityService.stringCities();
+    List<Cities> getCities() {
+        return cityService.getAll();
     }
 
     @RequestMapping(value = "/getTypeCard", method = RequestMethod.GET)
@@ -147,10 +147,8 @@ public class AdminController {
     @RequestMapping(value = "/saveChangesForUsers", method = RequestMethod.POST)
     public
     @ResponseBody
-    String saveChangesForUsers(@RequestBody List<String> list) {
-
-        personService.update(Integer.parseInt(list.get(0)), list.get(1), list.get(2), list.get(3),
-                list.get(4), list.get(5), list.get(6), list.get(7), list.get(8));
+    String saveChangesForUsers(@RequestBody Persons person) {
+        System.out.println("blalba " + person.getNickname());
         return "Success changes";
     }
 
@@ -184,7 +182,7 @@ public class AdminController {
             cards.setCardName(list.get(0));
             cards.setCardKey(Long.parseLong(list.get(1)));
             cards.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
-            cards.setPerson(personService.findByNickname(list.get(2)));
+//            cards.setPerson(personService.findByNickname(list.get(2)));
             cardService.saveCard(cards);
             return "SUCCESS";
         }

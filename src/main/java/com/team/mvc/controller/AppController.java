@@ -1,10 +1,12 @@
 package com.team.mvc.controller;
 
+import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.RoleService;
+import com.team.mvc.log.Const;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -46,10 +48,19 @@ public class AppController {
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
+//        List<Persons> personsList = personService.getUsers();
+//        if (Const.DEBUG) {
+//            if (logger.isDebugEnabled()) {
+//                for (Persons persons : personsList) {
+//                    logger.debug("Array Card size " + persons.getCards().size() + " for " + persons.getNickname());
+//                    for (Cards card : persons.getCards()) {
+//                        logger.debug("CardName " + card.getCardName());
+//                    }
+//                }
+//            }
+//        }
         return "welcome";
     }
-
-
 
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)

@@ -1,16 +1,18 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
 @Table(name = "PERSONS")
-public class Persons {
+public class Persons implements Serializable {
 
     @Id
     @Column(name = "PERSON_ID")
@@ -33,9 +35,9 @@ public class Persons {
     @Column(name = "LAST_NAME", nullable = false, length = 30)
     private String lastName;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JsonManagedReference(value="person-city")
     @JoinColumn(name = "CITY_ID")
-    @JsonManagedReference
     private Cities city;
 
 
@@ -49,11 +51,15 @@ public class Persons {
     @JoinColumn(name = "ROLE_ID")
     private Rollers role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.REMOVE)
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value="person-cards")
     public List<Cards> cards = new ArrayList<Cards>();
 
     public Persons() {
     }
+
+
 
 
     public Integer getPersonId() {

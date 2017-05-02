@@ -1,6 +1,79 @@
-// массив для сохранения изменений
-var massChanges = [];
+// массив для сохранения объектов приходяших в json'e
+var arrayObject = Array();
 
+// при заходе на страницу админа сразу подгружаем коллекцию городов
+// массив городов
+var cities = Array();
+// переменная которая будет цепляться к форме для выпадающего списка
+var city = '';
+// функция получения городов, загружается после захода на страницу админа
+function getCities() {
+
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getCities",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+                city += '<option>' + item.cityName + '</option>';
+                cities.push(item);
+            });
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+
+// при заходе на страницу админа сразу подгружаем коллекцию ролей
+// массив ролей
+var rollers = Array();
+// переменная которая будет цепляться к форме для выпадающего списка
+var role = '';
+// функция получения ролей, загружается после захода на страницу админа
+function getRollers() {
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getRollers",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+                role += '<option>' + item.roleType + '</option>';
+                rollers.push(item);
+            });
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+// при заходе на страницу админа сразу подгружаем коллекцию типовКарт
+// массив ролей
+var typeCard = Array();
+// переменная которая будет цепляться к форме для выпадающего списка
+var cardStatus = '';
+// переменная которая будет цепляться к форме для выпадающего списка
+var cardType = '';
+// функция получения типовКарт, загружается после захода на страницу админа
+function getTypeCard() {
+
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getTypeCard",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+                typeCard.push(item);
+                cardStatus += '<option>' + item.status + '</option>';
+                cardType += '<option>' + item.cardType + '</option>';
+            });
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+//функция для удаления пользователей
 function deleteUser() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
@@ -33,52 +106,11 @@ function deleteUser() {
         }
     });
 }
-//
-// // метод для сохранении информации о пользователе, например после редактирования
-// function saveChanges() {
-//     var token = $("meta[name='_csrf']").attr("content");
-//     var header = $("meta[name='_csrf_header']").attr("content");
-//
-//     $("#changeForm").find("input").each(function () {
-//         massChanges.push(this.value);
-//     })
-//     massChanges.push($("#cities option:selected").text());
-//     console.log(massChanges);
-//     // })
-//     $.ajax({
-//         type: "POST",
-//         contentType: 'application/json; charset=utf-8',
-//         dataType: 'json',
-//         url: "/admin/saveChanges",
-//         data: JSON.stringify(massChanges), // Note it is important
-//         beforeSend: function (xhr) {
-//             // here it is
-//             xhr.setRequestHeader(header, token);
-//         },
-//         success: function (result) {
-//             console.log("SUCCESS: ", result);
-//             alert("success" + result);
-//         }
-//     });
-//     switch (massChanges[8]) {
-//         case "USER":
-//             getUsers();
-//             break;
-//         case "DRIVER":
-//             getDrivers();
-//             break;
-//         case "OWNER":
-//             getOwners();
-//             break;
-//     }
-//     alert("User edit successfully");
-//     massChanges = [];
-// }
 
 // переменная для поиска
 var forSearch = '';
 
-
+//функция для поиска
 function searchUser() {
     // var a = [];
     var count1 = 0;
@@ -109,7 +141,7 @@ function searchUser() {
     }
 }
 
-
+//функция для получения обычных пользователей
 function getUsers() {
     if ($("#tableForUser").length != 0) {
         $("tr").show();
@@ -121,6 +153,12 @@ function getUsers() {
             url: "/admin/getUsers",
             datatype: "json",
             success: function (response) {
+                // console.log(response);
+                $.each(response, function (i, item) {
+                    arrayObject.push(item);
+                    // console.log(item);
+                })
+
                 var trHTML = '';
                 trHTML += createTableHeader('Пользователи') + createTableBody(response, 'Пользователи');
                 $("#head").append(trHTML);
@@ -143,6 +181,7 @@ function getUsers() {
 }
 
 
+//функция для получения владельцев
 function getOwners() {
 
     if ($("#tableForOwners").length != 0) {
@@ -181,6 +220,7 @@ function Cancel() {
 }
 
 
+//функция для получения водителей
 function getDrivers() {
 
     if ($("#tableForDrivers").length != 0) {
@@ -195,7 +235,6 @@ function getDrivers() {
             success: function (response) {
                 var trHTML = '';
                 trHTML += createTableHeader('Водители') + createTableBody(response, 'Водители');
-                trHTML += '</tbody>' + '</table>';
                 $("#head").append(trHTML);
             },
             error: function () {
@@ -215,7 +254,7 @@ function getDrivers() {
     }
 }
 
-
+//функция для получения карт
 function getCards() {
 
     if ($("#tableForCards").length != 0) {
@@ -336,11 +375,7 @@ function createTableBody(response, tableName) {
     var tBody = '';
     switch (tableName) {
         case 'Пользователи':
-            tBody = createTableBodyForUsers(response, 'tdNick');
-            break;
         case 'Водители':
-            tBody = createTableBodyForUsers(response, 'tdNick');
-            break;
         case 'Владельцы':
             tBody = createTableBodyForUsers(response, 'tdNick');
             break;
@@ -528,7 +563,6 @@ function createFormForEditUser() {
         '<input id="inputPassword2" class="form-control" type="password">' +
         '</div>' +
         '</div>' +
-        '<input id="role" class="form-control" type="text" style="visibility:hidden"/>' +
         '<div class="form-group">' +
         '<label class="col-md-3 control-label"></label>' +
         '<div class="col-md-8">' +
@@ -544,23 +578,20 @@ function createFormForEditUser() {
         '</div>' +
         '</div>' +
         '</form>';
-    $("#head").append(tForm);
-    getCities().done(
-        getRollers().done(function () {
-                document.getElementById("inputID").value = userInfo[0];
-                document.getElementById("inputNick").value = userInfo[1];
-                document.getElementById("inputFirstname").value = userInfo[2];
-                document.getElementById("inputLastname").value = userInfo[3];
-                document.getElementById("inputMobile").value = userInfo[4];
-                document.getElementById("inputEmail").value = userInfo[5];
-                document.getElementById("cities").value = userInfo[6];
-                document.getElementById("rollers").value = userInfo[8];
-                document.getElementById("inputPassword1").value = userInfo[7];
-                document.getElementById("inputPassword2").value = userInfo[7];
-                userInfo = [];
-            }
-        )
-    );
+    document.getElementById("head").insertAdjacentHTML('beforeend', tForm);
+    document.getElementById("cities").insertAdjacentHTML('beforeend', city);
+    document.getElementById("rollers").insertAdjacentHTML('beforeend', role);
+    document.getElementById("inputID").value = rowInfo[0];
+    document.getElementById("inputNick").value = rowInfo[1];
+    document.getElementById("inputFirstname").value = rowInfo[2];
+    document.getElementById("inputLastname").value = rowInfo[3];
+    document.getElementById("inputMobile").value = rowInfo[4];
+    document.getElementById("inputEmail").value = rowInfo[5];
+    document.getElementById("cities").value = rowInfo[6];
+    document.getElementById("rollers").value = rowInfo[8];
+    document.getElementById("inputPassword1").value = rowInfo[7];
+    document.getElementById("inputPassword2").value = rowInfo[7];
+    rowInfo = [];
     return;
 }
 
@@ -619,15 +650,16 @@ function createFormForEditCard() {
         '</div>' +
         '</div>' +
         '</form>';
-    $("#head").append(tForm);
-    getTypeCard().done(function () {
-        document.getElementById("inputID").value = userInfo[0];
-        document.getElementById("cardName").value = userInfo[1];
-        document.getElementById("cardKey").value = userInfo[2];
-        document.getElementById("cardType").value = userInfo[3];
-        document.getElementById("cardStatus").value = userInfo[4];
-        userInfo = [];
-    });
+    document.getElementById("head").insertAdjacentHTML('beforeend', tForm);
+    document.getElementById("cardType").insertAdjacentHTML('beforeend', cardType);
+    document.getElementById("cardStatus").insertAdjacentHTML('beforeend', cardStatus);
+    document.getElementById("inputID").value = rowInfo[0];
+    document.getElementById("cardName").value = rowInfo[1];
+    document.getElementById("cardKey").value = rowInfo[2];
+    document.getElementById("cardType").value = rowInfo[3];
+    document.getElementById("cardStatus").value = rowInfo[4];
+    rowInfo = [];
+
     return;
 }
 
@@ -639,15 +671,10 @@ function createFormForEdit() {
         case 'Пользователи':
         case 'Владельцы':
         case 'Водители':
-            // window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-            // window.location = "http://localhost:8081/admin/editUser";
             createFormForEditUser();
 
             break;
         case 'Список карт':
-            // window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-            // window.location = "http://localhost:8081/admin/editCard";
-            // console.log(userInfo);
             createFormForEditCard();
 
             break;
@@ -656,7 +683,7 @@ function createFormForEdit() {
 
 
 // массив для взятий информации о объекте из таблицы
-var userInfo = [];
+var rowInfo = [];
 function edit() {
     var count = 0;
     // здесь надо передать одно значение, то есть один ряд с инфой о пользователе иначе кинуть alert
@@ -669,9 +696,9 @@ function edit() {
         $("table").find("tr").each(function () {
             if ($(this).find("input").is(":checked")) {
                 $(this).find("td").each(function () {
-                    userInfo.push(this.innerHTML);
+                    rowInfo.push(this.innerHTML);
                 })
-                console.log(userInfo);
+                console.log(rowInfo);
                 return;
             }
             count = 0;
@@ -709,79 +736,8 @@ function edit() {
 }
 
 
-var cardsStatus = [];
-var cardStatus = '';
-var cardType = '';
-function getTypeCard() {
-
-    return $.ajax({
-        type: "GET",
-        url: "/admin/getTypeCard",
-        datatype: "json",
-        success: function (response) {
-            $.each(response, function (i, item) {
-                cardStatus += '<option>' + item.status + '</option>';
-                cardType += '<option>' + item.cardType + '</option>';
-                cardsStatus.push(item);
-            });
-            document.getElementById("cardType").insertAdjacentHTML('beforeend', cardType);
-            document.getElementById("cardStatus").insertAdjacentHTML('beforeend', cardStatus);
-
-        },
-        error: function () {
-            alert("error")
-        }
-    })
-}
-
-
-var cities = [];
-var city = '';
-function getCities() {
-
-    return $.ajax({
-        type: "GET",
-        url: "/admin/getCities",
-        datatype: "json",
-        success: function (response) {
-            $.each(response, function (i, item) {
-//                    city += '<option>' + item.cityName + '</option>';
-                city += '<option>' + item + '</option>';
-                cities.push(item);
-            });
-//                console.log(city);
-            $("#cities").append(city);
-        },
-        error: function () {
-            alert("error")
-        }
-    })
-}
-
-
-var rollers = [];
-var role = '';
-function getRollers() {
-    return $.ajax({
-        type: "GET",
-        url: "/admin/getRollers",
-        datatype: "json",
-        success: function (response) {
-            $.each(response, function (i, item) {
-                role += '<option>' + item.roleType + '</option>';
-                rollers.push(item);
-            });
-            $("#rollers").append(role);
-            role = '';
-        },
-        error: function () {
-            alert("error")
-        }
-    })
-}
-
 // массив для сохранения изменений
-var massChanges = [];
+var massChanges = Array();
 
 // метод для сохранении информации о пользователе, например после редактирования
 function saveChangesForUsers() {
@@ -791,7 +747,7 @@ function saveChangesForUsers() {
 
     var fieldPass1 = $("#inputPassword1").val();
     var fieldPass2 = $("#inputPassword2").val();
-    if(fieldPass1!=fieldPass2){
+    if (fieldPass1 != fieldPass2) {
         alert("Пароли не совпадают!");
         return;
     }
@@ -800,13 +756,40 @@ function saveChangesForUsers() {
     })
 
     console.log(massChanges);
-    // })
+    var entity;
+    for (var i = 0; i < arrayObject.length; i++) {
+        if ((arrayObject[i].personId == massChanges[0])) {
+            console.log(arrayObject[i]);
+            arrayObject[i].nickname = massChanges[1];
+            arrayObject[i].firstName = massChanges[2];
+            arrayObject[i].lastName = massChanges[3];
+            arrayObject[i].mobileNumber = massChanges[4];
+            arrayObject[i].email = massChanges[5];
+            for (var j = 0; j < cities.length; j++) {
+                if (cities[j].cityName == massChanges[6]){
+                    arrayObject[i].city = cities[j];
+                    break;
+                }
+            }
+            arrayObject[i].password = massChanges[7];
+            for (var l = 0; l < rollers.length; l++) {
+                if (rollers[l].roleType == massChanges[8]){
+                    arrayObject[i].role = rollers[l];
+                    break;
+                }
+            }
+            entity = arrayObject[i];
+            console.log(arrayObject[i]);
+            break;
+        }
+    }
+    console.log(entity);
     $.ajax({
         type: "POST",
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         url: "/admin/saveChangesForUsers",
-        data: JSON.stringify(massChanges), // Note it is important
+        data: JSON.stringify(entity), // Note it is important
         beforeSend: function (xhr) {
             // here it is
             xhr.setRequestHeader(header, token);
@@ -816,20 +799,9 @@ function saveChangesForUsers() {
             alert("success" + result);
         }
     });
-       switch (massChanges[7]) {
-           case "USER":
-               getUsers();
-               break;
-           case "DRIVER":
-               getDrivers();
-               break;
-           case "OWNER":
-               getOwners();
-               break;
-       }
-    alert("User edit successfully");
 
-    massChanges = [];
+    alert("User edit successfully");
+    massChanges.splice(0, massChanges.length);
 }
 
 
@@ -864,3 +836,9 @@ function saveChangesForCards() {
     getCards();
     massChanges = [];
 }
+
+
+
+
+
+

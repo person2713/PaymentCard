@@ -31,9 +31,9 @@ public class Companies {
     @Column(name = "COMP_BALANCE")
     private BigDecimal compBalance;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
+//    @JsonManagedReference(value = "company-city")
     @JoinColumn(name = "CITY_ID")
-    @JsonBackReference
     private Cities city;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.REMOVE)
