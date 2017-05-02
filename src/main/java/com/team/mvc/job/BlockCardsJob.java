@@ -24,7 +24,7 @@ public class BlockCardsJob {
     @Autowired
     CardsRepository cardsRepository;
 
-    @Scheduled(cron = "*/100000 * * * * *")
+  //  @Scheduled(cron = "*/100000 * * * * *")
     public void block() {
 
         List<TemporaryEvents> temporaryEventsList = temporaryEventsRepository.getAllTemporaryEvents();

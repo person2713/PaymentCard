@@ -4,21 +4,24 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-    <title>ForgotPassword</title>
+    <title>Home Page</title>
 </head>
 <body>
-Enter your registered email address:
-<form action="resetPassword" method="post">
-    <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+Enter New Password for ${emailid}
+<form action="#">
     <table>
         <tr>
-
-            <td colspan="2"><input type="text" name="email"> </td>
+            <td>Password</td>
+            <td><input type="password" id="txtPass"> </td>
         </tr>
-
         <tr>
-            <td><input type="Submit" value="Reset Password">  </td>
-            <td><input type="reset" value="Cancel">  </td>
+            <td>Retype-Password</td>
+            <td><input type="password" id="txtPass"> </td>
+        </tr>
+        <tr>
+
+            <td colspan="2"><center><input type="button" value="Save"> </center> </td>
+
         </tr>
 
     </table>

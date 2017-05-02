@@ -7,6 +7,7 @@ import com.team.mvc.database.services.BlackListService;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.util.GenericResponse;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -22,6 +23,8 @@ import org.springframework.ui.ModelMap;
 
 import org.springframework.web.bind.annotation.*;
 
+
+import javax.crypto.spec.SecretKeySpec;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -187,10 +190,10 @@ public class AppController {
             e.printStackTrace();
         }
         try {
-            mailMsg.setText(pass);
+            mailMsg.setText("<html><body>hi,<br/><a href='http://localhost:9555/newPass/"+createToken(email)+"/'> Click here</a> to reset password</body></html>",true);
         } catch (MessagingException e) {
             e.printStackTrace();
-        }
+        }//
         mailSender.send(mimeMessage);
         System.out.println("---Done---");
 
@@ -198,7 +201,16 @@ public class AppController {
         return "checkMail";
     }
 
-
+    @RequestMapping(value="/newPass/{email}/" )
+    public String resetPassword(@PathVariable String email /*,Map<String,String> model*/)
+    {
+        //check if the email id is valid and registered with us.
+      //model.put("emailid", email);
+        String mail = readMailIdFromToken(email);
+//        Persons person = personService.findByEmail(email);
+//        System.out.println(person);
+        return "newPass";
+    }
 
 
 
@@ -206,15 +218,16 @@ public class AppController {
     {
 
         Claims claims = Jwts.claims().setSubject( String.valueOf( mail ) );
-
+        byte secret = (byte) 12345;
         claims.put( "mail", mail );
         Date currentTime = new Date();
-        currentTime.setTime( currentTime. +  * 60000 );
+        currentTime.setTime( currentTime.getTime() +   60000 );
         return Jwts.builder()
                 .setClaims( claims )
                 .setExpiration( currentTime )
-                .signWith( SignatureAlgorithm.HS512, salt.getBytes() )
+                .signWith( SignatureAlgorithm.HS512, /*salt.getBytes()*/ "secretkey")
                 .compact();
+
     }
 
 
@@ -225,5 +238,13 @@ public class AppController {
     private boolean isCurrentAuthenticationAnonymous() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authenticationTrustResolver. isAnonymous(authentication);
+    }
+
+    public String readMailIdFromToken( String token )
+    {
+        byte secret = (byte) 12345;
+        Jwts.parser().setSigningKey(/* salt.getBytes()*/"secretkey" ).parseClaimsJws( token ).getSignature();
+        Jws<Claims> parseClaimsJws = Jwts.parser().setSigningKey( /*salt.getBytes()*/"secretkey" ).parseClaimsJws( token );
+        return parseClaimsJws.getBody().getSubject();
     }
 }
