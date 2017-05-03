@@ -34,12 +34,10 @@ public class PersonRepository {
         return sessionFactory.getCurrentSession();
     }
 
-    public Persons getById(long id) throws NotFoundException {
+    public Persons getById(Long id) throws NotFoundException {
         return (Persons) getSession().get(Persons.class, id);
     }
-    public Persons getById(Integer id) throws NotFoundException {
-        return (Persons) getSession().get(Persons.class, id);
-    }
+
 
     public List<Persons> getAll() {
         return getSession().createCriteria(Persons.class).list();

@@ -32,7 +32,7 @@ public class PersonService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Persons findById(int id) throws NotFoundException {
+    public Persons findById(Long id) throws NotFoundException {
         return personRepository.getById(id);
     }
 
@@ -83,7 +83,7 @@ public class PersonService {
     }
 
 
-    public boolean isPersonsNicknameUnique(Integer id, String nickname) {
+    public boolean isPersonsNicknameUnique(Long id, String nickname) {
         Persons persons = findByNickname(nickname);
         return (persons == null || ((id != null) && (persons.getPersonId() == id)));
 

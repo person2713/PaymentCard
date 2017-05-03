@@ -27,11 +27,8 @@ public class Cards implements Serializable {
     private String cardName;
 
 
-    @ManyToOne
-    @JoinColumn(name = "PERSON_ID")
-    @JsonBackReference (value="person-cards")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Persons person;
+    @Column(name="PERSON_ID")
+    private Long personId;
 
     @Column(name = "CARD_KEY", nullable = false)
     private long cardKey;
@@ -58,27 +55,19 @@ public class Cards implements Serializable {
     public List<Events> events = new ArrayList<Events>();
 
 
-
-
-    public void setCardBalance(CardBalance cardBalance) {
-        this.cardBalance = cardBalance;
-    }
-
-    public void setCardName(String cardName) {
-        this.cardName = cardName;
-    }
-
-
-    public String getCardName() {
-        return cardName;
+    public Cards() {
     }
 
     public long getCardId() {
         return cardId;
     }
 
-    public Persons getPerson() {
-        return person;
+    public String getCardName() {
+        return cardName;
+    }
+
+    public Long getPersonId() {
+        return personId;
     }
 
     public long getCardKey() {
@@ -101,8 +90,12 @@ public class Cards implements Serializable {
         this.cardId = cardId;
     }
 
-    public void setPerson(Persons person) {
-        this.person = person;
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     public void setCardKey(long cardKey) {
@@ -113,36 +106,15 @@ public class Cards implements Serializable {
         this.typeCard = typeCard;
     }
 
+    public void setCardBalance(CardBalance cardBalance) {
+        this.cardBalance = cardBalance;
+    }
+
     public void setBalanceHists(List<BalanceHist> balanceHists) {
         this.balanceHists = balanceHists;
     }
 
     public void setEvents(List<Events> events) {
         this.events = events;
-    }
-
-    public Cards() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Cards cards = (Cards) o;
-
-        if (cardId != cards.cardId) return false;
-        if (cardKey != cards.cardKey) return false;
-        if (typeCard != cards.typeCard) return false;
-        if (person != null ? !person.equals(cards.person) : cards.person != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (cardId ^ (cardId >>> 31));
-        result = 31 * result + (int) (cardKey ^ (cardKey >>> 31));
-        return result;
     }
 }
