@@ -5,12 +5,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Login page</title>
 	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"/>
+	<%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">--%>
 </head>
 
 <body>
 <div class="container">
 	<div class="row">
-		<div class="col-md-offset-3 col-md-6">
+		<div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-lg-offset-3 col-lg-6">
 			<form action="${loginUrl}" method="post" class="form-horizontal">
 				<c:if test="${flag}">
 					<div class="alert alert-danger">
