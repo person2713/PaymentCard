@@ -36,7 +36,6 @@ public class Persons implements Serializable {
     private String lastName;
 
     @ManyToOne(optional = false)
-    @JsonManagedReference(value="person-city")
     @JoinColumn(name = "CITY_ID")
     private Cities city;
 

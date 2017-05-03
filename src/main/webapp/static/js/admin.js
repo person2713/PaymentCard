@@ -757,6 +757,9 @@ function saveChangesForUsers() {
 
     console.log(massChanges);
     var entity;
+    // var citiz;
+    var citiz = Array();
+    console.log(arrayObject);
     for (var i = 0; i < arrayObject.length; i++) {
         if ((arrayObject[i].personId == massChanges[0])) {
             console.log(arrayObject[i]);
@@ -773,23 +776,24 @@ function saveChangesForUsers() {
             }
             arrayObject[i].password = massChanges[7];
             for (var l = 0; l < rollers.length; l++) {
-                if (rollers[l].roleType == massChanges[8]){
+                if (rollers[l].roleType == massChanges[7]){
                     arrayObject[i].role = rollers[l];
+                    // citiz = arrayObject[i].role;
                     break;
                 }
             }
             entity = arrayObject[i];
-            console.log(arrayObject[i]);
+            citiz = arrayObject[i].cards;
             break;
         }
     }
-    console.log(entity);
+    console.log(citiz);
     $.ajax({
         type: "POST",
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         url: "/admin/saveChangesForUsers",
-        data: JSON.stringify(entity), // Note it is important
+        data: JSON.stringify(citiz), // Note it is important
         beforeSend: function (xhr) {
             // here it is
             xhr.setRequestHeader(header, token);
