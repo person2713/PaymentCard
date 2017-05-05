@@ -7,7 +7,7 @@
 
 	<link href="/static/css/boot.css" rel="stylesheet">
 	<link href="/static/css/dashboard.css" rel="stylesheet">
-	<link href="/static/css/daterangepicker.scss" rel="stylesheet">
+	<link href="/daterangepicker.scss" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
