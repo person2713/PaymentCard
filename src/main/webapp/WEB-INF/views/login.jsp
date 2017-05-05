@@ -4,7 +4,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Login page</title>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"/>
+	<%--<link href="<c:url value='/static/css/1bootstrap.css' />"  rel="stylesheet"/>--%>
+	<link href="/static/css/boot.css" rel="stylesheet">
 	<%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">--%>
 </head>
 

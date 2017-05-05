@@ -8,7 +8,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Registration</title>
-    <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
+    <%--<link href="<c:url value='/static/css/1bootstrap.css' />" rel="stylesheet"/>--%>
+    <link href="/static/css/boot.css" rel="stylesheet">
 
 
 

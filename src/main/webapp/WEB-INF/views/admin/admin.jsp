@@ -5,18 +5,13 @@
 <head>
     <title>Admin page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="_csrf" content="${_csrf.token}"/>
-    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="_csrf" content="6417ec49-aa65-48f9-a7e5-1da3bbff98c2">
 
 
-    <!-- 4.0.0-alpha.6/css/bootstrap.min.css-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
+    <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/dashboard.css" rel="stylesheet">
 
     <script src="/static/js/jquery-3.2.1.js"></script>
@@ -31,18 +26,20 @@
 </head>
 
 <body>
-<div id="header">
-    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-        <a class="navbar-brand" href="#">PaymentCard</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="/logout">Выйти</a>
-                </li>
-            </ul>
+<div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+
+            <a class="navbar-brand" style="color: white">Payment Card</a>
         </div>
-    </nav>
-</div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a><strong>${loggedinuser}</strong></a></li>
+                <li><a href="/logout">Выйти</a></li>
+            </ul>
+        </div><!-- /.nav-collapse -->
+    </div><!-- /.container -->
+</div><!-- /.navbar -->
 <div id="content">
     <div class="container-fluid">
         <div class="row">
