@@ -47,6 +47,11 @@ public class PersonService {
         return ( persons==null || ((id != null) && (persons.getPersonId().equals(id) )));
 
     }
+    public void updPass (String mail, String pass){
+        Persons persons = new Persons();
+        persons = personRepository.findByEmail(mail);
+        persons.setPassword(passwordEncoder.encode(pass));
+    }
 
    /* public List<Cards> findCradsByNickname(String nickname) {return personRepository.findCardsByNickname(nickname);}
     public CardBalance findBalanceByNickname(String nickname) {return personRepository.findBalanceByNickname(nickname);}

@@ -43,12 +43,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/home","/newPassword").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
-                .antMatchers("/driver/**").hasRole("DRIVER")
-                .antMatchers("/API/**").hasRole("DRIVER")
-                .antMatchers("/owner/**").hasRole("OWNER")
+                .antMatchers("/", "/home","/newPassword", "/updPass/**").permitAll().and()
+        .authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").and()
+                .authorizeRequests() .antMatchers("/user/**").hasRole("USER").and()
+                .authorizeRequests().antMatchers("/driver/**").hasRole("DRIVER").and()
+                .authorizeRequests().antMatchers("/API/**").hasRole("DRIVER").and()
+                .authorizeRequests() .antMatchers("/owner/**").hasRole("OWNER")
                 .and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
                 .failureHandler(customFailureHandler)
                 .usernameParameter("nickName").passwordParameter("password")

@@ -4,24 +4,21 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-    <title>Home Page</title>
+    <title>ForgotPassword</title>
 </head>
 <body>
-Enter New Password for ${emailid}
-<form action="#">
+Enter your registered password:
+<form action="updPass" method="post">
+    <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
     <table>
         <tr>
-            <td>Password</td>
-            <td><input type="password" id="txtPass"> </td>
-        </tr>
-        <tr>
-            <td>Retype-Password</td>
-            <td><input type="password" id="txtPass"> </td>
-        </tr>
-        <tr>
 
-            <td colspan="2"><center><input type="button" value="Save"> </center> </td>
+            <td colspan="2"><input type="text" name="pass"> </td>
+        </tr>
 
+        <tr>
+            <td><input type="Submit" value="Reset Password">  </td>
+            <td><input type="reset" value="Cancel">  </td>
         </tr>
 
     </table>
