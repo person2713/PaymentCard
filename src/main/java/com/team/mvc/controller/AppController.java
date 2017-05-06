@@ -83,6 +83,14 @@ public class AppController {
 
 
 
+    //мапинг на проверку странички ввода нового пароля
+    /*@RequestMapping(value = "/reset_pass", method = RequestMethod.GET)
+    public String resetPassPage(ModelMap model) {
+        return "enter_new_pass";
+    }*/
+
+
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(ModelMap model) {
 
