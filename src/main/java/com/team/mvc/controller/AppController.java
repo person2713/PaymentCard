@@ -51,6 +51,11 @@ public class AppController {
     }
 
 
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    public String welcomePage(ModelMap model) {
+        return "welcome";
+    }
+
 
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -70,6 +75,13 @@ public class AppController {
         model.addAttribute("loggedinuser", GetRole.getPrincipal());
         return "accessDenied";
     }
+
+    @RequestMapping(value = "/reset_pass", method = RequestMethod.GET)
+    public String resetPassPage(ModelMap model) {
+        return "reset_pass";
+    }
+
+
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(ModelMap model) {

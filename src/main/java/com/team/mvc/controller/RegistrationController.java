@@ -10,11 +10,6 @@ import com.team.mvc.log.Const;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -140,6 +135,9 @@ public class RegistrationController {
         return cityService.getAll();
     }
 
-
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    public String welcomePage(ModelMap model) {
+        return "welcome";
+    }
 
 }

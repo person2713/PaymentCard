@@ -43,7 +43,7 @@
                 <img src="/static/images/templatemo_carousel_bg_s.jpg">
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>${greeting}</h1>
+                        <h1>Payment Card system</h1>
                         <p>Пожалуйста, авторизуйтесь или зарегистрируйтесь.</p>
                         <p><a class="btn btn-lg btn-green" href="/login" role="button" style="margin: 20px;">Вход</a>
                             <a class="btn btn-lg btn-orange" href="/registration" role="button">Регистрация</a></p>
