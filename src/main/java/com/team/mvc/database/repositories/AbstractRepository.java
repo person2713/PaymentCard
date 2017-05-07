@@ -18,7 +18,10 @@ public abstract class AbstractRepository<Entity> {
     }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -31,10 +34,14 @@ public abstract class AbstractRepository<Entity> {
         return sessionFactory.getCurrentSession();
     }
 
+<<<<<<< HEAD
     public Entity getById(long id) throws NotFoundException {
         return (Entity) getSession().get(persistentClass, id);
             }
     public Entity getById(Integer id) throws NotFoundException {
+=======
+    public Entity getById(Long id) throws NotFoundException {
+>>>>>>> origin/master
         return (Entity) getSession().get(persistentClass, id);
     }
 
@@ -52,6 +59,7 @@ public abstract class AbstractRepository<Entity> {
         getSession().delete(entity);
     }
 
+<<<<<<< HEAD
     public void update(Entity entity){
         getSession().update(entity);
     }
@@ -59,4 +67,10 @@ public abstract class AbstractRepository<Entity> {
 //    public Entity load(int id){
 //        getSession().load(Entity.class, id);
 //    }
+=======
+    public void update(Entity entity) {
+        getSession().update(entity);
+    }
+
+>>>>>>> origin/master
 }

@@ -3,6 +3,7 @@ package com.team.mvc.controller.admincontrollers;
 import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
 import com.team.mvc.database.services.*;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,7 +33,6 @@ public class AdminController {
 
     @Autowired
     RoleService roleService;
-
 
 
     @Autowired
@@ -104,8 +104,8 @@ public class AdminController {
     @RequestMapping(value = "/getCities", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<String> getCities() {
-        return cityService.stringCities();
+    List<Cities> getCities() {
+        return cityService.getAll();
     }
 
     @RequestMapping(value = "/getTypeCard", method = RequestMethod.GET)
@@ -135,23 +135,21 @@ public class AdminController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public
     @ResponseBody
-    String deleteUser(@RequestBody List<String> list) {
+    String deleteUser(@RequestBody List<Object> objectList) {
 
-        for (String nickName : list) {
-            personService.deleteByNickName(nickName);
-            System.out.println("Delete " + nickName);
-        }
+//        for (String nickName : list) {
+////            personService.deleteByNickName(nickName);
+//            System.out.println("Delete " + nickName);
+//        }
         return "Success";
     }
 
     @RequestMapping(value = "/saveChangesForUsers", method = RequestMethod.POST)
     public
     @ResponseBody
-    String saveChangesForUsers(@RequestBody List<String> list) {
-
-        personService.update(Integer.parseInt(list.get(0)), list.get(1), list.get(2), list.get(3),
-                list.get(4), list.get(5), list.get(6), list.get(7), list.get(8));
-        return "Success changes";
+    String saveChangesForUsers(@RequestBody Persons person) {
+        personService.update(person);
+        return "Success changesForPersons";
     }
 
 
@@ -164,7 +162,6 @@ public class AdminController {
         for (String str : list) {
             System.out.println(str);
         }
-        cardService.update(Integer.parseInt(list.get(0)), list.get(1), list.get(2), list.get(4), list.get(3));
         return "Success changes";
     }
 
@@ -184,7 +181,7 @@ public class AdminController {
             cards.setCardName(list.get(0));
             cards.setCardKey(Long.parseLong(list.get(1)));
             cards.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
-            cards.setPerson(personService.findByNickname(list.get(2)));
+//            cards.setPerson(personService.findByNickname(list.get(2)));
             cardService.saveCard(cards);
             return "SUCCESS";
         }

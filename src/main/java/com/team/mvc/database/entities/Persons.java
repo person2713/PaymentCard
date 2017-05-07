@@ -1,22 +1,26 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "PERSONS")
-public class Persons {
+public class Persons implements Serializable {
 
     @Id
     @Column(name = "PERSON_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONS_SEQ")
     @SequenceGenerator(name = "PERSONS_SEQ", sequenceName = "PERSONS_SEQ")
-    private Integer personId;
+    private Long personId;
 
 
     @Column(name = "NICKNAME", nullable = false, length = 30, unique = true)
@@ -33,9 +37,8 @@ public class Persons {
     @Column(name = "LAST_NAME", nullable = false, length = 30)
     private String lastName;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "CITY_ID")
-    @JsonManagedReference
     private Cities city;
 
 
@@ -49,14 +52,15 @@ public class Persons {
     @JoinColumn(name = "ROLE_ID")
     private Rollers role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.REMOVE)
-    public List<Cards> cards = new ArrayList<Cards>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="PERSON_ID")
+    public Set<Cards> cards = new HashSet<>();
 
     public Persons() {
     }
 
-
-    public Integer getPersonId() {
+    public Long getPersonId() {
         return personId;
     }
 
@@ -92,11 +96,11 @@ public class Persons {
         return role;
     }
 
-    public List<Cards> getCards() {
+    public Set<Cards> getCards() {
         return cards;
     }
 
-    public void setPersonId(Integer personId) {
+    public void setPersonId(Long personId) {
         this.personId = personId;
     }
 
@@ -132,39 +136,8 @@ public class Persons {
         this.role = role;
     }
 
-    public void setCards(List<Cards> cards) {
+    public void setCards(Set<Cards> cards) {
         this.cards = cards;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Persons persons = (Persons) o;
-
-        if (personId != persons.personId) return false;
-        if (city != null ? !city.equals(persons.city) : persons.city != null) return false;
-        if (firstName != null ? !firstName.equals(persons.firstName) : persons.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(persons.lastName) : persons.lastName != null) return false;
-        if (mobileNumber != null ? !mobileNumber.equals(persons.mobileNumber) : persons.mobileNumber != null)
-            return false;
-        if (email != null ? !email.equals(persons.email) : persons.email != null) return false;
-        if (password != null ? !password.equals(persons.password) : persons.password != null) return false;
-        if (nickname != null ? !nickname.equals(persons.nickname) : persons.nickname != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (personId ^ (personId >>> 31));
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (mobileNumber != null ? mobileNumber.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        return result;
     }
 
     @Override

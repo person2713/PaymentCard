@@ -110,7 +110,7 @@
 <script>
     $(document).ready(function () {
         var userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
-//        console.log(userInfo);
+// console.log(rowInfo);
             getTypeCard().done(function () {
                 document.getElementById("inputID").value = userInfo[0];
                 document.getElementById("cardName").value = userInfo[1];

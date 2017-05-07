@@ -7,30 +7,29 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 
 @Entity
 @Table(name = "CARDS")
-public class Cards {
+public class Cards implements Serializable {
 
     @Id
     @Column(name = "CARD_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARDS_SEQ")
     @SequenceGenerator(name = "CARDS_SEQ", sequenceName = "CARDS_SEQ")
-    private long cardId;
+    private Long cardId;
 
     @Column(name = "CARD_NAME", length = 30, unique = true)
     private String cardName;
 
 
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "PERSON_ID")
-    @JsonBackReference
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Persons person;
+    @Column(name="PERSON_ID")
+    private Long personId;
 
     @Column(name = "CARD_KEY", nullable = false)
     private long cardKey;
@@ -43,36 +42,29 @@ public class Cards {
     @JoinColumn(name="CARD_ID", nullable = false)
     private CardBalance cardBalance;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    public List<BalanceHist> balanceHists = new ArrayList<BalanceHist>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="CARD_ID")
+    public Set<BalanceHist> balanceHists = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    public List<Events> events = new ArrayList<Events>();
-
-
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="CARD_ID")
+    public Set<Events> events = new HashSet<>();
 
 
-    public void setCardBalance(CardBalance cardBalance) {
-        this.cardBalance = cardBalance;
+
+    public Cards() {
     }
 
-    public void setCardName(String cardName) {
-        this.cardName = cardName;
+    public Long getCardId() {
+        return cardId;
     }
-
 
     public String getCardName() {
         return cardName;
     }
 
-    public long getCardId() {
-        return cardId;
-    }
-
-    public Persons getPerson() {
-        return person;
+    public Long getPersonId() {
+        return personId;
     }
 
     public long getCardKey() {
@@ -83,20 +75,29 @@ public class Cards {
         return typeCard;
     }
 
-    public List<BalanceHist> getBalanceHists() {
+    public CardBalance getCardBalance() {
+        return cardBalance;
+    }
+
+    public Set<BalanceHist> getBalanceHists() {
         return balanceHists;
     }
 
-    public List<Events> getEvents() {
+    public Set<Events> getEvents() {
         return events;
     }
 
-    public void setCardId(long cardId) {
+
+    public void setCardId(Long cardId) {
         this.cardId = cardId;
     }
 
-    public void setPerson(Persons person) {
-        this.person = person;
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     public void setCardKey(long cardKey) {
@@ -107,15 +108,16 @@ public class Cards {
         this.typeCard = typeCard;
     }
 
-    public void setBalanceHists(List<BalanceHist> balanceHists) {
+    public void setCardBalance(CardBalance cardBalance) {
+        this.cardBalance = cardBalance;
+    }
+
+    public void setBalanceHists(Set<BalanceHist> balanceHists) {
         this.balanceHists = balanceHists;
     }
 
-    public void setEvents(List<Events> events) {
+    public void setEvents(Set<Events> events) {
         this.events = events;
-    }
-
-    public Cards() {
     }
 
     @Override
@@ -125,18 +127,26 @@ public class Cards {
 
         Cards cards = (Cards) o;
 
-        if (cardId != cards.cardId) return false;
         if (cardKey != cards.cardKey) return false;
-        if (typeCard != cards.typeCard) return false;
-        if (person != null ? !person.equals(cards.person) : cards.person != null) return false;
-
-        return true;
+        if (cardId != null ? !cardId.equals(cards.cardId) : cards.cardId != null) return false;
+        if (cardName != null ? !cardName.equals(cards.cardName) : cards.cardName != null) return false;
+        if (personId != null ? !personId.equals(cards.personId) : cards.personId != null) return false;
+        if (typeCard != null ? !typeCard.equals(cards.typeCard) : cards.typeCard != null) return false;
+        if (cardBalance != null ? !cardBalance.equals(cards.cardBalance) : cards.cardBalance != null) return false;
+        if (balanceHists != null ? !balanceHists.equals(cards.balanceHists) : cards.balanceHists != null) return false;
+        return events != null ? events.equals(cards.events) : cards.events == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (cardId ^ (cardId >>> 31));
-        result = 31 * result + (int) (cardKey ^ (cardKey >>> 31));
+        int result = cardId != null ? cardId.hashCode() : 0;
+        result = 31 * result + (cardName != null ? cardName.hashCode() : 0);
+        result = 31 * result + (personId != null ? personId.hashCode() : 0);
+        result = 31 * result + (int) (cardKey ^ (cardKey >>> 32));
+        result = 31 * result + (typeCard != null ? typeCard.hashCode() : 0);
+        result = 31 * result + (cardBalance != null ? cardBalance.hashCode() : 0);
+        result = 31 * result + (balanceHists != null ? balanceHists.hashCode() : 0);
+        result = 31 * result + (events != null ? events.hashCode() : 0);
         return result;
     }
 }

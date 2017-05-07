@@ -18,14 +18,13 @@ public class BalanceHist {
     @Column(name = "BALANCE_HIST_ID")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "BALANCE_HIST_SEQ")
     @SequenceGenerator(name = "BALANCE_HIST_SEQ", sequenceName = "BALANCE_HIST_SEQ")
-    private long balanceHistId;
+    private Long balanceHistId;
 
-    @ManyToOne
-    @JoinColumn(name = "CARD_ID", nullable = false)
-    @JsonBackReference
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Cards card;
+    @Column(name="CARD_ID")
+    private Long cardId;
 
+    @Column(name="BALANCE_ID")
+    private Long balanceId;
 
     @Column(name = "CHANGES")
     private BigDecimal changes;
@@ -34,20 +33,16 @@ public class BalanceHist {
     @Column(name = "DATE_EVENT")
     private Timestamp dateEvent;
 
-    @ManyToOne
-    @JoinColumn(name = "BALANCE_ID", nullable = false)
-    @JsonBackReference
-    private CardBalance cardBalance;
 
     public BalanceHist() {
     }
 
-    public long getBalanceHistId() {
+    public Long getBalanceHistId() {
         return balanceHistId;
     }
 
-    public Cards getCard() {
-        return card;
+    public Long getCardId() {
+        return cardId;
     }
 
     public BigDecimal getChanges() {
@@ -55,27 +50,31 @@ public class BalanceHist {
     }
 
     public Timestamp getDateEvent() {
-        return new Timestamp(dateEvent.getTime());
+        return dateEvent;
     }
 
-    public CardBalance getCardBalance() {
-        return cardBalance;
+    public Long getBalanceId() {
+        return balanceId;
     }
 
-    public void setBalanceHistId(long balanceHistId) {
+    public void setBalanceHistId(Long balanceHistId) {
         this.balanceHistId = balanceHistId;
     }
 
-    public void setCard(Cards card) {
-        this.card = card;
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
     }
 
     public void setChanges(BigDecimal changes) {
         this.changes = changes;
     }
 
-    public void setCardBalance(CardBalance cardBalance) {
-        this.cardBalance = cardBalance;
+    public void setDateEvent(Timestamp dateEvent) {
+        this.dateEvent = dateEvent;
+    }
+
+    public void setBalanceId(Long balanceId) {
+        this.balanceId = balanceId;
     }
 
     @Override
@@ -85,18 +84,21 @@ public class BalanceHist {
 
         BalanceHist that = (BalanceHist) o;
 
-        if (balanceHistId != that.balanceHistId) return false;
-        if (changes != that.changes) return false;
+        if (balanceHistId != null ? !balanceHistId.equals(that.balanceHistId) : that.balanceHistId != null)
+            return false;
+        if (cardId != null ? !cardId.equals(that.cardId) : that.cardId != null) return false;
+        if (changes != null ? !changes.equals(that.changes) : that.changes != null) return false;
         if (dateEvent != null ? !dateEvent.equals(that.dateEvent) : that.dateEvent != null) return false;
-
-        return true;
+        return balanceId != null ? balanceId.equals(that.balanceId) : that.balanceId == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (balanceHistId ^ (balanceHistId >>> 31));
-        result = 31 * result + (int) (changes.intValue() ^ (changes.intValue() >>> 31));
+        int result = balanceHistId != null ? balanceHistId.hashCode() : 0;
+        result = 31 * result + (cardId != null ? cardId.hashCode() : 0);
+        result = 31 * result + (changes != null ? changes.hashCode() : 0);
         result = 31 * result + (dateEvent != null ? dateEvent.hashCode() : 0);
+        result = 31 * result + (balanceId != null ? balanceId.hashCode() : 0);
         return result;
     }
 }

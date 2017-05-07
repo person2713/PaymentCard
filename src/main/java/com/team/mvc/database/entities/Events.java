@@ -17,14 +17,11 @@ public class Events {
     @Column(name = "EVENT_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EVENTS_SEQ")
     @SequenceGenerator(name = "EVENTS_SEQ", sequenceName = "EVENTS_SEQ")
-    private long eventId;
+    private Long eventId;
 
 
-    @ManyToOne
-    @JoinColumn(name = "CARD_ID")
-    @JsonBackReference
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Cards card;
+    @Column(name="CARD_ID")
+    private Long cardId;
 
 
     @Column(name = "LATITUDE", nullable = false)
@@ -40,17 +37,18 @@ public class Events {
     @JsonIgnore
     private Timestamp paymentTime;
 
-
-    @ManyToOne
-    @JoinColumn(name = "BUS_ID")
-    @JsonBackReference
-    private Buses bus;
+    @Column(name="BUS_ID")
+    private Long busId;
 
     public Events() {
     }
 
-    public long getEventId() {
+    public Long getEventId() {
         return eventId;
+    }
+
+    public Long getCardId() {
+        return cardId;
     }
 
     public double getLatitude() {
@@ -61,21 +59,20 @@ public class Events {
         return longitude;
     }
 
-    public Cards getCard() {
-        return card;
-    }
-
-
     public Timestamp getPaymentTime() {
-        return new Timestamp(paymentTime.getTime());
+        return paymentTime;
     }
 
-    public Buses getBus() {
-        return bus;
+    public Long getBusId() {
+        return busId;
     }
 
-    public void setEventId(long eventId) {
+    public void setEventId(Long eventId) {
         this.eventId = eventId;
+    }
+
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
     }
 
     public void setLatitude(double latitude) {
@@ -86,16 +83,12 @@ public class Events {
         this.longitude = longitude;
     }
 
-    public void setCard(Cards card) {
-        this.card = card;
-    }
-
     public void setPaymentTime(Timestamp paymentTime) {
         this.paymentTime = paymentTime;
     }
 
-    public void setBus(Buses bus) {
-        this.bus = bus;
+    public void setBusId(Long busId) {
+        this.busId = busId;
     }
 
     @Override
@@ -105,22 +98,26 @@ public class Events {
 
         Events events = (Events) o;
 
-        if (eventId != events.eventId) return false;
-        if (card != events.card) return false;
-        if (bus != events.bus) return false;
-        if (latitude != events.latitude) return false;
-        if (longitude != events.longitude) return false;
+        if (Double.compare(events.latitude, latitude) != 0) return false;
+        if (Double.compare(events.longitude, longitude) != 0) return false;
+        if (eventId != null ? !eventId.equals(events.eventId) : events.eventId != null) return false;
+        if (cardId != null ? !cardId.equals(events.cardId) : events.cardId != null) return false;
         if (paymentTime != null ? !paymentTime.equals(events.paymentTime) : events.paymentTime != null) return false;
-
-        return true;
+        return busId != null ? busId.equals(events.busId) : events.busId == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (eventId ^ (eventId >>> 32));
-        result = 31 * result + (int) latitude;
-        result = 31 * result + (int) longitude;
+        int result;
+        long temp;
+        result = eventId != null ? eventId.hashCode() : 0;
+        result = 31 * result + (cardId != null ? cardId.hashCode() : 0);
+        temp = Double.doubleToLongBits(latitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (paymentTime != null ? paymentTime.hashCode() : 0);
+        result = 31 * result + (busId != null ? busId.hashCode() : 0);
         return result;
     }
 }

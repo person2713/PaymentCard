@@ -2,20 +2,31 @@ package com.team.mvc.database.repositories;
 
 
 import com.team.mvc.database.entities.*;
+import javassist.NotFoundException;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 
 @Repository
-public class PersonRepository extends AbstractRepository<Persons> {
+@Transactional
+public class PersonRepository  extends AbstractRepository{
+
     public PersonRepository() {
         super(Persons.class);
+    }
+    @Override
+    public Persons getById(Long id) throws NotFoundException {
+        return (Persons) super.getById(id);
     }
 
     public Persons findByNickname(String nickname) {
@@ -26,6 +37,12 @@ public class PersonRepository extends AbstractRepository<Persons> {
 
     public void save(Persons persons) {
         super.save(persons);
+    }
+
+    public Persons findByEmail(String email){
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("email", email));
+        return (Persons) criteria.uniqueResult();
     }
 
 
@@ -84,26 +101,4 @@ public class PersonRepository extends AbstractRepository<Persons> {
         criteria.addOrder(Order.asc("personId"));
         return criteria.list();
     }
-
-    public void deleteByNickName(String nickname){
-        super.delete(this.findByNickname(nickname));
-    }
-
-
-
-    public void update(int personId, String nickname, String firstName, String lastName, String mobileNumber,
-                       String email, Cities city, Rollers role, String password) {
-        Session session = getSession();
-        Persons persons = session.load(Persons.class, personId);
-        persons.setNickname(nickname);
-        persons.setFirstName(firstName);
-        persons.setLastName(lastName);
-        persons.setMobileNumber(mobileNumber);
-        persons.setEmail(email);
-        persons.setCity(city);
-        persons.setRole(role);
-        persons.setPassword(password);
-        session.update(persons);
-    }
-
 }

@@ -32,7 +32,8 @@ public class PersonService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Persons findById(int id) throws NotFoundException {
+
+    public Persons findById(Long id) throws NotFoundException {
         return personRepository.getById(id);
     }
 
@@ -78,12 +79,9 @@ public class PersonService {
         return personList;
     }
 
-    public void deleteByNickName(String nickname) {
-        personRepository.deleteByNickName(nickname);
-    }
 
 
-    public boolean isPersonsNicknameUnique(Integer id, String nickname) {
+    public boolean isPersonsNicknameUnique(Long id, String nickname) {
         Persons persons = findByNickname(nickname);
         return (persons == null || ((id != null) && (persons.getPersonId() == id)));
 
@@ -117,10 +115,8 @@ public class PersonService {
         return personRepository.findEventsByNickname(nickname);
     }
 
-    public void update(int id, String nickname, String firstName, String lastName, String mobileNumber,
-                       String email, String stringCity, String stringRole, String password) {
-        Cities city = citiesRepository.findByName(stringCity);
-        Rollers role = roleRepository.findByType(stringRole);
-        personRepository.update(id, nickname, firstName, lastName, mobileNumber, email, city, role, passwordEncoder.encode(password));
+    public void update(Persons persons){
+        personRepository.update(persons);
     }
+
 }

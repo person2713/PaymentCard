@@ -28,13 +28,5 @@ public class CardService {
         cardsRepository.save(cards);
     }
 
-    public void update(int cardId, String cardName, String cardKey, String cardStatus,
-                       String cardType) {
 
-        TypeCard typeCard = typeCardService.getTypeCardbyStatus(cardStatus);
-        System.out.println("TYPECARD1");
-        System.out.println(typeCard.getStatus() + " " + typeCard.getCardType() );
-        cardsRepository.update(cardId, cardName, null, Long.parseLong(cardKey),
-                typeCard, null, null, null);
-    }
 }

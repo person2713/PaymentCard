@@ -27,15 +27,8 @@ public class Drivers {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Persons person;
 
-    @ManyToOne
-    @JoinColumn(name = "COMPANY_ID")
-    @JsonBackReference
-    private Companies company;
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    private List<CarAssign> carAssign = new ArrayList<>();
+    @Column(name="COMPANY_ID")
+    private Long companyId;
 
 
     public Drivers() {
@@ -45,33 +38,24 @@ public class Drivers {
         return driverId;
     }
 
-    public Persons getPerson() {
-        return person;
-    }
-
-    public Companies getCompany() {
-        return company;
-    }
-
-
     public void setDriverId(long driverId) {
         this.driverId = driverId;
+    }
+
+    public Persons getPerson() {
+        return person;
     }
 
     public void setPerson(Persons person) {
         this.person = person;
     }
 
-    public void setCompany(Companies company) {
-        this.company = company;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public List<CarAssign> getCarAssign() {
-        return carAssign;
-    }
-
-    public void setCarAssign(List<CarAssign> carAssign) {
-        this.carAssign = carAssign;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     @Override
@@ -82,17 +66,15 @@ public class Drivers {
         Drivers drivers = (Drivers) o;
 
         if (driverId != drivers.driverId) return false;
-        if (person != drivers.person) return false;
-        if (company != drivers.company) return false;
-
-        return true;
+        if (person != null ? !person.equals(drivers.person) : drivers.person != null) return false;
+        return companyId != null ? companyId.equals(drivers.companyId) : drivers.companyId == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (driverId ^ (driverId >>> 31));
-        result = 31 * result + (int) (person.hashCode() ^ (person.hashCode() >>> 31));
-        result = 31 * result + (int) (company.hashCode() ^ (company.hashCode() >>> 31));
+        int result = (int) (driverId ^ (driverId >>> 32));
+        result = 31 * result + (person != null ? person.hashCode() : 0);
+        result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
         return result;
     }
 }

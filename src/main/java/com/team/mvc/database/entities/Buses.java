@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "BUSES")
@@ -16,70 +18,51 @@ public class Buses {
     @Column(name = "BUS_ID")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "BUSES_SEQ")
     @SequenceGenerator(name = "BUSES_SEQ", sequenceName = "BUSES_SEQ")
-    private long busId;
-
+    private Long busId;
 
     @Column(name = "BUS_NUMBER", nullable = false, length = 20)
     private String busNumber;
 
+    @Column(name="COMPANY_ID")
+    private Long companyId;
 
-    @ManyToOne
-    @JoinColumn(name = "COMPANY_ID")
-    @JsonBackReference
-    private Companies company;
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    public List<Events> events = new ArrayList<Events>();
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bus", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    public List<CarAssign> carAssign = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="BUS_ID")
+    public Set<Events> events = new HashSet<>();
 
     public Buses() {
     }
 
-
-    public long getBusId() {
+    public Long getBusId() {
         return busId;
+    }
+
+    public void setBusId(Long busId) {
+        this.busId = busId;
     }
 
     public String getBusNumber() {
         return busNumber;
     }
 
-    public Companies getCompany() {
-        return company;
-    }
-
-    public List<Events> getEvents() {
-        return events;
-    }
-
-    public List<CarAssign> getCarAssign() {
-        return carAssign;
-    }
-
-    public void setBusId(long busId) {
-        this.busId = busId;
-    }
-
     public void setBusNumber(String busNumber) {
         this.busNumber = busNumber;
     }
 
-    public void setCompany(Companies company) {
-        this.company = company;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setEvents(List<Events> events) {
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Set<Events> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<Events> events) {
         this.events = events;
-    }
-
-    public void setCarAssign(List<CarAssign> carAssign) {
-        this.carAssign = carAssign;
     }
 
     @Override
@@ -89,17 +72,18 @@ public class Buses {
 
         Buses buses = (Buses) o;
 
-        if (busId != buses.busId) return false;
-        if (company != buses.company) return false;
+        if (busId != null ? !busId.equals(buses.busId) : buses.busId != null) return false;
         if (busNumber != null ? !busNumber.equals(buses.busNumber) : buses.busNumber != null) return false;
-
-        return true;
+        if (companyId != null ? !companyId.equals(buses.companyId) : buses.companyId != null) return false;
+        return events != null ? events.equals(buses.events) : buses.events == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (busId ^ (busId >>> 32));
+        int result = busId != null ? busId.hashCode() : 0;
         result = 31 * result + (busNumber != null ? busNumber.hashCode() : 0);
+        result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
+        result = 31 * result + (events != null ? events.hashCode() : 0);
         return result;
     }
 }

@@ -12,17 +12,4 @@ public class CardsRepository extends AbstractRepository<Cards> {
         super(Cards.class);
     }
 
-    public void update(int cardId, String cardName, Persons person, long cardKey, TypeCard typeCard,
-                       CardBalance cardBalance, List<BalanceHist> balanceHists, List<Events> events) {
-        Session session = getSession();
-        Cards card = session.load(Cards.class, (long)cardId);
-        card.setCardName(cardName);
-        card.setPerson(person);
-        card.setCardKey(cardKey);
-        card.setTypeCard(typeCard);
-        card.setCardBalance(cardBalance);
-        card.setBalanceHists(balanceHists);
-        card.setEvents(events);
-        session.update(card);
-    }
 }

@@ -32,49 +32,39 @@ public class Routes {
     @Column(name = "ROUTE_NUMBER", nullable = false, length = 10)
     private String routeNumber;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "route", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    private List<CarAssign> carAssign = new ArrayList<>();
-
-
-    public void setRoutePrice(BigDecimal routePrice) {
-        this.routePrice = routePrice;
-    }
-
-    public BigDecimal getRoutePrice() {
-        return routePrice;
-    }
-
-    public void setRouteId(long routeId) {
-        this.routeId = routeId;
-    }
-
-    public void setCompany(Companies company) {
-        this.company = company;
-    }
-
-    public void setRouteNumber(String routeNumber) {
-        this.routeNumber = routeNumber;
-    }
-
-    public void setCarAssign(List<CarAssign> carAssign) {
-        this.carAssign = carAssign;
+    public Routes() {
     }
 
     public long getRouteId() {
         return routeId;
     }
 
+    public void setRouteId(long routeId) {
+        this.routeId = routeId;
+    }
+
     public Companies getCompany() {
         return company;
+    }
+
+    public void setCompany(Companies company) {
+        this.company = company;
+    }
+
+    public BigDecimal getRoutePrice() {
+        return routePrice;
+    }
+
+    public void setRoutePrice(BigDecimal routePrice) {
+        this.routePrice = routePrice;
     }
 
     public String getRouteNumber() {
         return routeNumber;
     }
 
-    public List<CarAssign> getCarAssign() {
-        return carAssign;
+    public void setRouteNumber(String routeNumber) {
+        this.routeNumber = routeNumber;
     }
 
     @Override
@@ -85,15 +75,16 @@ public class Routes {
         Routes routes = (Routes) o;
 
         if (routeId != routes.routeId) return false;
-        if (company != routes.company) return false;
-        if (routeNumber != null ? !routeNumber.equals(routes.routeNumber) : routes.routeNumber != null) return false;
-
-        return true;
+        if (company != null ? !company.equals(routes.company) : routes.company != null) return false;
+        if (routePrice != null ? !routePrice.equals(routes.routePrice) : routes.routePrice != null) return false;
+        return routeNumber != null ? routeNumber.equals(routes.routeNumber) : routes.routeNumber == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (routeId ^ (routeId >>> 32));
+        result = 31 * result + (company != null ? company.hashCode() : 0);
+        result = 31 * result + (routePrice != null ? routePrice.hashCode() : 0);
         result = 31 * result + (routeNumber != null ? routeNumber.hashCode() : 0);
         return result;
     }
