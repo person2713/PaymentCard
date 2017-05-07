@@ -44,6 +44,18 @@ public class AdminController {
     @Autowired
     CardService cardService;
 
+    @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
+    public String sss(ModelMap model) {
+        List<Persons> userList = personService.getUsers();
+        for (Persons persons: userList) {
+            System.out.println(persons.getNickname());
+            System.out.printf(persons.getCity().getCityName());
+        }
+        model.addAttribute("usersList", userList);
+        return "/admin/getUsers";
+    }
+
+
     @RequestMapping(value = "/getlAllUsers", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -64,12 +76,12 @@ public class AdminController {
         return "admin/editCard";
     }
 
-    @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<Persons> getUsers() {
-        return personService.getUsers();
-    }
+//    @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
+//    public
+//    @ResponseBody
+//    List<Persons> getUsers() {
+//        return personService.getUsers();
+//    }
 
     @RequestMapping(value = "/getCards", method = RequestMethod.GET)
     public
