@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="PaymentCard:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="SpringSecurityHibernateAnnotationExample.war">
-      <element id="artifact" artifact-name="PaymentCard:war exploded" />
-    </root>
-  </artifact>
-</component>
