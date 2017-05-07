@@ -7,13 +7,21 @@
 
 	<link href="/static/css/boot.css" rel="stylesheet">
 	<link href="/static/css/dashboard.css" rel="stylesheet">
-	<link href="/daterangepicker.scss" rel="stylesheet">
+
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/static/css/daterangepicker.css" />
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/static/js/user_js/moment.js"></script>
+	<script type="text/javascript" src="/static/js/user_js/daterangepicker.js"></script>
+
+	<%--<link href="/daterangepicker.scss" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="/static/js/user_js/daterangepicker.js"></script>
-	<script src="/static/js/user_js/moment.js"></script>
+	<script src="/static/js/user_js/moment.js"></script>--%>
 
 </head>
 <body>
@@ -174,21 +182,28 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+        $('.configurator input, .configurator select').change(function() {
+            updateConfig();
+        });
+
         updateConfig();
+
         function updateConfig() {
             var options = {};
-            options.showDropdowns = true;
-            options.autoApply = true;
+
             options.ranges = {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                'Сегодня': [moment(), moment()],
+                'Вчера': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'За неделю': [moment().subtract(6, 'days'), moment()],
+                'За 30 дней': [moment().subtract(29, 'days'), moment()],
+                'За этот месяц': [moment().startOf('month'), moment().endOf('month')],
+                'За прошлый месяц': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             };
+
             $('#config-text').val("$('#demo').daterangepicker(" + JSON.stringify(options, null, '    ') + ", function(start, end, label) {\n  console.log(\"New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')\");\n});");
             $('#config-demo').daterangepicker(options, function(start, end, label) { console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')'); });
+
         }
     });
 </script>
