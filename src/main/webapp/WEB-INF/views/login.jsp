@@ -4,46 +4,73 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Login page</title>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"/>
+	<link href="/static/css/boot.css" rel="stylesheet">
+	<link href="/static/css/login_css/login.css" rel="stylesheet">
 </head>
 
 <body>
 <div class="container">
 	<div class="row">
-		<div class="col-md-offset-3 col-md-6">
-			<form action="${loginUrl}" method="post" class="form-horizontal">
-				<c:if test="${flag}">
-					<div class="alert alert-danger">
-						<p>Invalid username and password.</p>
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-login">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-12">
+							<h4>Авторизация</h4>
+						</div>
 					</div>
-				</c:if>
-				<c:if test="${param.logout != null}">
-					<div class="alert alert-success">
-						<p>You have been logged out successfully.</p>
-					</div>
-				</c:if>
-				<br>
-				<h1 style="margin-bottom: 5%; margin-top: 5%; text-align: center">Авторизация</h1>
-				<div class="form-group">
-					<i class="fa fa-user"></i></label>
-					<input type="text" class="form-control" id="nickName" name="nickName" placeholder="Имя пользователя" required>
+					<hr>
 				</div>
-				<div class="form-group">
-					<i class="fa fa-lock"></i></label>
-					<input type="password" class="form-control" id="password" name="password" placeholder="Пароль" required>
-				</div>
-				<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-12">
+							<form action="${loginUrl}" method="post" class="form-horizontal" id="login-form" role="form" style="display: block;">
+								<c:if test="${flag}">
+									<div class="alert alert-danger">
+										<p>Invalid username and password.</p>
+									</div>
+								</c:if>
+								<c:if test="${param.logout != null}">
+									<div class="alert alert-success">
+										<p>You have been logged out successfully.</p>
+									</div>
+								</c:if>
+								<br>
+								<div class="form-group" style="padding-left: 5%; padding-right: 5%">
+									<input type="text" class="form-control input-sm" id="nickName" name="nickName" placeholder="Имя пользователя" style="padding-left: 10px; padding-right: 10px">
+								</div>
+								<div class="form-group" style="padding-left: 5%; padding-right: 5%">
+									<input type="password" class="form-control input-sm" id="password" name="password" placeholder="Пароль" style="padding-left: 10px; padding-right: 10px">
+								</div>
 
+								<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
 
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary">Вход</button>
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-6 col-sm-offset-3">
+											<button class="form-control btn btn-primary">Вход</button>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="text-center">
+												<a href="/reset_pass" class="forgot-password">Забыли пароль?</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div><!-- /.row -->
+						<div class="navbar navbar-inner  navbar-fixed-bottom">
+							<p><center  class="text-muted">© NetCracker Education Center 2017</center></p>
+						</div>
 				</div>
-			</form>
+			</div>
 		</div>
-	</div><!-- /.row -->
-	<div class="navbar navbar-inner  navbar-fixed-bottom">
-		<p><center  class="text-muted">© NetCracker Education Center 2017</center></p>
 	</div>
-</div><!-- /.container -->
+</div>
 </body>
 </html>
