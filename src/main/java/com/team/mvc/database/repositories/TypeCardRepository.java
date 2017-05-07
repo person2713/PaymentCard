@@ -1,15 +1,15 @@
 package com.team.mvc.database.repositories;
 
-import com.team.mvc.database.entities.TypeCard;<<<<<<< HEAD
+import com.team.mvc.database.entities.TypeCard;
 import com.team.mvc.database.entities.TypeCard;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
-=======
+
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.entities.TypeCard;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
->>>>>>> vv
+
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 

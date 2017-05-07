@@ -88,7 +88,7 @@ public class AddCompany {
                 logger.debug("company: id-" + company.getCompanyId() +
                         " companyName-" +company.getCompanyName() +
                         " phoneNumber-" + company.getPhoneNumber() +
-                        " city"+ company.getCityName());
+                        " city"+ company.getCity().getCityName());
             }
         }
         return "/admin/registrationsuccess";

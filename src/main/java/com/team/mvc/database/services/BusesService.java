@@ -16,7 +16,7 @@ public class BusesService {
     BusesRepository busesRepository;
 
     public Buses findById(int id) throws NotFoundException {
-        return busesRepository.getById(id);
+        return busesRepository.getById((long) id);
     }
 
     public Buses findById(long id) throws NotFoundException {

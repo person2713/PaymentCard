@@ -41,8 +41,8 @@ public class PaymentService {
         Events events = new Events();
         events.setLatitude(latitude);
         events.setLongitude(longitude);
-        events.setBus(bus);
-        events.setCard(card);
+    //    events.setBus(bus);
+     //   events.setCard(card);
         eventsRepository.save(events);
         return true;
     }

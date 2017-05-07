@@ -19,7 +19,7 @@ public class RoutesService {
     RoutesRepository routesRepository;
 
     public Routes findById(int id) throws NotFoundException {
-        return routesRepository.getById(id);
+        return routesRepository.getById((long) id);
     }
 
     public Routes findById(long id) throws NotFoundException {

@@ -32,6 +32,7 @@ public class PersonService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public Persons findByEmail(String email){return personRepository.findByEmail(email);}
 
     public Persons findById(Long id) throws NotFoundException {
         return personRepository.getById(id);
@@ -46,9 +47,9 @@ public class PersonService {
         personRepository.save(persons);
     }
 
-    public List<Persons> getAllUser() {
-        return personRepository.getAll();
-    }
+//    public List<Persons> getAllUser() {
+//        return personRepository.getAll();
+//    }
 
     public List<Persons> getUsers() {
         List<Persons> personList = new ArrayList<>();

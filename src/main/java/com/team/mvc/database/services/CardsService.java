@@ -17,7 +17,7 @@ public class CardsService {
     CardsRepository cardsRepository;
 
     public Cards findById(int id) throws NotFoundException {
-        return cardsRepository.getById(id);
+        return cardsRepository.getById((long) id);
     }
 
     public Cards findByCardKey(long cardKey) throws NotFoundException {
