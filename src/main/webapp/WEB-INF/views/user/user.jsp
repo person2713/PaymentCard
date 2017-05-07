@@ -20,7 +20,6 @@
 <div class="navbar navbar-fixed-top navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
-
 			<a class="navbar-brand" style="color: white">Payment Card</a>
 		</div>
 		<div class="collapse navbar-collapse">
