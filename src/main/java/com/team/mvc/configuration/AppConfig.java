@@ -15,7 +15,10 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import java.util.Properties;
 import java.util.logging.Logger;
 
 @Configuration
@@ -56,6 +59,56 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addConverter(cityConverter);
         registry.addConverter(roleConverter);
     }
+
+    @Bean
+    public JavaMailSender getMailSender(){
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
+        //Using gmail
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+        mailSender.setUsername("trebvit");
+        mailSender.setPassword("@$@TR@666");
+
+        Properties javaMailProperties = new Properties();
+        javaMailProperties.put("mail.smtp.starttls.enable", "true");
+        javaMailProperties.put("mail.smtp.auth", "true");
+        javaMailProperties.put("mail.transport.protocol", "smtp");
+        javaMailProperties.put("mail.debug", "true");//Prints out everything on screen
+
+        mailSender.setJavaMailProperties(javaMailProperties);
+        return mailSender;
+    }
+
+
+  /*
+       /**
+     *  Java Mail Configuration
+     */
+//  @Value("${java.mail.username}") String mailUsername;
+//    @Value("${java.mail.password}") String mailPassword;
+//    @Value("${java.mail.host}") String mailHost;
+//
+//    /**
+//     *  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+//     */
+//   @Bean(name = "mailSender")
+//    public JavaMailSenderImpl getJavaMailSender() {
+//        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+//        javaMailSender.setUsername(mailUsername);
+//        javaMailSender.setPassword(mailPassword);
+//        javaMailSender.setPort(465);
+//
+//        Properties javaMailProperties = new Properties();
+//        javaMailProperties.put("mail.smtp.auth", true);
+//        javaMailProperties.put("mail.smtp.starttls.enable", true);
+//        javaMailProperties.put("mail.smtp.starttls.required", true);
+//        javaMailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+//        javaMailProperties.put("mail.smtp.host", mailHost);
+//
+//        javaMailSender.setJavaMailProperties(javaMailProperties);
+//        return javaMailSender;
+//    }*/
 
 
 

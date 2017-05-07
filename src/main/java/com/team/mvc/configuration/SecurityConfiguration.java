@@ -8,16 +8,17 @@ import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
-
 
     @Autowired
     CustomSuccessHandler customSuccessHandler;
@@ -42,16 +43,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
-                .antMatchers("/admin/**", "/admin/delete").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
-                .antMatchers("/driver/**").hasRole("DRIVER")
-                .antMatchers("/owner/**").hasRole("OWNER")
+                .antMatchers("/", "/home","/newPassword", "/updPass/**").permitAll().and()
+        .authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").and()
+                .authorizeRequests() .antMatchers("/user/**").hasRole("USER").and()
+                .authorizeRequests().antMatchers("/driver/**").hasRole("DRIVER").and()
+                .authorizeRequests().antMatchers("/API/**").hasRole("DRIVER").and()
+                .authorizeRequests() .antMatchers("/owner/**").hasRole("OWNER")
                 .and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
                 .failureHandler(customFailureHandler)
                 .usernameParameter("nickName").passwordParameter("password")
+                .and().httpBasic()
                 .and().csrf()
                 .and().exceptionHandling().accessDeniedPage("/Access_Denied");
+    }
+
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/API/driverLogin/csrf-token")
+                .antMatchers("/API/getBlockedCards")
+        ;
     }
 
     @Bean

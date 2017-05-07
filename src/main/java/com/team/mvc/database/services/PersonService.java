@@ -118,5 +118,14 @@ public class PersonService {
     public void update(Persons persons){
         personRepository.update(persons);
     }
+    public void updPass (String mail, String pass){
+        Persons persons = new Persons();
+        persons = personRepository.findByEmail(mail);
+        persons.setPassword(passwordEncoder.encode(pass));
+    }
+    public List<Persons> getAllUser(){
+        return personRepository.getAll();
+    }
+
 
 }
