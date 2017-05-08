@@ -16,19 +16,24 @@ public class Buses {
 
     @Id
     @Column(name = "BUS_ID")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "BUSES_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUSES_SEQ")
     @SequenceGenerator(name = "BUSES_SEQ", sequenceName = "BUSES_SEQ")
     private Long busId;
 
     @Column(name = "BUS_NUMBER", nullable = false, length = 20)
     private String busNumber;
 
-    @Column(name="COMPANY_ID")
+    @Column(name = "COMPANY_ID")
     private Long companyId;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="BUS_ID")
+    @JoinColumn(name = "BUS_ID")
     public Set<Events> events = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BUS_ID")
+    public Set<CarAssign> carAssigns = new HashSet<>();
+
 
     public Buses() {
     }
@@ -65,6 +70,14 @@ public class Buses {
         this.events = events;
     }
 
+    public Set<CarAssign> getCarAssigns() {
+        return carAssigns;
+    }
+
+    public void setCarAssigns(Set<CarAssign> carAssigns) {
+        this.carAssigns = carAssigns;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,7 +88,8 @@ public class Buses {
         if (busId != null ? !busId.equals(buses.busId) : buses.busId != null) return false;
         if (busNumber != null ? !busNumber.equals(buses.busNumber) : buses.busNumber != null) return false;
         if (companyId != null ? !companyId.equals(buses.companyId) : buses.companyId != null) return false;
-        return events != null ? events.equals(buses.events) : buses.events == null;
+        if (events != null ? !events.equals(buses.events) : buses.events != null) return false;
+        return carAssigns != null ? carAssigns.equals(buses.carAssigns) : buses.carAssigns == null;
     }
 
     @Override
@@ -84,6 +98,7 @@ public class Buses {
         result = 31 * result + (busNumber != null ? busNumber.hashCode() : 0);
         result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
         result = 31 * result + (events != null ? events.hashCode() : 0);
+        result = 31 * result + (carAssigns != null ? carAssigns.hashCode() : 0);
         return result;
     }
 }

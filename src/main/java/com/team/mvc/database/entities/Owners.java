@@ -25,7 +25,6 @@ public class Owners {
 
     @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
-    @JsonBackReference
     private Companies company;
 
 
