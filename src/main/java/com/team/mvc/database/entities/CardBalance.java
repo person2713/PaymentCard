@@ -25,6 +25,9 @@ public class CardBalance {
     @Column(name = "BALANCE", nullable = false)
     private BigDecimal balance;
 
+    @Column(name="CARD_ID")
+    private Long cardId;
+
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "BALANCE_ID")
     public Set<BalanceHist> balanceHists = new HashSet<>();
@@ -48,6 +51,14 @@ public class CardBalance {
         this.balance = balance;
     }
 
+    public Long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
+    }
+
     public Set<BalanceHist> getBalanceHists() {
         return balanceHists;
     }
@@ -65,6 +76,7 @@ public class CardBalance {
 
         if (balanceId != null ? !balanceId.equals(that.balanceId) : that.balanceId != null) return false;
         if (balance != null ? !balance.equals(that.balance) : that.balance != null) return false;
+        if (cardId != null ? !cardId.equals(that.cardId) : that.cardId != null) return false;
         return balanceHists != null ? balanceHists.equals(that.balanceHists) : that.balanceHists == null;
     }
 
@@ -72,6 +84,7 @@ public class CardBalance {
     public int hashCode() {
         int result = balanceId != null ? balanceId.hashCode() : 0;
         result = 31 * result + (balance != null ? balance.hashCode() : 0);
+        result = 31 * result + (cardId != null ? cardId.hashCode() : 0);
         result = 31 * result + (balanceHists != null ? balanceHists.hashCode() : 0);
         return result;
     }
