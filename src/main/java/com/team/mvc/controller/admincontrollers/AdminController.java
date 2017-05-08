@@ -36,7 +36,7 @@ public class AdminController {
 
 
     @Autowired
-    RouteService routeService;
+    RoutesService routeService;
 
     @Autowired
     TypeCardService typeCardService;
