@@ -132,59 +132,59 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String deleteUser(@RequestBody List<Object> objectList) {
-
-//        for (String nickName : list) {
-////            personService.deleteByNickName(nickName);
-//            System.out.println("Delete " + nickName);
+//    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+//    public
+//    @ResponseBody
+//    String deleteUser(@RequestBody List<Object> objectList) {
+//
+////        for (String nickName : list) {
+//////            personService.deleteByNickName(nickName);
+////            System.out.println("Delete " + nickName);
+////        }
+//        return "Success";
+//    }
+//
+//    @RequestMapping(value = "/saveChangesForUsers", method = RequestMethod.POST)
+//    public
+//    @ResponseBody
+//    String saveChangesForUsers(@RequestBody Persons person) {
+//        personService.update(person);
+//        return "Success changesForPersons";
+//    }
+//
+//
+//    @RequestMapping(value = "/saveChangesForCards", method = RequestMethod.POST)
+//    public
+//    @ResponseBody
+//    String saveChangesForCards(@RequestBody List<String> list) {
+////        cardService.update();
+//        System.out.println("LIST1");
+//        for (String str : list) {
+//            System.out.println(str);
 //        }
-        return "Success";
-    }
-
-    @RequestMapping(value = "/saveChangesForUsers", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String saveChangesForUsers(@RequestBody Persons person) {
-        personService.update(person);
-        return "Success changesForPersons";
-    }
-
-
-    @RequestMapping(value = "/saveChangesForCards", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String saveChangesForCards(@RequestBody List<String> list) {
-//        cardService.update();
-        System.out.println("LIST1");
-        for (String str : list) {
-            System.out.println(str);
-        }
-        return "Success changes";
-    }
-
-    @RequestMapping(value = "/addCard", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String addCard(@RequestBody List<String> list) {
-
-        System.out.println("ADDCARD");
-        for (String s : list) {
-            System.out.println(s);
-        }
-        if (list.isEmpty()) {
-            return "FAILRY";
-        } else {
-            Cards cards = new Cards();
-            cards.setCardName(list.get(0));
-            cards.setCardKey(Long.parseLong(list.get(1)));
-            cards.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
-//            cards.setPerson(personService.findByNickname(list.get(2)));
-            cardService.saveCard(cards);
-            return "SUCCESS";
-        }
-
-    }
+//        return "Success changes";
+//    }
+//
+//    @RequestMapping(value = "/addCard", method = RequestMethod.POST)
+//    public
+//    @ResponseBody
+//    String addCard(@RequestBody List<String> list) {
+//
+//        System.out.println("ADDCARD");
+//        for (String s : list) {
+//            System.out.println(s);
+//        }
+//        if (list.isEmpty()) {
+//            return "FAILRY";
+//        } else {
+//            Cards cards = new Cards();
+//            cards.setCardName(list.get(0));
+//            cards.setCardKey(Long.parseLong(list.get(1)));
+//            cards.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
+////            cards.setPerson(personService.findByNickname(list.get(2)));
+//            cardService.saveCard(cards);
+//            return "SUCCESS";
+//        }
+//
+//    }
 }

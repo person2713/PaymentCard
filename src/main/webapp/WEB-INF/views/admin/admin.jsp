@@ -59,7 +59,7 @@
                         Показать
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu contmenu">
-                        <button type="button" class="btn btn-link" onclick="getUsers();">Список пользователей</button>
+                        <button type="button" class="btn btn-link" onclick="window.location='/admin/getUsers'">Список пользователей</button>
                         <button type="button" class="btn btn-link" onclick="getOwners();">Список владельцев</button>
                         <button type="button" class="btn btn-link" onclick="getDrivers();">Список водителей</button>
                         <button type="button" class="btn btn-link" onclick="getCards();">Список карт</button>
@@ -72,7 +72,7 @@
                         Добавить
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu contmenu">
-                        <button type="button" class="btn btn-link" onclick="getUsers();">Пользователя</button>
+                        <button type="button" class="btn btn-link" onclick="window.location='/registration'">Пользователя</button>
                         <br>
                         <button type="button" class="btn btn-link" onclick="getUser();">Компанию</button>
                         <br>

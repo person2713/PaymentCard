@@ -18,7 +18,17 @@
 
 <body>
 <div class="container">
-    <legend><h2>Регистрация</h2></legend>
+
+
+    <c:choose>
+        <c:when test="${flag}">
+            <legend><h2>Добавить пользователя</h2></legend>
+        </c:when>
+        <c:otherwise>
+            <legend><h2>Регистрация</h2></legend>
+        </c:otherwise>
+    </c:choose>
+
     <form:form method="POST" modelAttribute="userForm" action="/registration/newUser" class="form-horizontal">
         <form:input type="hidden" path="personId" id="personId"/>
 
@@ -107,9 +117,9 @@
             <sec:authorize access="hasRole('ADMIN')">
                 <div class="row">
 
-                    <div class="form-group col-md-12">
-                        <label class="col-md-3 control-lable" for="Role">Role</label>
-                        <div class="col-md-7">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="Role">Role</label>
+                        <div class="col-md-4">
                             <form:select path="role" items="${rollers}" multiple="false" itemValue="roleId" itemLabel="roleType"
                                          class="form-control"/>
                             <div class="has-error">
@@ -123,8 +133,17 @@
             <div class="form-group">
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-4">
-                    <input type="submit" value="Зарегистрироваться" class="btn btn-success"/>
-                    <a href="/welcome" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                    <c:choose>
+                        <c:when test="${flag}">
+                            <input type="submit" value="Добавить" class="btn btn-success"/>
+                            <a href="/admin" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="submit" value="Зарегистрироваться" class="btn btn-success"/>
+                            <a href="/logout" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                        </c:otherwise>
+                    </c:choose>
+                    <%--<a href="/welcome" class="forgot-password" style="padding-left: 27%">Отмена</a>--%>
                 </div>
             </div>
         </form:form>
