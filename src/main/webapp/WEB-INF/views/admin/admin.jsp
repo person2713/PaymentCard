@@ -76,7 +76,7 @@
                         <br>
                         <button type="button" class="btn btn-link" onclick="getUser();">Компанию</button>
                         <br>
-                        <button type="button" class="btn btn-link" onclick="prepareAddCards();">Карту</button>
+                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addCard'">Карту</button>
                         <br>
                         <button type="button" class="btn btn-link" onclick="getUser();">Машину</button>
                         <br>
