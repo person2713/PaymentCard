@@ -49,10 +49,9 @@ public class RegistrationController {
     @RequestMapping(method = RequestMethod.GET)
     public String renderRegistration(ModelMap model) {
         Persons person = new Persons();
-
         model.addAttribute("userForm", person);
         model.addAttribute("edit", false);
-        model.addAttribute("loggedinuser", GetRole.getPrincipal());
+        model.addAttribute("flag", GetRole.hasRole("ROLE_ADMIN"));
         return "registration";
     }
 

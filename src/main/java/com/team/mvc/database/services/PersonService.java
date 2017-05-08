@@ -32,6 +32,9 @@ public class PersonService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+
+
     public Persons findByEmail(String email){return personRepository.findByEmail(email);}
 
     public Persons findById(Long id) throws NotFoundException {

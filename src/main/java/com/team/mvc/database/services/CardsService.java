@@ -28,7 +28,7 @@ public class CardsService {
         cardsRepository.save(card);
     }
 
-    public List<Cards> getAllCards(){
+    public List<Cards> getAll(){
         return cardsRepository.getAll();
     }
 

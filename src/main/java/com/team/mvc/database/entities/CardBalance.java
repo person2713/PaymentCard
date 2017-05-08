@@ -18,51 +18,49 @@ public class CardBalance {
 
     @Id
     @Column(name = "BALANCE_ID")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "CARD_BALANCE_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARD_BALANCE_SEQ")
     @SequenceGenerator(name = "CARD_BALANCE_SEQ", sequenceName = "CARD_BALANCE_SEQ")
     private Long balanceId;
-
-    @OneToOne
-    @JoinColumn(name="CARD_ID")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Cards card;
 
     @Column(name = "BALANCE", nullable = false)
     private BigDecimal balance;
 
+    @Column(name="CARD_ID")
+    private Long cardId;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="BALANCE_ID")
+    @JoinColumn(name = "BALANCE_ID")
     public Set<BalanceHist> balanceHists = new HashSet<>();
 
-    public CardBalance() {}
+    public CardBalance() {
+    }
 
     public Long getBalanceId() {
         return balanceId;
-    }
-
-    public Cards getCard() {
-        return card;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public Set<BalanceHist> getBalanceHists() {
-        return balanceHists;
     }
 
     public void setBalanceId(Long balanceId) {
         this.balanceId = balanceId;
     }
 
-    public void setCard(Cards card) {
-        this.card = card;
+    public BigDecimal getBalance() {
+        return balance;
     }
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public Long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
+    }
+
+    public Set<BalanceHist> getBalanceHists() {
+        return balanceHists;
     }
 
     public void setBalanceHists(Set<BalanceHist> balanceHists) {
@@ -77,16 +75,16 @@ public class CardBalance {
         CardBalance that = (CardBalance) o;
 
         if (balanceId != null ? !balanceId.equals(that.balanceId) : that.balanceId != null) return false;
-        if (card != null ? !card.equals(that.card) : that.card != null) return false;
         if (balance != null ? !balance.equals(that.balance) : that.balance != null) return false;
+        if (cardId != null ? !cardId.equals(that.cardId) : that.cardId != null) return false;
         return balanceHists != null ? balanceHists.equals(that.balanceHists) : that.balanceHists == null;
     }
 
     @Override
     public int hashCode() {
         int result = balanceId != null ? balanceId.hashCode() : 0;
-        result = 31 * result + (card != null ? card.hashCode() : 0);
         result = 31 * result + (balance != null ? balance.hashCode() : 0);
+        result = 31 * result + (cardId != null ? cardId.hashCode() : 0);
         result = 31 * result + (balanceHists != null ? balanceHists.hashCode() : 0);
         return result;
     }

@@ -2,7 +2,7 @@ package com.team.mvc.controller.usercontrollers;
 
 
 import com.team.mvc.database.entities.*;
-import com.team.mvc.database.services.CardService;
+import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.TypeCardService;
 import javassist.NotFoundException;
@@ -23,7 +23,7 @@ public class UserController {
     PersonService userService;
 
     @Autowired
-    CardService cardService;
+    CardsService cardService;
 
     @Autowired
     TypeCardService typeCardService;

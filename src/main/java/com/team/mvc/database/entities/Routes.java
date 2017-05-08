@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -20,17 +22,18 @@ public class Routes {
     @SequenceGenerator(name = "ROUTES_SEQ", sequenceName = "ROUTES_SEQ")
     private long routeId;
 
-
-    @ManyToOne
-    @JoinColumn(name = "COMPANY_ID")
-    @JsonBackReference
-    private Companies company;
-
     @Column(name="ROUTE_PRICE", nullable = false)
     private BigDecimal routePrice;
 
+    @Column(name="COMPANY_ID")
+    private Long companyId;
+
     @Column(name = "ROUTE_NUMBER", nullable = false, length = 10)
     private String routeNumber;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROUTE_ID")
+    public Set<CarAssign> carAssigns = new HashSet<>();
 
     public Routes() {
     }
@@ -43,20 +46,20 @@ public class Routes {
         this.routeId = routeId;
     }
 
-    public Companies getCompany() {
-        return company;
-    }
-
-    public void setCompany(Companies company) {
-        this.company = company;
-    }
-
     public BigDecimal getRoutePrice() {
         return routePrice;
     }
 
     public void setRoutePrice(BigDecimal routePrice) {
         this.routePrice = routePrice;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public String getRouteNumber() {
@@ -67,6 +70,14 @@ public class Routes {
         this.routeNumber = routeNumber;
     }
 
+    public Set<CarAssign> getCarAssigns() {
+        return carAssigns;
+    }
+
+    public void setCarAssigns(Set<CarAssign> carAssigns) {
+        this.carAssigns = carAssigns;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,17 +86,19 @@ public class Routes {
         Routes routes = (Routes) o;
 
         if (routeId != routes.routeId) return false;
-        if (company != null ? !company.equals(routes.company) : routes.company != null) return false;
         if (routePrice != null ? !routePrice.equals(routes.routePrice) : routes.routePrice != null) return false;
-        return routeNumber != null ? routeNumber.equals(routes.routeNumber) : routes.routeNumber == null;
+        if (companyId != null ? !companyId.equals(routes.companyId) : routes.companyId != null) return false;
+        if (routeNumber != null ? !routeNumber.equals(routes.routeNumber) : routes.routeNumber != null) return false;
+        return carAssigns != null ? carAssigns.equals(routes.carAssigns) : routes.carAssigns == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (routeId ^ (routeId >>> 32));
-        result = 31 * result + (company != null ? company.hashCode() : 0);
         result = 31 * result + (routePrice != null ? routePrice.hashCode() : 0);
+        result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
         result = 31 * result + (routeNumber != null ? routeNumber.hashCode() : 0);
+        result = 31 * result + (carAssigns != null ? carAssigns.hashCode() : 0);
         return result;
     }
 }

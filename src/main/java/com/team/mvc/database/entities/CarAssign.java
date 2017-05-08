@@ -21,55 +21,19 @@ public class CarAssign {
     @Column(name = "DATE_ASSIGN")
     private Timestamp dateAssign;
 
-    @ManyToOne
-    @JoinColumn(name="BUS_ID")
-    @JsonBackReference
-    private Buses bus;
 
-    @ManyToOne
-    @JoinColumn(name="DRIVER_ID")
-    @JsonBackReference
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Drivers driver;
+    @Column(name = "BUS_ID")
+    private Long busId;
 
-    @ManyToOne
-    @JoinColumn(name="ROUTE_ID")
-    @JsonBackReference
-    private Routes route;
+    @Column(name = "DRIVER_ID")
+    private Long driverId;
 
-
+    @Column(name = "ROUTE_ID")
+    private Long routeId;
 
     public CarAssign() {
     }
 
-    public CarAssign(Timestamp dateAssign) {
-        this.dateAssign = dateAssign;
-    }
-
-
-    public void setBus(Buses bus) {
-        this.bus = bus;
-    }
-
-    public void setDriver(Drivers driver) {
-        this.driver = driver;
-    }
-
-    public void setRoute(Routes route) {
-        this.route = route;
-    }
-
-    public Buses getBus() {
-        return bus;
-    }
-
-    public Drivers getDriver() {
-        return driver;
-    }
-
-    public Routes getRoute() {
-        return route;
-    }
 
     public long getCarAssignId() {
         return carAssignId;
@@ -79,11 +43,37 @@ public class CarAssign {
         this.carAssignId = carAssignId;
     }
 
-
     public Timestamp getDateAssign() {
-        return new Timestamp(dateAssign.getTime());
+        return dateAssign;
     }
 
+    public void setDateAssign(Timestamp dateAssign) {
+        this.dateAssign = dateAssign;
+    }
+
+    public Long getBusId() {
+        return busId;
+    }
+
+    public void setBusId(Long busId) {
+        this.busId = busId;
+    }
+
+    public Long getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(Long driverId) {
+        this.driverId = driverId;
+    }
+
+    public Long getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(Long routeId) {
+        this.routeId = routeId;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -94,14 +84,18 @@ public class CarAssign {
 
         if (carAssignId != carAssign.carAssignId) return false;
         if (dateAssign != null ? !dateAssign.equals(carAssign.dateAssign) : carAssign.dateAssign != null) return false;
-
-        return true;
+        if (busId != null ? !busId.equals(carAssign.busId) : carAssign.busId != null) return false;
+        if (driverId != null ? !driverId.equals(carAssign.driverId) : carAssign.driverId != null) return false;
+        return routeId != null ? routeId.equals(carAssign.routeId) : carAssign.routeId == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (carAssignId ^ (carAssignId >>> 32));
         result = 31 * result + (dateAssign != null ? dateAssign.hashCode() : 0);
+        result = 31 * result + (busId != null ? busId.hashCode() : 0);
+        result = 31 * result + (driverId != null ? driverId.hashCode() : 0);
+        result = 31 * result + (routeId != null ? routeId.hashCode() : 0);
         return result;
     }
 }

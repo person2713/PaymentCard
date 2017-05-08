@@ -40,9 +40,9 @@ public class CarAssignService {
         Buses bus=busesService.findById(BusId);
         Drivers driver=driversService.findById(DriverId);
         Routes routes=routesService.findById(RouteId);
-        carAssign.setBus(bus);
-        carAssign.setDriver(driver);
-        carAssign.setRoute(routes);
+        carAssign.setBusId(bus.getBusId());
+        carAssign.setDriverId(driver.getDriverId());
+        carAssign.setRouteId(routes.getRouteId());
         return carAssign;
     }
 

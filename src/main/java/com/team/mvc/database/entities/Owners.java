@@ -21,12 +21,10 @@ public class Owners {
 
     @OneToOne
     @JoinColumn(name="PERSON_ID")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Persons person;
 
     @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
-    @JsonBackReference
     private Companies company;
 
 
