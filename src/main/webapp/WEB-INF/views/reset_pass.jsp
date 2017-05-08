@@ -6,6 +6,9 @@
     <title>Reset password</title>
     <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/login_css/login.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -31,9 +34,11 @@
                                 <h5><center>Введите адресс электронной почты</center></h5>
                                 <br/>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
-                                    <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
 
                                 </div>
+
+
                                 <br/>
 
                                 <div class="form-group">
