@@ -104,21 +104,21 @@
             </div>
 
 
-            <sec:authorize access="hasRole('ADMIN')">
-                <div class="row">
+            <%--<sec:authorize access="hasRole('ADMIN')">--%>
+                <%--<div class="row">--%>
 
-                    <div class="form-group col-md-12">
-                        <label class="col-md-3 control-lable" for="Role">Role</label>
-                        <div class="col-md-7">
-                            <form:select path="role" items="${rollers}" multiple="false" itemValue="roleId" itemLabel="roleType"
-                                         class="form-control"/>
-                            <div class="has-error">
-                                <form:errors path="role" class="help-inline"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </sec:authorize>
+                    <%--<div class="form-group col-md-12">--%>
+                        <%--<label class="col-md-3 control-lable" for="Role">Role</label>--%>
+                        <%--<div class="col-md-7">--%>
+                            <%--<form:select path="role" items="${rollers}" multiple="false" itemValue="roleId" itemLabel="roleType"--%>
+                                         <%--class="form-control"/>--%>
+                            <%--<div class="has-error">--%>
+                                <%--<form:errors path="role" class="help-inline"/>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</sec:authorize>--%>
 
             <div class="form-group">
                 <label class="col-md-4 control-label"></label>
