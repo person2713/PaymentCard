@@ -46,12 +46,13 @@ public class Companies {
     @JoinColumn(name="COMPANY_ID")
     private Set<Drivers> drivers = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    public List<Routes> routes = new ArrayList<Routes>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="COMPANY_ID")
+    public Set<Routes> routes = new HashSet<>();
 
     public Companies() {
     }
+
 
     public long getCompanyId() {
         return companyId;
@@ -109,11 +110,11 @@ public class Companies {
         this.drivers = drivers;
     }
 
-    public List<Routes> getRoutes() {
+    public Set<Routes> getRoutes() {
         return routes;
     }
 
-    public void setRoutes(List<Routes> routes) {
+    public void setRoutes(Set<Routes> routes) {
         this.routes = routes;
     }
 

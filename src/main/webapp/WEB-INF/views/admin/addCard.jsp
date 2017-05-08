@@ -46,6 +46,13 @@
         </div>
 
         <div class="form-group">
+            <label class="col-md-4 control-label" for="cardKey">Баланс</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="balance"/>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-md-4 control-label" for="personId">Выберите пользователя</label>
             <div class="col-md-4">
                 <form:select path="personId" items="${persons}" multiple="false" itemValue="personId" itemLabel="nickname"

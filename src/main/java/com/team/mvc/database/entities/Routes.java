@@ -20,14 +20,11 @@ public class Routes {
     @SequenceGenerator(name = "ROUTES_SEQ", sequenceName = "ROUTES_SEQ")
     private long routeId;
 
-
-    @ManyToOne
-    @JoinColumn(name = "COMPANY_ID")
-    @JsonBackReference
-    private Companies company;
-
     @Column(name="ROUTE_PRICE", nullable = false)
     private BigDecimal routePrice;
+
+    @Column(name="COMPANY_ID")
+    private Long companyId;
 
     @Column(name = "ROUTE_NUMBER", nullable = false, length = 10)
     private String routeNumber;
@@ -43,20 +40,20 @@ public class Routes {
         this.routeId = routeId;
     }
 
-    public Companies getCompany() {
-        return company;
-    }
-
-    public void setCompany(Companies company) {
-        this.company = company;
-    }
-
     public BigDecimal getRoutePrice() {
         return routePrice;
     }
 
     public void setRoutePrice(BigDecimal routePrice) {
         this.routePrice = routePrice;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public String getRouteNumber() {
@@ -75,16 +72,16 @@ public class Routes {
         Routes routes = (Routes) o;
 
         if (routeId != routes.routeId) return false;
-        if (company != null ? !company.equals(routes.company) : routes.company != null) return false;
         if (routePrice != null ? !routePrice.equals(routes.routePrice) : routes.routePrice != null) return false;
+        if (companyId != null ? !companyId.equals(routes.companyId) : routes.companyId != null) return false;
         return routeNumber != null ? routeNumber.equals(routes.routeNumber) : routes.routeNumber == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (routeId ^ (routeId >>> 32));
-        result = 31 * result + (company != null ? company.hashCode() : 0);
         result = 31 * result + (routePrice != null ? routePrice.hashCode() : 0);
+        result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
         result = 31 * result + (routeNumber != null ? routeNumber.hashCode() : 0);
         return result;
     }

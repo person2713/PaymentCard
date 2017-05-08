@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,7 +24,7 @@ public class AddCard {
     PersonService personService;
 
     @Autowired
-    CardService cardService;
+    CardsService cardService;
 
     @Autowired
     TypeCardService  typeCardService;
@@ -31,20 +32,21 @@ public class AddCard {
     @RequestMapping(method = RequestMethod.GET)
     public String renderAddCard(ModelMap model) {
         Cards card = new Cards();
+        CardBalance cardBalance = new CardBalance();
         model.addAttribute("cardForm", card);
+        model.addAttribute("cardBalance", cardBalance);
         return "/admin/addCard";
     }
 
     @RequestMapping(value = "/newCard", method = RequestMethod.POST)
-    public String saveCard(@Valid @ModelAttribute("cardForm") Cards card, BindingResult result,
-                           ModelMap model) {
+    public String saveCard(@Valid @ModelAttribute("cardForm") Cards card, @RequestParam("balance") String balance,
+                           BindingResult result, ModelMap model) {
         card.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
         cardService.saveCard(card);
+
         return "success";
     }
 
-//    @ModelAttribute("typeCard")
-//    public List<TypeCard> getRollers() { return typeCardService.getAll();}
 
     @ModelAttribute("persons")
     public List<Persons> initializeCities() {

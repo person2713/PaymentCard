@@ -42,7 +42,7 @@ public class AdminController {
     TypeCardService typeCardService;
 
     @Autowired
-    CardService cardService;
+    CardsService cardService;
 
     @RequestMapping(value = "/getlAllUsers", method = RequestMethod.GET)
     public

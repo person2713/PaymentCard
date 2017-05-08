@@ -24,7 +24,6 @@ public class Drivers {
 
     @OneToOne
     @JoinColumn(name="PERSON_ID")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Persons person;
 
     @Column(name="COMPANY_ID")
