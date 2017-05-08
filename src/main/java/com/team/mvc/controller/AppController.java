@@ -50,6 +50,14 @@ public class AppController {
         return "welcome";
     }
 
+
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    public String welcomePage(ModelMap model) {
+        return "welcome";
+    }
+
+
+
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(ModelMap model) {
         model.addAttribute("loggedinuser", GetRole.getPrincipal());
