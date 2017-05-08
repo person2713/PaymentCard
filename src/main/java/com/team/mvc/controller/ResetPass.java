@@ -100,7 +100,7 @@ public class ResetPass {
         System.out.println(maill);
 //        Persons person = personService.findByEmail(email);
 //        System.out.println(person);
-        return "newPass";
+        return "enter_new_pass";
     }
     @RequestMapping(value="/updPass" ,method=RequestMethod.POST)
     public String updPassword(@RequestParam(value="pass") String pass /*,Map<String,String> model*/)

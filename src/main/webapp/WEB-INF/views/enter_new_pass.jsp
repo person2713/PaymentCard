@@ -27,16 +27,17 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="${loginUrl}" method="post" class="form-horizontal" id="login-form" role="form" style="display: block;">
+                            <form action="updPass" method="post" class="form-horizontal" id="login-form" role="form" style="display: block;">
+                                <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 
                                 <h5><center>Введите новый пароль</center></h5>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
-                                    <input type="password" class="form-control input-sm" id="password" placeholder="Новый пароль" style="padding-left: 10px; padding-right: 10px" />
+                                    <input type="text" class="form-control input-sm" id="password" placeholder="Новый пароль" style="padding-left: 10px; padding-right: 10px" />
 
                                     <div class="pwstrength_viewport_progress"></div>
                                 </div>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
-                                    <input type="password" class="form-control input-sm" id="onfirmpassword" name="confirmpassword" placeholder="Подтвердите пароль" style="padding-left: 10px; padding-right: 10px">
+                                    <input type="text" class="form-control input-sm" id="onfirmpassword" name="pass" placeholder="Подтвердите пароль" style="padding-left: 10px; padding-right: 10px">
                                 </div>
 
 

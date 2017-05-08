@@ -24,12 +24,15 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="${loginUrl}" method="post" class="form-horizontal" id="login-form" role="form" style="display: block;">
+
+                            <form action="resetPassword" method="post" class="form-horizontal" id="login-form" role="form" style="display: block;">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                                 <h5><center>Введите адресс электронной почты</center></h5>
                                 <br/>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+
                                 </div>
                                 <br/>
 
@@ -37,6 +40,7 @@
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
                                             <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-primary" value="Восстановить">
+
                                         </div>
                                     </div>
                                 </div>
