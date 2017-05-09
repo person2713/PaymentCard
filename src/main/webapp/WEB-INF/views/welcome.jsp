@@ -34,6 +34,35 @@
     </div>
 </div>
 
+<div class="templatemo-top-menu">
+    <div class="container">
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand"><img src="/static/images/logo1.png" class="center-block" alt="Urbanic Template" title="Urbanic Template" /></a>
+                </div>
+                <div class="navbar-collapse collapse" id="templatemo-nav-bar">
+                    <ul class="nav navbar-nav navbar-right" style="margin-top: 30px;">
+                        <li class="active"><a href="#templatemo-top">HOME</a></li>
+                        <li><a href="#templatemo-about">ABOUT</a></li>
+                        <li><a href="#templatemo-portfolio">PORTFOLIO</a></li>
+                        <li><a href="#templatemo-blog">BLOG</a></li>
+                        <li><a rel="nofollow" href="http://www.facebook.com/templatemo"
+                               class="external-link" target="_parent">EXTERNAL</a></li>
+                        <li><a href="#templatemo-contact">CONTACT</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!--/.container-fluid -->
+        </div><!--/.navbar -->
+    </div> <!-- /container -->
+</div>
 
 <div>
     <!-- Carousel -->

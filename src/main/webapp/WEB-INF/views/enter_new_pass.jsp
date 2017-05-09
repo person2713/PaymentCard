@@ -32,8 +32,7 @@
 
                                 <h5><center>Введите новый пароль</center></h5>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
-                                    <input type="text" class="form-control input-sm" id="password" placeholder="Новый пароль" style="padding-left: 10px; padding-right: 10px" />
-
+                                    <input type="password" class="form-control input-sm" id="password" placeholder="Новый пароль" style="padding-left: 10px; padding-right: 10px" />
                                     <div class="pwstrength_viewport_progress"></div>
                                 </div>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
