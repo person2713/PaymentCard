@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.DoubleSummaryStatistics;
 
 
 @Entity
@@ -26,11 +27,11 @@ public class Events {
 
     @Column(name = "LATITUDE", nullable = false)
     @JsonIgnore
-    private double latitude;
+    private Double latitude;
 
     @Column(name = "LONGITUDE", nullable = false)
     @JsonIgnore
-    private double longitude;
+    private Double longitude;
 
 
     @Column(name = "PAYMENT_TIME", nullable = true)
@@ -47,44 +48,44 @@ public class Events {
         return eventId;
     }
 
-    public Long getCardId() {
-        return cardId;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public Timestamp getPaymentTime() {
-        return paymentTime;
-    }
-
-    public Long getBusId() {
-        return busId;
-    }
-
     public void setEventId(Long eventId) {
         this.eventId = eventId;
+    }
+
+    public Long getCardId() {
+        return cardId;
     }
 
     public void setCardId(Long cardId) {
         this.cardId = cardId;
     }
 
-    public void setLatitude(double latitude) {
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(double longitude) {
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Timestamp getPaymentTime() {
+        return paymentTime;
     }
 
     public void setPaymentTime(Timestamp paymentTime) {
         this.paymentTime = paymentTime;
+    }
+
+    public Long getBusId() {
+        return busId;
     }
 
     public void setBusId(Long busId) {
@@ -98,24 +99,20 @@ public class Events {
 
         Events events = (Events) o;
 
-        if (Double.compare(events.latitude, latitude) != 0) return false;
-        if (Double.compare(events.longitude, longitude) != 0) return false;
         if (eventId != null ? !eventId.equals(events.eventId) : events.eventId != null) return false;
         if (cardId != null ? !cardId.equals(events.cardId) : events.cardId != null) return false;
+        if (latitude != null ? !latitude.equals(events.latitude) : events.latitude != null) return false;
+        if (longitude != null ? !longitude.equals(events.longitude) : events.longitude != null) return false;
         if (paymentTime != null ? !paymentTime.equals(events.paymentTime) : events.paymentTime != null) return false;
         return busId != null ? busId.equals(events.busId) : events.busId == null;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = eventId != null ? eventId.hashCode() : 0;
+        int result = eventId != null ? eventId.hashCode() : 0;
         result = 31 * result + (cardId != null ? cardId.hashCode() : 0);
-        temp = Double.doubleToLongBits(latitude);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(longitude);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
+        result = 31 * result + (longitude != null ? longitude.hashCode() : 0);
         result = 31 * result + (paymentTime != null ? paymentTime.hashCode() : 0);
         result = 31 * result + (busId != null ? busId.hashCode() : 0);
         return result;

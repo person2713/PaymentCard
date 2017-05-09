@@ -22,7 +22,7 @@ public class Drivers {
     @Column(name = "DRIVER_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DRIVERS_SEQ")
     @SequenceGenerator(name = "DRIVERS_SEQ", sequenceName = "DRIVERS_SEQ")
-    private long driverId;
+    private Long driverId;
 
     @OneToOne
     @JoinColumn(name = "PERSON_ID")
@@ -39,11 +39,11 @@ public class Drivers {
     public Drivers() {
     }
 
-    public long getDriverId() {
+    public Long getDriverId() {
         return driverId;
     }
 
-    public void setDriverId(long driverId) {
+    public void setDriverId(Long driverId) {
         this.driverId = driverId;
     }
 
@@ -78,7 +78,7 @@ public class Drivers {
 
         Drivers drivers = (Drivers) o;
 
-        if (driverId != drivers.driverId) return false;
+        if (driverId != null ? !driverId.equals(drivers.driverId) : drivers.driverId != null) return false;
         if (person != null ? !person.equals(drivers.person) : drivers.person != null) return false;
         if (companyId != null ? !companyId.equals(drivers.companyId) : drivers.companyId != null) return false;
         return carAssigns != null ? carAssigns.equals(drivers.carAssigns) : drivers.carAssigns == null;
@@ -86,7 +86,7 @@ public class Drivers {
 
     @Override
     public int hashCode() {
-        int result = (int) (driverId ^ (driverId >>> 32));
+        int result = driverId != null ? driverId.hashCode() : 0;
         result = 31 * result + (person != null ? person.hashCode() : 0);
         result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
         result = 31 * result + (carAssigns != null ? carAssigns.hashCode() : 0);

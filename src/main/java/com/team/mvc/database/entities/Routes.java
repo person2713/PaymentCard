@@ -20,7 +20,7 @@ public class Routes {
     @Column(name = "ROUTE_ID")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "ROUTES_SEQ")
     @SequenceGenerator(name = "ROUTES_SEQ", sequenceName = "ROUTES_SEQ")
-    private long routeId;
+    private Long routeId;
 
     @Column(name="ROUTE_PRICE", nullable = false)
     private BigDecimal routePrice;
@@ -38,11 +38,11 @@ public class Routes {
     public Routes() {
     }
 
-    public long getRouteId() {
+    public Long getRouteId() {
         return routeId;
     }
 
-    public void setRouteId(long routeId) {
+    public void setRouteId(Long routeId) {
         this.routeId = routeId;
     }
 
@@ -85,7 +85,7 @@ public class Routes {
 
         Routes routes = (Routes) o;
 
-        if (routeId != routes.routeId) return false;
+        if (routeId != null ? !routeId.equals(routes.routeId) : routes.routeId != null) return false;
         if (routePrice != null ? !routePrice.equals(routes.routePrice) : routes.routePrice != null) return false;
         if (companyId != null ? !companyId.equals(routes.companyId) : routes.companyId != null) return false;
         if (routeNumber != null ? !routeNumber.equals(routes.routeNumber) : routes.routeNumber != null) return false;
@@ -94,7 +94,7 @@ public class Routes {
 
     @Override
     public int hashCode() {
-        int result = (int) (routeId ^ (routeId >>> 32));
+        int result = routeId != null ? routeId.hashCode() : 0;
         result = 31 * result + (routePrice != null ? routePrice.hashCode() : 0);
         result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
         result = 31 * result + (routeNumber != null ? routeNumber.hashCode() : 0);
