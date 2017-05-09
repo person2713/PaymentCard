@@ -74,11 +74,15 @@ public class Cards implements Serializable {
         return personId;
     }
 
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
+
     public Long getCardKey() {
         return cardKey;
     }
 
-    public void setCardKey(long cardKey) {
+    public void setCardKey(Long cardKey) {
         this.cardKey = cardKey;
     }
 
@@ -108,35 +112,6 @@ public class Cards implements Serializable {
 
     public Set<Events> getEvents() {
         return events;
-    }
-
-
-    public void setCardId(Long cardId) {
-        this.cardId = cardId;
-    }
-
-    public void setCardName(String cardName) {
-        this.cardName = cardName;
-    }
-
-    public void setPersonId(Long personId) {
-        this.personId = personId;
-    }
-
-    public void setCardKey(Long cardKey) {
-        this.cardKey = cardKey;
-    }
-
-    public void setTypeCard(TypeCard typeCard) {
-        this.typeCard = typeCard;
-    }
-
-    public void setCardBalance(CardBalance cardBalance) {
-        this.cardBalance = cardBalance;
-    }
-
-    public void setBalanceHists(Set<BalanceHist> balanceHists) {
-        this.balanceHists = balanceHists;
     }
 
     public void setEvents(Set<Events> events) {
