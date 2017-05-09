@@ -1,5 +1,6 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -25,8 +26,10 @@ public class CardBalance {
     @Column(name = "BALANCE", nullable = false)
     private BigDecimal balance;
 
-    @Column(name="CARD_ID")
-    private Long cardId;
+    @OneToOne
+    @JoinColumn(name = "CARD_ID")
+    @JsonIgnore
+    private Cards card;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "BALANCE_ID")
@@ -51,12 +54,12 @@ public class CardBalance {
         this.balance = balance;
     }
 
-    public Long getCardId() {
-        return cardId;
+    public Cards getCard() {
+        return card;
     }
 
-    public void setCardId(Long cardId) {
-        this.cardId = cardId;
+    public void setCard(Cards card) {
+        this.card = card;
     }
 
     public Set<BalanceHist> getBalanceHists() {
@@ -76,7 +79,7 @@ public class CardBalance {
 
         if (balanceId != null ? !balanceId.equals(that.balanceId) : that.balanceId != null) return false;
         if (balance != null ? !balance.equals(that.balance) : that.balance != null) return false;
-        if (cardId != null ? !cardId.equals(that.cardId) : that.cardId != null) return false;
+        if (card != null ? !card.equals(that.card) : that.card != null) return false;
         return balanceHists != null ? balanceHists.equals(that.balanceHists) : that.balanceHists == null;
     }
 
@@ -84,7 +87,7 @@ public class CardBalance {
     public int hashCode() {
         int result = balanceId != null ? balanceId.hashCode() : 0;
         result = 31 * result + (balance != null ? balance.hashCode() : 0);
-        result = 31 * result + (cardId != null ? cardId.hashCode() : 0);
+        result = 31 * result + (card != null ? card.hashCode() : 0);
         result = 31 * result + (balanceHists != null ? balanceHists.hashCode() : 0);
         return result;
     }

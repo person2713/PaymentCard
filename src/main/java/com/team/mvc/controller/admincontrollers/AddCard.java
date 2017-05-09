@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 
 @Controller
@@ -29,6 +31,9 @@ public class AddCard {
     @Autowired
     TypeCardService  typeCardService;
 
+    @Autowired
+    CardBalanceService cardBalanceService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String renderAddCard(ModelMap model) {
         Cards card = new Cards();
@@ -42,8 +47,13 @@ public class AddCard {
     public String saveCard(@Valid @ModelAttribute("cardForm") Cards card, @RequestParam("balance") String balance,
                            BindingResult result, ModelMap model) {
         card.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
+        String cardName = card.getCardName();
         cardService.saveCard(card);
-
+        CardBalance cardBalance = new CardBalance();
+        cardBalance.setBalance(BigDecimal.valueOf(Double.valueOf(balance)));
+        Cards cardss = cardService.findByCardName(cardName);
+        cardBalance.setCard(cardss);
+        cardBalanceService.save(cardBalance);
         return "success";
     }
 

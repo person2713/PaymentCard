@@ -32,6 +32,12 @@ public class CardsService {
         return cardsRepository.getAll();
     }
 
+
+    public Cards findByCardName(String cardName){
+        return cardsRepository.findByCardName(cardName);
+    }
+
+
     public void blockCardById(long cardId){
         cardsRepository.blockCardById(cardId);
     }

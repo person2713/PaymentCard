@@ -38,8 +38,7 @@ public class Cards implements Serializable {
     @JoinColumn(name="TYPE_ID", nullable = false)
     private TypeCard typeCard;
 
-    @OneToOne
-    @JoinColumn(name="CARD_ID", nullable = false)
+    @OneToOne(mappedBy = "card")
     private CardBalance cardBalance;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -59,61 +58,60 @@ public class Cards implements Serializable {
         return cardId;
     }
 
-    public String getCardName() {
-        return cardName;
-    }
-
-    public Long getPersonId() {
-        return personId;
-    }
-
-    public long getCardKey() {
-        return cardKey;
-    }
-
-    public TypeCard getTypeCard() {
-        return typeCard;
-    }
-
-    public CardBalance getCardBalance() {
-        return cardBalance;
-    }
-
-    public Set<BalanceHist> getBalanceHists() {
-        return balanceHists;
-    }
-
-    public Set<Events> getEvents() {
-        return events;
-    }
-
-
     public void setCardId(Long cardId) {
         this.cardId = cardId;
+    }
+
+    public String getCardName() {
+        return cardName;
     }
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
     }
 
+    public Long getPersonId() {
+        return personId;
+    }
+
     public void setPersonId(Long personId) {
         this.personId = personId;
+    }
+
+    public long getCardKey() {
+        return cardKey;
     }
 
     public void setCardKey(long cardKey) {
         this.cardKey = cardKey;
     }
 
+    public TypeCard getTypeCard() {
+        return typeCard;
+    }
+
     public void setTypeCard(TypeCard typeCard) {
         this.typeCard = typeCard;
+    }
+
+    public CardBalance getCardBalance() {
+        return cardBalance;
     }
 
     public void setCardBalance(CardBalance cardBalance) {
         this.cardBalance = cardBalance;
     }
 
+    public Set<BalanceHist> getBalanceHists() {
+        return balanceHists;
+    }
+
     public void setBalanceHists(Set<BalanceHist> balanceHists) {
         this.balanceHists = balanceHists;
+    }
+
+    public Set<Events> getEvents() {
+        return events;
     }
 
     public void setEvents(Set<Events> events) {

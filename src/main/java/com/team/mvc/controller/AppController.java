@@ -1,6 +1,9 @@
 package com.team.mvc.controller;
 
+import com.team.mvc.database.entities.BalanceHist;
+import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Cities;
+import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.RoleService;
@@ -43,10 +46,23 @@ public class AppController {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    CardsService cardsService;
+
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
+//        List<Cards> cardss = cardsService.getAll();
+//        for (Cards cards: cardss) {
+//            System.out.println("CardId " +cards.getCardId());
+//            System.out.println("balanceId "+cards.getCardBalance().getBalanceId());
+////            for (BalanceHist balanceHist: cards.getBalanceHists()) {
+////                System.out.println("BalanceId " + balanceHist.getBalanceHistId());
+////            }
+//        }
+
+
         return "welcome";
     }
 

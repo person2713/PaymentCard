@@ -65,6 +65,12 @@ public class CardsRepository extends AbstractRepository<Cards> {
         return (Cards) criteria.uniqueResult();
     }
 
+    public Cards findByCardName(String cardName) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("cardName", cardName));
+        return (Cards) criteria.uniqueResult();
+    }
+
     @Override
     public List<Cards> getAll() {
         Criteria criteria = createEntityCriteria();

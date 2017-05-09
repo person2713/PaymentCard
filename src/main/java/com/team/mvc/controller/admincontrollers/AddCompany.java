@@ -63,7 +63,7 @@ public class AddCompany {
             FieldError companyNameError = new FieldError("company", "companyName", messageSource.getMessage("NotEmpty.company.name", new String[]{company.getCompanyName()}, Locale.getDefault()));
             errors.add(companyNameError);
         }
-        if (!companyService.isCompanyNameUnique((int)company.getCompanyId(), company.getCompanyName())) {
+        if (!companyService.isCompanyNameUnique(company.getCompanyId(), company.getCompanyName())) {
             FieldError companyNameUniqError = new FieldError("company", "companyName", messageSource.getMessage("non.unique.company.name", new String[]{company.getCompanyName()}, Locale.getDefault()));
             errors.add(companyNameUniqError);
         }

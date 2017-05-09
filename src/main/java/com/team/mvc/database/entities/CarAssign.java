@@ -15,7 +15,7 @@ public class CarAssign {
 
     @Id
     @Column(name = "CAR_ASSIGN_ID")
-    private long carAssignId;
+    private Long carAssignId;
 
     @JsonIgnore
     @Column(name = "DATE_ASSIGN")
@@ -34,12 +34,11 @@ public class CarAssign {
     public CarAssign() {
     }
 
-
-    public long getCarAssignId() {
+    public Long getCarAssignId() {
         return carAssignId;
     }
 
-    public void setCarAssignId(long carAssignId) {
+    public void setCarAssignId(Long carAssignId) {
         this.carAssignId = carAssignId;
     }
 
@@ -82,7 +81,8 @@ public class CarAssign {
 
         CarAssign carAssign = (CarAssign) o;
 
-        if (carAssignId != carAssign.carAssignId) return false;
+        if (carAssignId != null ? !carAssignId.equals(carAssign.carAssignId) : carAssign.carAssignId != null)
+            return false;
         if (dateAssign != null ? !dateAssign.equals(carAssign.dateAssign) : carAssign.dateAssign != null) return false;
         if (busId != null ? !busId.equals(carAssign.busId) : carAssign.busId != null) return false;
         if (driverId != null ? !driverId.equals(carAssign.driverId) : carAssign.driverId != null) return false;
@@ -91,7 +91,7 @@ public class CarAssign {
 
     @Override
     public int hashCode() {
-        int result = (int) (carAssignId ^ (carAssignId >>> 32));
+        int result = carAssignId != null ? carAssignId.hashCode() : 0;
         result = 31 * result + (dateAssign != null ? dateAssign.hashCode() : 0);
         result = 31 * result + (busId != null ? busId.hashCode() : 0);
         result = 31 * result + (driverId != null ? driverId.hashCode() : 0);
