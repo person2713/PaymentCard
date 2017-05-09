@@ -14,15 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
-/**
- * Created by dronp on 08.04.2017.
- */
+
 @RestController
-@RequestMapping(value = "/API/carAssignment", method = RequestMethod.POST)
+@RequestMapping(value = "/API/driver/carAssignment", method = RequestMethod.POST)
 public class CarAssignmentAPI {
     @Autowired
     CarAssignService carAssignService;
-    public static final Logger logger = Logger.getLogger(DriverLoginAPI.class.getName());
+    public static final Logger logger = Logger.getLogger(LoginAPI.class.getName());
     ObjectMapper mapper = new ObjectMapper();
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
@@ -44,7 +42,7 @@ public class CarAssignmentAPI {
         } finally {
             if (Const.DEBUG) {
                 if (logger.isDebugEnabled()) {
-                    logger.debug("POST : /API/carAssignment\n " +
+                    logger.debug("POST : /API/driver/carAssignment\n " +
                             "" + log);
                 }
             }

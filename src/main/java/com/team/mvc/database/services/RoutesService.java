@@ -1,8 +1,7 @@
 package com.team.mvc.database.services;
 
-import com.team.mvc.database.entities.Drivers;
+import com.team.mvc.database.entities.Companies;
 import com.team.mvc.database.entities.Routes;
-import com.team.mvc.database.repositories.DriversRepository;
 import com.team.mvc.database.repositories.RoutesRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +25,15 @@ public class RoutesService {
         return routesRepository.getById(id);
     }
 
-    public void save(Routes route){
+    public List<Routes> findByCompanyId(long companyId) {
+        return routesRepository.findByCompanyId(companyId);
+    }
+
+    public void save(Routes route) {
         routesRepository.save(route);
     }
 
-    public List<Routes> getAll(){
+    public List<Routes> getAll() {
         return routesRepository.getAll();
     }
 }

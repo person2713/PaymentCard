@@ -20,8 +20,8 @@ public class CardBalanceService {
         return cardBalanceRepository.getById(id);
     }
 
-    public CardBalance findByCard(Cards card) throws NotFoundException {
-        return cardBalanceRepository.findByCard(card);
+    public CardBalance findByCardId(long cardId) throws NotFoundException {
+        return cardBalanceRepository.findByCardId(cardId);
     }
 
     public void save(CardBalance cardBalance){
