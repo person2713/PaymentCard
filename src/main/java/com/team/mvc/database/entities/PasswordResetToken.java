@@ -19,7 +19,7 @@ public class PasswordResetToken {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "PASSWORDRESETTOKEN_SEQ")
     @SequenceGenerator(name = "PASSWORDRESETTOKEN_SEQ", sequenceName = "PASSWORDRESETTOKEN_SEQ")
-    private long passwordreset_id;
+    private Long passwordreset_id;
 
     private String token;
 
@@ -89,7 +89,6 @@ public class PasswordResetToken {
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
 
-    //
 
     @Override
     public int hashCode() {

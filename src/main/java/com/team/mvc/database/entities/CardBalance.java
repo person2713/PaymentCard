@@ -79,8 +79,7 @@ public class CardBalance {
 
         if (balanceId != null ? !balanceId.equals(that.balanceId) : that.balanceId != null) return false;
         if (balance != null ? !balance.equals(that.balance) : that.balance != null) return false;
-        if (card != null ? !card.equals(that.card) : that.card != null) return false;
-        return balanceHists != null ? balanceHists.equals(that.balanceHists) : that.balanceHists == null;
+        return (card != null ? card.equals(that.card) : that.card == null) && (balanceHists != null ? balanceHists.equals(that.balanceHists) : that.balanceHists == null);
     }
 
     @Override
