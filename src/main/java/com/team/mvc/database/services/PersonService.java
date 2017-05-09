@@ -1,6 +1,8 @@
 package com.team.mvc.database.services;
 
+import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
+import com.team.mvc.database.repositories.CardsRepository;
 import com.team.mvc.database.repositories.CitiesRepository;
 import com.team.mvc.database.repositories.PersonRepository;
 
@@ -11,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,8 @@ public class PersonService {
 
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    CardsRepository cardsRepository;
 
 
     @Autowired
@@ -126,6 +131,18 @@ public class PersonService {
     }
     public List<Persons> getAllUser(){
         return personRepository.getAll();
+    }
+
+
+    public void addUserCard(String id, String name){
+        Cards cards = cardsRepository.findByCardKey(Long.parseLong(id));
+        Persons persons = personRepository.findByNickname(GetRole.getPrincipal());
+        cards.setCardName(name);
+        cards.setPersonId(persons.getPersonId());
+        System.out.println("addUserCard" + "Service"  + cards.toString());
+
+    //    System.out.println(cards.toString());
+//        if(cards.getPersonId()==null){cards.setPersonId(Long.valueOf(id)); cards.setCardName(name);}
     }
 
 

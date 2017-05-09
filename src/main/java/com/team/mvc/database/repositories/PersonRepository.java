@@ -48,7 +48,7 @@ public class PersonRepository  extends AbstractRepository{
 
     public List<Cards> findCardsByNickname(String nickname) {
 
-        Query query = getSession().createQuery("SELECT C FROM Cards  C WHERE C.person.nickname=:nickname");
+        Query query = getSession().createQuery("SELECT C FROM CARDS  C WHERE C.=:nickname");
 
         query.setParameter("nickname", nickname);
         return query.list();

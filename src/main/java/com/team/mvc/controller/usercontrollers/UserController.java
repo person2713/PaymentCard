@@ -31,26 +31,36 @@ public class UserController {
 
 
 
-    @ModelAttribute("person")
-    public Persons InitializePerson() {
-        return userService.findByNickname(getPrincipal());
-    }
-    @ModelAttribute("cards")
-    public List<Cards> InitializeCards() {
-        return userService.findCradsByNickname(getPrincipal());
-    }
+//    @ModelAttribute("person")
+//    public Persons InitializePerson() {
+//        return userService.findByNickname(getPrincipal());
+//    }
+//  /*  @ModelAttribute("cards")
+//    public List<Cards> InitializeCards() {
+//        return userService.findCradsByNickname(getPrincipal());
+//    }*/
+//
+//    @ModelAttribute("balance")
+//    public CardBalance InitializeBalance() {
+//        return userService.findBalanceByNickname(getPrincipal());
+//    }
+//    @ModelAttribute("balanceHist")
+//    public List<BalanceHist> InitializeBalanceHist() {
+//        return userService.findBalanceHistByNickname(getPrincipal());}
+//
+//    @ModelAttribute("events")
+//    public List<Events> InitializeEvents() {
+//        return userService.findEventsByNickname(getPrincipal());
+//    }
+//
 
-    @ModelAttribute("balance")
-    public CardBalance InitializeBalance() {
-        return userService.findBalanceByNickname(getPrincipal());
-    }
-    @ModelAttribute("balanceHist")
-    public List<BalanceHist> InitializeBalanceHist() {
-        return userService.findBalanceHistByNickname(getPrincipal());}
 
-    @ModelAttribute("events")
-    public List<Events> InitializeEvents() {
-        return userService.findEventsByNickname(getPrincipal());
+    @RequestMapping(value="/addUserCard" , method=RequestMethod.POST)
+    public String addUserCard(@RequestParam(value="idcard") String idcard, @RequestParam(value="namecard") String namecard){
+        System.out.println("addUserCard"  + idcard    +   namecard  );
+
+         userService.addUserCard(idcard, namecard);
+        return "user/user";
     }
 
 

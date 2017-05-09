@@ -121,6 +121,14 @@ public class Cards implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Cards{" +
+                "cardId=" + cardId +
+                ", cardName='" + cardName + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

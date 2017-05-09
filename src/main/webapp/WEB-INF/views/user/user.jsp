@@ -48,24 +48,28 @@
 							<h4 class="modal-title" id="myModalLabel1">Добавить карту</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form-horizontal">
+							<form action="/user/user/addUserCard" method="post" class="form-horizontal" id="nameform">
+
 								<div class="form-group">
 									<label for="inputCardNumber" class="col-sm-3 control-label">Номер карты</label>
 									<div class="col-sm-8">
-										<input type="cardNumber" class="form-control" id="inputCardNumber" placeholder="Номер карты">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+										<input type="text" class="form-control" id="inputCardNumber" name="idcard" placeholder="Номер карты">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="inputCardName" class="col-sm-3 control-label">Имя карты</label>
 									<div class="col-sm-8">
-										<input type="cardName" class="form-control" id="inputCardName" placeholder="Имя карты">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+										<input type="text" class="form-control" id="inputCardName" name="namecard" placeholder="Имя карты">
 									</div>
 								</div>
 							</form>
 						</div>
 						<div class="modal-footer">
+
 							<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary">Привязать</button>
+							<button type="submit" form="nameform" value="Submit" class="btn btn-primary">Привязать</button>
 						</div>
 					</div>
 				</div>
@@ -77,7 +81,7 @@
 				<button type="button" class="btn btn-primary btn-block" data-toggle="dropdown">Выбрать карту
 					<span class="caret"></span></button>
 				<ul class="dropdown-menu ">
-					<li><a href="#">карта 1</a></li>
+					<li><a href="">карта 1</a></li>
 					<li><a href="#">карта 2</a></li>
 					<li><a href="#">карта 3</a></li>
 				</ul>

@@ -14,11 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+
 
     @Autowired
     CustomSuccessHandler customSuccessHandler;
@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/", "/home","/newPassword/**","/welcome", "/updPass/**").permitAll().and()
         .authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").and()
-                .authorizeRequests() .antMatchers("/user/**").hasRole("USER").and()
+                .authorizeRequests() .antMatchers("/user/**", "/addusercard/**").hasRole("USER").and()
                 .authorizeRequests().antMatchers("/driver/**").hasRole("DRIVER").and()
                 .authorizeRequests().antMatchers("/API/**").hasRole("DRIVER").and()
                 .authorizeRequests() .antMatchers("/owner/**").hasRole("OWNER")
