@@ -139,13 +139,13 @@ public class Cards implements Serializable {
     @Override
     public int hashCode() {
         int result = cardId != null ? cardId.hashCode() : 0;
-        result = 31 * result + (cardName != null ? cardName.hashCode() : 0);
-        result = 31 * result + (personId != null ? personId.hashCode() : 0);
-        result = 31 * result + (int) (cardKey ^ (cardKey >>> 32));
-        result = 31 * result + (typeCard != null ? typeCard.hashCode() : 0);
-        result = 31 * result + (cardBalance != null ? cardBalance.hashCode() : 0);
-        result = 31 * result + (balanceHists != null ? balanceHists.hashCode() : 0);
-        result = 31 * result + (events != null ? events.hashCode() : 0);
+        result = 32 * result + (cardName != null ? cardName.hashCode() : 0);
+        result = 32 * result + (personId != null ? personId.hashCode() : 0);
+        result = 32 * result + (int) (cardKey ^ (cardKey >>> 32));
+        result = 32 * result + (typeCard != null ? typeCard.hashCode() : 0);
+
+        result = 32 * result + (balanceHists != null ? balanceHists.hashCode() : 0);
+        result = 32 * result + (events != null ? events.hashCode() : 0);
         return result;
     }
 }

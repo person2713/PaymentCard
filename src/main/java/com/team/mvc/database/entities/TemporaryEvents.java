@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Objects;
@@ -13,7 +14,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "TEMPORARY_EVENTS")
-public class TemporaryEvents {
+public class TemporaryEvents  implements Serializable {
 
     @Id
     @Column(name = "TEMPORARY_EVENT_ID")

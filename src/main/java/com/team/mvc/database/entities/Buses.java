@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "BUSES")
-public class Buses {
+public class Buses implements Serializable {
 
     @Id
     @Column(name = "BUS_ID")

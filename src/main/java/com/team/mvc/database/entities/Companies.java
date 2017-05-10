@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "COMPANIES")
-public class Companies {
+public class Companies  implements Serializable {
 
 
     @Id
