@@ -81,7 +81,7 @@
 				<button type="button" class="btn btn-primary btn-block" data-toggle="dropdown">Выбрать карту
 					<span class="caret"></span></button>
 				<ul class="dropdown-menu ">
-					<li><a href="">карта 1</a></li>
+					<li><a href="#">карта 1</a></li>
 					<li><a href="#">карта 2</a></li>
 					<li><a href="#">карта 3</a></li>
 				</ul>

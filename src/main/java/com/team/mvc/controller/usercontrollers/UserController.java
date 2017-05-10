@@ -1,6 +1,7 @@
 package com.team.mvc.controller.usercontrollers;
 
 
+import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
 import com.team.mvc.database.services.CardService;
 import com.team.mvc.database.services.PersonService;
@@ -35,10 +36,10 @@ public class UserController {
 //    public Persons InitializePerson() {
 //        return userService.findByNickname(getPrincipal());
 //    }
-//  /*  @ModelAttribute("cards")
-//    public List<Cards> InitializeCards() {
-//        return userService.findCradsByNickname(getPrincipal());
-//    }*/
+   @ModelAttribute("cards")
+    public List<Cards> InitializeCards() {
+        return userService.findCradsByNickname(GetRole.getPrincipal());
+    }
 //
 //    @ModelAttribute("balance")
 //    public CardBalance InitializeBalance() {

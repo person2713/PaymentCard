@@ -3,10 +3,7 @@ package com.team.mvc.database.repositories;
 
 import com.team.mvc.database.entities.*;
 import javassist.NotFoundException;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +44,16 @@ public class PersonRepository  extends AbstractRepository{
 
 
     public List<Cards> findCardsByNickname(String nickname) {
+        String que = "SELECT CA.C FROM CARDS CA WHERE CA.PERSON_ID = (SELECT PE.PERSON_ID FROM PERSONS PE  WHERE PE.NICKNAME ="+nickname;
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        SQLQuery sqlQuery = session.createSQLQuery(que);
+        List result = sqlQuery.list();
 
-        Query query = getSession().createQuery("SELECT C FROM CARDS  C WHERE C.=:nickname");
 
-        query.setParameter("nickname", nickname);
-        return query.list();
+
+
+        return   result;
 
 
 
