@@ -18,12 +18,11 @@ public class Owners {
     @SequenceGenerator(name = "OWNERS_SEQ", sequenceName = "OWNERS_SEQ")
     private Long ownerId;
 
-
     @OneToOne
     @JoinColumn(name="PERSON_ID")
     private Persons person;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "COMPANY_ID")
     private Companies company;
 

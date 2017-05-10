@@ -3,11 +3,13 @@ package com.team.mvc.controller;
 import com.team.mvc.database.entities.BalanceHist;
 import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Cities;
+import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.RoleService;
 import org.apache.log4j.Logger;
+import org.hibernate.envers.configuration.internal.metadata.reader.PersistentPropertiesSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
@@ -53,16 +55,6 @@ public class AppController {
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
-//        List<Cards> cardss = cardsService.getAll();
-//        for (Cards cards: cardss) {
-//            System.out.println("CardId " +cards.getCardId());
-//            System.out.println("balanceId "+cards.getCardBalance().getBalanceId());
-////            for (BalanceHist balanceHist: cards.getBalanceHists()) {
-////                System.out.println("BalanceId " + balanceHist.getBalanceHistId());
-////            }
-//        }
-
-
         return "welcome";
     }
 
