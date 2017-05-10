@@ -6,13 +6,14 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.DoubleSummaryStatistics;
 
 
 @Entity
 @Table(name = "EVENTS")
-public class Events {
+public class Events implements Serializable {
 
     @Id
     @Column(name = "EVENT_ID")

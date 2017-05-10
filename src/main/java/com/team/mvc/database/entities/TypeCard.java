@@ -1,11 +1,12 @@
 package com.team.mvc.database.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "TYPE_CARD")
-public class TypeCard {
+public class TypeCard implements Serializable {
 
 
     @Id
