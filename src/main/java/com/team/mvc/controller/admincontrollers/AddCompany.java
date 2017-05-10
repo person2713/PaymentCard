@@ -3,8 +3,11 @@ package com.team.mvc.controller.admincontrollers;
 
 import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.entities.Companies;
+import com.team.mvc.database.entities.Owners;
+import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.CompanyService;
+import com.team.mvc.database.services.PersonService;
 import com.team.mvc.log.Const;
 import javassist.NotFoundException;
 import org.apache.log4j.Logger;
@@ -20,12 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
-@RequestMapping("/admin/addcompany")
+@RequestMapping("/admin/addCompany")
 public class AddCompany {
 
     private static final Logger logger = Logger.getLogger(AddCompany.class.getName());
@@ -39,12 +40,14 @@ public class AddCompany {
     @Autowired
     MessageSource messageSource;
 
+    @Autowired
+    PersonService personService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String renderAddNewCompany(ModelMap model) {
         Companies company = new Companies();
-
         model.addAttribute("companyForm", company);
-        return "admin/addcompany";
+        return "admin/addCompany";
     }
 
 
@@ -77,7 +80,7 @@ public class AddCompany {
             for(FieldError error: errors){
                 result.addError(error);
             }
-            return "admin/addcompany";
+            return "admin/addCompany";
         }
 
 
@@ -97,10 +100,10 @@ public class AddCompany {
     @RequestMapping(value = { "/edit-company-{companyName}" }, method = RequestMethod.GET)
     public String editCompany(@PathVariable String companyName, ModelMap model) {
         Companies company = companyService.getByCompanyName(companyName);
-        model.addAttribute("companyForm", company);
-        model.addAttribute("edit", true);
+//        model.addAttribute("companyForm", company);
+//        model.addAttribute("edit", true);
 //        model.addAttribute("loggedinuser", getPrincipal());
-        return "admin/addcompany";
+        return "admin/addCompany";
     }
 
     @RequestMapping(value = { "/edit-company-{companyName}" }, method = RequestMethod.POST)
@@ -128,5 +131,7 @@ public class AddCompany {
     public List<Cities> initializeCities() {
         return cityService.getAll();
     }
+
+
 
 }
