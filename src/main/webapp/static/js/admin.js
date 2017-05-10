@@ -18,13 +18,51 @@ function getCities() {
                 city += '<option>' + item.cityName + '</option>';
                 cities.push(item);
             });
+            console.log(cities);
         },
         error: function () {
             alert("error")
         }
     })
 }
-
+//функция для получения обычных пользователей
+function getUsers() {
+    if ($("#tableForUser").length != 0) {
+        $("tr").show();
+    }
+    else {
+        $("#head").children().remove();
+        $.ajax({
+            type: "GET",
+            url: "/admin/getUsers",
+            datatype: "json",
+            success: function (response) {
+                console.log(response);
+                $.each(response, function (i, item) {
+                    arrayObject.push(item);
+                    console.log(item);
+                });
+                var trHTML = '';
+                trHTML += createTableHeader('Пользователи') + createTableBody(response, 'Пользователи');
+                $("#head").append(trHTML);
+                console.log(arrayObject);
+            },
+            error: function () {
+                alert("error")
+            }
+        }).done(function onload() {
+                forSearch = document.getElementById('inNick');
+            },
+            function () {
+                $('table tr').click(function (event) {
+                    if (event.target.type !== 'checkbox') {
+                        $(':checkbox', this).trigger('click');
+                    }
+                });
+            }
+        )
+    }
+}
 // при заходе на страницу админа сразу подгружаем коллекцию ролей
 // массив ролей
 var rollers = Array();
@@ -41,6 +79,7 @@ function getRollers() {
                 role += '<option>' + item.roleType + '</option>';
                 rollers.push(item);
             });
+            console.log(rollers);
         },
         error: function () {
             alert("error")
@@ -67,6 +106,7 @@ function getTypeCard() {
                 cardStatus += '<option>' + item.status + '</option>';
                 cardType += '<option>' + item.cardType + '</option>';
             });
+            console.log(typeCard);
         },
         error: function () {
             alert("error")
@@ -157,44 +197,7 @@ function searchUser() {
     }
 }
 
-//функция для получения обычных пользователей
-function getUsers() {
-    if ($("#tableForUser").length != 0) {
-        $("tr").show();
-    }
-    else {
-        $("#head").children().remove();
-        $.ajax({
-            type: "GET",
-            url: "/admin/getUsers",
-            datatype: "json",
-            success: function (response) {
-                // console.log(response);
-                $.each(response, function (i, item) {
-                    arrayObject.push(item);
-                    // console.log(item);
-                })
 
-                var trHTML = '';
-                trHTML += createTableHeader('Пользователи') + createTableBody(response, 'Пользователи');
-                $("#head").append(trHTML);
-            },
-            error: function () {
-                alert("error")
-            }
-        }).done(function onload() {
-                forSearch = document.getElementById('inNick');
-            },
-            function () {
-                $('table tr').click(function (event) {
-                    if (event.target.type !== 'checkbox') {
-                        $(':checkbox', this).trigger('click');
-                    }
-                });
-            }
-        )
-    }
-}
 
 
 //функция для получения владельцев

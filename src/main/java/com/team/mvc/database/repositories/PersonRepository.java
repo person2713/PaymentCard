@@ -3,10 +3,7 @@ package com.team.mvc.database.repositories;
 
 import com.team.mvc.database.entities.*;
 import javassist.NotFoundException;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,5 +97,14 @@ public class PersonRepository  extends AbstractRepository{
         Criteria criteria = createEntityCriteria();
         criteria.addOrder(Order.asc("personId"));
         return criteria.list();
+    }
+
+    public List<Persons> getPersonsWithCards(){
+        Session session = sessionFactory.getCurrentSession();
+        List<Persons> personsList = session.createCriteria(Persons.class).list();
+        for (Persons persons: personsList) {
+            Hibernate.initialize(persons.getCards());
+        }
+        return personsList;
     }
 }

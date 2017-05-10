@@ -16,6 +16,7 @@ public class BalanceHist implements Serializable {
     @SequenceGenerator(name = "BALANCE_HIST_SEQ", sequenceName = "BALANCE_HIST_SEQ")
     private Long balanceHistId;
 
+
     @Column(name="CARD_ID")
     private Long cardId;
 

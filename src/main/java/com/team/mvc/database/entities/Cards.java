@@ -27,7 +27,7 @@ public class Cards implements Serializable {
     @Column(name = "CARD_NAME", length = 30, unique = true)
     private String cardName;
 
-
+    @JsonIgnore
     @Column(name="PERSON_ID")
     private Long personId;
 

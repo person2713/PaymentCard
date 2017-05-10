@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "TYPE_CARD")
-public class TypeCard implements Serializable {
+public class TypeCard implements Serializable{
 
 
     @Id

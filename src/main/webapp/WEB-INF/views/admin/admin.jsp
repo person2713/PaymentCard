@@ -5,18 +5,13 @@
 <head>
     <title>Admin page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="_csrf" content="${_csrf.token}"/>
-    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="_csrf" content="6417ec49-aa65-48f9-a7e5-1da3bbff98c2">
 
 
-    <!-- 4.0.0-alpha.6/css/bootstrap.min.css-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
+    <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/dashboard.css" rel="stylesheet">
 
     <script src="/static/js/jquery-3.2.1.js"></script>
@@ -27,27 +22,24 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script>
-        getCities();
-        getRollers();
-        getTypeCard();
-    </script>
 
 </head>
 
 <body>
-<div id="header">
-    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-        <a class="navbar-brand" href="#">PaymentCard</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="/logout">Выйти</a>
-                </li>
-            </ul>
+<div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+
+            <a class="navbar-brand" style="color: white">Payment Card</a>
         </div>
-    </nav>
-</div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a><strong>${loggedinuser}</strong></a></li>
+                <li><a href="/logout">Выйти</a></li>
+            </ul>
+        </div><!-- /.nav-collapse -->
+    </div><!-- /.container -->
+</div><!-- /.navbar -->
 <div id="content">
     <div class="container-fluid">
         <div class="row">
@@ -72,20 +64,18 @@
                         Добавить
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu contmenu">
-                        <button type="button" class="btn btn-link" onclick="window.location='/registration'">Пользователя</button>
+                        <button type="button" class="btn btn-link" onclick="getUsers();">Пользователя</button>
                         <br>
-                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addOwner'">Владельца</button>
+                        <button type="button" class="btn btn-link" onclick="getUser();">Компанию</button>
                         <br>
-                        <button type="button" class="btn btn-link" onclick="prepareAddCards();">Компанию</button>
-                        <br>
-                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addCard'">Карту</button>
+                        <button type="button" class="btn btn-link" onclick="prepareAddCards();">Карту</button>
                         <br>
                         <button type="button" class="btn btn-link" onclick="getUser();">Машину</button>
                         <br>
                     </ul>
                 </div>
                 <div class="dropdown">
-                    <button type="button" class="btn btn-primary ofset btn-block" onclick="deleteRow()">Удалить
+                    <button type="button" class="btn btn-primary ofset btn-block" onclick="deleteUser()">Удалить
                     </button>
                 </div>
                 <div class="dropdown">
@@ -101,25 +91,5 @@
 </div>
 
 
-
-<ul id="context-menu" class="dropdown-menu">
-    <li data-item="edit"><a>Edit</a></li>
-    <li data-item="delete"><a>Delete</a></li>
-    <li data-item="action1"><a>Action Here</a></li>
-    <li data-item="action2"><a>And Action Here</a></li>
-</ul>
-<%--<footer class="footer">--%>
-    <%--<div class="container">--%>
-        <%--<p class="text-center">© NetCracker Education Center 2017</p>--%>
-    <%--</div>--%>
-<%--</footer>--%>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
 </body>
 </html>
-
-
-

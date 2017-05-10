@@ -3,6 +3,7 @@ package com.team.mvc.database.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.jboss.marshalling.serial.Serial;
 
 import javax.persistence.*;
 import java.io.Serializable;
