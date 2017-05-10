@@ -6,13 +6,14 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 
 @Entity
 @Table(name = "BALANCE_HIST")
-public class BalanceHist {
+public class BalanceHist implements Serializable {
 
     @Id
     @Column(name = "BALANCE_HIST_ID")

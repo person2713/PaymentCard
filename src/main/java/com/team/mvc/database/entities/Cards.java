@@ -34,11 +34,12 @@ public class Cards implements Serializable {
     @Column(name = "CARD_KEY", nullable = false)
     private Long cardKey;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name="TYPE_ID", nullable = false)
     private TypeCard typeCard;
 
     @OneToOne(mappedBy = "card")
+    @JsonManagedReference
     private CardBalance cardBalance;
 
     @OneToMany(fetch = FetchType.LAZY)

@@ -1,11 +1,13 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,7 +17,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CARD_BALANCE")
-public class CardBalance {
+public class CardBalance implements Serializable {
 
     @Id
     @Column(name = "BALANCE_ID")
@@ -28,7 +30,7 @@ public class CardBalance {
 
     @OneToOne
     @JoinColumn(name = "CARD_ID")
-    @JsonIgnore
+   @JsonBackReference
     private Cards card;
 
     @OneToMany(fetch = FetchType.LAZY)
