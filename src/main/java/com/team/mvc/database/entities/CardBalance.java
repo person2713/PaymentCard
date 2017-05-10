@@ -87,9 +87,9 @@ public class CardBalance implements Serializable {
     @Override
     public int hashCode() {
         int result = balanceId != null ? balanceId.hashCode() : 0;
-        result = 31 * result + (balance != null ? balance.hashCode() : 0);
-        result = 31 * result + (card != null ? card.hashCode() : 0);
-        result = 31 * result + (balanceHists != null ? balanceHists.hashCode() : 0);
+        result = 32 * result + (balance != null ? balance.hashCode() : 0);
+
+        result = 32 * result + (balanceHists != null ? balanceHists.hashCode() : 0);
         return result;
     }
 }

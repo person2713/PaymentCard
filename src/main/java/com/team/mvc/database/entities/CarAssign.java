@@ -6,12 +6,13 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 
 @Entity
 @Table(name = "CAR_ASSIGN")
-public class CarAssign {
+public class CarAssign implements Serializable {
 
     @Id
     @Column(name = "CAR_ASSIGN_ID")

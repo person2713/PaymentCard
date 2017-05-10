@@ -6,10 +6,11 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
-public class Owners {
+public class Owners implements Serializable {
 
 
     @Id
