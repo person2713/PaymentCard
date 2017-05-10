@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -81,9 +82,10 @@
 				<button type="button" class="btn btn-primary btn-block" data-toggle="dropdown">Выбрать карту
 					<span class="caret"></span></button>
 				<ul class="dropdown-menu ">
-					<li><a href="#">карта 1</a></li>
-					<li><a href="#">карта 2</a></li>
-					<li><a href="#">карта 3</a></li>
+					<form:select path="UserCard">
+						<form:option value="" label="...." />
+						<form:options items="${cards}"/>
+					</form:select>
 				</ul>
 			</div>
 

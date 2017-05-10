@@ -8,6 +8,7 @@ import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.TypeCardService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@Scope("session")
 @RequestMapping("/user/user")
 public class UserController {
 
@@ -28,6 +30,8 @@ public class UserController {
 
     @Autowired
     TypeCardService typeCardService;
+    @Autowired
+    UserCard userCard;
 
 
 
@@ -37,7 +41,7 @@ public class UserController {
 //        return userService.findByNickname(getPrincipal());
 //    }
    @ModelAttribute("cards")
-    public List<Cards> InitializeCards() {
+    public List<String> InitializeCards() {
         return userService.findCradsByNickname(GetRole.getPrincipal());
     }
 //

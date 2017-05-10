@@ -43,8 +43,8 @@ public class PersonRepository  extends AbstractRepository{
     }
 
 
-    public List<Cards> findCardsByNickname(String nickname) {
-        String que = "SELECT CA.C FROM CARDS CA WHERE CA.PERSON_ID = (SELECT PE.PERSON_ID FROM PERSONS PE  WHERE PE.NICKNAME ="+nickname;
+    public List<String> findCardsByNickname(String nickname) {
+        String que = "SELECT CA.CARD_ID FROM CARDS CA WHERE CA.PERSON_ID = (SELECT PE.PERSON_ID FROM PERSONS PE  WHERE PE.NICKNAME ="+nickname;
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         SQLQuery sqlQuery = session.createSQLQuery(que);

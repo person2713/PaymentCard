@@ -105,7 +105,7 @@ public class PersonService {
         return list;
     }
 
-    public List<Cards> findCradsByNickname(String nickname) {
+    public List<String> findCradsByNickname(String nickname) {
         return personRepository.findCardsByNickname(nickname);
     }
 
