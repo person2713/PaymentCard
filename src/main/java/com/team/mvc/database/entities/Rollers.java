@@ -12,21 +12,19 @@ public class Rollers implements Serializable {
     @Column(name = "ROLE_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLLERS_SEQ")
     @SequenceGenerator(name = "ROLLERS_SEQ", sequenceName = "ROLLERS_SEQ")
-    private long roleId;
+    private Long roleId;
 
     @Column(name = "ROLE_TYPE", unique = true)
     private String roleType;
 
-
-
     public Rollers() {
     }
 
-    public long getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
@@ -45,15 +43,13 @@ public class Rollers implements Serializable {
 
         Rollers rollers = (Rollers) o;
 
-        if (roleId != rollers.roleId) return false;
-        if (roleType != null ? !roleType.equals(rollers.roleType) : rollers.roleType != null) return false;
-
-        return true;
+        if (roleId != null ? !roleId.equals(rollers.roleId) : rollers.roleId != null) return false;
+        return roleType != null ? roleType.equals(rollers.roleType) : rollers.roleType == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (roleId ^ (roleId >>> 32));
+        int result = roleId != null ? roleId.hashCode() : 0;
         result = 31 * result + (roleType != null ? roleType.hashCode() : 0);
         return result;
     }

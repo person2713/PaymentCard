@@ -18,53 +18,46 @@
 <div class="container">
 
 
-    <legend><h2>Добавить карточку</h2></legend>
+    <legend><h2>Добавить компанию</h2></legend>
 
 
-    <form:form method="POST" modelAttribute="cardForm" action="/admin/addCard/newCard" class="form-horizontal">
-        <form:input type="hidden" path="cardId" id="cardId"/>
+    <form:form method="POST" modelAttribute="companyForm" action="/admin/addCompany/newCompany" class="form-horizontal">
+        <form:input type="hidden" path="companyId" id="companyId"/>
 
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="cardName">Имя карты</label>
+            <label class="col-md-4 control-label" for="companyName">Имя компании</label>
             <div class="col-md-4">
-                <form:input type="text" path="cardName" id="cardName" class="form-control"/>
+                <form:input type="text" path="companyName" id="companyName" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="cardName" class="help-inline"/>
+                    <form:errors path="companyName" class="help-inline"/>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="cardKey">Ключ карты</label>
+            <label class="col-md-4 control-label" for="phoneNumber">Телефонный номер</label>
             <div class="col-md-4">
-                <form:input type="text" path="cardKey" id="cardKey" class="form-control"/>
+                <form:input type="text" path="phoneNumber" id="phoneNumber" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="cardKey" class="help-inline"/>
+                    <form:errors path="phoneNumber" class="help-inline"/>
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="cardKey">Баланс</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="balance"/>
-            </div>
-        </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="personId">Выберите пользователя</label>
+            <label class="col-md-4 control-label" for="city">Выберите город</label>
             <div class="col-md-4">
-                <form:select path="personId" class="form-control">
+                <form:select path="city" class="form-control">
                     <form:option value="NONE" label=""/>
-                    <form:options items="${persons}" multiple="false" itemValue="personId" itemLabel="nickname"/>
-                    <div class="has-error">
-                        <form:errors path="personId" class="help-inline"/>
-                    </div>
+                    <form:options items="${cities}" multiple="false" itemValue="cityId" itemLabel="cityName"/>
+                <div class="has-error">
+                    <form:errors path="city" class="help-inline"/>
+                </div>
                 </form:select>
             </div>
         </div>
-
 
         <div class="form-group">
             <label class="col-md-4 control-label"></label>
@@ -79,6 +72,9 @@
         <center class="text-muted">© NetCracker Education Center 2017</center>
         </p>
     </div>
+    <script>
+
+    </script>
 </div>
 </body>
 </html>

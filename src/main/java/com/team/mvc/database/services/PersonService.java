@@ -50,9 +50,6 @@ public class PersonService {
         personRepository.save(persons);
     }
 
-//    public List<Persons> getAllUser() {
-//        return personRepository.getAll();
-//    }
 
     public List<Persons> getUsers() {
         List<Persons> personList = new ArrayList<>();
@@ -127,9 +124,13 @@ public class PersonService {
         persons = personRepository.findByEmail(mail);
         persons.setPassword(passwordEncoder.encode(pass));
     }
-    public List<Persons> getAllUser(){
+    public List<Persons> getAll(){
         return personRepository.getAll();
     }
 
+
+    public List<Persons> getAllPersonsWithCrads(){
+        return personRepository.getPersonsWithCards();
+    }
 
 }

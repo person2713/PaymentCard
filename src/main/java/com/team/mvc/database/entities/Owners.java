@@ -6,51 +6,52 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
-public class Owners {
+public class Owners implements Serializable {
 
 
     @Id
     @Column(name = "OWNER_ID")
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "OWNERS_SEQ")
     @SequenceGenerator(name = "OWNERS_SEQ", sequenceName = "OWNERS_SEQ")
-    private long ownerId;
-
+    private Long ownerId;
 
     @OneToOne
     @JoinColumn(name="PERSON_ID")
     private Persons person;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "COMPANY_ID")
     private Companies company;
 
-
-
-    public void setPerson(Persons person) {
-        this.person = person;
+    public Owners() {
     }
 
-    public void setCompany(Companies company) {
-        this.company = company;
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public Persons getPerson() {
         return person;
     }
 
+    public void setPerson(Persons person) {
+        this.person = person;
+    }
+
     public Companies getCompany() {
         return company;
     }
 
-    public long getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(long ownerId) {
-        this.ownerId = ownerId;
+    public void setCompany(Companies company) {
+        this.company = company;
     }
 
     @Override
@@ -60,13 +61,16 @@ public class Owners {
 
         Owners owners = (Owners) o;
 
-        if (ownerId != owners.ownerId) return false;
-
-        return true;
+        if (ownerId != null ? !ownerId.equals(owners.ownerId) : owners.ownerId != null) return false;
+        if (person != null ? !person.equals(owners.person) : owners.person != null) return false;
+        return company != null ? company.equals(owners.company) : owners.company == null;
     }
 
     @Override
     public int hashCode() {
-        return (int) (ownerId ^ (ownerId >>> 32));
+        int result = ownerId != null ? ownerId.hashCode() : 0;
+        result = 31 * result + (person != null ? person.hashCode() : 0);
+        result = 31 * result + (company != null ? company.hashCode() : 0);
+        return result;
     }
 }

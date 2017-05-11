@@ -25,7 +25,7 @@ public class CompanyService {
         companiesRepository.save(company);
     }
 
-    public boolean isCompanyNameUnique(Integer id, String companyName) {
+    public boolean isCompanyNameUnique(Long id, String companyName) {
         Companies company = companiesRepository.findByCompanyName(companyName);
         return (company == null || ((id != null) && (company.getCompanyId() == id)));
     }
@@ -47,5 +47,9 @@ public class CompanyService {
             entity.setCompanyName(company.getCompanyName());
             entity.setPhoneNumber(company.getPhoneNumber());
         }
+    }
+
+    public Companies findById(Long id) throws NotFoundException {
+        return companiesRepository.getById(id);
     }
 }

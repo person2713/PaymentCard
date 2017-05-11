@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -36,13 +37,10 @@ public class CarAssignService {
                                        Long DriverId,
                                        Long RouteId) throws NotFoundException {
         CarAssign carAssign = new CarAssign();
-
-        Buses bus=busesService.findById(BusId);
-        Drivers driver=driversService.findById(DriverId);
-        Routes routes=routesService.findById(RouteId);
-        carAssign.setBusId(bus.getBusId());
-        carAssign.setDriverId(driver.getDriverId());
-        carAssign.setRouteId(routes.getRouteId());
+        carAssign.setBusId(BusId);
+        carAssign.setDriverId(DriverId);
+        carAssign.setRouteId(RouteId);
+        carAssign.setDateAssign(new Timestamp(System.currentTimeMillis()));
         return carAssign;
     }
 

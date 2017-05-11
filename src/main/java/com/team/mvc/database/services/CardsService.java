@@ -20,6 +20,10 @@ public class CardsService {
         return cardsRepository.getById((long) id);
     }
 
+    public Cards findById(long id) throws NotFoundException {
+        return cardsRepository.getById(id);
+    }
+
     public Cards findByCardKey(long cardKey) throws NotFoundException {
         return cardsRepository.findByCardKey(cardKey);
     }
@@ -31,6 +35,12 @@ public class CardsService {
     public List<Cards> getAll(){
         return cardsRepository.getAll();
     }
+
+
+    public Cards findByCardName(String cardName){
+        return cardsRepository.findByCardName(cardName);
+    }
+
 
     public void blockCardById(long cardId){
         cardsRepository.blockCardById(cardId);

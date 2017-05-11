@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,14 +15,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "COMPANIES")
-public class Companies {
+public class Companies  implements Serializable {
 
 
     @Id
     @Column(name = "COMPANY_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPANIES_SEQ")
     @SequenceGenerator(name = "COMPANIES_SEQ", sequenceName = "COMPANIES_SEQ")
-    private long companyId;
+    private Long companyId;
 
     @Column(name = "COMPANY_NAME", nullable = false, length = 30)
     private String companyName;
@@ -53,12 +54,11 @@ public class Companies {
     public Companies() {
     }
 
-
-    public long getCompanyId() {
+    public Long getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(long companyId) {
+    public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
 
@@ -125,7 +125,7 @@ public class Companies {
 
         Companies companies = (Companies) o;
 
-        if (companyId != companies.companyId) return false;
+        if (companyId != null ? !companyId.equals(companies.companyId) : companies.companyId != null) return false;
         if (companyName != null ? !companyName.equals(companies.companyName) : companies.companyName != null)
             return false;
         if (phoneNumber != null ? !phoneNumber.equals(companies.phoneNumber) : companies.phoneNumber != null)
@@ -140,7 +140,7 @@ public class Companies {
 
     @Override
     public int hashCode() {
-        int result = (int) (companyId ^ (companyId >>> 32));
+        int result = companyId != null ? companyId.hashCode() : 0;
         result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
         result = 31 * result + (compBalance != null ? compBalance.hashCode() : 0);

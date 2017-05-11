@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public class CardBalanceService {
 
     @Autowired
@@ -21,12 +20,12 @@ public class CardBalanceService {
         return cardBalanceRepository.getById(id);
     }
 
-    public CardBalance findByCard(Cards card) throws NotFoundException {
-        return cardBalanceRepository.findByCard(card);
+    public CardBalance findByCardId(long cardId) throws NotFoundException {
+        return cardBalanceRepository.findByCardId(cardId);
     }
 
-    public void save(CardBalance driver){
-        cardBalanceRepository.save(driver);
+    public void save(CardBalance cardBalance){
+        cardBalanceRepository.save(cardBalance);
     }
 
     public List<CardBalance> getAll(){

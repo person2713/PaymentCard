@@ -42,7 +42,7 @@ public class BlockCardsJob {
         List<TemporaryEvents> cardIDCOMMONList = new ArrayList<>(temporaryEventsList.size());
         for (int i = 0; i < temporaryEventsList.size(); i++) {
             for (int k = 0; k < temporaryEventsList.size(); k++) {
-                if (((Math.abs(((int)temporaryEventsList.get(i).getLatitude() - (int)temporaryEventsList.get(k).getLatitude()))+Math.abs(((int)temporaryEventsList.get(i).getLongitude() - (int)temporaryEventsList.get(k).getLongitude()))))>30 && (temporaryEventsList.get(i).getCard().getCardId() == temporaryEventsList.get(k).getCard().getCardId())&& (i != k) )
+                if (((Math.abs((temporaryEventsList.get(i).getLatitude() - temporaryEventsList.get(k).getLatitude()))+Math.abs((temporaryEventsList.get(i).getLongitude() - temporaryEventsList.get(k).getLongitude()))))>30 && (temporaryEventsList.get(i).getCard().getCardId() == temporaryEventsList.get(k).getCard().getCardId())&& (i != k) )
                     cardIDCOMMONList.add(temporaryEventsList.get(i));
             }
         }

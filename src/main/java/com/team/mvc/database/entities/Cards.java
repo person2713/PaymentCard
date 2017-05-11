@@ -27,19 +27,19 @@ public class Cards implements Serializable {
     @Column(name = "CARD_NAME", length = 30, unique = true)
     private String cardName;
 
-
+    @JsonIgnore
     @Column(name="PERSON_ID")
     private Long personId;
 
     @Column(name = "CARD_KEY", nullable = false)
-    private long cardKey;
+    private Long cardKey;
 
     @OneToOne
     @JoinColumn(name="TYPE_ID", nullable = false)
     private TypeCard typeCard;
 
-    @OneToOne
-    @JoinColumn(name="CARD_ID", nullable = false)
+    @OneToOne(mappedBy = "card")
+    @JsonManagedReference
     private CardBalance cardBalance;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -59,61 +59,60 @@ public class Cards implements Serializable {
         return cardId;
     }
 
-    public String getCardName() {
-        return cardName;
-    }
-
-    public Long getPersonId() {
-        return personId;
-    }
-
-    public long getCardKey() {
-        return cardKey;
-    }
-
-    public TypeCard getTypeCard() {
-        return typeCard;
-    }
-
-    public CardBalance getCardBalance() {
-        return cardBalance;
-    }
-
-    public Set<BalanceHist> getBalanceHists() {
-        return balanceHists;
-    }
-
-    public Set<Events> getEvents() {
-        return events;
-    }
-
-
     public void setCardId(Long cardId) {
         this.cardId = cardId;
+    }
+
+    public String getCardName() {
+        return cardName;
     }
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
     }
 
+    public Long getPersonId() {
+        return personId;
+    }
+
     public void setPersonId(Long personId) {
         this.personId = personId;
     }
 
-    public void setCardKey(long cardKey) {
+    public Long getCardKey() {
+        return cardKey;
+    }
+
+    public void setCardKey(Long cardKey) {
         this.cardKey = cardKey;
+    }
+
+    public TypeCard getTypeCard() {
+        return typeCard;
     }
 
     public void setTypeCard(TypeCard typeCard) {
         this.typeCard = typeCard;
     }
 
+    public CardBalance getCardBalance() {
+        return cardBalance;
+    }
+
     public void setCardBalance(CardBalance cardBalance) {
         this.cardBalance = cardBalance;
     }
 
+    public Set<BalanceHist> getBalanceHists() {
+        return balanceHists;
+    }
+
     public void setBalanceHists(Set<BalanceHist> balanceHists) {
         this.balanceHists = balanceHists;
+    }
+
+    public Set<Events> getEvents() {
+        return events;
     }
 
     public void setEvents(Set<Events> events) {
@@ -140,13 +139,13 @@ public class Cards implements Serializable {
     @Override
     public int hashCode() {
         int result = cardId != null ? cardId.hashCode() : 0;
-        result = 31 * result + (cardName != null ? cardName.hashCode() : 0);
-        result = 31 * result + (personId != null ? personId.hashCode() : 0);
-        result = 31 * result + (int) (cardKey ^ (cardKey >>> 32));
-        result = 31 * result + (typeCard != null ? typeCard.hashCode() : 0);
-        result = 31 * result + (cardBalance != null ? cardBalance.hashCode() : 0);
-        result = 31 * result + (balanceHists != null ? balanceHists.hashCode() : 0);
-        result = 31 * result + (events != null ? events.hashCode() : 0);
+        result = 32 * result + (cardName != null ? cardName.hashCode() : 0);
+        result = 32 * result + (personId != null ? personId.hashCode() : 0);
+        result = 32 * result + (int) (cardKey ^ (cardKey >>> 32));
+        result = 32 * result + (typeCard != null ? typeCard.hashCode() : 0);
+
+        result = 32 * result + (balanceHists != null ? balanceHists.hashCode() : 0);
+        result = 32 * result + (events != null ? events.hashCode() : 0);
         return result;
     }
 }

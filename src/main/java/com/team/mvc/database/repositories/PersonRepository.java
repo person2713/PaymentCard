@@ -3,10 +3,7 @@ package com.team.mvc.database.repositories;
 
 import com.team.mvc.database.entities.*;
 import javassist.NotFoundException;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,18 +44,21 @@ public class PersonRepository  extends AbstractRepository{
 
 
     public List<Cards> findCardsByNickname(String nickname) {
-
-        Query query = getSession().createQuery("SELECT C FROM Cards  C WHERE C.person.nickname=:nickname");
-
-        query.setParameter("nickname", nickname);
-        return query.list();
-
-
+        String que = "SELECT * FROM CARDS  WHERE CARDS.PERSON_ID = (SELECT PERSONS.PERSON_ID FROM PERSONS   WHERE PERSONS.NICKNAME ="+"'"+nickname+"'"+")";
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        SQLQuery sqlQuery = session.createSQLQuery(que);
+        List result = sqlQuery.list();
 
 
-     /*   Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("nickname", nickname));
-        return ((Persons) criteria.uniqueResult()).getCards();*/
+
+
+        return   result;
+
+
+
+
+
     }
 
     public CardBalance findBalanceByNickname(String nickname) {
@@ -100,5 +100,14 @@ public class PersonRepository  extends AbstractRepository{
         Criteria criteria = createEntityCriteria();
         criteria.addOrder(Order.asc("personId"));
         return criteria.list();
+    }
+
+    public List<Persons> getPersonsWithCards(){
+        Session session = sessionFactory.getCurrentSession();
+        List<Persons> personsList = session.createCriteria(Persons.class).list();
+        for (Persons persons: personsList) {
+            Hibernate.initialize(persons.getCards());
+        }
+        return personsList;
     }
 }

@@ -1,18 +1,19 @@
 package com.team.mvc.database.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "TYPE_CARD")
-public class TypeCard {
+public class TypeCard implements Serializable{
 
 
     @Id
     @Column(name = "TYPE_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TYPE_CARD_SEQ")
     @SequenceGenerator(name = "TYPE_CARD_SEQ", sequenceName = "TYPE_CARD_SEQ")
-    private long typeId;
+    private Long typeId;
 
     @Column(name = "STATUS", nullable = false, length = 20)
     private String status;
@@ -24,24 +25,24 @@ public class TypeCard {
     public TypeCard() {
     }
 
-    public long getTypeId() {
+    public Long getTypeId() {
         return typeId;
+    }
+
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public String getCardType() {
-        return cardType;
-    }
-
-    public void setTypeId(long typeId) {
-        this.typeId = typeId;
-    }
-
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCardType() {
+        return cardType;
     }
 
     public void setCardType(String cardType) {
@@ -55,16 +56,14 @@ public class TypeCard {
 
         TypeCard typeCard = (TypeCard) o;
 
-        if (typeId != typeCard.typeId) return false;
+        if (typeId != null ? !typeId.equals(typeCard.typeId) : typeCard.typeId != null) return false;
         if (status != null ? !status.equals(typeCard.status) : typeCard.status != null) return false;
-        if (cardType != null ? !cardType.equals(typeCard.cardType) : typeCard.cardType != null) return false;
-
-        return true;
+        return cardType != null ? cardType.equals(typeCard.cardType) : typeCard.cardType == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (typeId ^ (typeId >>> 32));
+        int result = typeId != null ? typeId.hashCode() : 0;
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (cardType != null ? cardType.hashCode() : 0);
         return result;

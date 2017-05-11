@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Objects;
@@ -13,13 +14,13 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "TEMPORARY_EVENTS")
-public class TemporaryEvents {
+public class TemporaryEvents  implements Serializable {
 
     @Id
     @Column(name = "TEMPORARY_EVENT_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEMPORARY_EVENTS_SEQ")
     @SequenceGenerator(name = "TEMPORARY_EVENTS_SEQ", sequenceName = "TEMPORARY_EVENTS_SEQ")
-    private long temporaryEventId;
+    private Long temporaryEventId;
 
     @ManyToOne
     @JoinColumn(name = "CARD_ID")
@@ -28,11 +29,11 @@ public class TemporaryEvents {
 
     @Column(name = "LATITUDE", nullable = false)
     @JsonIgnore
-    private double latitude;
+    private Double latitude;
 
     @Column(name = "LONGITUDE", nullable = false)
     @JsonIgnore
-    private double longitude;
+    private Double longitude;
 
 
     @Column(name = "PAYMENT_TIME", nullable = true)
@@ -48,11 +49,11 @@ public class TemporaryEvents {
     public TemporaryEvents() {
     }
 
-    public long getTemporaryEventId() {
+    public Long getTemporaryEventId() {
         return temporaryEventId;
     }
 
-    public void setTemporaryEventId(long temporaryEventId) {
+    public void setTemporaryEventId(Long temporaryEventId) {
         this.temporaryEventId = temporaryEventId;
     }
 
@@ -64,27 +65,19 @@ public class TemporaryEvents {
         this.card = card;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public void setLatitude(long latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setLongitude(long longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -104,22 +97,30 @@ public class TemporaryEvents {
         this.bus = bus;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         TemporaryEvents that = (TemporaryEvents) o;
-        return temporaryEventId == that.temporaryEventId &&
-                Double.compare(that.latitude, latitude) == 0 &&
-                Double.compare(that.longitude, longitude) == 0 &&
-                Objects.equals(card, that.card) &&
-                Objects.equals(paymentTime, that.paymentTime) &&
-                Objects.equals(bus, that.bus);
+
+        if (temporaryEventId != null ? !temporaryEventId.equals(that.temporaryEventId) : that.temporaryEventId != null)
+            return false;
+        if (card != null ? !card.equals(that.card) : that.card != null) return false;
+        if (latitude != null ? !latitude.equals(that.latitude) : that.latitude != null) return false;
+        if (longitude != null ? !longitude.equals(that.longitude) : that.longitude != null) return false;
+        if (paymentTime != null ? !paymentTime.equals(that.paymentTime) : that.paymentTime != null) return false;
+        return bus != null ? bus.equals(that.bus) : that.bus == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(temporaryEventId, card, latitude, longitude, paymentTime, bus);
+        int result = temporaryEventId != null ? temporaryEventId.hashCode() : 0;
+        result = 31 * result + (card != null ? card.hashCode() : 0);
+        result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
+        result = 31 * result + (longitude != null ? longitude.hashCode() : 0);
+        result = 31 * result + (paymentTime != null ? paymentTime.hashCode() : 0);
+        result = 31 * result + (bus != null ? bus.hashCode() : 0);
+        return result;
     }
 }

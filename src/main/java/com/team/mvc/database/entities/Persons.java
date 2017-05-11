@@ -2,6 +2,7 @@ package com.team.mvc.database.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "PERSONS")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Persons implements Serializable {
 
     @Id

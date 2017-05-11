@@ -1,24 +1,21 @@
 package com.team.mvc.database.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 
 @Entity
 @Table(name = "BALANCE_HIST")
-public class BalanceHist {
+public class BalanceHist implements Serializable {
 
     @Id
     @Column(name = "BALANCE_HIST_ID")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "BALANCE_HIST_SEQ")
     @SequenceGenerator(name = "BALANCE_HIST_SEQ", sequenceName = "BALANCE_HIST_SEQ")
     private Long balanceHistId;
+
 
     @Column(name="CARD_ID")
     private Long cardId;

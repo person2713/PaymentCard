@@ -12,37 +12,42 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 @Transactional
 public class PaymentService {
     @Autowired
-    CardBalanceService cardBalanceService;
+    CardsService cardsService;
     @Autowired
     EventsRepository eventsRepository;
+    @Autowired
+    CardBalanceService cardBalanceService;
 
     /**
      * Выполняет попытку снятия средств с карты
      *
-     * @param card        Карта, с которой требуется снять средства
+     * @param cardId        Карта, с которой требуется снять средства
      * @param cost        сумма снятия
      * @param latitude    координаты(широта)
      * @param longitude   координаты(долгота
      * @param paymentTime время платежа
-     * @param bus         автобус, с котрого произведен платеж
+     * @param busId         автобус, с котрого произведен платеж
      * @return true, в случае успешного снятия средств, иначе false
      * @throws NotFoundException
      */
-    public boolean paymentPossibility(Cards card, BigDecimal cost, double latitude, double longitude, Timestamp paymentTime, Buses bus) throws NotFoundException {
-        CardBalance cardBalance = cardBalanceService.findByCard(card);
+    public boolean paymentPossibility(long cardId, BigDecimal cost, double latitude, double longitude, Timestamp paymentTime, long busId) throws NotFoundException {
+        Cards card=cardsService.findById(cardId);
+        CardBalance cardBalance =card.getCardBalance();
         if (cardBalance.getBalance().compareTo(cost) < 0) return false;
 
         cardBalance.setBalance(cardBalance.getBalance().subtract(cost));
         Events events = new Events();
         events.setLatitude(latitude);
         events.setLongitude(longitude);
-    //    events.setBus(bus);
-     //   events.setCard(card);
+        events.setBusId(busId);
+        events.setCardId(card.getCardId());
+        events.setPaymentTime(paymentTime);
         eventsRepository.save(events);
         return true;
     }

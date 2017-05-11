@@ -1,6 +1,7 @@
 package com.team.mvc.controller.usercontrollers;
 
 
+import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
 import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.PersonService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user/user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -30,15 +31,29 @@ public class UserController {
 
 
 
+    @RequestMapping(value = "/getCardsForAlex", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Cards> getCardsForAlex() {
+        return cardService.getAll();
+    }
+
 
     @ModelAttribute("person")
     public Persons InitializePerson() {
         return userService.findByNickname(getPrincipal());
     }
-    @ModelAttribute("cards")
-    public List<Cards> InitializeCards() {
-        return userService.findCradsByNickname(getPrincipal());
-    }
+//    @ModelAttribute("cards")
+//    public List<Cards> InitializeCards() {
+//        return userService.findCradsByNickname(getPrincipal());
+//    }
+
+//    @RequestMapping(value = "/getCardsForUsers", method = RequestMethod.GET)
+//    public
+//    @ResponseBody
+//    List<Cards> getRollers() {
+//        return userService.findCradsByNickname(getPrincipal());
+//    }
 
     @ModelAttribute("balance")
     public CardBalance InitializeBalance() {
@@ -54,22 +69,22 @@ public class UserController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String userPage(ModelMap model) throws NotFoundException {
-        System.out.println(getPrincipal());
-
-        //model.addAttribute("cards", InitializeCards());
-
-     /*   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("user", getPrincipal());
-        Persons customUser = (Persons)auth.getPrincipal();
-        int userId = (int) customUser.getPersonId();
-        Persons users = userService.findById(userId);
-        // Persons users = userService.findById(1);
-         model.addAttribute("users", users);*/
-
-        return "/user";
-    }
+//    @RequestMapping(method = RequestMethod.GET)
+//    public String userPage(ModelMap model) throws NotFoundException {
+//        System.out.println(getPrincipal());
+//
+//        //model.addAttribute("cards", InitializeCards());
+//
+//     /*   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        model.addAttribute("user", getPrincipal());
+//        Persons customUser = (Persons)auth.getPrincipal();
+//        int userId = (int) customUser.getPersonId();
+//        Persons users = userService.findById(userId);
+//        // Persons users = userService.findById(1);
+//         model.addAttribute("users", users);*/
+//
+//        return "/user";
+//    }
 
 
 

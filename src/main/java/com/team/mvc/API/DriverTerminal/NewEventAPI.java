@@ -18,10 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @RestController
-@RequestMapping(value = "/API/newEvent", method = RequestMethod.POST)
+@RequestMapping(value = "/API/driver/newEvent", method = RequestMethod.POST)
 public class NewEventAPI {
     ObjectMapper mapper = new ObjectMapper();
 
@@ -32,7 +31,7 @@ public class NewEventAPI {
     @Autowired
     BusesService busesService;
 
-    public static final Logger logger = Logger.getLogger(DriverLoginAPI.class.getName());
+    public static final Logger logger = Logger.getLogger(LoginAPI.class.getName());
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
@@ -47,12 +46,12 @@ public class NewEventAPI {
                 return new ResponseEntity<Object>("Карта не найдена", HttpStatus.NOT_FOUND);
             }
             Buses bus = busesService.findById(newEvent.getBusId());
-            if (paymentService.paymentPossibility(card,
+            if (paymentService.paymentPossibility(card.getCardId(),
                     getCost(card),
                     newEvent.getLatitude(),
                     newEvent.getLongitude(),
-                    new Timestamp((new Date()).getTime()),
-                    bus)) {
+                    new Timestamp(System.currentTimeMillis()),
+                    bus.getBusId())) {
                 log += "OK";
                 CSRFTokenSerializable<String> serToken = new CSRFTokenSerializable<>(Utils.getCsrfToken(request), "OK");
                 return new ResponseEntity<Object>(serToken, HttpStatus.OK);
@@ -66,7 +65,7 @@ public class NewEventAPI {
         } finally {
             if (Const.DEBUG) {
                 if (logger.isDebugEnabled()) {
-                    logger.debug("POST : /API/newEvent\n " +
+                    logger.debug("POST : /API/driver/newEvent\n " +
                             "" + log);
                 }
             }

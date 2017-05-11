@@ -1,10 +1,15 @@
 package com.team.mvc.controller;
 
+import com.team.mvc.database.entities.BalanceHist;
+import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Cities;
+import com.team.mvc.database.entities.Persons;
+import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.RoleService;
 import org.apache.log4j.Logger;
+import org.hibernate.envers.configuration.internal.metadata.reader.PersistentPropertiesSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
@@ -16,6 +21,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +49,15 @@ public class AppController {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    CardsService cardsService;
+
+    @Autowired
+    PersonService userService;
+
+
+
+
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
@@ -66,7 +81,10 @@ public class AppController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userPage(ModelMap model) {
-        model.addAttribute("loggedinuser", GetRole.getPrincipal());
+//        Persons persons = personService.findByNickname(GetRole.getPrincipal());
+//        model.addAttribute("user", persons);
+        System.out.println(GetRole.getPrincipal());
+        List<Cards> cardsList = personService.findCradsByNickname(GetRole.getPrincipal());
         return "user/user";
     }
 
@@ -134,6 +152,7 @@ public class AppController {
     public List<Cities> initializeCities() {
         return cityService.getAll();
     }
+
 
 
     // метод для проверки авторизации пользователя
