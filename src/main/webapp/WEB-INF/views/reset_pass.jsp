@@ -31,7 +31,7 @@
                             <form action="resetPassword" method="post" class="form-horizontal" id="login-form" role="form" style="display: block;">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-                                <h5><center>Введите адресс электронной почты</center></h5>
+                                <h5><center>Введите адрес электронной почты</center></h5>
                                 <br/>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email">
