@@ -44,18 +44,21 @@ public class PersonRepository  extends AbstractRepository{
 
 
     public List<Cards> findCardsByNickname(String nickname) {
-
-        Query query = getSession().createQuery("SELECT C FROM Cards  C WHERE C.person.nickname=:nickname");
-
-        query.setParameter("nickname", nickname);
-        return query.list();
-
-
+        String que = "SELECT * FROM CARDS  WHERE CARDS.PERSON_ID = (SELECT PERSONS.PERSON_ID FROM PERSONS   WHERE PERSONS.NICKNAME ="+"'"+nickname+"'"+")";
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        SQLQuery sqlQuery = session.createSQLQuery(que);
+        List result = sqlQuery.list();
 
 
-     /*   Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("nickname", nickname));
-        return ((Persons) criteria.uniqueResult()).getCards();*/
+
+
+        return   result;
+
+
+
+
+
     }
 
     public CardBalance findBalanceByNickname(String nickname) {

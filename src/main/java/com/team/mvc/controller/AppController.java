@@ -21,6 +21,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,19 +52,16 @@ public class AppController {
     @Autowired
     CardsService cardsService;
 
+    @Autowired
+    PersonService userService;
+
+
+
+
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
-//        List<Persons> personsList = personService.getAll();
-//        for (Persons person: personsList) {
-//            System.out.println(person.getPersonId());
-//            for (Cards card: person.getCards()) {
-//                System.out.println(card.getPersonId());
-//            }
-//        }
-
-//        List<Cards> cardsList = cardsService.getAll();
         return "welcome";
     }
 
@@ -83,7 +81,10 @@ public class AppController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userPage(ModelMap model) {
-        model.addAttribute("loggedinuser", GetRole.getPrincipal());
+//        Persons persons = personService.findByNickname(GetRole.getPrincipal());
+//        model.addAttribute("user", persons);
+        System.out.println(GetRole.getPrincipal());
+        List<Cards> cardsList = personService.findCradsByNickname(GetRole.getPrincipal());
         return "user/user";
     }
 
@@ -152,6 +153,7 @@ public class AppController {
     public List<Cities> initializeCities() {
         return cityService.getAll();
     }
+
 
 
     // метод для проверки авторизации пользователя

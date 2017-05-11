@@ -25,43 +25,27 @@ function getCities() {
         }
     })
 }
-//функция для получения обычных пользователей
-function getUsers() {
-    if ($("#tableForUser").length != 0) {
-        $("tr").show();
-    }
-    else {
-        $("#head").children().remove();
-        $.ajax({
-            type: "GET",
-            url: "/admin/getUsers",
-            datatype: "json",
-            success: function (response) {
-                console.log(response);
-                $.each(response, function (i, item) {
-                    arrayObject.push(item);
-                    console.log(item);
-                });
-                var trHTML = '';
-                trHTML += createTableHeader('Пользователи') + createTableBody(response, 'Пользователи');
-                $("#head").append(trHTML);
-                console.log(arrayObject);
-            },
-            error: function () {
-                alert("error")
-            }
-        }).done(function onload() {
-                forSearch = document.getElementById('inNick');
-            },
-            function () {
-                $('table tr').click(function (event) {
-                    if (event.target.type !== 'checkbox') {
-                        $(':checkbox', this).trigger('click');
-                    }
-                });
-            }
-        )
-    }
+
+
+function getCardsForAlex() {
+
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getCards",
+        datatype: "json",
+        success: function (response) {
+//             $.each(response, function (i, item) {
+// //                    city += '<option>' + item.cityName + '</option>';
+//                 cards.push(item);
+//             });
+//             console.log(cards);
+
+            console.log(response);
+        },
+        error: function () {
+            alert("error")
+        }
+    })
 }
 // при заходе на страницу админа сразу подгружаем коллекцию ролей
 // массив ролей
@@ -112,6 +96,122 @@ function getTypeCard() {
             alert("error")
         }
     })
+}
+
+// при заходе на страницу админа сразу подгружаем коллекцию компаний
+// массив компаний
+var companiesArray = Array();
+// переменная которая будет цепляться к форме для выпадающего списка
+var companyName = '';
+// функция получения типовКарт, загружается после захода на страницу админа
+function getCompanies() {
+
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getCompanies",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+                companiesArray.push(item);
+                companyName += '<option>' + item.companyName + '</option>';
+            });
+            console.log(companiesArray);
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+
+// при заходе на страницу админа сразу подгружаем коллекцию компаний
+// массив компаний
+var companiesArray = Array();
+// переменная которая будет цепляться к форме для выпадающего списка
+var companyName = '';
+// функция получения типовКарт, загружается после захода на страницу админа
+function getCompanies() {
+
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getCompanies",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+                companiesArray.push(item);
+                companyName += '<option>' + item.companyName + '</option>';
+            });
+            console.log(companiesArray);
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+
+
+// при заходе на страницу админа сразу подгружаем коллекцию компаний
+// массив компаний
+var usersArray = Array();
+// переменная которая будет цепляться к форме для выпадающего списка
+var users = '';
+// функция получения типовКарт, загружается после захода на страницу админа
+function getCompanies() {
+
+    return $.ajax({
+        type: "GET",
+        url: "/admin/getUsers",
+        datatype: "json",
+        success: function (response) {
+            $.each(response, function (i, item) {
+                usersArray.push(item);
+            });
+            console.log(usersArray);
+        },
+        error: function () {
+            alert("error")
+        }
+    })
+}
+
+
+
+//функция для получения обычных пользователей
+function getUsers() {
+    if ($("#tableForUser").length != 0) {
+        $("tr").show();
+    }
+    else {
+        $("#head").children().remove();
+        $.ajax({
+            type: "GET",
+            url: "/admin/getUsers",
+            datatype: "json",
+            success: function (response) {
+                // console.log(response);
+                $.each(response, function (i, item) {
+                    arrayObject.push(item);
+                    // console.log(item);
+                });
+                var trHTML = '';
+                trHTML += createTableHeader('Пользователи') + createTableBody(response, 'Пользователи');
+                $("#head").append(trHTML);
+                // console.log(arrayObject);
+            },
+            error: function () {
+                alert("error")
+            }
+        }).done(function onload() {
+                forSearch = document.getElementById('inNick');
+            },
+            function () {
+                $('table tr').click(function (event) {
+                    if (event.target.type !== 'checkbox') {
+                        $(':checkbox', this).trigger('click');
+                    }
+                });
+            }
+        )
+    }
 }
 //функция для удаления объекта
 function deleteRow() {

@@ -28,6 +28,13 @@
     <script type="text/javascript" src="/static/js/user_js/moment.js"></script>
     <script type="text/javascript" src="/static/js/user_js/daterangepicker.js"></script>
 
+    <script>
+        getCities();
+        getRollers();
+        getTypeCard();
+        getCompanies();
+        getCardsForAlex();
+    </script>
 
 
 </head>
