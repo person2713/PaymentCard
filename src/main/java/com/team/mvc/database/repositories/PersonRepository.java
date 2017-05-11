@@ -45,10 +45,12 @@ public class PersonRepository  extends AbstractRepository{
 
     public List<Cards> findCardsByNickname(String nickname) {
         String que = "SELECT * FROM CARDS  WHERE CARDS.PERSON_ID = (SELECT PERSONS.PERSON_ID FROM PERSONS   WHERE PERSONS.NICKNAME ="+"'"+nickname+"'"+")";
+
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        SQLQuery sqlQuery = session.createSQLQuery(que);
-        List result = sqlQuery.list();
+        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
+
+        List result =  sqlQuery.list();
 
 
 
@@ -61,39 +63,29 @@ public class PersonRepository  extends AbstractRepository{
 
     }
 
-    public CardBalance findBalanceByNickname(String nickname) {
+    public Cards findByCardbyID(int id) {
+        String que = "SELECT * FROM CARDS  WHERE CARDS.CARD_ID="+id;
 
-        Query query = getSession().createQuery("SELECT CB FROM CardBalance  CB WHERE CB.card.person.nickname=:nickname");
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
 
-        query.setParameter("nickname", nickname);
-
-        return (CardBalance) query.uniqueResult();
-
-
-
-
-     /*   Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("nickname", nickname));
-        return ((Persons) criteria.uniqueResult()).getCards();*/
+        return  (Cards) sqlQuery.uniqueResult();
     }
 
-    public List<BalanceHist> findBalanceHistByNickname(String nickname) {
+//    public CardBalance findBalanceByNickname(String nickname) {
+//
+//
+//
+//
+//
+//
+//     /*   Criteria criteria = createEntityCriteria();
+//        criteria.add(Restrictions.eq("nickname", nickname));
+//        return ((Persons) criteria.uniqueResult()).getCards();*/
+//    }
 
-        Query query = getSession().createQuery("SELECT BH FROM BalanceHist BH WHERE BH.card.person.nickname=:nickname");
 
-        query.setParameter("nickname", nickname);
-
-        return  query.list();
-    }
-
-    public List<Events> findEventsByNickname(String nickname) {
-
-        Query query = getSession().createQuery("SELECT E FROM Events E WHERE E.card.person.nickname=:nickname");
-
-        query.setParameter("nickname", nickname);
-
-        return  query.list();
-    }
 
     @Override
     public List<Persons> getAll() {

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,107 +21,51 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
+    private PersonService personService;
     @Autowired
-    PersonService userService;
+    CardsService cardsService;
+
+
 
     @Autowired
-    CardsService cardService;
-
-    @Autowired
-    TypeCardService typeCardService;
-
-
-
-    @RequestMapping(value = "/getCardsForAlex", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<Cards> getCardsForAlex() {
-        return cardService.getAll();
+    public void setUserService(PersonService personService) {
+        this.personService = personService;
     }
 
 
-    @ModelAttribute("person")
-    public Persons InitializePerson() {
-        return userService.findByNickname(getPrincipal());
-    }
-//    @ModelAttribute("cards")
-//    public List<Cards> InitializeCards() {
-//        return userService.findCradsByNickname(getPrincipal());
-//    }
 
-//    @RequestMapping(value = "/getCardsForUsers", method = RequestMethod.GET)
-//    public
-//    @ResponseBody
-//    List<Cards> getRollers() {
-//        return userService.findCradsByNickname(getPrincipal());
-//    }
 
-    @ModelAttribute("balance")
-    public CardBalance InitializeBalance() {
-        return userService.findBalanceByNickname(getPrincipal());
-    }
-    @ModelAttribute("balanceHist")
-    public List<BalanceHist> InitializeBalanceHist() {
-        return userService.findBalanceHistByNickname(getPrincipal());}
 
-    @ModelAttribute("events")
-    public List<Events> InitializeEvents() {
-        return userService.findEventsByNickname(getPrincipal());
+    // list page
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String showAllUsers(Model model) {
+
+      //  System.out.println( personService.findCradsByNickname(GetRole.getPrincipal()).toString());
+        model.addAttribute("cards", personService.findCradsByNickname(GetRole.getPrincipal()));
+        return "user/list";
+
     }
 
-
-//    @RequestMapping(method = RequestMethod.GET)
-//    public String userPage(ModelMap model) throws NotFoundException {
-//        System.out.println(getPrincipal());
-//
-//        //model.addAttribute("cards", InitializeCards());
-//
-//     /*   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        model.addAttribute("user", getPrincipal());
-//        Persons customUser = (Persons)auth.getPrincipal();
-//        int userId = (int) customUser.getPersonId();
-//        Persons users = userService.findById(userId);
-//        // Persons users = userService.findById(1);
-//         model.addAttribute("users", users);*/
-//
-//        return "/user";
-//    }
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public String showUser(@PathVariable("id") int id, Model model) throws NotFoundException {
+        System.out.println("-------------------showUser-------------------"+id );
 
 
+           Cards cards =personService.findByCardbyID(id);
+        System.out.println(cards.toString()+"--------------------------------");
 
-    /*@RequestMapping(value = "/addCard", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String addCard(@RequestBody List<String> list) {
-
-        System.out.println("ADDCARD");
-        for (String s : list) {
-            System.out.println(s);
+        if (cards == null) {
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "User not found");
         }
-        if (list.isEmpty()) {
-            return "FAILRY";
-        } else {
-            Cards cards = new Cards();
-            cards.setCardName(list.get(0));
-            cards.setCardKey(Long.parseLong(list.get(1)));
-            cards.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
-            cards.setPerson(userService.findByNickname(list.get(2)));
-            cardService.saveCard(cards);
-            return "SUCCESS";
-        }
+        model.addAttribute("card", cards);
 
-    }*/
+        return "user/show";
 
-
-    private String getPrincipal(){
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails)principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
     }
+
+
+
+
+
 }

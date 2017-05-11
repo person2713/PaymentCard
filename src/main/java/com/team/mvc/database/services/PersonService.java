@@ -104,17 +104,12 @@ public class PersonService {
         return personRepository.findCardsByNickname(nickname);
     }
 
-    public CardBalance findBalanceByNickname(String nickname) {
-        return personRepository.findBalanceByNickname(nickname);
-    }
+    public Cards findByCardbyID(int id) { return personRepository.findByCardbyID(id);}
+//    public CardBalance findBalanceByNickname(String nickname) {
+//        return personRepository.findBalanceByNickname(nickname);
+//    }
 
-    public List<BalanceHist> findBalanceHistByNickname(String nickname) {
-        return personRepository.findBalanceHistByNickname(nickname);
-    }
 
-    public List<Events> findEventsByNickname(String nickname) {
-        return personRepository.findEventsByNickname(nickname);
-    }
 
     public void update(Persons persons){
         personRepository.update(persons);

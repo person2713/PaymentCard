@@ -79,14 +79,7 @@ public class AppController {
         return "admin/admin";
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String userPage(ModelMap model) {
-//        Persons persons = personService.findByNickname(GetRole.getPrincipal());
-//        model.addAttribute("user", persons);
-        System.out.println(GetRole.getPrincipal());
-        List<Cards> cardsList = personService.findCradsByNickname(GetRole.getPrincipal());
-        return "user/user";
-    }
+
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {

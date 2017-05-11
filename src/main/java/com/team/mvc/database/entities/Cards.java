@@ -15,6 +15,7 @@ import java.util.Set;
 
 
 @Entity
+
 @Table(name = "CARDS")
 public class Cards implements Serializable {
 
@@ -50,7 +51,19 @@ public class Cards implements Serializable {
     @JoinColumn(name="CARD_ID")
     public Set<Events> events = new HashSet<>();
 
-
+    @Override
+    public String toString() {
+        return "Cards{" +
+                "cardId=" + cardId +
+                ", cardName='" + cardName + '\'' +
+                ", personId=" + personId +
+                ", cardKey=" + cardKey +
+                ", typeCard=" + typeCard +
+                ", cardBalance=" + cardBalance +
+                ", balanceHists=" + balanceHists +
+                ", events=" + events +
+                '}';
+    }
 
     public Cards() {
     }
