@@ -55,15 +55,15 @@ public class AppController {
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
-        List<Persons> personsList = personService.getAll();
-        for (Persons person: personsList) {
-            System.out.println(person.getPersonId());
+//        List<Persons> personsList = personService.getAll();
+//        for (Persons person: personsList) {
+//            System.out.println(person.getPersonId());
 //            for (Cards card: person.getCards()) {
 //                System.out.println(card.getPersonId());
 //            }
-        }
+//        }
 
-        List<Cards> cardsList = cardsService.getAll();
+//        List<Cards> cardsList = cardsService.getAll();
         return "welcome";
     }
 

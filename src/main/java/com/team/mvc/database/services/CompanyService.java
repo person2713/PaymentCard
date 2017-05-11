@@ -48,4 +48,8 @@ public class CompanyService {
             entity.setPhoneNumber(company.getPhoneNumber());
         }
     }
+
+    public Companies findById(Long id) throws NotFoundException {
+        return companiesRepository.getById(id);
+    }
 }

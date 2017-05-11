@@ -23,6 +23,13 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/user_js/moment.js"></script>
+    <script type="text/javascript" src="/static/js/user_js/daterangepicker.js"></script>
+
+
+
 </head>
 
 <body>
@@ -45,26 +52,26 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 hidden-xs-down sidebar">
 
-                <div class="dropdown ofset">
-                    <button class="btn btn-primary dropdown-toggle btn-block" type="button" data-toggle="dropdown"
-                            aria-expanded="false">
-                        Показать
-                        <span class="caret"></span></button>
-                    <ul class="dropdown-menu contmenu">
-                        <button type="button" class="btn btn-link" onclick="getUsers();">Список пользователей</button>
-                        <button type="button" class="btn btn-link" onclick="getOwners();">Список владельцев</button>
-                        <button type="button" class="btn btn-link" onclick="getDrivers();">Список водителей</button>
-                        <button type="button" class="btn btn-link" onclick="getCards();">Список карт</button>
-                    </ul>
-                </div>
-
-
+                    <div  class="dropdown ofset">
+                        <button type="button" class="btn btn-primary btn-block" data-toggle="dropdown">Показать
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu ">
+                            <li><a onclick="getUsers();">Список пользователей</a></li>
+                            <li><a onclick="getOwners();">Список владельцев</a></li>
+                            <li><a onclick="getDrivers();">Список водителей</a></li>
+                            <li><a onclick="getCards();">Список водителей</a></li>
+                        </ul>
+                    </div>
                 <div class="dropdown ofset">
                     <button class="btn btn-primary dropdown-toggle btn-block" type="button" data-toggle="dropdown">
                         Добавить
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu contmenu">
-                        <button type="button" class="btn btn-link" onclick="getUsers();">Пользователя</button>
+                        <button type="button" class="btn btn-link" onclick="window.location='/registration'">Пользователя</button>
+                        <br>
+                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addOwner'">Владельца</button>
+                        <br>
+                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addDriver'">Водителя</button>
                         <br>
                         <button type="button" class="btn btn-link" onclick="getUser();">Компанию</button>
                         <br>
@@ -84,7 +91,7 @@
                 </div>
             </div>
 
-            <div id="head" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <div id="head" class="col-sm-9 col-sm-offset-3  col-md-10 col-md-offset-2 pt-3">
             </div>
         </div>
     </div>

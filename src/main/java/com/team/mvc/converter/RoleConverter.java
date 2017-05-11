@@ -1,6 +1,5 @@
 package com.team.mvc.converter;
 
-import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.entities.Rollers;
 import com.team.mvc.database.services.RoleService;
 import javassist.NotFoundException;

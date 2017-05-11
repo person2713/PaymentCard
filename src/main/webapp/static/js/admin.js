@@ -651,7 +651,6 @@ function createFormForEditCard() {
         '</div>' +
         '</div>' +
         '</div>' +
-        '<input id="role" class="form-control" type="text" style="visibility:hidden">' +
         '<div class="form-group">' +
         '<label class="control-label"></label>' +
         '<div>' +
