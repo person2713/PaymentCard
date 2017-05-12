@@ -13,6 +13,7 @@
 
     <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/dashboard.css" rel="stylesheet">
+    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
 
     <script src="/static/js/jquery-3.2.1.js"></script>
     <script src="/static/js/tether.min.js"></script>

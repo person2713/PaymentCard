@@ -582,7 +582,7 @@ ul.templatemo-project-gallery  li  a img:hover {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    font-style: italic;
+    /*font-style: italic;*/
 }
 
 .btn_loadmore {

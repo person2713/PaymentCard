@@ -4,9 +4,11 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>AccessDenied page</title>
+	<link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
+
 </head>
 <body>
-	Dear <strong>${user}</strong>, You are not authorized to access this page
+	Извините <strong>${user}</strong>, Вы не авторизованы для просмотра этой страницы.
 	<a href="<c:url value="/logout" />">Logout</a>
 </body>
 </html>

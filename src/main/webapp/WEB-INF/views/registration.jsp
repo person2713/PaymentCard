@@ -9,7 +9,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Registration</title>
 
-    <link href="/static/css/boot.css" rel="stylesheet">
+    <%--<link href="/static/css/boot.css" rel="stylesheet">--%>
+    <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
+    <%--<link href="/static/css/login_css/login.css" rel="stylesheet">--%>
+    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
+    <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
+    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
 
 
 </head>
@@ -151,7 +156,7 @@
                     </c:when>
                     <c:otherwise>
                         <input type="submit" value="Зарегистрироваться" class="btn btn-success"/>
-                        <a href="/logout" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                        <a href="/welcome"  style="padding-left: 27%">Отмена</a>
                     </c:otherwise>
                 </c:choose>
                     <%--<a href="/welcome" class="forgot-password" style="padding-left: 27%">Отмена</a>--%>

@@ -4,8 +4,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Reset password</title>
-    <link href="/static/css/boot.css" rel="stylesheet">
+
+    <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/login_css/login.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
+    <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
+    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
+
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
@@ -44,8 +49,9 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-primary" value="Восстановить">
-
+                                            <div class="text-center">
+                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class=" btn btn-green" value="Восстановить">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

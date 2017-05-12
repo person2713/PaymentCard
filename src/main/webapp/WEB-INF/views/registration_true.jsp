@@ -8,8 +8,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Registration</title>
-    <%--<link href="<c:url value='/static/css/1bootstrap.css' />" rel="stylesheet"/>--%>
-    <link href="/static/css/boot.css" rel="stylesheet">
+    <%--<link href="/static/css/boot.css" rel="stylesheet">--%>
+    <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
+    <%--<link href="/static/css/login_css/login.css" rel="stylesheet">--%>
+    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
+    <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
+    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
 
 
 
@@ -137,8 +141,8 @@
 
             <div class="btn-group floatRight">
 
-                <input type="submit" value="Зарегистрироваться" class="btn btn-primary btn-sm"/>
-                <input type="submit" value="Отмена" class="btn btn-primary btn-sm"/>
+                <input type="submit" value="Зарегистрироваться" class="btn btn-green btn-sm"/>
+                <input type="submit" value="Отмена" class="btn btn-default btn-sm"/>
                     <%--<a href="<c:url value='/welcome' />">Cancel</a>--%>
 
             </div>

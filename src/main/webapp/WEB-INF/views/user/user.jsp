@@ -14,6 +14,7 @@
     <link href="/static/css/dashboard.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/css/user_css/daterangepicker.css"/>
+    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
 
     <script src="/static/js/jquery-3.2.1.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -175,13 +176,13 @@
                 <div class="col-4 col-sm-4 col-lg-4">
                     <div class="row">
                         <h2>Карта: </h2>
-                        <h2 id="cardName">XYU</h2>
+                        <h2 id="cardName"></h2>
                     </div>
                 </div>
                 <div class="col-4 col-sm-4 col-lg-4">
                     <div class="row">
                         <h2 >Баланс: руб.</h2>
-                        <h2 id="balance">XYU</h2>
+                        <h2 id="balance"></h2>
                     </div>
                 </div>
                 <%--<div class="col-4 col-sm-4 col-lg-4">--%>
