@@ -67,7 +67,9 @@ public class Cards implements Serializable {
 
     public Cards() {
     }
-
+    public boolean isNew() {
+        return (this.cardId == null);
+    }
     public Long getCardId() {
         return cardId;
     }

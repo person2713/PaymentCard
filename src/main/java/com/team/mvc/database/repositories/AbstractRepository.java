@@ -49,7 +49,7 @@ public abstract class AbstractRepository<Entity> {
     }
 
     public void update(Entity entity) {
-        getSession().update(entity);
+        getSession().merge(entity);
     }
 
 }

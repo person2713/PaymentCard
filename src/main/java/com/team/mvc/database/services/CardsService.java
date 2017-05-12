@@ -16,9 +16,7 @@ public class CardsService {
     @Autowired
     CardsRepository cardsRepository;
 
-    public Cards findById(int id) throws NotFoundException {
-        return cardsRepository.getById((long) id);
-    }
+
 
     public Cards findById(long id) throws NotFoundException {
         return cardsRepository.getById(id);
@@ -26,6 +24,26 @@ public class CardsService {
 
     public Cards findByCardKey(long cardKey) throws NotFoundException {
         return cardsRepository.findByCardKey(cardKey);
+    }
+
+
+    public Cards findById(int id) {
+        return cardsRepository.findById(id);
+    }
+    public void saveOrUpdate(Cards cards) throws NotFoundException {
+
+        if (findById(cards.getCardId())==null) {
+            cardsRepository.save(cards);
+        } else {
+            cardsRepository.update(cards);
+        }
+
+    }
+
+    public void updateName(long id, String name)  {
+
+      cardsRepository.updateName(id,name);
+
     }
 
     public void saveCard(Cards card){

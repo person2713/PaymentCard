@@ -70,11 +70,24 @@ public class CardsRepository extends AbstractRepository<Cards> {
         criteria.add(Restrictions.eq("cardName", cardName));
         return (Cards) criteria.uniqueResult();
     }
+    public Cards findById(int id) {
+        String que = "SELECT * FROM CARDS  WHERE CARDS.CARD_ID="+id;
 
-    @Override
-    public List<Cards> getAll() {
-        Criteria criteria = createEntityCriteria();
-        criteria.addOrder(Order.asc("cardId"));
-        return criteria.list();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
+
+        return  (Cards) sqlQuery.uniqueResult();
+    }
+
+
+    public void updateName(long id, String name) {
+        String UPDATE = "UPDATE CARDS  SET CARD_NAME ="+"'"+name+"'"+"WHERE CARDS.CARD_ID="+id;
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        SQLQuery sqlQuery = session.createSQLQuery(UPDATE);
+        int result = sqlQuery.executeUpdate();
+        System.out.println(result);
+        session.getTransaction().commit();
     }
 }

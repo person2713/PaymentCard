@@ -13,7 +13,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -41,7 +44,7 @@ public class UserController {
     public String showAllUsers(Model model) {
 
       //  System.out.println( personService.findCradsByNickname(GetRole.getPrincipal()).toString());
-        model.addAttribute("cards", personService.findCradsByNickname(GetRole.getPrincipal()));
+        model.addAttribute("card", personService.findCradsByNickname(GetRole.getPrincipal()));
         return "user/list";
 
     }
@@ -64,6 +67,51 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/user/{id}/update", method = RequestMethod.GET)
+    public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
+
+        System.out.println("showUpdateUserForm"+"------------------------------------------------------------------------------------------------------------");
+
+        Cards cards =personService.findByCardbyID(id);
+
+        model.addAttribute("card", cards);
+
+        System.out.println("showUpdateUserForm"+cards.getCardId()+"------------------------------------------------------------------------------------------------------------");
+
+        return "user/userform";
+
+    }
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public String saveOrUpdateUser(@ModelAttribute("card") @Validated Cards cards,
+                                   BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
+
+
+
+        if (result.hasErrors()) {
+
+            return "user/userform";
+        } else {
+
+            redirectAttributes.addFlashAttribute("css", "success");
+            if(cards.isNew()){
+                redirectAttributes.addFlashAttribute("msg", "User added successfully!");
+            }else{
+                redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
+            }
+            System.out.println(cards.getCardName().toString()+"---------===========---------------===============--------------"+cards.getCardId()+"----"+cards.getCardKey());
+//            cardsService.saveOrUpdate(cards);
+            cardsService.updateName(cards.getCardId(), cards.getCardName());
+
+            System.out.println("cardsService.updateName(cards.getCardId(), cards.getCardName());  отработал наверно -----------------");
+            // POST/REDIRECT/GET
+            return "redirect:/user/user/" + cards.getCardId();
+
+            // POST/FORWARD/GET
+            // return "user/list";
+
+        }
+
+    }
 
 
 
