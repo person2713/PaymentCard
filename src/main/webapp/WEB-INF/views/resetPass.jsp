@@ -3,7 +3,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Login page</title>
+    <title>Reset password</title>
+    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
 </head>
 
 <body>

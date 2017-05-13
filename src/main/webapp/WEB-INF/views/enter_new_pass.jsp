@@ -6,6 +6,10 @@
     <title>Reset password</title>
     <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/login_css/login.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
+    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
+
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
@@ -36,14 +40,16 @@
                                     <div class="pwstrength_viewport_progress"></div>
                                 </div>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
-                                    <input type="text" class="form-control input-sm" id="onfirmpassword" name="pass" placeholder="Подтвердите пароль" style="padding-left: 10px; padding-right: 10px">
+                                    <input type="password" class="form-control input-sm" id="onfirmpassword" name="pass" placeholder="Подтвердите пароль" style="padding-left: 10px; padding-right: 10px">
                                 </div>
 
 
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <button class="form-control btn btn-primary">Восстановить</button>
+                                            <div class="text-center">
+                                                <button class=" btn btn-green">Восстановить</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +91,7 @@
                 $('#messages').text('Start typing password');
             }
         };
-        $(':password').pwstrength(options);
+        $('#password').pwstrength(options);
     });
 
 

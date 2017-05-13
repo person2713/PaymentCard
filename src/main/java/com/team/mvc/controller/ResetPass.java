@@ -12,20 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
-import java.util.Locale;
 
 /**
 
@@ -80,7 +78,7 @@ public class ResetPass {
             e.printStackTrace();
         }
         try {
-            mailMsg.setText("<html><body>hi,<br/><a href='http://localhost:9555/newPass?email="+createToken(email)+"'> Click here</a> to reset password</body></html>",true);
+            mailMsg.setText("<html><body>hi,<br/><a href='http://localhost:9000/newPass?email="+createToken(email)+"'> Click here</a> to reset password</body></html>",true);
         } catch (MessagingException e) {
             e.printStackTrace();
         }//
@@ -113,7 +111,7 @@ public class ResetPass {
 
 //        Persons person = personService.findByEmail(email);
 //        System.out.println(person);
-        return "success";
+        return "success_pass";
     }
 
 
