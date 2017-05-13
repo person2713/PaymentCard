@@ -156,6 +156,15 @@ public class UserController {
         return "user/addcard";
 
     }
+    @RequestMapping(value = "/user/history", method = RequestMethod.GET)
+    public String showHistory() {
+
+        System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
+
+        return "user/history";
+
+    }
+
     @RequestMapping(value="/user/addUserCard" , method=RequestMethod.POST)
     public String addUserCard(@RequestParam(value="idcard") String idcard, @RequestParam(value="namecard") String namecard){
         System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
