@@ -91,7 +91,7 @@
                 $('#messages').text('Start typing password');
             }
         };
-        $(':password').pwstrength(options);
+        $('#password').pwstrength(options);
     });
 
 

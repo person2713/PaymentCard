@@ -90,17 +90,17 @@ public class AppController {
         return "accessDenied";
     }
 
-    /*@RequestMapping(value = "/reset_pass", method = RequestMethod.GET)
+    @RequestMapping(value = "/reset_pass", method = RequestMethod.GET)
     public String resetPassPage(ModelMap model) {
         return "reset_pass";
-    }*/
+    }
 
 
     //мапинг на проверку странички ввода нового пароля
-    @RequestMapping(value = "/reset_pass", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/reset_pass", method = RequestMethod.GET)
     public String resetPassPage(ModelMap model) {
         return "enter_new_pass";
-    }
+    }*/
 
 
 
