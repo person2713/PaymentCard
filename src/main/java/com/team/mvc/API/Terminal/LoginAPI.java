@@ -1,4 +1,4 @@
-package com.team.mvc.API.DriverTerminal;
+package com.team.mvc.API.Terminal;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.team.mvc.controller.GetRole;
@@ -46,7 +46,7 @@ public class LoginAPI {
                 log += "DriverId:" + driver.getDriverId();
                 result=driver.getDriverId();
             }
-            else if (GetRole.hasRole("ROLE_OWNER"))
+            else if (GetRole.hasRole("ROLE_ADMIN"))
                 result=-1l;
 
             CSRFTokenSerializable<Long> serToken = new CSRFTokenSerializable<>(Utils.getCsrfToken(request),result );

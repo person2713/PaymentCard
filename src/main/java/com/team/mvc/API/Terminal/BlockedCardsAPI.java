@@ -1,4 +1,4 @@
-package com.team.mvc.API.DriverTerminal;
+package com.team.mvc.API.Terminal;
 
 import com.team.mvc.database.services.BlackListService;
 import com.team.mvc.log.Const;

@@ -1,4 +1,4 @@
-package com.team.mvc.API.DriverTerminal;
+package com.team.mvc.API.Terminal;
 
 import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.Drivers;
@@ -23,14 +23,14 @@ import java.util.*;
 
 @RestController
 @RequestMapping(value = "/API/driver/Routes", method = RequestMethod.GET)
-public class GetRoutesOfDriver {
+public class GetRoutesOfDriverAPI {
     @Autowired
     PersonService personService;
     @Autowired
     DriversService driversService;
     @Autowired
     RoutesService routesService;
-    public static final Logger logger = Logger.getLogger(GetRoutesOfDriver.class.getName());
+    public static final Logger logger = Logger.getLogger(GetRoutesOfDriverAPI.class.getName());
     ObjectMapper mapper = new ObjectMapper();
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")

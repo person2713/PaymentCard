@@ -20,6 +20,10 @@ public class TypeCardService {
         return typeCardRepository.getTypeCarbyStatus(status);
     }
 
+    public TypeCard getTypeCardByStatusAndType(String status,String cardType){
+        return typeCardRepository.getTypeCardByStatusAndType(status,cardType);
+    }
+
     public List<TypeCard> getAll(){
         return typeCardRepository.getAll();
     }

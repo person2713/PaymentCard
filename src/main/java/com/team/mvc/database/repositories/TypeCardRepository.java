@@ -28,6 +28,13 @@ public class TypeCardRepository extends AbstractRepository<TypeCard> {
         return criteria.list();
     }
 
+    public TypeCard getTypeCardByStatusAndType(String status,String cardType){
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("status", status));
+        criteria.add(Restrictions.eq("cardType", cardType));
+        return (TypeCard) criteria.uniqueResult();
+    }
+
     public void save(TypeCard typeCard) {
         super.save(typeCard);
     }

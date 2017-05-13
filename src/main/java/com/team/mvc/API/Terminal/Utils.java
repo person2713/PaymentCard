@@ -1,4 +1,4 @@
-package com.team.mvc.API.DriverTerminal;
+package com.team.mvc.API.Terminal;
 
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;

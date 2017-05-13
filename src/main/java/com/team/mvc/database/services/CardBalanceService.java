@@ -28,6 +28,10 @@ public class CardBalanceService {
         cardBalanceRepository.save(cardBalance);
     }
 
+    public void update(CardBalance cardBalance){
+        cardBalanceRepository.update(cardBalance);
+    }
+
     public List<CardBalance> getAll(){
         return cardBalanceRepository.getAll();
     }

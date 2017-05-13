@@ -32,6 +32,10 @@ public class CardsService {
         cardsRepository.save(card);
     }
 
+    public void update(Cards card){
+        cardsRepository.update(card);
+    }
+
     public List<Cards> getAll(){
         return cardsRepository.getAll();
     }

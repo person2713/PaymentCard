@@ -1,4 +1,4 @@
-package com.team.mvc.API.DriverTerminal;
+package com.team.mvc.API.Terminal;
 
 import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.Buses;
@@ -24,14 +24,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/API/driver/Buses", method = RequestMethod.GET)
-public class GetBusesOfDriver {
+public class GetBusesOfDriverAPI {
     @Autowired
     PersonService personService;
     @Autowired
     DriversService driversService;
     @Autowired
     BusesService busesService;
-    public static final Logger logger = Logger.getLogger(GetBusesOfDriver.class.getName());
+    public static final Logger logger = Logger.getLogger(GetBusesOfDriverAPI.class.getName());
     ObjectMapper mapper = new ObjectMapper();
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
@@ -56,7 +56,7 @@ public class GetBusesOfDriver {
         } finally {
             if (Const.DEBUG) {
                 if (logger.isDebugEnabled()) {
-                    logger.debug("POST : /API/driver/Routes\n " +
+                    logger.debug("POST : /API/driver/Buses\n " +
                             "" + log);
                 }
             }

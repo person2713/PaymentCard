@@ -1,4 +1,4 @@
-package com.team.mvc.API.DriverTerminal;
+package com.team.mvc.API.Terminal;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.team.mvc.database.entities.CarAssign;
