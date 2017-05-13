@@ -50,7 +50,7 @@ public abstract class AbstractRepository<Entity> {
     }
 
     public void update(Entity entity) {
-        getSession().merge(entity);
+        getSession().update(entity);
     }
 
 }

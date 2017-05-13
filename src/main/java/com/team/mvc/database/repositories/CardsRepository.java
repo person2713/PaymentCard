@@ -115,4 +115,10 @@ public class CardsRepository extends AbstractRepository<Cards> {
 //        System.out.println(result);
 //        session.getTransaction().commit();
     }
+    @Override
+    public List<Cards> getAll() {
+        Criteria criteria = createEntityCriteria();
+        criteria.addOrder(Order.asc("cardId"));
+        return criteria.list();
+    }
 }

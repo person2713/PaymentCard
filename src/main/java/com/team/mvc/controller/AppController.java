@@ -58,7 +58,6 @@ public class AppController {
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
-//        List<Cards> cardsList = cardsService.getAll();
         return "welcome";
     }
 
@@ -67,7 +66,6 @@ public class AppController {
     public String welcomePage(ModelMap model) {
         return "welcome";
     }
-
 
 
 

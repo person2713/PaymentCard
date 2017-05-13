@@ -15,7 +15,6 @@ import java.util.Set;
 
 
 @Entity
-
 @Table(name = "CARDS")
 public class Cards implements Serializable {
 
