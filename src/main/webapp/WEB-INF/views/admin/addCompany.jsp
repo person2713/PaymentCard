@@ -45,6 +45,15 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="compBalance">Баланс компании</label>
+            <div class="col-md-4">
+                <form:input type="text" path="compBalance" id="compBalance" class="form-control"/>
+                <div class="has-error">
+                    <form:errors path="compBalance" class="help-inline"/>
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="city">Выберите город</label>
@@ -59,6 +68,46 @@
             </div>
         </div>
 
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="buses">Выберите автобусы</label>
+            <div class="col-md-4">
+                <form:select path="buses" class="form-control">
+                    <%--<form:option value="NONE" label=""/>--%>
+                    <form:options items="${buses}" multiple="true" itemValue="busId" itemLabel="busNumber"/>
+                    <div class="has-error">
+                        <form:errors path="buses" class="help-inline"/>
+                    </div>
+                </form:select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="drivers">Выберите водителей</label>
+            <div class="col-md-4">
+                <form:select path="drivers" class="form-control">
+                    <%--<form:option value="NONE" label=""/>--%>
+                    <form:options items="${drivers}" multiple="true" itemValue="driverId" itemLabel="person.nickname"/>
+                    <div class="has-error">
+                        <form:errors path="drivers" class="help-inline"/>
+                    </div>
+                </form:select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="routes">Выберите маршруты</label>
+            <div class="col-md-4">
+                <form:select path="routes" class="form-control">
+                    <%--<form:option value="NONE" label=""/>--%>
+                    <form:options items="${routes}" multiple="true" itemValue="routeId" itemLabel="routeNumber"/>
+                    <div class="has-error">
+                        <form:errors path="routes" class="help-inline"/>
+                    </div>
+                </form:select>
+            </div>
+        </div>
+
         <div class="form-group">
             <label class="col-md-4 control-label"></label>
             <div class="col-md-4">
@@ -67,11 +116,11 @@
             </div>
         </div>
     </form:form>
-    <div class="navbar navbar-inner  navbar-fixed-bottom">
-        <p>
-        <center class="text-muted">© NetCracker Education Center 2017</center>
-        </p>
-    </div>
+    <%--<div class="navbar navbar-inner  navbar-fixed-bottom">--%>
+        <%--<p>--%>
+        <%--<center class="text-muted">© NetCracker Education Center 2017</center>--%>
+        <%--</p>--%>
+    <%--</div>--%>
     <script>
 
     </script>

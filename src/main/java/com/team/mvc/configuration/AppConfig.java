@@ -1,9 +1,6 @@
 package com.team.mvc.configuration;
 
-import com.team.mvc.converter.CityConverter;
-
-import com.team.mvc.converter.CompanyConverter;
-import com.team.mvc.converter.RoleConverter;
+import com.team.mvc.converter.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -39,6 +36,15 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Autowired
     CompanyConverter companyConverter;
 
+    @Autowired
+    DriverConverter driverConverter;
+
+    @Autowired
+    RouteConverter routeConverter;
+
+    @Autowired
+    BusesConverter busesConverter;
+
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -65,6 +71,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addConverter(cityConverter);
         registry.addConverter(roleConverter);
         registry.addConverter(companyConverter);
+        registry.addConverter(driverConverter);
+        registry.addConverter(routeConverter);
+        registry.addConverter(busesConverter);
     }
 
     @Bean

@@ -30,14 +30,14 @@ public class AddCard {
     TypeCardService typeCardService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String renderAddNewCompany(ModelMap model) {
+    public String renderAddNewCard(ModelMap model) {
         Cards card = new Cards();
         model.addAttribute("cardForm", card);
         return "admin/addCard";
     }
 
     @RequestMapping(value = "/newCard", method = RequestMethod.POST)
-    public String saveCompany(@Valid @ModelAttribute("cardForm") Cards card, BindingResult result,
+    public String saveCard(@Valid @ModelAttribute("cardForm") Cards card, BindingResult result,
                               ModelMap model) {
         card.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
         cardService.saveCard(card);
@@ -45,8 +45,8 @@ public class AddCard {
     }
 
     @ModelAttribute("persons")
-    public List<Persons> initializePersons() {
-        return personService.getAll();
+    public List<Persons> getAllUsers() {
+        return personService.getUsers();
     }
 
 

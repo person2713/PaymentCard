@@ -46,7 +46,7 @@ public class AddDriver {
     RoleService roleService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String renderAddNewCompany(ModelMap model) {
+    public String renderAddNewDriver(ModelMap model) {
         Drivers driver = new Drivers();
         model.addAttribute("driverForm", driver);
         return "admin/addDriver";
@@ -54,7 +54,7 @@ public class AddDriver {
 
     @Transactional
     @RequestMapping(value = "/newDriver", method = RequestMethod.POST)
-    public String saveCompany(@Valid @ModelAttribute("driverForm") Drivers driver, BindingResult result,
+    public String saveDriver(@Valid @ModelAttribute("driverForm") Drivers driver, BindingResult result,
                               ModelMap model) {
 
         driver.getPerson().setRole(roleService.findByType("DRIVER"));
@@ -66,7 +66,7 @@ public class AddDriver {
     }
 
     @ModelAttribute("cities")
-    public List<Cities> initializeCities() {
+    public List<Cities> getAllCities() {
         return cityService.getAll();
     }
 

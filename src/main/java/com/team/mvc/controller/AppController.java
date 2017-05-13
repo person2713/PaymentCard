@@ -139,13 +139,13 @@ public class AppController {
         return "redirect:/login?logout";
     }
 
-
-
-    @ModelAttribute("cities")
-    public List<Cities> initializeCities() {
-        return cityService.getAll();
-    }
-
+//
+//
+//    @ModelAttribute("cities")
+//    public List<Cities> initializeCities() {
+//        return cityService.getAll();
+//    }
+//
 
 
     // метод для проверки авторизации пользователя

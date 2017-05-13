@@ -81,7 +81,7 @@
                         <br>
                         <button type="button" class="btn btn-link" onclick="window.location='/admin/addDriver'">Водителя</button>
                         <br>
-                        <button type="button" class="btn btn-link" onclick="window.location='/registration'">Компанию</button>
+                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addCompany'">Компанию</button>
                         <br>
                         <button type="button" class="btn btn-link" onclick="window.location='/admin/addCard'">Карту</button>
                         <%--<button type="button" class="btn btn-link" onclick="prepareAddCards();">Карту</button>--%>

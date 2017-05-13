@@ -44,7 +44,7 @@ public class AddOwner {
     RoleService roleService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String renderAddNewCompany(ModelMap model) {
+    public String renderAddNewOwner(ModelMap model) {
         Owners owner = new Owners();
         model.addAttribute("ownerForm", owner);
         return "admin/addOwner";
@@ -52,7 +52,7 @@ public class AddOwner {
 
     @Transactional
     @RequestMapping(value = "/newOwner", method = RequestMethod.POST)
-    public String saveCompany(@Valid @ModelAttribute("ownerForm") Owners owner, BindingResult result,
+    public String saveOwner(@Valid @ModelAttribute("ownerForm") Owners owner, BindingResult result,
                               ModelMap model) {
         owner.getPerson().setRole(roleService.findByType("OWNER"));
         personService.savePerson(owner.getPerson());
@@ -63,7 +63,7 @@ public class AddOwner {
     }
 
     @ModelAttribute("cities")
-    public List<Cities> initializeCities() {
+    public List<Cities> getAllCities() {
         return cityService.getAll();
     }
 
