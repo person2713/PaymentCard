@@ -20,7 +20,7 @@ public class Routes implements Serializable {
     @Id
     @Column(name = "ROUTE_ID")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "ROUTES_SEQ")
-    @SequenceGenerator(name = "ROUTES_SEQ", sequenceName = "ROUTES_SEQ")
+    @SequenceGenerator(name = "ROUTES_SEQ", sequenceName = "ROUTES_SEQ", allocationSize=1)
     private Long routeId;
 
     @Column(name="ROUTE_PRICE", nullable = false)

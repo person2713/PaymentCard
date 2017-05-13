@@ -17,7 +17,7 @@ public class CarAssign implements Serializable {
     @Id
     @Column(name = "CAR_ASSIGN_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CAR_ASSIGN_SEQ")
-    @SequenceGenerator(name = "CAR_ASSIGN_SEQ", sequenceName = "CAR_ASSIGN_SEQ")
+    @SequenceGenerator(name = "CAR_ASSIGN_SEQ", sequenceName = "CAR_ASSIGN_SEQ", allocationSize=1)
     private Long carAssignId;
 
     @JsonIgnore

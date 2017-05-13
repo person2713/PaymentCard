@@ -22,7 +22,7 @@ public class CardBalance implements Serializable {
     @Id
     @Column(name = "BALANCE_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARD_BALANCE_SEQ")
-    @SequenceGenerator(name = "CARD_BALANCE_SEQ", sequenceName = "CARD_BALANCE_SEQ")
+    @SequenceGenerator(name = "CARD_BALANCE_SEQ", sequenceName = "CARD_BALANCE_SEQ", allocationSize=1)
     private Long balanceId;
 
     @Column(name = "BALANCE", nullable = false)

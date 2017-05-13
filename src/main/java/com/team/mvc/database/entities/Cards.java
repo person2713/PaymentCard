@@ -21,7 +21,7 @@ public class Cards implements Serializable {
     @Id
     @Column(name = "CARD_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARDS_SEQ")
-    @SequenceGenerator(name = "CARDS_SEQ", sequenceName = "CARDS_SEQ")
+    @SequenceGenerator(name = "CARDS_SEQ", sequenceName = "CARDS_SEQ", allocationSize=1)
     private Long cardId;
 
     @Column(name = "CARD_NAME", length = 30, unique = true)

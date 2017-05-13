@@ -19,7 +19,7 @@ public class Buses implements Serializable {
     @Id
     @Column(name = "BUS_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUSES_SEQ")
-    @SequenceGenerator(name = "BUSES_SEQ", sequenceName = "BUSES_SEQ")
+    @SequenceGenerator(name = "BUSES_SEQ", sequenceName = "BUSES_SEQ", allocationSize=1)
     private Long busId;
 
     @Column(name = "BUS_NUMBER", nullable = false, length = 20)

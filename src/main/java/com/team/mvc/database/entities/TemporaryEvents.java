@@ -19,7 +19,7 @@ public class TemporaryEvents  implements Serializable {
     @Id
     @Column(name = "TEMPORARY_EVENT_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEMPORARY_EVENTS_SEQ")
-    @SequenceGenerator(name = "TEMPORARY_EVENTS_SEQ", sequenceName = "TEMPORARY_EVENTS_SEQ")
+    @SequenceGenerator(name = "TEMPORARY_EVENTS_SEQ", sequenceName = "TEMPORARY_EVENTS_SEQ", allocationSize=1)
     private Long temporaryEventId;
 
     @ManyToOne

@@ -13,7 +13,7 @@ public class BalanceHist implements Serializable {
     @Id
     @Column(name = "BALANCE_HIST_ID")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "BALANCE_HIST_SEQ")
-    @SequenceGenerator(name = "BALANCE_HIST_SEQ", sequenceName = "BALANCE_HIST_SEQ")
+    @SequenceGenerator(name = "BALANCE_HIST_SEQ", sequenceName = "BALANCE_HIST_SEQ", allocationSize=1)
     private Long balanceHistId;
 
 

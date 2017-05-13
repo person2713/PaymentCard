@@ -12,7 +12,7 @@ public class TypeCard implements Serializable{
     @Id
     @Column(name = "TYPE_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TYPE_CARD_SEQ")
-    @SequenceGenerator(name = "TYPE_CARD_SEQ", sequenceName = "TYPE_CARD_SEQ")
+    @SequenceGenerator(name = "TYPE_CARD_SEQ", sequenceName = "TYPE_CARD_SEQ", allocationSize=1)
     private Long typeId;
 
     @Column(name = "STATUS", nullable = false, length = 20)

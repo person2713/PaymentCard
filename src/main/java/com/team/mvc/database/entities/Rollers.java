@@ -11,7 +11,7 @@ public class Rollers implements Serializable {
     @Id
     @Column(name = "ROLE_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLLERS_SEQ")
-    @SequenceGenerator(name = "ROLLERS_SEQ", sequenceName = "ROLLERS_SEQ")
+    @SequenceGenerator(name = "ROLLERS_SEQ", sequenceName = "ROLLERS_SEQ", allocationSize=1)
     private Long roleId;
 
     @Column(name = "ROLE_TYPE", unique = true)

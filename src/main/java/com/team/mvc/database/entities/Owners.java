@@ -16,7 +16,7 @@ public class Owners implements Serializable {
     @Id
     @Column(name = "OWNER_ID")
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "OWNERS_SEQ")
-    @SequenceGenerator(name = "OWNERS_SEQ", sequenceName = "OWNERS_SEQ")
+    @SequenceGenerator(name = "OWNERS_SEQ", sequenceName = "OWNERS_SEQ", allocationSize=1)
     private Long ownerId;
 
     @OneToOne

@@ -14,7 +14,7 @@ public class Drivers  implements Serializable {
     @Id
     @Column(name = "DRIVER_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DRIVERS_SEQ")
-    @SequenceGenerator(name = "DRIVERS_SEQ", sequenceName = "DRIVERS_SEQ")
+    @SequenceGenerator(name = "DRIVERS_SEQ", sequenceName = "DRIVERS_SEQ", allocationSize=1)
     private Long driverId;
 
     @OneToOne

@@ -21,7 +21,7 @@ public class Companies implements Serializable {
     @Id
     @Column(name = "COMPANY_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPANIES_SEQ")
-    @SequenceGenerator(name = "COMPANIES_SEQ", sequenceName = "COMPANIES_SEQ")
+    @SequenceGenerator(name = "COMPANIES_SEQ", sequenceName = "COMPANIES_SEQ", allocationSize=1)
     private Long companyId;
 
     @Column(name = "COMPANY_NAME", nullable = false, length = 30)
