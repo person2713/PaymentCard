@@ -34,16 +34,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     CityConverter cityConverter;
 
     @Autowired
-    CompanyConverter companyConverter;
-
-    @Autowired
     DriverConverter driverConverter;
-
-    @Autowired
-    RouteConverter routeConverter;
-
-    @Autowired
-    BusesConverter busesConverter;
 
     @Bean
     public ViewResolver viewResolver() {
@@ -70,10 +61,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(cityConverter);
         registry.addConverter(roleConverter);
-        registry.addConverter(companyConverter);
         registry.addConverter(driverConverter);
-        registry.addConverter(routeConverter);
-        registry.addConverter(busesConverter);
     }
 
     @Bean

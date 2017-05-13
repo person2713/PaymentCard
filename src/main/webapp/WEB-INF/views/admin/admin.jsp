@@ -86,8 +86,9 @@
                         <button type="button" class="btn btn-link" onclick="window.location='/admin/addCard'">Карту</button>
                         <%--<button type="button" class="btn btn-link" onclick="prepareAddCards();">Карту</button>--%>
                         <br>
-                        <button type="button" class="btn btn-link" onclick="getUser();">Машину</button>
+                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addBus'">Автобус</button>
                         <br>
+                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addRoute'">Маршрут</button>
                     </ul>
                 </div>
                 <div class="dropdown">
