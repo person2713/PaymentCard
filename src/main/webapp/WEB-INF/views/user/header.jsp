@@ -1,8 +1,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<html lang="ru">
 
 <head>
-	<title>Spring MVC Form Handling Example</title>
+	<title>Дорожная карта</title>
 
 	<spring:url value="/static/css/user_css/hello.css" var="coreCss" />
 	<spring:url value="/static/css/user_css/bootstrap.min.css"
