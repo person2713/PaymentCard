@@ -1,6 +1,8 @@
 package com.team.mvc.database.services;
 
+import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
+import com.team.mvc.database.repositories.CardsRepository;
 import com.team.mvc.database.repositories.CitiesRepository;
 import com.team.mvc.database.repositories.PersonRepository;
 
@@ -31,6 +33,8 @@ public class PersonService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    CardsRepository cardsRepository;
 
 
 
@@ -104,17 +108,12 @@ public class PersonService {
         return personRepository.findCardsByNickname(nickname);
     }
 
-    public CardBalance findBalanceByNickname(String nickname) {
-        return personRepository.findBalanceByNickname(nickname);
-    }
+    public Cards findByCardbyID(int id) { return personRepository.findByCardbyID(id);}
+//    public CardBalance findBalanceByNickname(String nickname) {
+//        return personRepository.findBalanceByNickname(nickname);
+//    }
 
-    public List<BalanceHist> findBalanceHistByNickname(String nickname) {
-        return personRepository.findBalanceHistByNickname(nickname);
-    }
 
-    public List<Events> findEventsByNickname(String nickname) {
-        return personRepository.findEventsByNickname(nickname);
-    }
 
     public void update(Persons persons){
         personRepository.update(persons);
@@ -131,6 +130,18 @@ public class PersonService {
 
     public List<Persons> getAllPersonsWithCrads(){
         return personRepository.getPersonsWithCards();
+    }
+
+
+    public void addUserCard(String id, String name){
+        Cards cards = cardsRepository.findByCardKey(Long.parseLong(id));
+        Persons persons = personRepository.findByNickname(GetRole.getPrincipal());
+        cards.setCardName(name);
+        cards.setPersonId(persons.getPersonId());
+        System.out.println("addUserCard" + "Service"  + cards.toString());
+
+        //    System.out.println(cards.toString());
+//        if(cards.getPersonId()==null){cards.setPersonId(Long.valueOf(id)); cards.setCardName(name);}
     }
 
 }
