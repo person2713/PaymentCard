@@ -95,6 +95,22 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/user/{id}/block", method = RequestMethod.GET)
+    public String Block(@PathVariable("id") int id, Model model) {
+
+        System.out.println("Block" + "------------------------------------------------------------------------------------------------------------");
+
+        cardsService.blockCardById(id);
+
+
+
+        System.out.println("Block" +"&&&&&&&&&&&&+ "+"------------------------------------------------------------------------------------------------------------" );
+
+
+        return "redirect:user/list";
+
+    }
+
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public String saveOrUpdateUser(@ModelAttribute("card") @Validated Cards cards,
                                    BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
