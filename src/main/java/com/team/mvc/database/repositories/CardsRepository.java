@@ -93,7 +93,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
 
     public void updateMoney(long id, BigDecimal money) {
 
-        String UPDATE = "UPDATE CARD_BALANCE  SET BALANCE =2000 WHERE CARD_BALANCE.CARD_ID="+id;
+        String UPDATE = "UPDATE CARD_BALANCE  SET CARD_BALANCE.BALANCE =CARD_BALANCE.BALANCE+"+money+" WHERE CARD_BALANCE.CARD_ID="+id;
         Session session = sessionFactory.openSession();
         try {
 
