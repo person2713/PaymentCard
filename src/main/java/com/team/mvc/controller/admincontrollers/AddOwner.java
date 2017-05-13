@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -49,19 +50,16 @@ public class AddOwner {
         return "admin/addOwner";
     }
 
+    @Transactional
     @RequestMapping(value = "/newOwner", method = RequestMethod.POST)
     public String saveCompany(@Valid @ModelAttribute("ownerForm") Owners owner, BindingResult result,
                               ModelMap model) {
-        if (owner.getCompany().getCompanyName().isEmpty()) {
-            System.out.println("Null");
-        } else {
-            System.out.println(owner.getCompany().getCompanyName());
-        }
         owner.getPerson().setRole(roleService.findByType("OWNER"));
         personService.savePerson(owner.getPerson());
-        System.out.println(owner.getCompany().getCompanyName());
+        Long personId = personService.findByNickname(owner.getPerson().getNickname()).getPersonId();
+        owner.getPerson().setPersonId(personId);
         ownerService.saveOwner(owner);
-        return "/admin/registrationsuccess";
+        return "/admin/admin";
     }
 
     @ModelAttribute("cities")
@@ -69,11 +67,9 @@ public class AddOwner {
         return cityService.getAll();
     }
 
-
     @ModelAttribute("companies")
     public List<Companies> getCompanies() {
         return companyService.getAll();
     }
-
 
 }

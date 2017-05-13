@@ -74,11 +74,7 @@ public class AppController {
 
 
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String adminPage(ModelMap model) {
-        model.addAttribute("loggedinuser", GetRole.getPrincipal());
-        return "admin/admin";
-    }
+
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userPage(ModelMap model) {

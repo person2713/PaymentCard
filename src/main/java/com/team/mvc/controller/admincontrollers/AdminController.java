@@ -1,11 +1,13 @@
 package com.team.mvc.controller.admincontrollers;
 
+import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
 import com.team.mvc.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,6 +51,13 @@ public class AdminController {
 //    List<Cards> getCardsForAlex() {
 //        return personService.findCradsByNickname(GetRole.getPrincipal());
 //    }
+
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String adminPage(ModelMap model) {
+        model.addAttribute("loggedinuser", GetRole.getPrincipal());
+        return "admin/admin";
+    }
 
     @RequestMapping(value = "/getCities", method = RequestMethod.GET)
     public

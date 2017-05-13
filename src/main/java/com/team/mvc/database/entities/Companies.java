@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "COMPANIES")
-public class Companies  implements Serializable {
+public class Companies implements Serializable {
 
 
     @Id
@@ -40,15 +40,15 @@ public class Companies  implements Serializable {
 
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="COMPANY_ID")
+    @JoinColumn(name = "COMPANY_ID")
     public Set<Buses> buses = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="COMPANY_ID")
+    @JoinColumn(name = "COMPANY_ID")
     private Set<Drivers> drivers = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="COMPANY_ID")
+    @JoinColumn(name = "COMPANY_ID")
     public Set<Routes> routes = new HashSet<>();
 
     public Companies() {

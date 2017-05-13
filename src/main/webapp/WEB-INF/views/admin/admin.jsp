@@ -29,10 +29,10 @@
     <script type="text/javascript" src="/static/js/user_js/daterangepicker.js"></script>
 
     <script>
-        getCities();
-        getRollers();
-        getTypeCard();
-        getCompanies();
+//        getCities();
+//        getRollers();
+//        getTypeCard();
+//        getCompanies();
 
     </script>
 

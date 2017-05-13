@@ -2,6 +2,7 @@ package com.team.mvc.configuration;
 
 import com.team.mvc.converter.CityConverter;
 
+import com.team.mvc.converter.CompanyConverter;
 import com.team.mvc.converter.RoleConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Autowired
     CityConverter cityConverter;
 
+    @Autowired
+    CompanyConverter companyConverter;
+
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -60,6 +64,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(cityConverter);
         registry.addConverter(roleConverter);
+        registry.addConverter(companyConverter);
     }
 
     @Bean

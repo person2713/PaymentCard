@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,6 +52,7 @@ public class AddDriver {
         return "admin/addDriver";
     }
 
+    @Transactional
     @RequestMapping(value = "/newDriver", method = RequestMethod.POST)
     public String saveCompany(@Valid @ModelAttribute("driverForm") Drivers driver, BindingResult result,
                               ModelMap model) {
@@ -59,7 +61,6 @@ public class AddDriver {
         personService.savePerson(driver.getPerson());
         Long personId = personService.findByNickname(driver.getPerson().getNickname()).getPersonId();
         driver.getPerson().setPersonId(personId);
-        System.out.println(driver.getCompanyId());
         driversService.save(driver);
         return "/admin/admin";
     }
