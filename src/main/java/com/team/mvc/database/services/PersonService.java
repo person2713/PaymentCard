@@ -60,25 +60,25 @@ public class PersonService {
         return personList;
     }
 
-
-    public List<Persons> getOwners() {
-        List<Persons> personList = new ArrayList<>();
-        for (Persons person : personRepository.getAll()) {
-            if (person.getRole().getRoleType().equals("OWNER"))
-                personList.add(person);
-        }
-        return personList;
-    }
-
-
-    public List<Persons> getDrivers() {
-        List<Persons> personList = new ArrayList<>();
-        for (Persons person : personRepository.getAll()) {
-            if (person.getRole().getRoleType().equals("DRIVER"))
-                personList.add(person);
-        }
-        return personList;
-    }
+//
+//    public List<Persons> getOwners() {
+//        List<Persons> personList = new ArrayList<>();
+//        for (Persons person : personRepository.getAll()) {
+//            if (person.getRole().getRoleType().equals("OWNER"))
+//                personList.add(person);
+//        }
+//        return personList;
+//    }
+//
+//
+//    public List<Persons> getDrivers() {
+//        List<Persons> personList = new ArrayList<>();
+//        for (Persons person : personRepository.getAll()) {
+//            if (person.getRole().getRoleType().equals("DRIVER"))
+//                personList.add(person);
+//        }
+//        return personList;
+//    }
 
 
 

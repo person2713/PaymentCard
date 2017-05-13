@@ -33,7 +33,7 @@
         getRollers();
         getTypeCard();
         getCompanies();
-        getCardsForAlex();
+
     </script>
 
 
@@ -80,9 +80,10 @@
                         <br>
                         <button type="button" class="btn btn-link" onclick="window.location='/admin/addDriver'">Водителя</button>
                         <br>
-                        <button type="button" class="btn btn-link" onclick="getUser();">Компанию</button>
+                        <button type="button" class="btn btn-link" onclick="window.location='/registration'">Компанию</button>
                         <br>
-                        <button type="button" class="btn btn-link" onclick="prepareAddCards();">Карту</button>
+                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addCard'">Карту</button>
+                        <%--<button type="button" class="btn btn-link" onclick="prepareAddCards();">Карту</button>--%>
                         <br>
                         <button type="button" class="btn btn-link" onclick="getUser();">Машину</button>
                         <br>

@@ -27,26 +27,26 @@ function getCities() {
 }
 
 
-function getCardsForAlex() {
-
-    return $.ajax({
-        type: "GET",
-        url: "/admin/getCards",
-        datatype: "json",
-        success: function (response) {
-//             $.each(response, function (i, item) {
-// //                    city += '<option>' + item.cityName + '</option>';
-//                 cards.push(item);
-//             });
-//             console.log(cards);
-
-            console.log(response);
-        },
-        error: function () {
-            alert("error")
-        }
-    })
-}
+// function getCardsForAlex() {
+//
+//     return $.ajax({
+//         type: "GET",
+//         url: "/admin/getCardsForAlex",
+//         datatype: "json",
+//         success: function (response) {
+// //             $.each(response, function (i, item) {
+// // //                    city += '<option>' + item.cityName + '</option>';
+// //                 cards.push(item);
+// //             });
+// //             console.log(cards);
+//
+//             console.log(response);
+//         },
+//         error: function () {
+//             alert("error")
+//         }
+//     })
+// }
 // при заходе на страницу админа сразу подгружаем коллекцию ролей
 // массив ролей
 var rollers = Array();

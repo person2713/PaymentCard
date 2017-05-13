@@ -1,6 +1,5 @@
 package com.team.mvc.controller.admincontrollers;
 
-import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
 import com.team.mvc.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
     @Autowired
     CityService cityService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     PersonService personService;
@@ -43,12 +43,12 @@ public class AdminController {
     @Autowired
     CompanyService companyService;
 
-    @RequestMapping(value = "/getCardsForAlex", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<Cards> getCardsForAlex() {
-        return personService.findCradsByNickname(GetRole.getPrincipal());
-    }
+//    @RequestMapping(value = "/getCardsForAlex", method = RequestMethod.GET)
+//    public
+//    @ResponseBody
+//    List<Cards> getCardsForAlex() {
+//        return personService.findCradsByNickname(GetRole.getPrincipal());
+//    }
 
     @RequestMapping(value = "/getCities", method = RequestMethod.GET)
     public
@@ -91,20 +91,21 @@ public class AdminController {
     List<Cards> getCards() {
         return cardService.getAll();
     }
+//
+//    @RequestMapping(value = "/getOwners", method = RequestMethod.GET)
+//    public
+//    @ResponseBody
+//    List<Persons> getOwners() {
+//        return personService.getOwners();
+//    }
 
-    @RequestMapping(value = "/getOwners", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<Persons> getOwners() {
-        return personService.getOwners();
-    }
-
-    @RequestMapping(value = "/getDrivers", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<Persons> getDrives() {
-        return personService.getDrivers();
-    }
+//    @RequestMapping(value = "/getDrivers", method = RequestMethod.GET)
+//    public
+//    @ResponseBody
+//    List<Persons> getDrives() {
+//        return personService.getDrivers();
+//    }
+//
 
 
 //
@@ -152,28 +153,7 @@ public class AdminController {
 //        return "Success changes";
 //    }
 
-//    @RequestMapping(value = "/addCard", method = RequestMethod.POST)
-//    public
-//    @ResponseBody
-//    String addCard(@RequestBody List<String> list) {
-//
-//        System.out.println("ADDCARD");
-//        for (String s : list) {
-//            System.out.println(s);
-//        }
-//        if (list.isEmpty()) {
-//            return "FAILRY";
-//        } else {
-//            Cards cards = new Cards();
-//            cards.setCardName(list.get(0));
-//            cards.setCardKey(Long.parseLong(list.get(1)));
-//            cards.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
-//            cards.setPerson(personService.findByNickname(list.get(2)));
-//            cardService.saveCard(cards);
-//            return "SUCCESS";
-//        }
-//
-//    }
+
 
     //    @RequestMapping(value = "/getlAllUsers", method = RequestMethod.GET)
 //    public
