@@ -29,21 +29,17 @@ public class UserController {
     CardsService cardsService;
 
 
-
     @Autowired
     public void setUserService(PersonService personService) {
         this.personService = personService;
     }
 
 
-
-
-
     // list page
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllUsers(Model model) {
 
-      //  System.out.println( personService.findCradsByNickname(GetRole.getPrincipal()).toString());
+        //  System.out.println( personService.findCradsByNickname(GetRole.getPrincipal()).toString());
         model.addAttribute("card", personService.findCradsByNickname(GetRole.getPrincipal()));
         return "user/list";
 
@@ -51,11 +47,11 @@ public class UserController {
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable("id") int id, Model model) throws NotFoundException {
-        System.out.println("-------------------showUser-------------------"+id );
+        System.out.println("-------------------showUser-------------------" + id);
 
 
-           Cards cards =personService.findByCardbyID(id);
-        System.out.println(cards.toString()+"--------------------------------");
+        Cards cards = personService.findByCardbyID(id);
+        System.out.println(cards.toString() + "--------------------------------");
 
         if (cards == null) {
             model.addAttribute("css", "danger");
@@ -70,22 +66,40 @@ public class UserController {
     @RequestMapping(value = "/user/{id}/update", method = RequestMethod.GET)
     public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
 
-        System.out.println("showUpdateUserForm"+"------------------------------------------------------------------------------------------------------------");
+        System.out.println("showUpdateUserForm" + "------------------------------------------------------------------------------------------------------------");
 
-        Cards cards =personService.findByCardbyID(id);
+        Cards cards = personService.findByCardbyID(id);
 
         model.addAttribute("card", cards);
 
-        System.out.println("showUpdateUserForm"+cards.getCardId()+"------------------------------------------------------------------------------------------------------------");
+        System.out.println("showUpdateUserForm" + cards.getCardId() + "------------------------------------------------------------------------------------------------------------" + cards.getCardBalance().getBalance().toString());
 
         return "user/userform";
+        //  return "user/moneyform";
 
     }
+
+    @RequestMapping(value = "/user/{id}/money", method = RequestMethod.GET)
+    public String showUpdateMoneyForm(@PathVariable("id") int id, Model model) {
+
+        System.out.println("showUpdateUserForm" + "------------------------------------------------------------------------------------------------------------");
+
+        Cards cards = personService.findByCardbyID(id);
+
+        model.addAttribute("card", cards);
+
+        System.out.println("showUpdateUserForm" + cards.getCardId() + "------------------------------------------------------------------------------------------------------------" + cards.getCardBalance().getBalance().toString());
+
+
+        return "user/moneyform";
+
+    }
+
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public String saveOrUpdateUser(@ModelAttribute("card") @Validated Cards cards,
                                    BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
 
-
+        System.out.println( "---------===========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
 
         if (result.hasErrors()) {
 
@@ -93,12 +107,12 @@ public class UserController {
         } else {
 
             redirectAttributes.addFlashAttribute("css", "success");
-            if(cards.isNew()){
+            if (cards.isNew()) {
                 redirectAttributes.addFlashAttribute("msg", "User added successfully!");
-            }else{
+            } else {
                 redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
             }
-            System.out.println(cards.getCardName().toString()+"---------===========---------------===============--------------"+cards.getCardId()+"----"+cards.getCardKey());
+            System.out.println(cards.getCardName().toString() + "---------===========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
 //            cardsService.saveOrUpdate(cards);
             cardsService.updateName(cards.getCardId(), cards.getCardName());
 
@@ -111,9 +125,49 @@ public class UserController {
 
         }
 
+
+    }
+
+    @RequestMapping(value = "/money", method = RequestMethod.POST)
+    public String saveOrUpdateMoney(@ModelAttribute("card") @Validated Cards cards,
+                                    BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
+
+        System.out.println( "---------========saveOrUpdateMoney===---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
+
+
+            System.out.println("---------===saveOrUpdateMoney========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
+
+            cardsService.updateMoney(cards.getCardId(), cards.getCardBalance().getBalance());
+            System.out.println("cardsService.updateMONEY(cards.getCardId(), cards.getCardName());  отработал наверно -----------------");
+
+            return "redirect:/user/user/" + cards.getCardId();
+
+
+        }
+
+
+
+
+    @RequestMapping(value = "/user/add", method = RequestMethod.GET)
+    public String showAddUserForm() {
+
+        System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
+
+        return "user/addcard";
+
+    }
+    @RequestMapping(value="/user/addUserCard" , method=RequestMethod.POST)
+    public String addUserCard(@RequestParam(value="idcard") String idcard, @RequestParam(value="namecard") String namecard){
+        System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
+        System.out.println("addUserCard"  + idcard    +   namecard  );
+
+        personService.addUserCard(idcard, namecard);
+        return "redirect:/user/user/" +idcard;
+    }
+
+
     }
 
 
 
 
-}

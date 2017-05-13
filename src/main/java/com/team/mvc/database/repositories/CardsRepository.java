@@ -1,16 +1,14 @@
 package com.team.mvc.database.repositories;
 
 import com.team.mvc.database.entities.*;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
+import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -59,11 +57,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
         }
 
 
-    public Cards findByCardKey(long key) {
-        Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("cardKey", key));
-        return (Cards) criteria.uniqueResult();
-    }
+
 
     public Cards findByCardName(String cardName) {
         Criteria criteria = createEntityCriteria();
@@ -89,5 +83,36 @@ public class CardsRepository extends AbstractRepository<Cards> {
         int result = sqlQuery.executeUpdate();
         System.out.println(result);
         session.getTransaction().commit();
+    }
+
+    public Cards findByCardKey(long key) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("cardId", key));
+        return (Cards) criteria.uniqueResult();
+    }
+
+    public void updateMoney(long id, BigDecimal money) {
+
+        String UPDATE = "UPDATE CARD_BALANCE  SET BALANCE =2000 WHERE CARD_BALANCE.CARD_ID="+id;
+        Session session = sessionFactory.openSession();
+        try {
+
+            session.getTransaction().begin();
+            session.createSQLQuery(UPDATE).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (HibernateException erro){
+            System.out.println(erro);
+            session.getTransaction().rollback();
+            session.close();
+        }
+
+//        Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//        SQLQuery sqlQuery = session.createSQLQuery(UPDATE);
+//        int result = sqlQuery.executeUpdate();
+//        System.out.println(result);
+//        session.getTransaction().commit();
     }
 }

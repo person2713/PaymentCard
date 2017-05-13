@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -45,6 +46,7 @@ public class CardsService {
       cardsRepository.updateName(id,name);
 
     }
+    public void updateMoney(long id, BigDecimal money) {cardsRepository.updateMoney(id,money);}
 
     public void saveCard(Cards card){
         cardsRepository.save(card);

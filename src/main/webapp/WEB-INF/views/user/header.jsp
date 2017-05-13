@@ -12,7 +12,7 @@
 </head>
 
 <spring:url value="http://localhost:9555/user" var="urlHome" />
-<spring:url value="/users/add" var="urlAddUser" />
+<spring:url value="/user/user/add" var="urlAddUser" />
 
 <nav class="navbar navbar-inverse ">
 	<div class="container">
@@ -21,7 +21,7 @@
 		</div>
 		<div id="navbar">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="${urlAddUser}">Add User</a></li>
+				<li class="active"><a href="${urlAddUser}">Добавить карту</a></li>
 			</ul>
 		</div>
 	</div>
