@@ -1,7 +1,5 @@
 package com.team.mvc.controller;
 
-import com.team.mvc.database.entities.Cards;
-import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.PersonService;
@@ -15,13 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 
 @Controller
@@ -64,7 +60,7 @@ public class AppController {
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String welcomePage(ModelMap model) {
-        return "welcome";
+        return "admin/admin";
     }
 
 
