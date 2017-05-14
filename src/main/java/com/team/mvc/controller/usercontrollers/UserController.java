@@ -19,11 +19,23 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    public static final String ACCOUNT_SID = "AC49a8834042c11bb595f9d9ce94d92446";
+    public static final String AUTH_TOKEN = "c197119e48fb7cd9704c3b0352f28fc0";
 
     private PersonService personService;
     @Autowired
@@ -98,20 +110,23 @@ public class UserController {
 
     @RequestMapping(value = "/user/{id}/block", method = RequestMethod.GET)
     public RedirectView Block(@PathVariable("id") int id, Model model) {
-
-        System.out.println("Block" + "------------------------------------------------------------------------------------------------------------");
-
-        cardsService.blockCardById(id);
-
-
-
-        System.out.println("Block" +"&&&&&&&&&&&&+ "+"------------------------------------------------------------------------------------------------------------" );
-
-
-//        return "redirect:/user/user/";
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("http://localhost:9555/user");
-        return redirectView;
+        System.out.println("Block" + "------------------------------------------------------------------------------------------------------------");
+        cardsService.blockCardById(id);
+        System.out.println("Block" +"&&&&&&&&&&&&+ "+"---------------------"+personService.findByNickname(GetRole.getPrincipal()).getMobileNumber()+"---------------"+id+"------------------------------------------------------------------------" );
+
+        try {
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+            Message message = Message.creator(new PhoneNumber(personService.findByNickname(GetRole.getPrincipal()).getMobileNumber()),
+                    new PhoneNumber("+15054040297"),
+                    "Уважаемый клиент! Ваша карта №" + id + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com").create();
+            System.out.println(message.getSid());
+        } finally {
+
+
+            return redirectView;
+        }
 
     }
 
