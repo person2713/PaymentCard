@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,12 @@ public class AdminController {
 
     @Autowired
     PersonService personService;
+
+    @Autowired
+    DriversService driversService;
+
+    @Autowired
+    OwnerService ownerService;
 
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
@@ -57,6 +64,21 @@ public class AdminController {
     public String adminPage(ModelMap model) {
         model.addAttribute("loggedinuser", GetRole.getPrincipal());
         return "admin/admin";
+    }
+
+    @ModelAttribute("owners")
+    public List<Owners> getAllOwners() {
+        return ownerService.getAll();
+    }
+
+    @ModelAttribute("drivers")
+    public List<Drivers> getAllDrivers() {
+        return driversService.getAll();
+    }
+
+    @ModelAttribute("users")
+    public List<Persons> getAllUsers() {
+        return personService.getUsers();
     }
 
     @RequestMapping(value = "/getCities", method = RequestMethod.GET)

@@ -1,11 +1,7 @@
 package com.team.mvc.controller;
 
-import com.team.mvc.database.entities.Cards;
-import com.team.mvc.database.entities.Cities;
-import com.team.mvc.database.services.CardsService;
-import com.team.mvc.database.services.CityService;
-import com.team.mvc.database.services.PersonService;
-import com.team.mvc.database.services.RoleService;
+import com.team.mvc.database.entities.*;
+import com.team.mvc.database.services.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -34,7 +30,7 @@ public class AppController {
     CityService cityService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     PersonService personService;
@@ -51,14 +47,23 @@ public class AppController {
     @Autowired
     PersonService userService;
 
+    @Autowired
+    DriversService driversService;
 
+    @Autowired
+    OwnerService ownerService;
 
 
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
-        return "welcome";
+        return "admin/admin";
+    }
+
+    @ModelAttribute("users")
+    public List<Persons> getAllUsers() {
+        return personService.getUsers();
     }
 
 
@@ -67,7 +72,15 @@ public class AppController {
         return "welcome";
     }
 
+    @ModelAttribute("owners")
+    public List<Owners> getAllOwners() {
+        return ownerService.getAll();
+    }
 
+    @ModelAttribute("drivers")
+    public List<Drivers> getAllDrivers() {
+        return driversService.getAll();
+    }
 
 
 
