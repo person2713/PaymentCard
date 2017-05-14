@@ -48,11 +48,13 @@
 						<spring:url value="/user/user/${card.cardId}/block" var="deleteUrl" />
 						<spring:url value="/user/user/${card.cardId}/update" var="updateUrl" />
 						<spring:url value="/user/user/${card.cardId}/money" var="moneyUrl" />
+						<spring:url value="/user/user/${card.cardId}/map" var="mapUrl" />
 
 						<button class="btn btn-info" onclick="location.href='${userUrl}'">Query</button>
 						<button class="btn btn-primary" onclick="location.href='${updateUrl}'">Update</button>
 						<button class="btn btn-primary" onclick="location.href='${moneyUrl}'">Money</button>
 						<button class="btn btn-danger" onclick="location.href='${deleteUrl}'">Delete</button></td>
+					<button class="btn btn-danger" onclick="location.href='${mapUrl}'">Map</button></td>
 				</tr>
 			</c:forEach>
 		</table>

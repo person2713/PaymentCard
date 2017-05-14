@@ -5,14 +5,10 @@ import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
 import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.PersonService;
-import com.team.mvc.database.services.TypeCardService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +20,7 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -51,44 +43,30 @@ public class UserController {
     // list page
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllUsers(Model model) {
-
-        //  System.out.println( personService.findCradsByNickname(GetRole.getPrincipal()).toString());
         model.addAttribute("card", personService.findCradsByNickname(GetRole.getPrincipal()));
         return "user/list";
-
     }
-
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable("id") int id, Model model) throws NotFoundException {
         System.out.println("-------------------showUser-------------------" + id);
-
-
         Cards cards = personService.findByCardbyID(id);
         System.out.println(cards.toString() + "--------------------------------");
-
         if (cards == null) {
             model.addAttribute("css", "danger");
             model.addAttribute("msg", "User not found");
         }
         model.addAttribute("card", cards);
-
         return "user/show";
-
     }
 
     @RequestMapping(value = "/user/{id}/update", method = RequestMethod.GET)
     public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
-
         System.out.println("showUpdateUserForm" + "------------------------------------------------------------------------------------------------------------");
-
         Cards cards = personService.findByCardbyID(id);
-
         model.addAttribute("card", cards);
-
         System.out.println("showUpdateUserForm" + cards.getCardId() + "------------------------------------------------------------------------------------------------------------" );
-
         return "user/userform";
-        //  return "user/moneyform";
+
 
     }
 
@@ -185,12 +163,22 @@ public class UserController {
 
     @RequestMapping(value = "/user/add", method = RequestMethod.GET)
     public String showAddUserForm() {
+        System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
+        return "user/addcard";
+    }
 
+
+    ///////////////////////////////////
+    @RequestMapping(value = "/user/{id}/map", method = RequestMethod.GET)
+    public String showMap (@PathVariable("id") int id, Model model){
         System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
 
-        return "user/addcard";
 
+        model.addAttribute("events", personService.findByCardbyID(id).getEvents());
+        return "user/map";
     }
+
+
     @RequestMapping(value = "/user/history", method = RequestMethod.GET)
     public String showHistory() {
 
