@@ -12,7 +12,7 @@
 	<link href="${coreCss}" rel="stylesheet" />
 </head>
 
-<spring:url value="http://localhost:9000/user" var="urlHome" />
+<spring:url value="http://localhost:9555/user" var="urlHome" />
 <spring:url value="/user/user/add" var="urlAddUser" />
 <spring:url value="loguser" var="user" />
 
