@@ -21,7 +21,7 @@ public class Persons implements Serializable {
     @Id
     @Column(name = "PERSON_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONS_SEQ")
-    @SequenceGenerator(name = "PERSONS_SEQ", sequenceName = "PERSONS_SEQ", allocationSize=1)
+    @SequenceGenerator(name = "PERSONS_SEQ", sequenceName = "PERSONS_SEQ", allocationSize = 1)
     private Long personId;
 
 
@@ -56,7 +56,7 @@ public class Persons implements Serializable {
 
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="PERSON_ID")
+    @JoinColumn(name = "PERSON_ID")
     public Set<Cards> cards = new HashSet<>();
 
     public Persons() {
@@ -143,14 +143,23 @@ public class Persons implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Person [personId=" + personId +
-                ", Nickname=" + nickname +
-                ", firstname=" + firstName +
-                ", lastname=" + lastName +
-                ", city=" + city.getCityName() +
-                ", mobile_number=" + mobileNumber +
-                ", email=" + email +
-                ", role=" + role.getRoleType() + "]";
+    public String toString() throws NullPointerException {
+        if (city.getCityName().isEmpty())
+            return "Person [personId=" + personId +
+                    ", Nickname=" + nickname +
+                    ", firstname=" + firstName +
+                    ", lastname=" + lastName +
+                    ", mobile_number=" + mobileNumber +
+                    ", email=" + email +
+                    ", role=" + role.getRoleType() + "]";
+        else
+            return "Person [personId=" + personId +
+                    ", Nickname=" + nickname +
+                    ", firstname=" + firstName +
+                    ", lastname=" + lastName +
+                    ", city=" + city.getCityName() +
+                    ", mobile_number=" + mobileNumber +
+                    ", email=" + email +
+                    ", role=" + role.getRoleType() + "]";
     }
 }
