@@ -55,12 +55,14 @@
 								<spring:url value="/user/user/${card.cardId}/block" var="deleteUrl" />
 								<spring:url value="/user/user/${card.cardId}/update" var="updateUrl" />
 								<spring:url value="/user/user/${card.cardId}/money" var="moneyUrl" />
+                                <spring:url value="/user/user/${card.cardId}/map" var="mapUrl" />
 
 								<button class="btn btn-infa" onclick="location.href='${userUrl}'"><span style="color: white">История</span></button>
 								<button class="btn btn-change" onclick="location.href='${updateUrl}'"><span style="color: white">Изменить</span></button>
+                                <button class="btn btn-danger" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button>
 								<button class="btn btn-addbalace" onclick="location.href='${moneyUrl}'"><span style="color: white">Пополнить баланс</span></button>
 								<button class="btn btn-cardblock" onclick="location.href='${deleteUrl}'"><span style="color: white">Заблокировать</span></button></td>
-						</tr>
+              				</tr>
 					</c:forEach>
 				</table>
 			</div>
