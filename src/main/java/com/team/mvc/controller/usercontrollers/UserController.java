@@ -110,23 +110,23 @@ public class UserController {
 
     @RequestMapping(value = "/user/{id}/block", method = RequestMethod.GET)
     public RedirectView Block(@PathVariable("id") int id, Model model) {
-
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:9555/user");
         System.out.println("Block" + "------------------------------------------------------------------------------------------------------------");
         cardsService.blockCardById(id);
         System.out.println("Block" +"&&&&&&&&&&&&+ "+"---------------------"+personService.findByNickname(GetRole.getPrincipal()).getMobileNumber()+"---------------"+id+"------------------------------------------------------------------------" );
 
+        try {
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+            Message message = Message.creator(new PhoneNumber(personService.findByNickname(GetRole.getPrincipal()).getMobileNumber()),
+                    new PhoneNumber("+15054040297"),
+                    "Уважаемый клиент! Ваша карта №" + id + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com").create();
+            System.out.println(message.getSid());
+        } finally {
 
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        Message message = Message.creator(new PhoneNumber(personService.findByNickname(GetRole.getPrincipal()).getMobileNumber()),
-                new PhoneNumber("+15054040297"),
-                "Уважаемый клиент! Ваша карта №"+id+" была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com").create();
-        System.out.println(message.getSid());
 
-
-
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:9555/user");
-        return redirectView;
+            return redirectView;
+        }
 
     }
 
