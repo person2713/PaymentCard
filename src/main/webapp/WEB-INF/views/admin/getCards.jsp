@@ -10,23 +10,24 @@
     <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
         <tr>
+            <th>№</th>
             <th>Название карты</th>
             <th>Ключ</th>
             <th>Баланс</th>
             <th>Тип карты</th>
-            <th></th>
+            <th>Действие</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${cards}" var="card">
             <tr>
-                    <%--с ним не работает--%>
-                    <%--<td style="display:none">${person.personId}</td>--%>
+                <td>${card.cardId}</td>
                 <td>${card.cardName}</td>
                 <td>${card.cardKey}</td>
                 <td>${card.cardBalance.balance}</td>
                 <td>${card.typeCard.status}</td>
-                <td><input type="checkbox" value=""/></td>
+                <%--<td><input type="checkbox" value=""/></td>--%>
+
             </tr>
         </c:forEach>
         </tbody>

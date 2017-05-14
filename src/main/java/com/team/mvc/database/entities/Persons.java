@@ -143,23 +143,37 @@ public class Persons implements Serializable {
     }
 
     @Override
-    public String toString() throws NullPointerException {
-        if (city.getCityName().isEmpty())
-            return "Person [personId=" + personId +
-                    ", Nickname=" + nickname +
-                    ", firstname=" + firstName +
-                    ", lastname=" + lastName +
-                    ", mobile_number=" + mobileNumber +
-                    ", email=" + email +
-                    ", role=" + role.getRoleType() + "]";
-        else
-            return "Person [personId=" + personId +
-                    ", Nickname=" + nickname +
-                    ", firstname=" + firstName +
-                    ", lastname=" + lastName +
-                    ", city=" + city.getCityName() +
-                    ", mobile_number=" + mobileNumber +
-                    ", email=" + email +
-                    ", role=" + role.getRoleType() + "]";
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Persons persons = (Persons) o;
+
+        if (personId != null ? !personId.equals(persons.personId) : persons.personId != null) return false;
+        if (nickname != null ? !nickname.equals(persons.nickname) : persons.nickname != null) return false;
+        if (password != null ? !password.equals(persons.password) : persons.password != null) return false;
+        if (firstName != null ? !firstName.equals(persons.firstName) : persons.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(persons.lastName) : persons.lastName != null) return false;
+        if (city != null ? !city.equals(persons.city) : persons.city != null) return false;
+        if (mobileNumber != null ? !mobileNumber.equals(persons.mobileNumber) : persons.mobileNumber != null)
+            return false;
+        if (email != null ? !email.equals(persons.email) : persons.email != null) return false;
+        if (role != null ? !role.equals(persons.role) : persons.role != null) return false;
+        return cards != null ? cards.equals(persons.cards) : persons.cards == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = personId != null ? personId.hashCode() : 0;
+        result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (mobileNumber != null ? mobileNumber.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (cards != null ? cards.hashCode() : 0);
+        return result;
     }
 }

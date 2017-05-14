@@ -11,6 +11,7 @@
     <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
         <tr>
+            <th>№</th>
             <th>Никнейм</th>
             <th>Имя</th>
             <th>Фамилия</th>
@@ -23,8 +24,7 @@
         <tbody>
         <c:forEach items="${owners}" var="owner">
             <tr>
-                    <%--с ним не работает--%>
-                    <%--<td style="display:none">${person.personId}</td>--%>
+                <td>${owner.person.personId}</td>
                 <td>${owner.person.nickname}</td>
                 <td>${owner.person.firstName}</td>
                 <td>${owner.person.lastName}</td>
