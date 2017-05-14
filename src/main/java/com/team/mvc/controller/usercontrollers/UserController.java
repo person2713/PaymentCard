@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -96,7 +97,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/{id}/block", method = RequestMethod.GET)
-    public String Block(@PathVariable("id") int id, Model model) {
+    public RedirectView Block(@PathVariable("id") int id, Model model) {
 
         System.out.println("Block" + "------------------------------------------------------------------------------------------------------------");
 
@@ -107,7 +108,10 @@ public class UserController {
         System.out.println("Block" +"&&&&&&&&&&&&+ "+"------------------------------------------------------------------------------------------------------------" );
 
 
-        return "redirect:user/list";
+//        return "redirect:/user/user/";
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:9555/user");
+        return redirectView;
 
     }
 
