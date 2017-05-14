@@ -72,7 +72,7 @@ public class UserController {
 
         model.addAttribute("card", cards);
 
-        System.out.println("showUpdateUserForm" + cards.getCardId() + "------------------------------------------------------------------------------------------------------------" + cards.getCardBalance().getBalance().toString());
+        System.out.println("showUpdateUserForm" + cards.getCardId() + "------------------------------------------------------------------------------------------------------------" );
 
         return "user/userform";
         //  return "user/moneyform";
