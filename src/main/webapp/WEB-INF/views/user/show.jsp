@@ -2,11 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ru">
-<jsp:include page="header.jsp" />
+
 <head>
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link href="http://cdn.datatables.net/buttons/1.3.1/css/buttons.bootstrap.min.css">
+    <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
+    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
+
     <script type="text/javascript" src="http://cdn.datatables.net/buttons/1.3.1/js/buttons.bootstrap.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
@@ -23,12 +27,14 @@
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
  </head>
 <body>
+<jsp:include page="header.jsp" />
 <table id="myTable">
     <thead>
         <tr>
-            <th>BALANCE_HIST_ID</th>
-            <th>CARD_ID</th>
-            <th>CHANGES</th>
+            <th>Номер изменения</th>
+            <th>Карта</th>
+            <th>Баланс</th>
+            <th>Время</th>
         </tr>
     </thead>
     <tbody>
@@ -37,6 +43,7 @@
             <td>${balanceHists.balanceHistId}</td>
             <td>${balanceHists.cardId}</td>
             <td>${balanceHists.changes}</td>
+            <td>${balanceHists.dateEvent}</td>
         </tr>
     </c:forEach>
     </tbody>

@@ -176,6 +176,62 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
     color:#ffffff;
 }
 
+.btn-cardblock {
+    background-color: #ff0907;
+    border-bottom:2px solid #d00606;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color:#ffffff;
+}
+
+.btn-cardblock:hover, .btn-cardblock:focus, .btn-cardblock:active, .btn-cardblock.active, .open .dropdown-toggle.btn-cardblock {
+    background-color: #d00606;
+    color:#ffffff;
+}
+
+.btn-addbalace {
+    background-color: #04e7ab;
+    border-bottom:2px solid #04cb97;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color:#ffffff;
+}
+
+.btn-addbalace:hover, .btn-addbalace:focus, .btn-addbalace:active, .btn-addbalace.active, .open .dropdown-toggle.btn-addbalace {
+    background-color: #04cb97;
+    color:#ffffff;
+}
+
+.btn-change {
+    background-color: #418eff;
+    border-bottom:2px solid #3a77e0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color:#ffffff;
+}
+
+.btn-change:hover, .btn-change:focus, .btn-change:active, .btn-change.active, .open .dropdown-toggle.btn-change {
+    background-color: #3a77e0;
+    color:#ffffff;
+}
+
+.btn-infa {
+    background-color: #ffd600;
+    border-bottom:2px solid #d6af00;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color:#ffffff;
+}
+
+.btn-infa:hover, .btn-infa:focus, .btn-infa:active, .btn-infa.active, .open .dropdown-toggle.btn-infa {
+    background-color: #d6af00;
+    color:#ffffff;
+}
+
 .btn-green {
     background-color:#2ecc71;
     border-bottom:2px solid #27ae60;
@@ -260,13 +316,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
     border: 1px solid #cccccc; 
 }
 
-.templatemo-team {
-    background: url('../images/background.png') ; 
-    font-family:  'Open Sans', sans-serif;
-    min-height:590px;
-    color:#ffffff;
 
-}
 .templatemo-line-header {
     margin-top:100px;
     margin-bottom:80px;
@@ -472,60 +522,6 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 	color:#333333;
 }
 
-.social-icon-fb {
-    background: url('../images/social-icon-fb.png') no-repeat;
-    width: 42px;
-    height: 42px;
-    display: block;
-}
-
-a:hover .social-icon-fb {
-    background: url('../images/social-icon-fb-over.png') no-repeat;
-}
-
-.social-icon-rss {
-    background: url('../images/social-icon-rss.png') no-repeat;
-    width: 42px;
-    height: 42px;
-    display: block;
-}
-
-a:hover .social-icon-rss {
-    background: url('../images/social-icon-rss-over.png') no-repeat;
-}
-
-.social-icon-twitter {
-    background: url('../images/social-icon-twitter.png') no-repeat;
-    width: 42px;
-    height: 42px;
-    display: block;
-}
-
-a:hover .social-icon-twitter {
-    background: url('../images/social-icon-twitter-over.png') no-repeat;
-}
-
-.social-icon-linkedin {
-    background: url('../images/social-icon-linkedin.png') no-repeat;
-    width: 42px;
-    height: 42px;
-    display: block;
-}
-
-a:hover .social-icon-linkedin {
-    background: url('../images/social-icon-linkedin-over.png') no-repeat;
-}
-
-.social-icon-dribbble {
-    background: url('../images/social-icon-dribbble.png') no-repeat;
-    width: 42px;
-    height: 42px;
-    display: block;
-}
-
-a:hover .social-icon-dribbble {
-    background: url('../images/social-icon-dribbble-over.png') no-repeat;
-}
 
 ul.templatemo-project-gallery  li  a img:hover {
     border: 3px solid #ff7600;

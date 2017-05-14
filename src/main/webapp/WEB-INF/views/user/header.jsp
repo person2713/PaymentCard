@@ -12,17 +12,22 @@
 	<link href="${coreCss}" rel="stylesheet" />
 </head>
 
-<spring:url value="http://localhost:9555/user" var="urlHome" />
+<spring:url value="http://localhost:9000/user" var="urlHome" />
 <spring:url value="/user/user/add" var="urlAddUser" />
+<spring:url value="loguser" var="user" />
 
 <nav class="navbar navbar-inverse ">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${urlHome}">Главная страница</a>
+			<ul class="nav navbar-nav navbar-left">
+				<li><a class="navbar-brand" style="color: white" href="${urlHome}">Главная страница</a></li>
+				<li><a href="${urlAddUser}">Добавить карту</a></li>
+			</ul>
 		</div>
 		<div id="navbar">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="${urlAddUser}">Добавить карту</a></li>
+				<li><a><strong>${user}</strong></a></li>
+				<li><a href="/logout">Выйти</a></li>
 			</ul>
 		</div>
 	</div>
