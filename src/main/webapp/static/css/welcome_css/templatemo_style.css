@@ -190,6 +190,20 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
     color:#ffffff;
 }
 
+.btn-mapbtn {
+    background-color: #d300ff;
+    border-bottom:2px solid #c000e8;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color:#ffffff;
+}
+
+.btn-mapbtn:hover, .btn-mapbtn:focus, .btn-mapbtn:active, .btn-mapbtn.active, .open .dropdown-toggle.btn-mapbtn {
+    background-color: #c000e8;
+    color:#ffffff;
+}
+
 .btn-addbalace {
     background-color: #04e7ab;
     border-bottom:2px solid #04cb97;

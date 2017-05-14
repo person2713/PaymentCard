@@ -44,9 +44,7 @@
 
 					<c:forEach var="card" items="${card}">
 						<tr>
-							<td>
-								${card.cardId}
-							</td>
+							<td>${card.cardId}</td>
 							<td>${card.cardName}</td>
 							<td>${card.typeCard.status}</td>
 							<td>${card.cardBalance.balance}</td>
@@ -59,7 +57,7 @@
 
 								<button class="btn btn-infa" onclick="location.href='${userUrl}'"><span style="color: white">История</span></button>
 								<button class="btn btn-change" onclick="location.href='${updateUrl}'"><span style="color: white">Изменить</span></button>
-                                <button class="btn btn-danger" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button>
+                                <button class="btn btn-mapbtn" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button>
 								<button class="btn btn-addbalace" onclick="location.href='${moneyUrl}'"><span style="color: white">Пополнить баланс</span></button>
 								<button class="btn btn-cardblock" onclick="location.href='${deleteUrl}'"><span style="color: white">Заблокировать</span></button></td>
               				</tr>
