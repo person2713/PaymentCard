@@ -16,25 +16,24 @@
     <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
 
     <script src="/static/js/jquery-3.2.1.js"></script>
-    <script src="/static/js/tether.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
+    <%--<script src="/static/js/tether.min.js"></script>--%>
     <script src="/static/js/admin.js"></script>
-    <%--линки для контекстного меню--%>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <%--<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>--%>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/js/user_js/moment.js"></script>
-    <script type="text/javascript" src="/static/js/user_js/daterangepicker.js"></script>
+
 
     <script>
 //        getCities();
 //        getRollers();
 //        getTypeCard();
 //        getCompanies();
-
+//        $(document).ready(function () {
+//            getUsers();
+//        });
+        getDrivers();
+        getUsers();
+        getOwners();
     </script>
 
 
@@ -64,31 +63,37 @@
                         <button type="button" class="btn btn-primary btn-block" data-toggle="dropdown">Показать
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu ">
-                            <li><a onclick="getUsers();">Список пользователей</a></li>
+                            <li><a onclick="showUsers();">Список пользователей</a></li>
                             <li><a onclick="getOwners();">Список владельцев</a></li>
                             <li><a onclick="getDrivers();">Список водителей</a></li>
-                            <li><a onclick="getCards();">Список водителей</a></li>
+                            <li><a onclick="getCards();">Список карт</a></li>
                         </ul>
                     </div>
                 <div class="dropdown ofset">
-                    <button class="btn btn-primary dropdown-toggle btn-block" type="button" data-toggle="dropdown">
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="dropdown">
                         Добавить
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu contmenu">
-                        <button type="button" class="btn btn-link" onclick="window.location='/registration'">Пользователя</button>
-                        <br>
-                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addOwner'">Владельца</button>
-                        <br>
-                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addDriver'">Водителя</button>
-                        <br>
-                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addCompany'">Компанию</button>
-                        <br>
-                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addCard'">Карту</button>
-                        <%--<button type="button" class="btn btn-link" onclick="prepareAddCards();">Карту</button>--%>
-                        <br>
-                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addBus'">Автобус</button>
-                        <br>
-                        <button type="button" class="btn btn-link" onclick="window.location='/admin/addRoute'">Маршрут</button>
+                        <li><a onclick="window.location='/registration'">Пользователя</a></li>
+                        <li><a onclick="window.location='/admin/addOwner'">Владельца</a></li>
+                        <li><a onclick="window.location='/admin/addDriver'">Водителя</a></li>
+                        <li><a onclick="window.location='/admin/addCompany'">Компанию</a></li>
+                        <li><a onclick="window.location='/admin/addCard'">Карту</a></li>
+                        <li><a onclick="window.location='/admin/addBus'">Автобус</a></li>
+                        <li><a onclick="window.location='/admin/addRoute'">Маршрут</a></li>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/registration'">Пользователя</button>--%>
+                        <%--<br>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addOwner'">Владельца</button>--%>
+                        <%--<br>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addDriver'">Водителя</button>--%>
+                        <%--<br>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addCompany'">Компанию</button>--%>
+                        <%--<br>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addCard'">Карту</button>--%>
+                        <%--<br>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addBus'">Автобус</button>--%>
+                        <%--<br>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addRoute'">Маршрут</button>--%>
                     </ul>
                 </div>
                 <div class="dropdown">
