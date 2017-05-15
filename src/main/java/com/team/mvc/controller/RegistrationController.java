@@ -108,12 +108,9 @@ public class RegistrationController {
             return "registration";
         }
 
-        if (GetRole.hasRole("ROLE_ADMIN"))
-            personService.savePerson(person);
-        else {
-            person.setRole(roleService.findByType("USER"));
-            personService.savePerson(person);
-        }
+        person.setRole(roleService.findByType("USER"));
+        personService.savePerson(person);
+
 
         if (Const.DEBUG) {
             if (logger.isDebugEnabled()) {

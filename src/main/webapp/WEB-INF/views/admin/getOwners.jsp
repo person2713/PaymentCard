@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <jsp:include page="header.jsp"/>
@@ -18,7 +19,8 @@
             <th>Город</th>
             <th>Мобильный телефон</th>
             <th>Почта</th>
-            <th></th>
+            <th>Компания</th>
+            <th>Действие</th>
         </tr>
         </thead>
         <tbody>
@@ -31,7 +33,19 @@
                 <td>${owner.person.city.cityName}</td>
                 <td>${owner.person.mobileNumber}</td>
                 <td>${owner.person.email}</td>
-                <td><input type="checkbox" value=""/></td>
+                <td>${owner.company.companyName}</td>
+                <%--<td><input type="checkbox" value=""/></td>--%>
+                <td>
+                <spring:url value="/admin/allOwners/${owner.ownerId}/delete" var="deleteUrl"/>
+                <spring:url value="/admin/allOwners/${owner.ownerId}/edit" var="editUrl"/>
+
+                <button class="btn btn-primary"
+                        onclick="location.href='${editUrl}'">Редактировать
+                </button>
+                <button class="btn btn-danger"
+                        onclick="location.href='${deleteUrl}'">Удалить
+                </button>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

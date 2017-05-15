@@ -76,14 +76,14 @@ public class GetUsers {
 
     @RequestMapping(value = "/editUsers", method = RequestMethod.POST)
     public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated Persons person,
-                                   BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
+                                   BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             return "errorPage";
         }
         if (!personService.isPersonsNicknameUnique(person.getPersonId(), person.getNickname())) {
             model.addAttribute("edit", true);
-            FieldError nicknameUniqError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
+            FieldError nicknameUniqError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.user.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
             result.addError(nicknameUniqError);
             return "registration";
         } else {

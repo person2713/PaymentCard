@@ -52,14 +52,13 @@ public class AddOwner {
 
     @Transactional
     @RequestMapping(value = "/newOwner", method = RequestMethod.POST)
-    public String saveOwner(@Valid @ModelAttribute("ownerForm") Owners owner, BindingResult result,
-                              ModelMap model) {
+    public String saveOwner(@Valid @ModelAttribute("ownerForm") Owners owner) {
         owner.getPerson().setRole(roleService.findByType("OWNER"));
         personService.savePerson(owner.getPerson());
         Long personId = personService.findByNickname(owner.getPerson().getNickname()).getPersonId();
         owner.getPerson().setPersonId(personId);
         ownerService.saveOwner(owner);
-        return "/admin/admin";
+        return "redirect:/admin/allOwners";
     }
 
     @ModelAttribute("cities")

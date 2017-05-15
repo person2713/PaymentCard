@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -97,7 +98,7 @@ public class PersonService {
 
     public boolean isPersonsNicknameUnique(Long id, String nickname) {
         Persons persons = findByNickname(nickname);
-        return (persons == null || ((id != null) && (persons.getPersonId() == id)));
+        return (persons == null || ((id != null) && (Objects.equals(persons.getPersonId(), id))));
 
     }
 

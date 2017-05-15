@@ -7,7 +7,7 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Registration</title>
 
     <%--<link href="/static/css/boot.css" rel="stylesheet">--%>
@@ -145,32 +145,13 @@
         </div>
 
 
-        <sec:authorize access="hasRole('ADMIN')">
-            <div class="row">
+            <%--<div style='display:none;' id='business'>Business Name<br/>&nbsp;--%>
+                <%--<br/>&nbsp;--%>
+                <%--<input type='text' class='text' name='business' value size='20'/>--%>
+                <%--<br/>--%>
+            <%--</div>--%>
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="Role">Role</label>
-                    <div class="col-md-4">
-                        <form:select path="role" id="role" class="form-control">
-                            <%--<form:option value="NONE" label=""/>--%>
-                            <form:options items="${rollers}" multiple="false" itemValue="roleId"
-                                          itemLabel="roleType"/>
-                            <div class="has-error">
-                                <form:errors path="role" class="help-inline"/>
-                            </div>
-                        </form:select>
-                    </div>
-                </div>
-            </div>
-
-
-            <div style='display:none;' id='business'>Business Name<br/>&nbsp;
-                <br/>&nbsp;
-                <input type='text' class='text' name='business' value size='20'/>
-                <br/>
-            </div>
-
-        </sec:authorize>
+        <%--</sec:authorize>--%>
 
         <div class="form-group">
             <label class="col-md-4 control-label"></label>

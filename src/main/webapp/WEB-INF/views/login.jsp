@@ -55,8 +55,7 @@
 										<div class="col-sm-6 col-sm-offset-3">
 											<div class="text-center">
 												<button class="btn btn-green">Вход</button>
-												<a href="/welcome" class="btn btn-orange">На главную</a>
-												<%--<input type="submit" value="На главную" class="btn btn-orange"/>--%>
+												<a href="/" class="btn btn-orange">На главную</a>
 											</div>
 										</div>
 									</div>
