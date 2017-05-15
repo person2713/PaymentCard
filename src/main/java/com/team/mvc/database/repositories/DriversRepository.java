@@ -48,7 +48,7 @@ public class DriversRepository extends AbstractRepository<Drivers> {
         Query query = session.createSQLQuery(String.format("update drivers set company_id=:companyId where driver_id=:driverId"));
         query.setParameter("companyId", driver.getCompanyId());
         query.setParameter("driverId", driver.getDriverId());
-        int result = query.executeUpdate();
+        query.executeUpdate();
 
     }
 }
