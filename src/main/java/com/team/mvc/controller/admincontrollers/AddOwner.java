@@ -44,7 +44,6 @@ public class AddOwner {
         return "admin/addOwner";
     }
 
-    @Transactional
     @RequestMapping(value = "/newOwner", method = RequestMethod.POST)
     public String saveOwner(@Valid @ModelAttribute("ownerForm") Owners owner) {
         ownerService.saveOwner(owner);

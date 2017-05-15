@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -28,22 +30,22 @@ public class Companies implements Serializable {
     @Column(name = "COMP_BALANCE")
     private BigDecimal compBalance;
 
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "CITY_ID")
     private Cities city;
-
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COMPANY_ID")
-    public Set<Buses> buses = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COMPANY_ID")
-    private Set<Drivers> drivers = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COMPANY_ID")
-    public Set<Routes> routes = new HashSet<>();
+//
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "COMPANY_ID")
+//    public Set<Buses> buses = new HashSet<>();
+//
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "COMPANY_ID")
+//    private Set<Drivers> drivers = new HashSet<>();
+//
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "COMPANY_ID")
+//    public Set<Routes> routes = new HashSet<>();
 
     public Companies() {
     }
@@ -88,29 +90,30 @@ public class Companies implements Serializable {
         this.city = city;
     }
 
-    public Set<Buses> getBuses() {
-        return buses;
-    }
+//    public Set<Buses> getBuses() {
+//        return buses;
+//    }
+//
+//    public void setBuses(Set<Buses> buses) {
+//        this.buses = buses;
+//    }
+//
+//    public Set<Drivers> getDrivers() {
+//        return drivers;
+//    }
+//
+//    public void setDrivers(Set<Drivers> drivers) {
+//        this.drivers = drivers;
+//    }
+//
+//    public Set<Routes> getRoutes() {
+//        return routes;
+//    }
+//
+//    public void setRoutes(Set<Routes> routes) {
+//        this.routes = routes;
+//    }
 
-    public void setBuses(Set<Buses> buses) {
-        this.buses = buses;
-    }
-
-    public Set<Drivers> getDrivers() {
-        return drivers;
-    }
-
-    public void setDrivers(Set<Drivers> drivers) {
-        this.drivers = drivers;
-    }
-
-    public Set<Routes> getRoutes() {
-        return routes;
-    }
-
-    public void setRoutes(Set<Routes> routes) {
-        this.routes = routes;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -126,10 +129,7 @@ public class Companies implements Serializable {
             return false;
         if (compBalance != null ? !compBalance.equals(companies.compBalance) : companies.compBalance != null)
             return false;
-        if (city != null ? !city.equals(companies.city) : companies.city != null) return false;
-        if (buses != null ? !buses.equals(companies.buses) : companies.buses != null) return false;
-        if (drivers != null ? !drivers.equals(companies.drivers) : companies.drivers != null) return false;
-        return routes != null ? routes.equals(companies.routes) : companies.routes == null;
+        return city != null ? city.equals(companies.city) : companies.city == null;
     }
 
     @Override
@@ -139,9 +139,6 @@ public class Companies implements Serializable {
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
         result = 31 * result + (compBalance != null ? compBalance.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
-        result = 31 * result + (buses != null ? buses.hashCode() : 0);
-        result = 31 * result + (drivers != null ? drivers.hashCode() : 0);
-        result = 31 * result + (routes != null ? routes.hashCode() : 0);
         return result;
     }
 }

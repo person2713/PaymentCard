@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -21,10 +23,11 @@ public class Drivers  implements Serializable {
     @JoinColumn(name = "PERSON_ID")
     private Persons person;
 
+
     @Column(name = "COMPANY_ID")
     private Long companyId;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "DRIVER_ID")
     public Set<CarAssign> carAssigns = new HashSet<>();
 

@@ -125,7 +125,7 @@ public class RegistrationController {
             }
         }
         if (GetRole.hasRole("ROLE_ADMIN"))
-            return "admin/successForAdmin";
+            return "redirect:/admin/allUsers";
         else
             return "success";
     }

@@ -41,9 +41,8 @@ public class AddCompany {
 
     @RequestMapping(value = "/newCompany", method = RequestMethod.POST)
     public String saveCompany(@Valid @ModelAttribute("companyForm") Companies companies) {
-        System.out.println("::fsdfsd");
         companyService.saveCompany(companies);
-        return "/admin/admin";
+        return "redirect:/admin/allCompanies";
     }
 
     @ModelAttribute("cities")

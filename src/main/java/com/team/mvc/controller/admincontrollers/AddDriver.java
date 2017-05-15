@@ -47,11 +47,11 @@ public class AddDriver {
         return "admin/addDriver";
     }
 
-    @Transactional
+
     @RequestMapping(value = "/newDriver", method = RequestMethod.POST)
     public String saveDriver(@Valid @ModelAttribute("driverForm") Drivers driver) {
         driversService.save(driver);
-        return "/admin/addDriver";
+        return "redirect:/admin/allDrivers";
     }
 
     @ModelAttribute("cities")

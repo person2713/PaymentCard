@@ -75,27 +75,6 @@ public class PersonService {
     }
 
 
-//
-//    public List<Persons> getOwners() {
-//        List<Persons> personList = new ArrayList<>();
-//        for (Persons person : personRepository.getAll()) {
-//            if (person.getRole().getRoleType().equals("OWNER"))
-//                personList.add(person);
-//        }
-//        return personList;
-//    }
-//
-//
-//    public List<Persons> getDrivers() {
-//        List<Persons> personList = new ArrayList<>();
-//        for (Persons person : personRepository.getAll()) {
-//            if (person.getRole().getRoleType().equals("DRIVER"))
-//                personList.add(person);
-//        }
-//        return personList;
-//    }
-
-
 
     public boolean isPersonsNicknameUnique(Long id, String nickname) {
         Persons persons = findByNickname(nickname);
@@ -130,8 +109,7 @@ public class PersonService {
         personRepository.update(persons);
     }
     public void updPass (String mail, String pass){
-        Persons persons = new Persons();
-        persons = personRepository.findByEmail(mail);
+        Persons persons = personRepository.findByEmail(mail);
         persons.setPassword(passwordEncoder.encode(pass));
     }
     public List<Persons> getAll(){

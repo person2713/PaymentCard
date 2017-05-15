@@ -1,13 +1,9 @@
 package com.team.mvc.database.repositories;
 
-import com.team.mvc.database.entities.Buses;
 import com.team.mvc.database.entities.CarAssign;
-import com.team.mvc.database.entities.Drivers;
-import com.team.mvc.database.entities.Routes;
-import javassist.NotFoundException;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,4 +27,11 @@ public class CarAssignRepository extends AbstractRepository<CarAssign> {
         criteria.addOrder(Order.asc("carAssignId"));
         return criteria.list();
     }
+
+    public List getAllForDriver(Long driverId) {
+        Criteria criteria = createEntityCriteria().add(Restrictions.eq("driverId", driverId));
+        criteria.addOrder(Order.asc("carAssignId"));
+        return criteria.list();
+    }
+
 }

@@ -132,11 +132,11 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="person.city">Выберите компанию</label>
             <div class="col-md-4">
-                <form:select path="company" class="form-control">
+                <form:select path="companyId" class="form-control">
                     <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${companies}" multiple="false" itemValue="companyId" itemLabel="companyName"/>
                     <div class="has-error">
-                        <form:errors path="company" class="help-inline"/>
+                        <form:errors path="companyId" class="help-inline"/>
                     </div>
                 </form:select>
             </div>
@@ -148,11 +148,11 @@
                 <c:choose>
                     <c:when test="${edit}">
                         <input type="submit" value="Редактировать" class="btn btn-success"/>
-                        <a href="/admin" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                        <a href="/admin/allOwners" class="forgot-password" style="padding-left: 27%">Отмена</a>
                     </c:when>
                     <c:otherwise>
                         <input type="submit" value="Добавить" class="btn btn-success"/>
-                        <a href="/admin" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                        <a href="/admin/allOwners" class="forgot-password" style="padding-left: 27%">Отмена</a>
                     </c:otherwise>
                 </c:choose>
             </div>
