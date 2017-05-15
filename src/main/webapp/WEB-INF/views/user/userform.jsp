@@ -11,7 +11,8 @@
 	<link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
 	<link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
 </head>
-<body>
+<spring:url value="http://localhost:9000/user" var="urlHome" />
+<body style="background-color: #EDEEF0">
 	<jsp:include page="header.jsp" />
 
 	<div class="container">
@@ -20,7 +21,7 @@
 		<form:form class="form-horizontal" method="post" modelAttribute="card" action="${userActionUrl}">
 
 			<form:hidden path="cardId" />
-			<h1>Изменить название карты</h1>
+			<h1>Переименовать карту</h1>
 			<br />
 			<p><big>Введите новое название</big></p>
 
@@ -33,7 +34,8 @@
 				</div>
 			</spring:bind>
 
-			<button type="submit" class="btn btn-green"><span style="color: white">Изменить</span></button>
+			<button type="submit" class="btn btn-green"><span style="color: white">Переименовать</span></button>
+			<a class="btn btn-orange" href="${urlHome}"><span style="color: white">На главную</span></a>
 
 		</form:form>
 

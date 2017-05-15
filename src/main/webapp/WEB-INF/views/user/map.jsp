@@ -1,18 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Simple markers</title>
-    <%--<style>
+    <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
+    <style>
         html,body,#map-canvas {
-            height: 100%;
-            margin: 0px;
-            padding: 0px
+            margin-left: auto;
+            margin-right: auto;
         }
-    </style>--%>
+    </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBavO2qpOK7q-FSXHh201v4gT-9PlCcGk&callback=3.exp"></script>
     <script>
         function initialize() {
@@ -31,7 +34,7 @@
 
             var myLatlng = new google.maps.LatLng(51.663223, 39.227202);
             var mapOptions = {
-                zoom : 12,
+                zoom : 14,
                 center : myLatlng
             }
             var map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -51,11 +54,20 @@
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </head>
-<body>
+<spring:url value="http://localhost:9000/user" var="urlHome" />
+
+<body style="background-color: #EDEEF0">
     <jsp:include page="header.jsp" />
-<%--<div id="map-canvas"></div>--%>
     <div class="container"></div>
-        <div id="map-canvas" style="width: 800px; height: 650px"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center">
+                    <div id="map-canvas" style="width: 700px; height: 450px" ></div>
+                    <br>
+                    <a class="btn btn-orange" href="${urlHome}"><span style="color: white">На главную</span></a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

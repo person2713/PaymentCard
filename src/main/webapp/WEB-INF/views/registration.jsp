@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Registration</title>
+    <title>Регистрация</title>
 
     <%--<link href="/static/css/boot.css" rel="stylesheet">--%>
     <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
@@ -23,7 +23,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <div class="container">
 
 
@@ -162,7 +162,7 @@
                     </c:when>
                     <c:otherwise>
                         <input type="submit" value="Зарегистрироваться" class="btn btn-success"/>
-                        <a href="/" style="padding-left: 27%">Отмена</a>
+                        <a href="/" class="btn btn-orange">Отмена</a>
                     </c:otherwise>
                 </c:choose>
                     <%--<a href="/welcome" class="forgot-password" style="padding-left: 27%">Отмена</a>--%>
