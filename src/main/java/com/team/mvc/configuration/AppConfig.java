@@ -33,8 +33,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Autowired
     CityConverter cityConverter;
 
-    @Autowired
-    DriverConverter driverConverter;
 
     @Autowired
     CompanyConverter companyConverter;
@@ -65,7 +63,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(cityConverter);
         registry.addConverter(roleConverter);
-        registry.addConverter(driverConverter);
         registry.addConverter(companyConverter);
     }
 

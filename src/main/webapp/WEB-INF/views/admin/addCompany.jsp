@@ -69,44 +69,33 @@
         </div>
 
 
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="buses">Выберите автобусы</label>
-            <div class="col-md-4">
-                <form:select path="buses" class="form-control">
-                    <%--<form:option value="NONE" label=""/>--%>
-                    <form:options items="${buses}" multiple="true" itemValue="busId" itemLabel="busNumber"/>
-                    <div class="has-error">
-                        <form:errors path="buses" class="help-inline"/>
-                    </div>
-                </form:select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="drivers">Выберите водителей</label>
-            <div class="col-md-4">
-                <form:select path="drivers" class="form-control">
-                    <%--<form:option value="NONE" label=""/>--%>
-                    <form:options items="${drivers}" multiple="true" itemValue="driverId" itemLabel="person.nickname"/>
-                    <div class="has-error">
-                        <form:errors path="drivers" class="help-inline"/>
-                    </div>
-                </form:select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="routes">Выберите маршруты</label>
-            <div class="col-md-4">
-                <form:select path="routes" class="form-control">
-                    <%--<form:option value="NONE" label=""/>--%>
-                    <form:options items="${routes}" multiple="true" itemValue="routeId" itemLabel="routeNumber"/>
-                    <div class="has-error">
-                        <form:errors path="routes" class="help-inline"/>
-                    </div>
-                </form:select>
-            </div>
-        </div>
+        <%--<div class="form-group">--%>
+            <%--<label class="col-md-4 control-label" for="buses">Выберите автобусы</label>--%>
+            <%--<div class="col-md-4">--%>
+                <%--<form:select path="buses" class="form-control">--%>
+                    <%--&lt;%&ndash;<form:option value="NONE" label=""/>&ndash;%&gt;--%>
+                    <%--<form:options items="${buses}" multiple="true" itemValue="busId" itemLabel="busNumber"/>--%>
+                    <%--<div class="has-error">--%>
+                        <%--<form:errors path="buses" class="help-inline"/>--%>
+                    <%--</div>--%>
+                <%--</form:select>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+        <form:input type="hidden" path="buses" id="drivers"/>
+        <form:input type="hidden" path="drivers" id="drivers"/>
+        <form:input type="hidden" path="routes" id="drivers"/>
+        <%--<div class="form-group">--%>
+            <%--<label class="col-md-4 control-label" for="routes">Выберите маршруты</label>--%>
+            <%--<div class="col-md-4">--%>
+                <%--<form:select path="routes" class="form-control">--%>
+                    <%--&lt;%&ndash;<form:option value="NONE" label=""/>&ndash;%&gt;--%>
+                    <%--<form:options items="${routes}" multiple="true" itemValue="routeId" itemLabel="routeNumber"/>--%>
+                    <%--<div class="has-error">--%>
+                        <%--<form:errors path="routes" class="help-inline"/>--%>
+                    <%--</div>--%>
+                <%--</form:select>--%>
+            <%--</div>--%>
+        <%--</div>--%>
 
         <div class="form-group">
             <label class="col-md-4 control-label"></label>

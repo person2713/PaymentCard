@@ -1,5 +1,8 @@
 package com.team.mvc.controller;
 
+import com.team.mvc.database.entities.Owners;
+import com.team.mvc.database.repositories.OwnerRepository;
+import com.team.mvc.database.repositories.PersonRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -24,8 +27,13 @@ public class AppController {
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
 
+    @Autowired
+    PersonRepository personRepository;
+
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
+
+
         model.addAttribute("greeting", "Welcome to the first page of the project");
         return "welcome";
     }

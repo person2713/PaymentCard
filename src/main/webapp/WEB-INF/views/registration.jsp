@@ -30,23 +30,18 @@
     <c:choose>
         <c:when test="${edit}">
             <legend><h2>Редактирование пользователя</h2></legend>
+            <spring:url value="/admin/allUsers/editUsers" var="userActionUrl"/>
         </c:when>
         <c:when test="${isAdmin}">
             <legend><h2>Добавить пользователя</h2></legend>
+            <spring:url value="/registration/newUser" var="userActionUrl"/>
         </c:when>
         <c:otherwise>
             <legend><h2>Регистрация</h2></legend>
-        </c:otherwise>
-    </c:choose>
-
-    <c:choose>
-        <c:when test="${edit}">
-            <spring:url value="/admin/allUsers/editUsers" var="userActionUrl"/>
-        </c:when>
-        <c:otherwise>
             <spring:url value="/registration/newUser" var="userActionUrl"/>
         </c:otherwise>
     </c:choose>
+
 
     <form:form method="POST" modelAttribute="userForm" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="personId" id="personId"/>

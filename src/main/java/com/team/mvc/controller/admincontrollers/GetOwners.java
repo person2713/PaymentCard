@@ -2,14 +2,12 @@ package com.team.mvc.controller.admincontrollers;
 
 import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
-import com.team.mvc.database.services.CityService;
-import com.team.mvc.database.services.CompanyService;
-import com.team.mvc.database.services.OwnerService;
-import com.team.mvc.database.services.RoleService;
+import com.team.mvc.database.services.*;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -40,8 +38,7 @@ public class GetOwners {
     @Autowired
     MessageSource messageSource;
 
-    @Autowired
-    RoleService roleService;
+
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getOwners(ModelMap model) {
@@ -61,9 +58,7 @@ public class GetOwners {
             e.printStackTrace();
         }
         return "admin/addOwner";
-
     }
-
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") long id) {
@@ -72,7 +67,7 @@ public class GetOwners {
 
     }
 
-
+    @Transactional
     @RequestMapping(value = "/editOwners", method = RequestMethod.POST)
     public String saveOrUpdateUser(@ModelAttribute("ownerForm") @Validated Owners owner, BindingResult result, Model model) {
 
@@ -81,7 +76,7 @@ public class GetOwners {
         }
         if (!ownerService.isOwnerNicknameUnique(owner.getPerson().getPersonId(), owner.getPerson().getNickname())) {
             model.addAttribute("edit", true);
-            FieldError nicknameUniqError = new FieldError("owner", "nickname", messageSource.getMessage("non.unique.owner.nickname", new String[]{owner.getPerson().getNickname()}, Locale.getDefault()));
+            FieldError nicknameUniqError = new FieldError("owner", "person.nickname", messageSource.getMessage("non.unique.owner.nickname", new String[]{owner.getPerson().getNickname()}, Locale.getDefault()));
             result.addError(nicknameUniqError);
             return "admin/addOwner";
         } else {

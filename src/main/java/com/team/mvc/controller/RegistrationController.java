@@ -130,10 +130,6 @@ public class RegistrationController {
             return "success";
     }
 
-    @ModelAttribute("rollers")
-    public List<Rollers> getRollers() {
-        return roleService.findAll();
-    }
 
     @ModelAttribute("cities")
     public List<Cities> initializeCities() {

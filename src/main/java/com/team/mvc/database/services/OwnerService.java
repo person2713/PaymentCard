@@ -1,7 +1,10 @@
 package com.team.mvc.database.services;
 
 import com.team.mvc.database.entities.Owners;
+import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.repositories.OwnerRepository;
+import com.team.mvc.database.repositories.PersonRepository;
+import com.team.mvc.database.repositories.RoleRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +15,22 @@ import java.util.List;
 @Service
 @Transactional
 public class OwnerService {
+
     @Autowired
     OwnerRepository ownerRepository;
 
+    @Autowired
+    PersonRepository personRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+
     public void saveOwner(Owners owner) {
+        owner.getPerson().setRole(roleRepository.findByType("OWNER"));
+        personRepository.save(owner.getPerson());
+        Long personId = personRepository.findByNickname(owner.getPerson().getNickname()).getPersonId();
+        owner.getPerson().setPersonId(personId);
         ownerRepository.save(owner);
     }
 
@@ -25,8 +40,10 @@ public class OwnerService {
 
     public Owners getById(Long id) throws NotFoundException {return ownerRepository.getById(id);}
 
-    public void update(Owners owners) {
-        ownerRepository.update(owners);
+    public void update(Owners owner) {
+        owner.getPerson().setRole(roleRepository.findByType("OWNER"));
+        personRepository.update(owner.getPerson());
+        ownerRepository.update(owner);
     }
 
     public void delete(Long id){

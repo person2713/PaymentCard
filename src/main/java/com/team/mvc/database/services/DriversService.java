@@ -3,6 +3,8 @@ package com.team.mvc.database.services;
 import com.team.mvc.database.entities.Drivers;
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.repositories.DriversRepository;
+import com.team.mvc.database.repositories.PersonRepository;
+import com.team.mvc.database.repositories.RoleRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,12 @@ public class DriversService {
     @Autowired
     DriversRepository driversRepository;
 
+    @Autowired
+    PersonRepository personRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
     public Drivers findById(long id) throws NotFoundException {
         return driversRepository.getById(id);
     }
@@ -26,6 +34,10 @@ public class DriversService {
     }
 
     public void save(Drivers driver){
+        driver.getPerson().setRole(roleRepository.findByType("DRIVER"));
+        personRepository.save(driver.getPerson());
+        Long personId = personRepository.findByNickname(driver.getPerson().getNickname()).getPersonId();
+        driver.getPerson().setPersonId(personId);
         driversRepository.save(driver);
     }
 

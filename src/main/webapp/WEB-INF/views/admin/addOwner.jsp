@@ -18,18 +18,22 @@
 <body>
 <div class="container">
 
-    <legend><h2>Добавить владельца</h2></legend>
+
     <c:choose>
         <c:when test="${edit}">
+            <legend><h2>Редактировать владельца</h2></legend>
             <spring:url value="/admin/allOwners/editOwners" var="userActionUrl"/>
         </c:when>
         <c:otherwise>
+            <legend><h2>Добавить владельца</h2></legend>
             <spring:url value="/admin/addOwner/newOwner" var="userActionUrl"/>
         </c:otherwise>
     </c:choose>
 
     <form:form method="POST" modelAttribute="ownerForm" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="ownerId" id="ownerId"/>
+
+        <form:input type="hidden" path="person.personId" id="person.personId"/>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="person.nickname">Никнейм</label>
