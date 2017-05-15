@@ -9,6 +9,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Driver;
 import java.util.List;
 
 
@@ -39,5 +40,15 @@ public class DriversRepository extends AbstractRepository<Drivers> {
         Query query = session.createSQLQuery(String.format("select * from drivers d left join persons p on d.person_id = p.person_id where p.nickname= :nickname"))
                 .addEntity(Drivers.class).setParameter("nickname", nickname);
         return (Drivers)query.uniqueResult();
+    }
+
+    @Override
+    public void update(Drivers driver){
+        Session session = sessionFactory.openSession();
+        Query query = session.createSQLQuery(String.format("update drivers set company_id=:companyId where driver_id=:driverId"));
+        query.setParameter("companyId", driver.getCompanyId());
+        query.setParameter("driverId", driver.getDriverId());
+        int result = query.executeUpdate();
+
     }
 }
