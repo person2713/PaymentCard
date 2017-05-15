@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </spring:bind>
-            <button type="submit" class="btn btn-green">Пополнить</button>
+            <button type="submit" class="btn btn-green"><span style="color: white">Пополнить</span></button>
         </form:form>
     </div>
 

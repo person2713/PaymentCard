@@ -177,8 +177,8 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 }
 
 .btn-cardblock {
-    background-color: #ff0907;
-    border-bottom:2px solid #d00606;
+    background-color: #B42538;
+    border-bottom:2px solid #a82637;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -186,13 +186,13 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 }
 
 .btn-cardblock:hover, .btn-cardblock:focus, .btn-cardblock:active, .btn-cardblock.active, .open .dropdown-toggle.btn-cardblock {
-    background-color: #d00606;
+    background-color: #a82637;
     color:#ffffff;
 }
 
 .btn-mapbtn {
-    background-color: #d300ff;
-    border-bottom:2px solid #c000e8;
+    background-color: #00ABE7;
+    border-bottom:2px solid #00a0d9;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -200,13 +200,13 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 }
 
 .btn-mapbtn:hover, .btn-mapbtn:focus, .btn-mapbtn:active, .btn-mapbtn.active, .open .dropdown-toggle.btn-mapbtn {
-    background-color: #c000e8;
+    background-color: #00a0d9;
     color:#ffffff;
 }
 
 .btn-addbalace {
-    background-color: #04e7ab;
-    border-bottom:2px solid #04cb97;
+    background-color: #504f6e;
+    border-bottom:2px solid #3e3d64;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -214,13 +214,13 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 }
 
 .btn-addbalace:hover, .btn-addbalace:focus, .btn-addbalace:active, .btn-addbalace.active, .open .dropdown-toggle.btn-addbalace {
-    background-color: #04cb97;
+    background-color: #3e3d64;
     color:#ffffff;
 }
 
 .btn-change {
-    background-color: #418eff;
-    border-bottom:2px solid #3a77e0;
+    background-color: #0081AF;
+    border-bottom:2px solid #007aa5;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -228,13 +228,13 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 }
 
 .btn-change:hover, .btn-change:focus, .btn-change:active, .btn-change.active, .open .dropdown-toggle.btn-change {
-    background-color: #3a77e0;
+    background-color: #007aa5;
     color:#ffffff;
 }
 
 .btn-infa {
-    background-color: #ffd600;
-    border-bottom:2px solid #d6af00;
+    background-color: #2DC7FF;
+    border-bottom:2px solid #2db8f0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -242,7 +242,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 }
 
 .btn-infa:hover, .btn-infa:focus, .btn-infa:active, .btn-infa.active, .open .dropdown-toggle.btn-infa {
-    background-color: #d6af00;
+    background-color: #2db8f0;
     color:#ffffff;
 }
 

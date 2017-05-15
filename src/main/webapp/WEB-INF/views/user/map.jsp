@@ -1,17 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Simple markers</title>
-    <style>
+    <%--<style>
         html,body,#map-canvas {
             height: 100%;
             margin: 0px;
             padding: 0px
         }
-    </style>
+    </style>--%>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBavO2qpOK7q-FSXHh201v4gT-9PlCcGk&callback=3.exp"></script>
     <script>
         function initialize() {
@@ -51,6 +52,10 @@
     </script>
 </head>
 <body>
-<div id="map-canvas"></div>
+    <jsp:include page="header.jsp" />
+<%--<div id="map-canvas"></div>--%>
+    <div class="container"></div>
+        <div id="map-canvas" style="width: 800px; height: 650px"></div>
+    </div>
 </body>
 </html>

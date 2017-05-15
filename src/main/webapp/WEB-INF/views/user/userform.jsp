@@ -33,7 +33,7 @@
 				</div>
 			</spring:bind>
 
-			<button type="submit" class="btn btn-green">Изменить</button>
+			<button type="submit" class="btn btn-green"><span style="color: white">Изменить</span></button>
 
 		</form:form>
 

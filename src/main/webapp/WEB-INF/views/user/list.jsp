@@ -13,7 +13,7 @@
 	<link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <jsp:include page="header.jsp" />
 
 	<div class="container">
