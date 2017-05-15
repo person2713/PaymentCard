@@ -10,6 +10,8 @@
     <title>Registration</title>
 
     <link href="/static/css/boot.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
 
 
 </head>
