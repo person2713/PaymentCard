@@ -73,6 +73,16 @@ public class PersonRepository  extends AbstractRepository{
         return  (Cards) sqlQuery.uniqueResult();
     }
 
+//    public Cards findEventAndBalanceHistByCardID(int id) {
+//        String que = "SELECT  *  FROM  BALANCE_HIST INNER JOIN EVENTS ON   BALANCE_HIST.CARD_ID = EVENTS.CARD_ID WHERE BALANCE_HIST.CARD_ID ="+id;
+//
+//        Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
+//        List result =  sqlQuery.list();
+//        return   result;
+//    }
+
 //    public CardBalance findBalanceByNickname(String nickname) {
 //
 //

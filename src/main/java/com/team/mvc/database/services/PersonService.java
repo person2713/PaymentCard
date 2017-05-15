@@ -113,7 +113,7 @@ public class PersonService {
 //        return personRepository.findBalanceByNickname(nickname);
 //    }
 
-
+//    public Cards findEventAndBalanceHistByCardID(int id) { return personRepository.findEventAndBalanceHistByCardID(id);}
 
     public void update(Persons persons){
         personRepository.update(persons);

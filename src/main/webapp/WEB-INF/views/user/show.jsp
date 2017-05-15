@@ -31,20 +31,22 @@
 <table id="myTable"   class="table table-striped table-bordered table" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th>Номер изменения</th>
-            <th>Карта</th>
+            <th>Номер транзакции</th>
+            <th>Маршрут</th>
             <th>Баланс</th>
             <th>Время</th>
         </tr>
     </thead>
     <tbody>
     <c:forEach items="${card.balanceHists}" var="balanceHists">
+    <c:forEach items="${card.events}" var="events">
         <tr>
             <td>${balanceHists.balanceHistId}</td>
-            <td>${balanceHists.cardId}</td>
+            <td>${events.busId}</td>
             <td>${balanceHists.changes}</td>
             <td>${balanceHists.dateEvent}</td>
         </tr>
+    </c:forEach>
     </c:forEach>
     </tbody>
 </table>
