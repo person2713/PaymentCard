@@ -64,7 +64,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/admin/allUsers">Список пользователей</a></li>
                         <li><a href="/admin/allOwners">Список владельцев</a></li>
-                        <li><a href="/admin/allOwners">Список водителей</a></li>
+                        <li><a href="/admin/allDrivers">Список водителей</a></li>
                         <li><a href="/admin/allCards">Список карт</a></li>
                         <li><a href="/admin/allCompanies">Список компаний</a></li>
                     </ul>

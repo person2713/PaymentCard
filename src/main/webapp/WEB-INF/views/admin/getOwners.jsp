@@ -19,7 +19,6 @@
             <th>Город</th>
             <th>Мобильный телефон</th>
             <th>Почта</th>
-            <th>Компания</th>
             <th>Действие</th>
         </tr>
         </thead>
@@ -33,7 +32,6 @@
                 <td>${owner.person.city.cityName}</td>
                 <td>${owner.person.mobileNumber}</td>
                 <td>${owner.person.email}</td>
-                <td>${owner.company.companyName}</td>
                 <%--<td><input type="checkbox" value=""/></td>--%>
                 <td>
                 <spring:url value="/admin/allOwners/${owner.ownerId}/delete" var="deleteUrl"/>

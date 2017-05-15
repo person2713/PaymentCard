@@ -1,24 +1,28 @@
 package com.team.mvc.controller;
 
-import com.team.mvc.database.services.CardsService;
-import com.team.mvc.database.services.CityService;
-import com.team.mvc.database.services.PersonService;
-import com.team.mvc.database.services.RoleService;
+import com.team.mvc.database.entities.CarAssign;
+import com.team.mvc.database.entities.Drivers;
+import com.team.mvc.database.entities.Owners;
+import com.team.mvc.database.repositories.CarAssignRepository;
+import com.team.mvc.database.repositories.DriversRepository;
+import com.team.mvc.database.repositories.OwnerRepository;
+import com.team.mvc.database.repositories.PersonRepository;
+import com.team.mvc.database.services.DriversService;
+import com.team.mvc.database.services.OwnerService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 @Controller
@@ -28,50 +32,19 @@ public class AppController {
     private static final Logger logger = Logger.getLogger(AppController.class.getName());
 
     @Autowired
-    CityService cityService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    PersonService personService;
-
-    @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
 
     @Autowired
-    RoleService roleService;
+    OwnerService ownerService;
 
     @Autowired
-    CardsService cardsService;
-
-    @Autowired
-    PersonService userService;
-
-
-
-
+    CarAssignRepository carAssignRepository;
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
         return "welcome";
     }
-
-
-    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public String welcomePage(ModelMap model) {
-        return "admin/admin";
-    }
-
-
-    @RequestMapping(value = "/header", method = RequestMethod.GET)
-    public String headerPage(ModelMap model) {
-        model.addAttribute("user", GetRole.getPrincipal());
-        return "header";
-    }
-
-
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
@@ -92,13 +65,11 @@ public class AppController {
     }*/
 
 
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
 
     public String loginPage() {
         return "login";
     }
-
 
 
     public String loginPage(ModelMap model) {
@@ -130,15 +101,6 @@ public class AppController {
         }
         return "redirect:/login?logout";
     }
-
-//
-
-    @ModelAttribute("loguser")
-    public String initializeCities() {
-       return GetRole.getPrincipal();
-    }
-//
-
 
     // метод для проверки авторизации пользователя
     private boolean isCurrentAuthenticationAnonymous() {

@@ -67,9 +67,8 @@ public class GetOwners {
 
     }
 
-    @Transactional
     @RequestMapping(value = "/editOwners", method = RequestMethod.POST)
-    public String saveOrUpdateUser(@ModelAttribute("ownerForm") @Validated Owners owner, BindingResult result, Model model) {
+    public String saveOrUpdateOwner(@ModelAttribute("ownerForm") @Validated Owners owner, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             return "errorPage";

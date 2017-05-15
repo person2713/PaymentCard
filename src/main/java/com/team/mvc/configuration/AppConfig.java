@@ -34,9 +34,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     CityConverter cityConverter;
 
 
-    @Autowired
-    CompanyConverter companyConverter;
-
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -63,7 +60,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(cityConverter);
         registry.addConverter(roleConverter);
-        registry.addConverter(companyConverter);
     }
 
     @Bean
