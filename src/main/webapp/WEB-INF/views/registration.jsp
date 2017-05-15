@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
 <head>
@@ -12,9 +13,9 @@
     <%--<link href="/static/css/boot.css" rel="stylesheet">--%>
     <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
     <%--<link href="/static/css/login_css/login.css" rel="stylesheet">--%>
-    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
+    <link href="/static/css/welcome_css/templatemo_style.css" rel="stylesheet">
     <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
-    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon"/>
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -27,7 +28,10 @@
 
 
     <c:choose>
-        <c:when test="${flag}">
+        <c:when test="${edit}">
+            <legend><h2>Редактирование пользователя</h2></legend>
+        </c:when>
+        <c:when test="${isAdmin}">
             <legend><h2>Добавить пользователя</h2></legend>
         </c:when>
         <c:otherwise>
@@ -35,36 +39,54 @@
         </c:otherwise>
     </c:choose>
 
-    <form:form method="POST" modelAttribute="userForm" action="/registration/newUser" class="form-horizontal">
+    <c:choose>
+        <c:when test="${edit}">
+            <spring:url value="/admin/allUsers/editUsers" var="userActionUrl"/>
+        </c:when>
+        <c:otherwise>
+            <spring:url value="/registration/newUser" var="userActionUrl"/>
+        </c:otherwise>
+    </c:choose>
+
+    <form:form method="POST" modelAttribute="userForm" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="personId" id="personId"/>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="nickname">Никнейм</label>
             <div class="col-md-4">
-                <c:choose>
-                    <c:when test="${edit}">
-                        <form:input type="text" path="nickname" id="nickname" class="form-control"/>
-                    </c:when>
-                    <c:otherwise>
-                        <form:input type="text" path="nickname" id="nickname" class="form-control"/>
-                        <div class="has-error">
-                            <form:errors path="nickname" class="help-inline"/>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="password">Пароль</label>
-            <div class="col-md-4">
-                <form:input type="password" path="password" id="password" class="form-control"/>
-                <div class="pwstrength_viewport_progress"></div>
+                <form:input type="text" path="nickname" id="nickname" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="password" class="help-inline"/>
+                    <form:errors path="nickname" class="help-inline"/>
                 </div>
             </div>
         </div>
+        <c:choose>
+            <c:when test="${edit}">
+                <div class="form-group" style="display:none;">
+                    <label class="col-md-4 control-label" for="password">Пароль</label>
+                    <div class="col-md-4">
+                        <form:input type="password" path="password" id="password" class="form-control"/>
+                        <div class="pwstrength_viewport_progress"></div>
+                        <div class="has-error">
+                            <form:errors path="password" class="help-inline"/>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="password">Пароль</label>
+                    <div class="col-md-4">
+                        <form:input type="password" path="password" id="password" class="form-control"/>
+                        <div class="pwstrength_viewport_progress"></div>
+                        <div class="has-error">
+                            <form:errors path="password" class="help-inline"/>
+                        </div>
+                    </div>
+                </div>
+            </c:otherwise>
+        </c:choose>
+
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="firstName">Имя</label>
@@ -113,7 +135,7 @@
             <label class="col-md-4 control-label" for="city">Выберите город</label>
             <div class="col-md-4">
                 <form:select path="city" class="form-control">
-                    <form:option value="NONE" label=""/>
+                    <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${cities}" multiple="false" itemValue="cityId" itemLabel="cityName"/>
                     <div class="has-error">
                         <form:errors path="city" class="help-inline"/>
@@ -130,7 +152,7 @@
                     <label class="col-md-4 control-label" for="Role">Role</label>
                     <div class="col-md-4">
                         <form:select path="role" id="role" class="form-control">
-                            <form:option value="NONE" label=""/>
+                            <%--<form:option value="NONE" label=""/>--%>
                             <form:options items="${rollers}" multiple="false" itemValue="roleId"
                                           itemLabel="roleType"/>
                             <div class="has-error">
@@ -154,13 +176,17 @@
             <label class="col-md-4 control-label"></label>
             <div class="col-md-4">
                 <c:choose>
-                    <c:when test="${flag}">
+                    <c:when test="${edit}">
+                        <input type="submit" value="Редактировать" class="btn btn-success"/>
+                        <a href="/admin" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                    </c:when>
+                    <c:when test="${isAdmin}">
                         <input type="submit" value="Добавить" class="btn btn-success"/>
                         <a href="/admin" class="forgot-password" style="padding-left: 27%">Отмена</a>
                     </c:when>
                     <c:otherwise>
                         <input type="submit" value="Зарегистрироваться" class="btn btn-success"/>
-                        <a href="/welcome"  style="padding-left: 27%">Отмена</a>
+                        <a href="/" style="padding-left: 27%">Отмена</a>
                     </c:otherwise>
                 </c:choose>
                     <%--<a href="/welcome" class="forgot-password" style="padding-left: 27%">Отмена</a>--%>
@@ -168,11 +194,11 @@
         </div>
     </form:form>
 
-    <div class="navbar navbar-inner  navbar-fixed-bottom">
-        <p>
-        <center class="text-muted">© NetCracker Education Center 2017</center>
-        </p>
-    </div>
+    <%--<div class="navbar navbar-inner  navbar-fixed-bottom">--%>
+        <%--<p>--%>
+        <%--<center class="text-muted">© NetCracker Education Center 2017</center>--%>
+        <%--</p>--%>
+    <%--</div>--%>
 </div>
 
 <script type="text/javascript">
@@ -184,7 +210,7 @@
      * Dual licensed under the MIT and GPL licenses.
      */
 
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
         "use strict";
         var options = {};
         options.ui = {
@@ -196,7 +222,7 @@
         };
         options.common = {
             debug: true,
-            onLoad: function() {
+            onLoad: function () {
                 $('#messages').text('Start typing password');
             }
         };
@@ -208,8 +234,6 @@
 // Source: src/rules.js
 
 
-
-
         var rulesEngine = {};
 
         try {
@@ -218,7 +242,8 @@
                     jsdom = require("jsdom").jsdom;
                 jQuery = jQuery(jsdom().parentWindow);
             }
-        } catch (ignore) {}
+        } catch (ignore) {
+        }
 
         (function ($, rulesEngine) {
             "use strict";
@@ -263,7 +288,9 @@
             };
 
             validation.wordRepetitions = function (options, word, score) {
-                if (word.match(/(.)\1\1/)) { return score; }
+                if (word.match(/(.)\1\1/)) {
+                    return score;
+                }
                 return 0;
             };
 
@@ -281,7 +308,9 @@
                             }
                         });
                     });
-                    if (found) { return score; }
+                    if (found) {
+                        return score;
+                    }
                 }
                 return 0;
             };
@@ -361,11 +390,10 @@
             if (module && module.exports) {
                 module.exports = rulesEngine;
             }
-        } catch (ignore) {}
+        } catch (ignore) {
+        }
 
 // Source: src/options.js
-
-
 
 
         var defaultOptions = {};
@@ -427,7 +455,9 @@
         defaultOptions.ui.spanError = function (options, key) {
             "use strict";
             var text = options.ui.errorMessages[key];
-            if (!text) { return ''; }
+            if (!text) {
+                return '';
+            }
             return '<span style="color: #d52929">' + text + '</span>';
         };
         defaultOptions.ui.popoverError = function (errors) {
@@ -461,8 +491,6 @@
         defaultOptions.ui.scores = [14, 26, 38, 50];
 
 // Source: src/ui.js
-
-
 
 
         var ui = {};
@@ -569,7 +597,9 @@
                 if (options.ui.showPopover) {
                     ui.initPopover(options, $el);
                 } else {
-                    if (options.ui.showErrors) { ui.initErrorList(options, $el); }
+                    if (options.ui.showErrors) {
+                        ui.initErrorList(options, $el);
+                    }
                     if (options.ui.showVerdicts && !options.ui.showVerdictsInsideProgressBar) {
                         ui.initVerdict(options, $el);
                     }
@@ -617,8 +647,7 @@
                     html = "",
                     hide = true;
 
-                if (options.ui.showVerdicts &&
-                    !options.ui.showVerdictsInsideProgressBar &&
+                if (options.ui.showVerdicts && !options.ui.showVerdictsInsideProgressBar &&
                     verdictText.length > 0) {
                     html = "<h5><span class='password-verdict'>" + verdictText +
                         "</span></h5>";
@@ -636,7 +665,9 @@
                     return;
                 }
 
-                if (options.ui.bootstrap2) { popover = $el.data("popover"); }
+                if (options.ui.bootstrap2) {
+                    popover = $el.data("popover");
+                }
 
                 if (popover.$arrow && popover.$arrow.parents("body").length > 0) {
                     $el.find("+ .popover .popover-content").html(html);
@@ -652,12 +683,16 @@
                     $container = $el.parents(targetClass).first();
 
                 $.each(statusClasses, function (idx, css) {
-                    if (!options.ui.bootstrap2) { css = "has-" + css; }
+                    if (!options.ui.bootstrap2) {
+                        css = "has-" + css;
+                    }
                     $container.removeClass(css);
                 });
 
                 cssClass = statusClasses[cssClass];
-                if (!options.ui.bootstrap2) { cssClass = "has-" + cssClass; }
+                if (!options.ui.bootstrap2) {
+                    cssClass = "has-" + cssClass;
+                }
                 $container.addClass(cssClass);
             };
 
@@ -735,8 +770,6 @@
 // Source: src/methods.js
 
 
-
-
         var methods = {};
 
         (function ($, methods) {
@@ -752,7 +785,9 @@
                     verdictLevel,
                     score;
 
-                if (options === undefined) { return; }
+                if (options === undefined) {
+                    return;
+                }
 
                 options.instances.errors = [];
                 if (options.common.zxcvbn) {
@@ -770,7 +805,9 @@
                 verdictLevel = verdictText[2];
                 verdictText = verdictText[0];
 
-                if (options.common.debug) { console.log(score + ' - ' + verdictText); }
+                if (options.common.debug) {
+                    console.log(score + ' - ' + verdictText);
+                }
 
                 if ($.isFunction(options.common.onKeyUp)) {
                     options.common.onKeyUp(event, {
@@ -822,7 +859,7 @@
 
             methods.forceUpdate = function () {
                 this.each(function (idx, el) {
-                    var event = { target: el };
+                    var event = {target: el};
                     onKeyUp(event);
                 });
             };
@@ -859,7 +896,7 @@
                 } else if (typeof method === "object" || !method) {
                     result = methods.init.apply(this, arguments);
                 } else {
-                    $.error("Method " +  method + " does not exist on jQuery.pwstrength-bootstrap");
+                    $.error("Method " + method + " does not exist on jQuery.pwstrength-bootstrap");
                 }
 
                 return result;

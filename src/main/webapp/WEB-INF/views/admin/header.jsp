@@ -31,13 +31,21 @@
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
     <script>
         $(document).ready(function () {
-            $('#myTable').DataTable({
+                $('#myTable').DataTable({
 
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Russian.json"
-                }
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.13/i18n/Russian.json"
+                    }
+                });
+
+            },
+            function () {
+                $('table tr').click(function (event) {
+                    if (event.target.type !== 'checkbox') {
+                        $(':checkbox', this).trigger('click');
+                    }
+                });
             });
-        });
     </script>
 </head>
 <nav class="navbar navbar-inverse">

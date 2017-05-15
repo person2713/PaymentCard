@@ -10,9 +10,9 @@
 
 </head>
 <body>
-    <div class="text-center">
-        <h4 style="margin-top: 10%">Ваш аккаунт успешно зарегистрирован.</h4>
-        <a href="/" class="btn btn-orange">На главную</a>
-    </div>
+<div class="text-center">
+    <h4 style="margin-top: 10%">Пользователь успешно добавлен.</h4>
+    <a href="/admin/allUsers" class="btn btn-orange">На домашнюю страницу</a>
+</div>
 </body>
 </html>

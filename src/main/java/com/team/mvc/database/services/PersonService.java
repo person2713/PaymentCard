@@ -64,6 +64,15 @@ public class PersonService {
         return personList;
     }
 
+    public void delete(Long id) {
+        try {
+            personRepository.delete(personRepository.getById(id));
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 //
 //    public List<Persons> getOwners() {
 //        List<Persons> personList = new ArrayList<>();

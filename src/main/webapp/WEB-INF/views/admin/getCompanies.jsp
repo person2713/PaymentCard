@@ -10,6 +10,7 @@
     <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
         <tr>
+            <th>№</th>
             <th>Название компании</th>
             <th>Телефонный номер</th>
             <th>Баланс</th>
@@ -20,8 +21,7 @@
         <tbody>
         <c:forEach items="${companies}" var="company">
             <tr>
-                    <%--с ним не работает--%>
-                    <%--<td style="display:none">${person.personId}</td>--%>
+                <td>${company.companyId}</td>
                 <td>${company.companyName}</td>
                 <td>${company.phoneNumber}</td>
                 <td>${company.compBalance}</td>

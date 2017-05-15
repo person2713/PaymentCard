@@ -1,15 +1,10 @@
 package com.team.mvc.controller;
 
-import com.team.mvc.database.services.CardsService;
-import com.team.mvc.database.services.CityService;
-import com.team.mvc.database.services.PersonService;
-import com.team.mvc.database.services.RoleService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,46 +22,13 @@ public class AppController {
     private static final Logger logger = Logger.getLogger(AppController.class.getName());
 
     @Autowired
-    CityService cityService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    PersonService personService;
-
-    @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
-
-    @Autowired
-    RoleService roleService;
-
-    @Autowired
-    CardsService cardsService;
-
-    @Autowired
-    PersonService userService;
-
-
-
-
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
         model.addAttribute("greeting", "Welcome to the first page of the project");
         return "welcome";
     }
-
-
-    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public String welcomePage(ModelMap model) {
-        return "admin/admin";
-    }
-
-
-
-
-
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
@@ -87,13 +49,11 @@ public class AppController {
     }*/
 
 
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
 
     public String loginPage() {
         return "login";
     }
-
 
 
     public String loginPage(ModelMap model) {
@@ -125,15 +85,6 @@ public class AppController {
         }
         return "redirect:/login?logout";
     }
-
-//
-//
-//    @ModelAttribute("cities")
-//    public List<Cities> initializeCities() {
-//        return cityService.getAll();
-//    }
-//
-
 
     // метод для проверки авторизации пользователя
     private boolean isCurrentAuthenticationAnonymous() {

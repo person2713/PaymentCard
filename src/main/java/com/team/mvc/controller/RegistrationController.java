@@ -51,7 +51,7 @@ public class RegistrationController {
         Persons person = new Persons();
         model.addAttribute("userForm", person);
         model.addAttribute("edit", false);
-        model.addAttribute("flag", GetRole.hasRole("ROLE_ADMIN"));
+        model.addAttribute("isAdmin", GetRole.hasRole("ROLE_ADMIN"));
         return "registration";
     }
 
@@ -96,7 +96,7 @@ public class RegistrationController {
             errors.add(emailError);
         }
 
-        if (person.getCity()==null) {
+        if (person.getCity() == null) {
             FieldError cityError = new FieldError("person", "city", messageSource.getMessage("NotEmpty.person.city", new Cities[]{person.getCity()}, Locale.getDefault()));
             errors.add(cityError);
         }
@@ -110,7 +110,7 @@ public class RegistrationController {
 
         if (GetRole.hasRole("ROLE_ADMIN"))
             personService.savePerson(person);
-        else{
+        else {
             person.setRole(roleService.findByType("USER"));
             personService.savePerson(person);
         }
@@ -124,21 +124,24 @@ public class RegistrationController {
                         " Email-" + person.getEmail() +
                         " City-" + person.getCity().getCityName() +
                         " MobileNumber-" + person.getMobileNumber() +
-                        " Role-"+person.getRole().getRoleType());
+                        " Role-" + person.getRole().getRoleType());
             }
         }
-
-        return "success";
+        if (GetRole.hasRole("ROLE_ADMIN"))
+            return "admin/successForAdmin";
+        else
+            return "success";
     }
 
     @ModelAttribute("rollers")
-    public List<Rollers> getRollers() { return roleService.findAll();}
+    public List<Rollers> getRollers() {
+        return roleService.findAll();
+    }
 
     @ModelAttribute("cities")
     public List<Cities> initializeCities() {
         return cityService.getAll();
     }
-
 
 
 }

@@ -124,7 +124,7 @@
             <label class="col-md-4 control-label"></label>
             <div class="col-md-4">
                         <input type="submit" value="Добавить" class="btn btn-success"/>
-                        <a href="/admin" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                        <a href="/admin/addCard" class="forgot-password" style="padding-left: 27%">Отмена</a>
             </div>
         </div>
     </form:form>

@@ -10,6 +10,7 @@
     <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
         <tr>
+            <th>№</th>
             <th>Никнейм</th>
             <th>Имя</th>
             <th>Фамилия</th>
@@ -22,8 +23,7 @@
         <tbody>
         <c:forEach items="${drivers}" var="driver">
             <tr>
-                    <%--с ним не работает--%>
-                    <%--<td style="display:none">${person.personId}</td>--%>
+                <td>${driver.person.personId}</td>
                 <td>${driver.person.nickname}</td>
                 <td>${driver.person.firstName}</td>
                 <td>${driver.person.lastName}</td>
