@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Registration</title>
+    <title>Добавить водителя</title>
 
     <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <div class="container">
 
     <legend><h2>Добавить водителя</h2></legend>
@@ -126,7 +126,7 @@
             <label class="col-md-4 control-label"></label>
             <div class="col-md-4">
                 <input type="submit" value="Добавить" class="btn btn-success"/>
-                <a href="/admin" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                <a href="/admin" class="btn btn-orange">Отмена</a>
             </div>
         </div>
 

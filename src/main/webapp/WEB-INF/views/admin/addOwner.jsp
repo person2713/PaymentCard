@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Registration</title>
+    <title>Добавить владельца</title>
 
     <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <div class="container">
 
 
@@ -152,7 +152,7 @@
                     </c:when>
                     <c:otherwise>
                         <input type="submit" value="Добавить" class="btn btn-success"/>
-                        <a href="/admin" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                        <a href="/admin" class="btn btn-orange">Отмена</a>
                     </c:otherwise>
                 </c:choose>
             </div>

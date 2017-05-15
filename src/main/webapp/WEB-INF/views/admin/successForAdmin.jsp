@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Success</title>
+    <title>Добавление</title>
     <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
     <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">

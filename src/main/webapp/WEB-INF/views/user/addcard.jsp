@@ -15,7 +15,7 @@
 </head>
 <spring:url value="http://localhost:9000/user" var="urlHome" />
 
-<body>
+<body style="background-color: #EDEEF0">
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">

@@ -7,7 +7,7 @@
     <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <div id="mainWrapper">
 
     <c:url  value="/resetPass"/>

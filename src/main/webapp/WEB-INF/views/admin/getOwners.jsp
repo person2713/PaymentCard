@@ -7,7 +7,7 @@
 <head>
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <div id="content">
     <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
