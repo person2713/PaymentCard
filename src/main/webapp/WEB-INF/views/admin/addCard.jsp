@@ -36,7 +36,7 @@
         </c:when>
         <c:otherwise>
             <legend><h2>Добавить карту</h2></legend>
-            <spring:url value="/admin/addDriver/newCard" var="userActionUrl"/>
+            <spring:url value="/admin/addCard/newCard" var="userActionUrl"/>
         </c:otherwise>
     </c:choose>
 

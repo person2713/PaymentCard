@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
 @Transactional
 public class CompanyService {
-
-
 
     @Autowired
     CompaniesRepository companiesRepository;
@@ -27,29 +26,22 @@ public class CompanyService {
 
     public boolean isCompanyNameUnique(Long id, String companyName) {
         Companies company = companiesRepository.findByCompanyName(companyName);
-        return (company == null || ((id != null) && (company.getCompanyId() == id)));
+        return (company == null || ((id != null) && (Objects.equals(company.getCompanyId(), id))));
     }
 
     public List<Companies> getAll() {
         return companiesRepository.getAll();
     }
 
-    public Companies getByCompanyName(String companyName) {
-        return companiesRepository.findByCompanyName(companyName);
-    }
-
-
-    public void updateCompany(Companies company) throws NotFoundException {
-        Companies entity = companiesRepository.getById(company.getCompanyId());
-
-        if (entity != null) {
-            entity.setCompanyId(company.getCompanyId());
-            entity.setCompanyName(company.getCompanyName());
-            entity.setPhoneNumber(company.getPhoneNumber());
-        }
-    }
-
     public Companies findById(Long id) throws NotFoundException {
         return companiesRepository.getById(id);
+    }
+
+    public void delete (Long id) throws NotFoundException {
+        companiesRepository.delete(companiesRepository.getById(id));
+    }
+
+    public void update(Companies company){
+        companiesRepository.update(company);
     }
 }

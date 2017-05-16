@@ -1,5 +1,6 @@
 package com.team.mvc.database.repositories;
 
+import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Companies;
 import com.team.mvc.database.entities.Persons;
 import org.hibernate.Criteria;
@@ -20,4 +21,10 @@ public class CompaniesRepository extends AbstractRepository<Companies> {
         criteria.add(Restrictions.eq("companyName", companyName));
         return (Companies) criteria.uniqueResult();
     }
+
+    @Override
+    public void update(Companies company){
+
+    }
+
 }

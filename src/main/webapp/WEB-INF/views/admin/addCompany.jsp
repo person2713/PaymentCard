@@ -3,11 +3,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Добавить компанию</title>
+    <c:choose>
+        <c:when test="${edit}">
+            <title>Редактировать компанию</title>
+        </c:when>
+        <c:otherwise>
+            <title>Добавить компанию</title>
+        </c:otherwise>
+    </c:choose>
 
     <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
@@ -19,13 +27,19 @@
 <body style="background-color: #EDEEF0">
 <div class="container">
 
+    <c:choose>
+        <c:when test="${edit}">
+            <legend><h2>Редактировать компанию</h2></legend>
+            <spring:url value="/admin/allCompanies/editCompany" var="userActionUrl"/>
+        </c:when>
+        <c:otherwise>
+            <legend><h2>Добавить компанию</h2></legend>
+            <spring:url value="/admin/addCompany/newCompany" var="userActionUrl"/>
+        </c:otherwise>
+    </c:choose>
 
-    <legend><h2>Добавить компанию</h2></legend>
-
-
-    <form:form method="POST" modelAttribute="companyForm" action="/admin/addCompany/newCompany" class="form-horizontal">
+    <form:form method="POST" modelAttribute="companyForm" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="companyId" id="companyId"/>
-
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="companyName">Имя компании</label>
@@ -113,8 +127,16 @@
         <div class="form-group">
             <label class="col-md-4 control-label"></label>
             <div class="col-md-4">
-                <input type="submit" value="Добавить" class="btn btn-success"/>
-                <a href="/admin" class="btn btn-orange">Отмена</a>
+                <c:choose>
+                    <c:when test="${edit}">
+                        <input type="submit" value="Редактировать" class="btn btn-success"/>
+                        <a href="/admin/allCompanies" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="submit" value="Добавить" class="btn btn-success"/>
+                        <a href="/admin/allCompanies" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </form:form>
