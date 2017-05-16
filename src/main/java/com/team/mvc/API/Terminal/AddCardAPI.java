@@ -36,7 +36,7 @@ public class AddCardAPI {
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<?> onAssignCar(HttpServletRequest request, @RequestBody AddedCard addedCard) {
+    public ResponseEntity<?> onAddCard(HttpServletRequest request, @RequestBody AddedCard addedCard) {
         String log = "";
         try {
             log += request.getRemoteAddr() + "\t";

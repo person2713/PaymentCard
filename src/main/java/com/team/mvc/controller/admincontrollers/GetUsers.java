@@ -62,7 +62,6 @@ public class GetUsers {
             e.printStackTrace();
         }
         return "registration";
-
     }
 
 
@@ -70,9 +69,7 @@ public class GetUsers {
     public String deleteUser(@PathVariable("id") long id) {
         personService.delete(id);
         return "redirect:/admin/allUsers";
-
     }
-
 
     @RequestMapping(value = "/editUser", method = RequestMethod.POST)
     public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated Persons person,

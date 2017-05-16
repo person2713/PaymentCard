@@ -3,8 +3,11 @@ package com.team.mvc.controller.admincontrollers;
 
 import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.Cards;
+import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.entities.TypeCard;
 import com.team.mvc.database.services.CardsService;
+import com.team.mvc.database.services.PersonService;
+import com.team.mvc.database.services.SendSMSMessageService;
 import com.team.mvc.database.services.TypeCardService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,12 @@ public class GetCards {
 
     @Autowired
     TypeCardService typeCardService;
+
+    @Autowired
+    SendSMSMessageService sendSMSMessageService;
+
+    @Autowired
+    PersonService personService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getCards(ModelMap model) {
@@ -81,7 +90,6 @@ public class GetCards {
             if (!cardService.isCardKeyUnique(card.getCardId(), card.getCardKey())) {
                 FieldError cardKeyUniqError = new FieldError("card", "cardKey", messageSource.getMessage("non.unique.card.cardKey", new String[]{card.getCardKey().toString()}, Locale.getDefault()));
                 errors.add(cardKeyUniqError);
-
             }
         } catch (NotFoundException e) {
             e.printStackTrace();
@@ -93,8 +101,18 @@ public class GetCards {
             }
             model.addAttribute("edit", true);
             return "admin/addCard";
-        }
-        else {
+        } else {
+            Cards previousCard = null;
+            try {//Оповещаем пользователя о блокировке карты
+                previousCard = cardService.findById(card.getCardId());
+                if (!previousCard.getTypeCard().getStatus().equals(card.getTypeCard().getStatus()) &&
+                        card.getTypeCard().getStatus().equals("block"))
+                    sendSMSMessageService.SendMessage(personService.findById(previousCard.getPersonId()).getMobileNumber(),
+                            "Уважаемый клиент! Ваша карта №" + card.getCardKey() + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com");
+
+            } catch (Exception ex) {
+                System.out.println("Error occured: " + ex.getMessage());
+            }
             cardService.update(card);
             return "redirect:/admin/allCards";
         }
@@ -105,4 +123,6 @@ public class GetCards {
         return typeCardService.getAll();
     }
 
+    @ModelAttribute("persons")
+    public List<Persons> getAllPersons(){return personService.getAll();}
 }
