@@ -33,10 +33,9 @@ public class AddRoute {
     }
 
     @RequestMapping(value = "/newRoute", method = RequestMethod.POST)
-    public String saveBus(@Valid @ModelAttribute("routeForm") Routes route, BindingResult result,
-                          ModelMap model) {
+    public String saveBus(@Valid @ModelAttribute("routeForm") Routes route) {
         routeService.save(route);
-        return "/admin/admin";
+        return "redirect:/admin/allRoutes";
     }
 
     @ModelAttribute("companies")

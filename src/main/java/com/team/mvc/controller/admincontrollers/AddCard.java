@@ -40,7 +40,7 @@ public class AddCard {
     public String saveCard(@Valid @ModelAttribute("cardForm") Cards card) {
         card.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
         cardService.saveCard(card);
-        return "/admin/allCards";
+        return "redirect:/admin/allCards";
     }
 
     @ModelAttribute("persons")

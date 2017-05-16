@@ -67,6 +67,8 @@
                         <li><a href="/admin/allDrivers">Список водителей</a></li>
                         <li><a href="/admin/allCards">Список карт</a></li>
                         <li><a href="/admin/allCompanies">Список компаний</a></li>
+                        <li><a href="/admin/allBuses">Список автобусов</a></li>
+                        <li><a href="/admin/allRoutes">Список маршрутов</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

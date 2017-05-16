@@ -9,16 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
 public class BusesService {
     @Autowired
     BusesRepository busesRepository;
-
-    public Buses findById(int id) throws NotFoundException {
-        return busesRepository.getById((long) id);
-    }
 
     public Buses findById(long id) throws NotFoundException {
         return busesRepository.getById(id);
@@ -34,5 +31,18 @@ public class BusesService {
 
     public List<Buses> getAll() {
         return busesRepository.getAll();
+    }
+
+    public void delete(long id) throws NotFoundException {
+        busesRepository.delete(busesRepository.getById(id));
+    }
+
+    public boolean isBusNumberUnique(Long id, String companyName) {
+        Buses bus = busesRepository.findByBusNumber(companyName);
+        return (bus == null || ((id != null) && (Objects.equals(bus.getCompanyId(), id))));
+    }
+
+    public void update(Buses bus){
+        busesRepository.update(bus);
     }
 }

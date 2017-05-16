@@ -1,8 +1,10 @@
 package com.team.mvc.controller.admincontrollers;
 
 import com.team.mvc.controller.GetRole;
-import com.team.mvc.database.entities.*;
-import com.team.mvc.database.services.*;
+import com.team.mvc.database.entities.Buses;
+import com.team.mvc.database.entities.Companies;
+import com.team.mvc.database.services.BusesService;
+import com.team.mvc.database.services.CompanyService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -21,11 +23,11 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/admin/allCompanies")
-public class GetCompanies {
+@RequestMapping("/admin/allBuses")
+public class GetBuses {
 
     @Autowired
-    CityService cityService;
+    BusesService busesService;
 
     @Autowired
     CompanyService companyService;
@@ -34,57 +36,56 @@ public class GetCompanies {
     MessageSource messageSource;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String getCompanies(ModelMap model) {
+    public String getBuses(ModelMap model) {
         model.addAttribute("loggedinuser", GetRole.getPrincipal());
-        model.addAttribute("companies", companyService.getAll());
-        return "admin/getCompanies";
+        model.addAttribute("buses", busesService.getAll());
+        return "admin/getBuses";
     }
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    public String showUpdateCompanyForm(@PathVariable("id") long id, Model model) {
+    public String showUpdateBusForm(@PathVariable("id") long id, Model model) {
 
         try {
-            Companies company = companyService.findById(id);
+            Buses bus = busesService.findById(id);
             model.addAttribute("edit", true);
-            model.addAttribute("companyForm", company);
+            model.addAttribute("busForm", bus);
         } catch (NotFoundException e) {
             e.printStackTrace();
         }
-        return "admin/addCompany";
+        return "admin/addBus";
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String deleteCompany(@PathVariable("id") long id) {
         try {
-            companyService.delete(id);
+            busesService.delete(id);
         } catch (NotFoundException e) {
             e.printStackTrace();
         }
-        return "redirect:/admin/allCompanies";
+        return "redirect:/admin/allBuses";
 
     }
 
-    @RequestMapping(value = "/editCompany", method = RequestMethod.POST)
-    public String saveOrUpdateDriver(@ModelAttribute("companyForm") @Validated Companies company, BindingResult result, Model model) throws NotFoundException {
+    @RequestMapping(value = "/editBus", method = RequestMethod.POST)
+    public String saveOrUpdateDriver(@ModelAttribute("busForm") @Validated Buses bus, BindingResult result, Model model) throws NotFoundException {
 
         if (result.hasErrors()) {
             return "errorPage";
         }
-        if (!companyService.isCompanyNameUnique(company.getCompanyId(), company.getCompanyName())) {
+        if (!busesService.isBusNumberUnique(bus.getBusId(), bus.getBusNumber())) {
             model.addAttribute("edit", true);
-            FieldError companyNameUniqError = new FieldError("company", "companyName", messageSource.getMessage("non.unique.company.name", new String[]{company.getCompanyName()}, Locale.getDefault()));
+            FieldError companyNameUniqError = new FieldError("bus", "busNumber", messageSource.getMessage("non.unique.bus.number", new String[]{bus.getBusNumber()}, Locale.getDefault()));
             result.addError(companyNameUniqError);
-            return "admin/addCompany";
+            return "admin/addBus";
         } else {
-            companyService.update(company);
-            return "redirect:/admin/allCompanies";
+            busesService.update(bus);
+            return "redirect:/admin/allBuses";
         }
     }
 
-    @ModelAttribute("cities")
-    public List<Cities> getAllCities() {
-        return cityService.getAll();
+    @ModelAttribute("companies")
+    public List<Companies> getAllCompanies() {
+        return companyService.getAll();
     }
-
 
 }

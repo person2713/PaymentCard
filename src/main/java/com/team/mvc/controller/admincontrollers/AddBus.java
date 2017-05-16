@@ -33,10 +33,9 @@ public class AddBus {
     }
 
     @RequestMapping(value = "/newBus", method = RequestMethod.POST)
-    public String saveBus(@Valid @ModelAttribute("busForm") Buses bus, BindingResult result,
-                           ModelMap model) {
+    public String saveBus(@Valid @ModelAttribute("busForm") Buses bus) {
         busesService.save(bus);
-        return "/admin/admin";
+        return "redirect:/admin/allBuses";
     }
 
     @ModelAttribute("companies")
