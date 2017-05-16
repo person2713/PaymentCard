@@ -142,14 +142,26 @@ public class CardsRepository extends AbstractRepository<Cards> {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         if (card.getPersonId() == null) {
-            Query query1 = session.createSQLQuery("update cards set person_id=NULL, card_key=:cardKey, type_id=:typeId, card_name=:cardName where card_id=:cardId");
+            Query query1 = session.createSQLQuery(
+                    "update cards " +
+                            "set person_id=NULL, " +
+                            "card_key=:cardKey, " +
+                            "type_id=:typeId, " +
+                            "card_name=:cardName " +
+                            "where card_id=:cardId");
             query1.setParameter("cardKey", card.getCardKey());
             query1.setParameter("typeId", card.getTypeCard().getTypeId());
             query1.setParameter("cardName", card.getCardName());
             query1.setParameter("cardId", card.getCardId());
             query1.executeUpdate();
         } else {
-            Query query1 = session.createSQLQuery("update cards set person_id=:personId, card_key=:cardKey, type_id=:typeId, card_name=:cardName where card_id=:cardId");
+            Query query1 = session.createSQLQuery(
+                    "update cards " +
+                            "set person_id=:personId, " +
+                            "card_key=:cardKey, " +
+                            "type_id=:typeId, " +
+                            "card_name=:cardName " +
+                            "where card_id=:cardId");
             query1.setParameter("personId", card.getPersonId());
             query1.setParameter("cardKey", card.getCardKey());
             query1.setParameter("typeId", card.getTypeCard().getTypeId());

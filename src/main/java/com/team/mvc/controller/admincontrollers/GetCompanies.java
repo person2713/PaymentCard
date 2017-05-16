@@ -76,40 +76,23 @@ public class GetCompanies {
     @RequestMapping(value = "/editCompany", method = RequestMethod.POST)
     public String saveOrUpdateDriver(@ModelAttribute("companyForm") @Validated Companies company, BindingResult result, Model model) throws NotFoundException {
 
-//        if (result.hasErrors()) {
-//            return "errorPage";
-//        }
-//        if (!companyService.isCompanyNameUnique(company.getCompanyId(), company.getCompanyName())) {
-//            model.addAttribute("edit", true);
-//            FieldError nicknameUniqError = new FieldError("company", "person.nickname", messageSource.getMessage("non.unique.driver.nickname", new String[]{company.getCompanyName()}, Locale.getDefault()));
-//            result.addError(nicknameUniqError);
-//            return "admin/addCompany";
-//        } else {
-//            companyService.update(company);
+        if (result.hasErrors()) {
+            return "errorPage";
+        }
+        if (!companyService.isCompanyNameUnique(company.getCompanyId(), company.getCompanyName())) {
+            model.addAttribute("edit", true);
+            FieldError companyNameUniqError = new FieldError("company", "companyName", messageSource.getMessage("non.unique.company.name", new String[]{company.getCompanyName()}, Locale.getDefault()));
+            result.addError(companyNameUniqError);
+            return "admin/addCompany";
+        } else {
+            companyService.update(company);
             return "redirect:/admin/allCompanies";
-//        }
-
-
+        }
     }
 
     @ModelAttribute("cities")
     public List<Cities> getAllCities() {
         return cityService.getAll();
-    }
-
-    @ModelAttribute("buses")
-    public List<Buses> getAllBuses() {
-        return busesService.getAll();
-    }
-
-    @ModelAttribute("drivers")
-    public List<Drivers> getAllDrivers() {
-        return driversService.getAll();
-    }
-
-    @ModelAttribute("routes")
-    public List<Routes> getAllRoutes() {
-        return routeService.getAll();
     }
 
 
