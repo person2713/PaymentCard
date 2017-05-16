@@ -37,11 +37,10 @@ public class AddCard {
     }
 
     @RequestMapping(value = "/newCard", method = RequestMethod.POST)
-    public String saveCard(@Valid @ModelAttribute("cardForm") Cards card, BindingResult result,
-                              ModelMap model) {
+    public String saveCard(@Valid @ModelAttribute("cardForm") Cards card) {
         card.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
         cardService.saveCard(card);
-        return "/admin/admin";
+        return "/admin/allCards";
     }
 
     @ModelAttribute("persons")

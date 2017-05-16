@@ -61,13 +61,13 @@ public class GetOwners {
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable("id") long id) {
+    public String deleteOwner(@PathVariable("id") long id) {
         ownerService.delete(id);
         return "redirect:/admin/allOwners";
 
     }
 
-    @RequestMapping(value = "/editOwners", method = RequestMethod.POST)
+    @RequestMapping(value = "/editOwner", method = RequestMethod.POST)
     public String saveOrUpdateOwner(@ModelAttribute("ownerForm") @Validated Owners owner, BindingResult result, Model model) {
 
         if (result.hasErrors()) {

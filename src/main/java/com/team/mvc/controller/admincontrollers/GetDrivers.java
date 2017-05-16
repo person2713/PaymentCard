@@ -48,7 +48,7 @@ public class GetDrivers {
     }
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    public String showUpdateOwnerForm(@PathVariable("id") long id, Model model) {
+    public String showUpdateDriverForm(@PathVariable("id") long id, Model model) {
 
         try {
             Drivers driver = driversService.findById(id);
@@ -61,14 +61,14 @@ public class GetDrivers {
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable("id") long id) {
+    public String deleteDriver(@PathVariable("id") long id) {
         driversService.delete(id);
         return "redirect:/admin/allDrivers";
 
     }
 
-    @RequestMapping(value = "/editDrivers", method = RequestMethod.POST)
-    public String saveOrUpdateUser(@ModelAttribute("driverForm") @Validated Drivers driver, BindingResult result, Model model) {
+    @RequestMapping(value = "/editDriver", method = RequestMethod.POST)
+    public String saveOrUpdateDriver(@ModelAttribute("driverForm") @Validated Drivers driver, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             return "errorPage";

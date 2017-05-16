@@ -74,7 +74,7 @@ public class GetUsers {
     }
 
 
-    @RequestMapping(value = "/editUsers", method = RequestMethod.POST)
+    @RequestMapping(value = "/editUser", method = RequestMethod.POST)
     public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated Persons person,
                                    BindingResult result, Model model) {
 

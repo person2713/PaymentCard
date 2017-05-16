@@ -7,8 +7,10 @@ import com.team.mvc.database.repositories.CarAssignRepository;
 import com.team.mvc.database.repositories.DriversRepository;
 import com.team.mvc.database.repositories.OwnerRepository;
 import com.team.mvc.database.repositories.PersonRepository;
+import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.DriversService;
 import com.team.mvc.database.services.OwnerService;
+import javassist.NotFoundException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -40,8 +42,11 @@ public class AppController {
     @Autowired
     CarAssignRepository carAssignRepository;
 
+    @Autowired
+    CardsService cardsService;
+
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public String homePage(ModelMap model) {
+    public String homePage(ModelMap model) throws NotFoundException {
         model.addAttribute("greeting", "Welcome to the first page of the project");
         return "welcome";
     }

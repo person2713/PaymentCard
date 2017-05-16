@@ -56,8 +56,7 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
-    public String saveUser(@Valid @ModelAttribute("userForm") Persons person, BindingResult result,
-                           ModelMap model) {
+    public String saveUser(@Valid @ModelAttribute("userForm") Persons person, BindingResult result) {
 
         List<FieldError> errors = new ArrayList<>();
 

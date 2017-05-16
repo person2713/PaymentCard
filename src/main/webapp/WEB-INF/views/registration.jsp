@@ -8,8 +8,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Регистрация</title>
-
+    <c:choose>
+        <c:when test="${edit}">
+            <title>Редактировать пользователя</title>
+        </c:when>
+        <c:otherwise>
+            <title>Регистрация</title>
+        </c:otherwise>
+    </c:choose>
     <%--<link href="/static/css/boot.css" rel="stylesheet">--%>
     <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
     <%--<link href="/static/css/login_css/login.css" rel="stylesheet">--%>
@@ -30,7 +36,7 @@
     <c:choose>
         <c:when test="${edit}">
             <legend><h2>Редактирование пользователя</h2></legend>
-            <spring:url value="/admin/allUsers/editUsers" var="userActionUrl"/>
+            <spring:url value="/admin/allUsers/editUser" var="userActionUrl"/>
         </c:when>
         <c:when test="${isAdmin}">
             <legend><h2>Добавить пользователя</h2></legend>
@@ -140,11 +146,11 @@
         </div>
 
 
-            <%--<div style='display:none;' id='business'>Business Name<br/>&nbsp;--%>
-                <%--<br/>&nbsp;--%>
-                <%--<input type='text' class='text' name='business' value size='20'/>--%>
-                <%--<br/>--%>
-            <%--</div>--%>
+        <%--<div style='display:none;' id='business'>Business Name<br/>&nbsp;--%>
+        <%--<br/>&nbsp;--%>
+        <%--<input type='text' class='text' name='business' value size='20'/>--%>
+        <%--<br/>--%>
+        <%--</div>--%>
 
         <%--</sec:authorize>--%>
 
@@ -171,9 +177,9 @@
     </form:form>
 
     <%--<div class="navbar navbar-inner  navbar-fixed-bottom">--%>
-        <%--<p>--%>
-        <%--<center class="text-muted">© NetCracker Education Center 2017</center>--%>
-        <%--</p>--%>
+    <%--<p>--%>
+    <%--<center class="text-muted">© NetCracker Education Center 2017</center>--%>
+    <%--</p>--%>
     <%--</div>--%>
 </div>
 

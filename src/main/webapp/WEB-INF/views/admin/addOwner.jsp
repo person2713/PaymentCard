@@ -8,11 +8,18 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Registration</title>
+    <c:choose>
+        <c:when test="${edit}">
+            <title>Редактировать владельца</title>
+        </c:when>
+        <c:otherwise>
+            <title>Добавить владельца</title>
+        </c:otherwise>
+    </c:choose>
 
     <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
-    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
+    <link href="/static/css/welcome_css/templatemo_style.css" rel="stylesheet">
 
 
 </head>
@@ -24,7 +31,7 @@
     <c:choose>
         <c:when test="${edit}">
             <legend><h2>Редактировать владельца</h2></legend>
-            <spring:url value="/admin/allOwners/editOwners" var="userActionUrl"/>
+            <spring:url value="/admin/allOwners/editOwner" var="userActionUrl"/>
         </c:when>
         <c:otherwise>
             <legend><h2>Добавить владельца</h2></legend>
