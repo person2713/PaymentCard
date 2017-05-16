@@ -5,6 +5,7 @@ import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
 import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.PersonService;
+import com.team.mvc.database.services.SendSMSMessageService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
-
 
 
 @Controller
@@ -32,6 +27,8 @@ public class UserController {
     private PersonService personService;
     @Autowired
     CardsService cardsService;
+    @Autowired
+    SendSMSMessageService sendSMSMessageService;
 
 
     @Autowired
@@ -46,6 +43,7 @@ public class UserController {
         model.addAttribute("card", personService.findCradsByNickname(GetRole.getPrincipal()));
         return "user/list";
     }
+
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable("id") int id, Model model) throws NotFoundException {
         System.out.println("-------------------showUser-------------------" + id);
@@ -64,7 +62,7 @@ public class UserController {
         System.out.println("showUpdateUserForm" + "------------------------------------------------------------------------------------------------------------");
         Cards cards = personService.findByCardbyID(id);
         model.addAttribute("card", cards);
-        System.out.println("showUpdateUserForm" + cards.getCardId() + "------------------------------------------------------------------------------------------------------------" );
+        System.out.println("showUpdateUserForm" + cards.getCardId() + "------------------------------------------------------------------------------------------------------------");
         return "user/userform";
 
 
@@ -80,8 +78,6 @@ public class UserController {
         model.addAttribute("card", cards);
 
 
-
-
         return "user/moneyform";
 
     }
@@ -92,19 +88,11 @@ public class UserController {
         redirectView.setUrl("http://localhost:9555/user");
         System.out.println("Block" + "------------------------------------------------------------------------------------------------------------");
         cardsService.blockCardById(id);
-        System.out.println("Block" +"&&&&&&&&&&&&+ "+"---------------------"+personService.findByNickname(GetRole.getPrincipal()).getMobileNumber()+"---------------"+id+"------------------------------------------------------------------------" );
+        System.out.println("Block" + "&&&&&&&&&&&&+ " + "---------------------" + personService.findByNickname(GetRole.getPrincipal()).getMobileNumber() + "---------------" + id + "------------------------------------------------------------------------");
 
-        try {
-            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-            Message message = Message.creator(new PhoneNumber(personService.findByNickname(GetRole.getPrincipal()).getMobileNumber()),
-                    new PhoneNumber("+15054040297"),
-                    "Уважаемый клиент! Ваша карта №" + id + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com").create();
-            System.out.println(message.getSid());
-        } finally {
-
-
-            return redirectView;
-        }
+        sendSMSMessageService.SendMessage(personService.findByNickname(GetRole.getPrincipal()).getMobileNumber(),
+                                    "Уважаемый клиент! Ваша карта №" + cardsService.findById(id).getCardKey() + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com");
+        return redirectView;
 
     }
 
@@ -112,7 +100,7 @@ public class UserController {
     public String saveOrUpdateUser(@ModelAttribute("card") @Validated Cards cards,
                                    BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
 
-        System.out.println( "---------===========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
+        System.out.println("---------===========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
 
         if (result.hasErrors()) {
 
@@ -143,23 +131,21 @@ public class UserController {
 
     @RequestMapping(value = "/money", method = RequestMethod.POST)
     public RedirectView saveOrUpdateMoney(@ModelAttribute("card") @Validated Cards cards,
-                                    BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
+                                          BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
 
-        System.out.println( "---------========saveOrUpdateMoney===---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
+        System.out.println("---------========saveOrUpdateMoney===---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
 
 
-            System.out.println("---------===saveOrUpdateMoney========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
+        System.out.println("---------===saveOrUpdateMoney========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
 
-            cardsService.updateMoney(cards.getCardId(), cards.getCardBalance().getBalance());
-            System.out.println("cardsService.updateMONEY(cards.getCardId(), cards.getCardName());  отработал наверно -----------------");
+        cardsService.updateMoney(cards.getCardId(), cards.getCardBalance().getBalance());
+        System.out.println("cardsService.updateMONEY(cards.getCardId(), cards.getCardName());  отработал наверно -----------------");
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("http://localhost:9555/user");
         return redirectView;
 
 
-        }
-
-
+    }
 
 
     @RequestMapping(value = "/user/add", method = RequestMethod.GET)
@@ -171,7 +157,7 @@ public class UserController {
 
     ///////////////////////////////////
     @RequestMapping(value = "/user/{id}/map", method = RequestMethod.GET)
-    public String showMap (@PathVariable("id") int id, Model model){
+    public String showMap(@PathVariable("id") int id, Model model) {
         System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
 
 
@@ -180,16 +166,14 @@ public class UserController {
     }
 
 
-
     @RequestMapping(value = "/user/{id}/mapone", method = RequestMethod.GET)
-    public String showMapOne (@PathVariable("id") int id, Model model){
+    public String showMapOne(@PathVariable("id") int id, Model model) {
         System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
 
 
         model.addAttribute("event", personService.findEvById(id));
         return "user/swowonemap";
     }
-
 
 
     @RequestMapping(value = "/user/history", method = RequestMethod.GET)
@@ -201,10 +185,10 @@ public class UserController {
 
     }
 
-    @RequestMapping(value="/user/addUserCard" , method=RequestMethod.POST)
-    public RedirectView addUserCard(@RequestParam(value="idcard") String idcard, @RequestParam(value="namecard") String namecard){
+    @RequestMapping(value = "/user/addUserCard", method = RequestMethod.POST)
+    public RedirectView addUserCard(@RequestParam(value = "idcard") String idcard, @RequestParam(value = "namecard") String namecard) {
         System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
-        System.out.println("addUserCard"  + idcard    +   namecard  );
+        System.out.println("addUserCard" + idcard + namecard);
         personService.addUserCard(idcard, namecard);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("http://localhost:9555/user");
@@ -218,7 +202,7 @@ public class UserController {
     }
 
 
-    }
+}
 
 
 
