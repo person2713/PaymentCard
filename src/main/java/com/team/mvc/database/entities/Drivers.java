@@ -27,7 +27,7 @@ public class Drivers  implements Serializable {
     @Column(name = "COMPANY_ID")
     private Long companyId;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "DRIVER_ID")
     public Set<CarAssign> carAssigns = new HashSet<>();
 
