@@ -212,6 +212,11 @@ public class UserController {
 
     }
 
+    @ModelAttribute("username1")
+    public String getUsername() {
+        return GetRole.getPrincipal();
+    }
+
 
     }
 

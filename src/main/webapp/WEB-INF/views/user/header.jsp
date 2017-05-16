@@ -14,7 +14,7 @@
 
 <spring:url value="http://localhost:9000/user" var="urlHome" />
 <spring:url value="/user/user/add" var="urlAddUser" />
-<spring:url value="loguser" var="user" />
+<spring:url value="${username1}" var="user" />
 
 <nav class="navbar navbar-inverse ">
 	<div class="container">
