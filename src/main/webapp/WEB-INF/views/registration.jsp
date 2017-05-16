@@ -136,7 +136,7 @@
             <label class="col-md-4 control-label" for="city">Выберите город</label>
             <div class="col-md-4">
                 <form:select path="city" class="form-control">
-                    <form:option value="NONE" label=""/>
+                    <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${cities}" multiple="false" itemValue="cityId" itemLabel="cityName"/>
                     <div class="has-error">
                         <form:errors path="city" class="help-inline"/>

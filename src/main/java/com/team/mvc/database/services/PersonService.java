@@ -34,7 +34,8 @@ public class PersonService {
 
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
+
     @Autowired
     CardsRepository cardsRepository;
 
@@ -106,8 +107,9 @@ public class PersonService {
 
 //    public Cards findEventAndBalanceHistByCardID(int id) { return personRepository.findEventAndBalanceHistByCardID(id);}
 
-    public void update(Persons persons){
-        personRepository.update(persons);
+    public void update(Persons person){
+        person.setRole(roleRepository.findByType("USER"));
+        personRepository.update(person);
     }
     public void updPass (String mail, String pass){
         Persons persons = personRepository.findByEmail(mail);
