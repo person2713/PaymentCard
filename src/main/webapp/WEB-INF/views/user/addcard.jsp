@@ -49,9 +49,15 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <div class="text-center">
-                                                <button class="btn btn-green">Добавить</button>
-                                                <a href="${urlHome}" class="btn btn-orange">Отмена</a>
+                                            <div class="col-md-6">
+                                                <div class="text-center">
+                                                    <button class="btn btn-green" style="width: 100%">Добавить</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="text-center">
+                                                    <a href="${urlHome}" class="btn btn-orange" style="width: 100%">Отмена</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

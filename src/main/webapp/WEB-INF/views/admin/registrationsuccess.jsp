@@ -13,7 +13,7 @@
 <body>
 	<div class="generic-container">
 		<%--<%@include file="header.jsp" %>--%>
-		<div class="well lead">Company add succesfully </div>
+		<div class="well lead">???????</div>
 		<div class="alert alert-success lead">
 	    	${success}
 		</div>

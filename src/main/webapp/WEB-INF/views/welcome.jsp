@@ -75,10 +75,26 @@
                     <img src="/static/images/templatemo_carousel_bg_s.jpg">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>Payment Card system</h1>
-                            <p>Пожалуйста, авторизуйтесь или зарегистрируйтесь.</p>
-                            <p><a class="btn btn-lg btn-green" href="/login" role="button" style="margin: 20px;">Вход</a>
-                                <a class="btn btn-lg btn-orange" href="/registration" role="button">Регистрация</a></p>
+                            <div class="text-center">
+                                <h1>Payment Card system</h1>
+                                <p>Пожалуйста, авторизуйтесь или зарегистрируйтесь.</p>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <div class="col-md-6">
+                                        <div class="text-center">
+                                            <a class="btn btn-lg btn-green" href="/login" role="button" style="width: 100%; margin-top: 20px; margin-bottom: 20px">Вход</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-center">
+                                            <a class="btn btn-lg btn-orange" href="/registration" role="button" style="width: 100%; margin-top: 20px; margin-bottom: 20px">Регистрация</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

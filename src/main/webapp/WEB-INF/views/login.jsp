@@ -52,9 +52,15 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-sm-6 col-sm-offset-3">
-											<div class="text-center">
-												<button class="btn btn-green">Вход</button>
-												<a href="/" class="btn btn-orange">На главную</a>
+											<div class="col-md-6">
+												<div class="text-center">
+													<button class="btn btn-green" style="width: 100%">Вход</button>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="text-center">
+													<a href="/" class="btn btn-orange" style="width: 100%">На главную</a>
+												</div>
 											</div>
 										</div>
 									</div>

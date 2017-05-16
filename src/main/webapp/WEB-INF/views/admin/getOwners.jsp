@@ -3,11 +3,14 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
-<jsp:include page="header.jsp"/>
+
 <head>
+    <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
 </head>
 
 <body style="background-color: #EDEEF0">
+<jsp:include page="header.jsp"/>
 <div id="content">
     <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
@@ -37,11 +40,11 @@
                 <spring:url value="/admin/allOwners/${owner.ownerId}/delete" var="deleteUrl"/>
                 <spring:url value="/admin/allOwners/${owner.ownerId}/edit" var="editUrl"/>
 
-                <button class="btn btn-primary"
-                        onclick="location.href='${editUrl}'">Редактировать
+                <button class="btn btn-mapbtn"
+                        onclick="location.href='${editUrl}'"><span style="color: white">Редактировать</span>
                 </button>
-                <button class="btn btn-danger"
-                        onclick="location.href='${deleteUrl}'">Удалить
+                <button class="btn btn-cardblock"
+                        onclick="location.href='${deleteUrl}'"><span style="color: white">Удалить</span>
                 </button>
                 </td>
             </tr>
