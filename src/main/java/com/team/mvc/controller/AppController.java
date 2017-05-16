@@ -1,12 +1,10 @@
 package com.team.mvc.controller;
 
+import com.team.mvc.database.entities.BalanceHist;
 import com.team.mvc.database.entities.CarAssign;
 import com.team.mvc.database.entities.Drivers;
 import com.team.mvc.database.entities.Owners;
-import com.team.mvc.database.repositories.CarAssignRepository;
-import com.team.mvc.database.repositories.DriversRepository;
-import com.team.mvc.database.repositories.OwnerRepository;
-import com.team.mvc.database.repositories.PersonRepository;
+import com.team.mvc.database.repositories.*;
 import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.DriversService;
 import com.team.mvc.database.services.OwnerService;
@@ -45,9 +43,13 @@ public class AppController {
     @Autowired
     CardsService cardsService;
 
+    @Autowired
+    BalanceHistRepository balanceHistRepository;
+
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) throws NotFoundException {
         model.addAttribute("greeting", "Welcome to the first page of the project");
+        List<BalanceHist> list = balanceHistRepository.getAllHistForCard((long) 14);
         return "welcome";
     }
 

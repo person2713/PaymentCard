@@ -24,7 +24,7 @@ public class AddCard {
     PersonService personService;
 
     @Autowired
-    CardService cardService;
+    CardsService cardService;
 
     @Autowired
     TypeCardService typeCardService;

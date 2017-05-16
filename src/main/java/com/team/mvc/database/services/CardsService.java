@@ -1,14 +1,18 @@
 package com.team.mvc.database.services;
 
+import com.team.mvc.database.entities.BalanceHist;
 import com.team.mvc.database.entities.Cards;
-import com.team.mvc.database.repositories.CardsRepository;
+import com.team.mvc.database.entities.Events;
+import com.team.mvc.database.repositories.*;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -17,6 +21,17 @@ public class CardsService {
     @Autowired
     CardsRepository cardsRepository;
 
+    @Autowired
+    CardBalanceRepository cardBalanceRepository;
+
+    @Autowired
+    BalanceHistRepository balanceHistRepository;
+
+    @Autowired
+    EventsRepository eventsRepository;
+
+    @Autowired
+    TypeCardRepository typeCardRepository;
 
     public Cards findById(long id) throws NotFoundException {
         return cardsRepository.getById(id);
@@ -65,6 +80,13 @@ public class CardsService {
     }
 
     public void update(Cards card) {
+        card.getCardBalance().setCard(card);
+        cardBalanceRepository.update(card.getCardBalance());
+        typeCardRepository.update(card.getTypeCard());
+        Set<BalanceHist> balanceHists = new HashSet<>(balanceHistRepository.getAllHistForCard(card.getCardId()));
+        Set<Events> events = new HashSet<>(eventsRepository.getAllEventsForCard(card.getCardId()));
+        card.setBalanceHists(balanceHists);
+        card.setEvents(events);
         cardsRepository.update(card);
     }
 

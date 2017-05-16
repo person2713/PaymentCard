@@ -42,6 +42,7 @@
 
     <form:form method="POST" modelAttribute="cardForm" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="cardId" id="cardId"/>
+        <form:input type="hidden" path="cardBalance.balanceId" id="cardBalance.balanceId"/>
 
 
         <div class="form-group">
@@ -77,7 +78,7 @@
 
         <c:choose>
             <c:when test="${edit}">
-
+                <form:input type="hidden" path="personId" id="personId"/>
             </c:when>
             <c:otherwise>
                 <div class="form-group">

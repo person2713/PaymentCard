@@ -33,6 +33,8 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Autowired
     CityConverter cityConverter;
 
+    @Autowired
+    TypeCardConverter typeCardConverter;
 
     @Bean
     public ViewResolver viewResolver() {
@@ -60,6 +62,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(cityConverter);
         registry.addConverter(roleConverter);
+        registry.addConverter(typeCardConverter);
     }
 
     @Bean

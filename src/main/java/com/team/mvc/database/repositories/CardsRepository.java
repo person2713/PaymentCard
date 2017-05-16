@@ -121,4 +121,14 @@ public class CardsRepository extends AbstractRepository<Cards> {
         criteria.addOrder(Order.asc("cardId"));
         return criteria.list();
     }
+
+
+    @Override
+    public void update(Cards card){
+        Session session = sessionFactory.openSession();
+        Query query = session.createSQLQuery(String.format("update cards set person_id=:personId where card_id=:cardId"));
+        query.setParameter("personId", card.getPersonId());
+        query.setParameter("cardId", card.getCardId());
+        query.executeUpdate();
+    }
 }
