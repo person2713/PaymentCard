@@ -54,7 +54,7 @@
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </head>
-<spring:url value="http://localhost:9000/user" var="urlHome" />
+<spring:url value="http://localhost:9555/user" var="urlHome" />
 
 <body style="background-color: #EDEEF0">
     <jsp:include page="header.jsp" />
