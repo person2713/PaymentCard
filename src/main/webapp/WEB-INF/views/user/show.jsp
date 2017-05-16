@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -19,6 +20,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
      <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
     <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 
 
@@ -28,13 +30,14 @@
 </head>
 <body style="background-color: #EDEEF0">
 <jsp:include page="header.jsp" />
-<table id="myTable"   class="table table-striped table-bordered table" cellspacing="0" width="100%">
+<table id="myTable"   class="table table-hover table-bordered table" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th>Номер транзакции</th>
-            <th>Маршрут</th>
-            <th>Баланс</th>
-            <th>Время</th>
+            <th>Номер транзакции <i class="fa fa-fw fa-sort"></i></th>
+            <th>Маршрут <i class="fa fa-fw fa-sort"></i></th>
+            <th>Баланс <i class="fa fa-fw fa-sort"></i></th>
+            <th>Время <i class="fa fa-fw fa-sort"></i></th>
+            <th>На карте <i class="fa fa-fw fa-sort"></i></th>
         </tr>
     </thead>
     <tbody>
@@ -45,6 +48,9 @@
             <td>${events.busId}</td>
             <td>${balanceHists.changes}</td>
             <td>${balanceHists.dateEvent}</td>
+            <td>
+                <spring:url value="/user/user/${events.eventId}/mapone" var="mapUrl" />
+                <button class="btn btn-mapbtn" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button></td>
         </tr>
     </c:forEach>
     </c:forEach>

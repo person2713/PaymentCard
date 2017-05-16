@@ -79,7 +79,7 @@ public class UserController {
 
         model.addAttribute("card", cards);
 
-        System.out.println("showUpdateUserForm" + cards.getCardId() + "------------------------------------------------------------------------------------------------------------" + cards.getCardBalance().getBalance().toString());
+
 
 
         return "user/moneyform";
@@ -142,7 +142,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/money", method = RequestMethod.POST)
-    public String saveOrUpdateMoney(@ModelAttribute("card") @Validated Cards cards,
+    public RedirectView saveOrUpdateMoney(@ModelAttribute("card") @Validated Cards cards,
                                     BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
 
         System.out.println( "---------========saveOrUpdateMoney===---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
@@ -152,8 +152,9 @@ public class UserController {
 
             cardsService.updateMoney(cards.getCardId(), cards.getCardBalance().getBalance());
             System.out.println("cardsService.updateMONEY(cards.getCardId(), cards.getCardName());  отработал наверно -----------------");
-
-            return "redirect:/user/user/" + cards.getCardId();
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:9555/user");
+        return redirectView;
 
 
         }
@@ -179,6 +180,18 @@ public class UserController {
     }
 
 
+
+    @RequestMapping(value = "/user/{id}/mapone", method = RequestMethod.GET)
+    public String showMapOne (@PathVariable("id") int id, Model model){
+        System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
+
+
+        model.addAttribute("event", personService.findEvById(id));
+        return "user/swowonemap";
+    }
+
+
+
     @RequestMapping(value = "/user/history", method = RequestMethod.GET)
     public String showHistory() {
 
@@ -189,12 +202,19 @@ public class UserController {
     }
 
     @RequestMapping(value="/user/addUserCard" , method=RequestMethod.POST)
-    public String addUserCard(@RequestParam(value="idcard") String idcard, @RequestParam(value="namecard") String namecard){
+    public RedirectView addUserCard(@RequestParam(value="idcard") String idcard, @RequestParam(value="namecard") String namecard){
         System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
         System.out.println("addUserCard"  + idcard    +   namecard  );
-
         personService.addUserCard(idcard, namecard);
-        return "redirect:/user/user/" +idcard;
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:9555/user");
+        return redirectView;
+
+    }
+
+    @ModelAttribute("username1")
+    public String getUsername() {
+        return GetRole.getPrincipal();
     }
 
 
