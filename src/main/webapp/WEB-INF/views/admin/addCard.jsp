@@ -78,7 +78,19 @@
 
         <c:choose>
             <c:when test="${edit}">
-                <form:input type="hidden" path="personId" id="personId"/>
+                <div class="form-group" style="display:none;">
+                    <label class="col-md-4 control-label" for="personId">Выберите пользователя</label>
+                    <div class="col-md-4">
+                        <form:select path="personId" class="form-control">
+                            <%--<form:option value="NONE" label=""/>--%>
+                            <form:options items="${persons}" multiple="false" itemValue="personId"
+                                          itemLabel="nickname"/>
+                            <div class="has-error">
+                                <form:errors path="personId" class="help-inline"/>
+                            </div>
+                        </form:select>
+                    </div>
+                </div>
             </c:when>
             <c:otherwise>
                 <div class="form-group">
@@ -96,7 +108,7 @@
                 </div>
             </c:otherwise>
         </c:choose>
-
+            
         <c:choose>
             <c:when test="${edit}">
                 <div class="form-group">

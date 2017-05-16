@@ -71,9 +71,6 @@ public class DriversService {
 
     public void update(Drivers driver) {
         driver.getPerson().setRole(roleRepository.findByType("DRIVER"));
-        personRepository.update(driver.getPerson());
-        Set<CarAssign> carAssigns = new HashSet<> (carAssignRepository.getAllForDriver(driver.getDriverId()));
-        driver.setCarAssigns(carAssigns);
         driversRepository.update(driver);
     }
 }

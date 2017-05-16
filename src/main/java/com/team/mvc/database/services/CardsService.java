@@ -81,12 +81,6 @@ public class CardsService {
 
     public void update(Cards card) {
         card.getCardBalance().setCard(card);
-        cardBalanceRepository.update(card.getCardBalance());
-        typeCardRepository.update(card.getTypeCard());
-        Set<BalanceHist> balanceHists = new HashSet<>(balanceHistRepository.getAllHistForCard(card.getCardId()));
-        Set<Events> events = new HashSet<>(eventsRepository.getAllEventsForCard(card.getCardId()));
-        card.setBalanceHists(balanceHists);
-        card.setEvents(events);
         cardsRepository.update(card);
     }
 

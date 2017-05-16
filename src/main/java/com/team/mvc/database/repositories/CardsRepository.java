@@ -19,6 +19,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
     public CardsRepository() {
         super(Cards.class);
     }
+
     @Autowired
     TypeCardRepository typeCardRepository;
 
@@ -30,17 +31,17 @@ public class CardsRepository extends AbstractRepository<Cards> {
         return sessionFactory.getCurrentSession();
     }
 
-    public List<Cards> getAllBlockCards(){
+    public List<Cards> getAllBlockCards() {
 //        Query query = getSession().createQuery("SELECT C FROM Cards  C ");
 //
 ////        query.setLong("typeCard", Long.parseLong("21")); WHERE C.typeCard=:typeCard
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.in("typeCard", typeCardRepository.getByStatus("block")));
-        List<Cards> cardss=criteria.list();
+        List<Cards> cardss = criteria.list();
         return cardss;
     }
 
-    public void blockCardById(long cardId){
+    public void blockCardById(long cardId) {
      /*  Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query = session.createQuery("UPDATE Cards C SET C.typeCard =:typeCard WHERE C.cardId=:cardId");
@@ -57,16 +58,14 @@ public class CardsRepository extends AbstractRepository<Cards> {
         int result = sqlQuery.executeUpdate();
         System.out.println(result);
         session.getTransaction().commit();*/
-        String UPDATE = "UPDATE CARDS  SET CARDS.TYPE_ID =21 WHERE CARDS.CARD_ID="+cardId;
+        String UPDATE = "UPDATE CARDS  SET CARDS.TYPE_ID =21 WHERE CARDS.CARD_ID=" + cardId;
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         SQLQuery sqlQuery = session.createSQLQuery(UPDATE);
         int result = sqlQuery.executeUpdate();
         System.out.println(result);
         session.getTransaction().commit();
-        }
-
-
+    }
 
 
     public Cards findByCardName(String cardName) {
@@ -74,19 +73,20 @@ public class CardsRepository extends AbstractRepository<Cards> {
         criteria.add(Restrictions.eq("cardName", cardName));
         return (Cards) criteria.uniqueResult();
     }
+
     public Cards findById(int id) {
-        String que = "SELECT * FROM CARDS  WHERE CARDS.CARD_ID="+id;
+        String que = "SELECT * FROM CARDS  WHERE CARDS.CARD_ID=" + id;
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
 
-        return  (Cards) sqlQuery.uniqueResult();
+        return (Cards) sqlQuery.uniqueResult();
     }
 
 
     public void updateName(long id, String name) {
-        String UPDATE = "UPDATE CARDS  SET CARD_NAME ="+"'"+name+"'"+"WHERE CARDS.CARD_ID="+id;
+        String UPDATE = "UPDATE CARDS  SET CARD_NAME =" + "'" + name + "'" + "WHERE CARDS.CARD_ID=" + id;
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         SQLQuery sqlQuery = session.createSQLQuery(UPDATE);
@@ -103,7 +103,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
 
     public void updateMoney(long id, BigDecimal money) {
 
-        String UPDATE = "UPDATE CARD_BALANCE  SET CARD_BALANCE.BALANCE =CARD_BALANCE.BALANCE+"+money+" WHERE CARD_BALANCE.CARD_ID="+id;
+        String UPDATE = "UPDATE CARD_BALANCE  SET CARD_BALANCE.BALANCE =CARD_BALANCE.BALANCE+" + money + " WHERE CARD_BALANCE.CARD_ID=" + id;
         Session session = sessionFactory.openSession();
         try {
 
@@ -111,8 +111,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
             session.createSQLQuery(UPDATE).executeUpdate();
             session.getTransaction().commit();
             session.close();
-        }
-        catch (HibernateException erro){
+        } catch (HibernateException erro) {
             System.out.println(erro);
             session.getTransaction().rollback();
             session.close();
@@ -125,6 +124,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
 //        System.out.println(result);
 //        session.getTransaction().commit();
     }
+
     @Override
     public List<Cards> getAll() {
         Criteria criteria = createEntityCriteria();
@@ -138,11 +138,30 @@ public class CardsRepository extends AbstractRepository<Cards> {
 
 
     @Override
-    public void update(Cards card){
+    public void update(Cards card) {
         Session session = sessionFactory.openSession();
-        Query query = session.createSQLQuery(String.format("update cards set person_id=:personId where card_id=:cardId"));
-        query.setParameter("personId", card.getPersonId());
-        query.setParameter("cardId", card.getCardId());
-        query.executeUpdate();
+        session.beginTransaction();
+        if (card.getPersonId() == null) {
+            Query query1 = session.createSQLQuery("update cards set person_id=NULL, card_key=:cardKey, type_id=:typeId, card_name=:cardName where card_id=:cardId");
+            query1.setParameter("cardKey", card.getCardKey());
+            query1.setParameter("typeId", card.getTypeCard().getTypeId());
+            query1.setParameter("cardName", card.getCardName());
+            query1.setParameter("cardId", card.getCardId());
+            query1.executeUpdate();
+        } else {
+            Query query1 = session.createSQLQuery("update cards set person_id=:personId, card_key=:cardKey, type_id=:typeId, card_name=:cardName where card_id=:cardId");
+            query1.setParameter("personId", card.getPersonId());
+            query1.setParameter("cardKey", card.getCardKey());
+            query1.setParameter("typeId", card.getTypeCard().getTypeId());
+            query1.setParameter("cardName", card.getCardName());
+            query1.setParameter("cardId", card.getCardId());
+            query1.executeUpdate();
+        }
+        Query query2 = session.createSQLQuery("update card_balance set balance=:cardBalance where balance_id=:cardBalanceID");
+        query2.setParameter("cardBalance", card.getCardBalance().getBalance());
+        query2.setParameter("cardBalanceID", card.getCardBalance().getBalanceId());
+        query2.executeUpdate();
+        session.getTransaction().commit();
+
     }
 }

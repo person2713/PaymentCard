@@ -1,6 +1,7 @@
 package com.team.mvc.database.repositories;
 
 import com.team.mvc.database.entities.BalanceHist;
+import com.team.mvc.database.entities.CarAssign;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,7 +31,7 @@ public class BalanceHistRepository extends AbstractRepository<BalanceHist> {
 
     public List getAllHistForCard(Long cardId) {
         Criteria criteria = createEntityCriteria().add(Restrictions.eq("cardId", cardId));
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         criteria.addOrder(Order.asc("balanceHistId"));
         return criteria.list();
     }
@@ -42,5 +43,8 @@ public class BalanceHistRepository extends AbstractRepository<BalanceHist> {
         return criteria.list();
     }
 
-
+    @Override
+    public void update(BalanceHist balanceHist) {
+        getSession().update(balanceHist);
+    }
 }

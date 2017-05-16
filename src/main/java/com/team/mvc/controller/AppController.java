@@ -32,17 +32,12 @@ public class AppController {
     AuthenticationTrustResolver authenticationTrustResolver;
 
     @Autowired
-    CardsRepository cardsRepository;
-
-    @Autowired
-    BalanceHistRepository balanceHistRepository;
+    PersonRepository  personRepository;
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) throws NotFoundException {
         model.addAttribute("greeting", "Welcome to the first page of the project");
-        List<Cards> cardsList = cardsRepository.getAll();
-        List<BalanceHist>  balanceHistList = balanceHistRepository.getAll();
-
+        List<Persons> personsList = personRepository.getAll();
         return "welcome";
     }
 

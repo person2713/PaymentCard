@@ -1,5 +1,6 @@
 package com.team.mvc.database.repositories;
 
+import com.team.mvc.database.entities.BalanceHist;
 import com.team.mvc.database.entities.Events;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
@@ -21,5 +22,10 @@ public class EventsRepository extends AbstractRepository<Events> {
         Criteria criteria = createEntityCriteria().add(Restrictions.eq("cardId", cardId));
         criteria.addOrder(Order.asc("eventId"));
         return criteria.list();
+    }
+
+    @Override
+    public void update(Events events) {
+        getSession().update(events);
     }
 }
