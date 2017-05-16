@@ -1,5 +1,11 @@
 package com.team.mvc.controller;
 
+import com.team.mvc.database.entities.*;
+import com.team.mvc.database.repositories.*;
+import com.team.mvc.database.services.CardsService;
+import com.team.mvc.database.services.DriversService;
+import com.team.mvc.database.services.OwnerService;
+import javassist.NotFoundException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 @Controller
@@ -24,9 +31,18 @@ public class AppController {
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
 
+    @Autowired
+    CardsRepository cardsRepository;
+
+    @Autowired
+    BalanceHistRepository balanceHistRepository;
+
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public String homePage(ModelMap model) {
+    public String homePage(ModelMap model) throws NotFoundException {
         model.addAttribute("greeting", "Welcome to the first page of the project");
+        List<Cards> cardsList = cardsRepository.getAll();
+        List<BalanceHist>  balanceHistList = balanceHistRepository.getAll();
+
         return "welcome";
     }
 

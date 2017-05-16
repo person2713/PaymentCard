@@ -7,7 +7,7 @@
 <head>
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 
 <div id="content">
     <div class="container-fluid">

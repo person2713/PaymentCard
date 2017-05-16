@@ -44,7 +44,7 @@ public class Cards implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="CARD_ID")
-    public Set<BalanceHist> balanceHists = new HashSet<>();
+    private Set<BalanceHist> balanceHists = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="CARD_ID")

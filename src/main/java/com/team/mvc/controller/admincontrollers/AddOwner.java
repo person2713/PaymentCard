@@ -35,13 +35,7 @@ public class AddOwner {
     MessageSource messageSource;
 
     @Autowired
-    PersonService personService;
-
-    @Autowired
     OwnerService ownerService;
-
-    @Autowired
-    RoleService roleService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String renderAddNewOwner(ModelMap model) {
@@ -50,16 +44,10 @@ public class AddOwner {
         return "admin/addOwner";
     }
 
-    @Transactional
     @RequestMapping(value = "/newOwner", method = RequestMethod.POST)
-    public String saveOwner(@Valid @ModelAttribute("ownerForm") Owners owner, BindingResult result,
-                              ModelMap model) {
-        owner.getPerson().setRole(roleService.findByType("OWNER"));
-        personService.savePerson(owner.getPerson());
-        Long personId = personService.findByNickname(owner.getPerson().getNickname()).getPersonId();
-        owner.getPerson().setPersonId(personId);
+    public String saveOwner(@Valid @ModelAttribute("ownerForm") Owners owner) {
         ownerService.saveOwner(owner);
-        return "/admin/admin";
+        return "redirect:/admin/allOwners";
     }
 
     @ModelAttribute("cities")

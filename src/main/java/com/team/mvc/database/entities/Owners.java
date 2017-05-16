@@ -23,9 +23,9 @@ public class Owners implements Serializable {
     @JoinColumn(name="PERSON_ID")
     private Persons person;
 
-    @OneToOne
-    @JoinColumn(name = "COMPANY_ID")
-    private Companies company;
+
+    @Column(name = "COMPANY_ID")
+    private Long companyId;
 
     public Owners() {
     }
@@ -46,12 +46,12 @@ public class Owners implements Serializable {
         this.person = person;
     }
 
-    public Companies getCompany() {
-        return company;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany(Companies company) {
-        this.company = company;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     @Override
@@ -63,14 +63,14 @@ public class Owners implements Serializable {
 
         if (ownerId != null ? !ownerId.equals(owners.ownerId) : owners.ownerId != null) return false;
         if (person != null ? !person.equals(owners.person) : owners.person != null) return false;
-        return company != null ? company.equals(owners.company) : owners.company == null;
+        return companyId != null ? companyId.equals(owners.companyId) : owners.companyId == null;
     }
 
     @Override
     public int hashCode() {
         int result = ownerId != null ? ownerId.hashCode() : 0;
         result = 31 * result + (person != null ? person.hashCode() : 0);
-        result = 31 * result + (company != null ? company.hashCode() : 0);
+        result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
         return result;
     }
 }

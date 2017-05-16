@@ -27,7 +27,7 @@
 
 
 </head>
-<body>
+<body style="background-color: #EDEEF0">
 <jsp:include page="header.jsp" />
 <table id="myTable"   class="table table-striped table-bordered table" cellspacing="0" width="100%">
     <thead>

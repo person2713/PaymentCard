@@ -1,5 +1,7 @@
 package com.team.mvc.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -20,6 +22,7 @@ public class Drivers  implements Serializable {
     @OneToOne
     @JoinColumn(name = "PERSON_ID")
     private Persons person;
+
 
     @Column(name = "COMPANY_ID")
     private Long companyId;

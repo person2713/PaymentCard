@@ -7,7 +7,7 @@
     <title>ForgotPassword</title>
     <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
 </head>
-<body>
+<body style="background-color: #EDEEF0">
 Enter your registered email address:
 <form action="resetPassword" method="post">
     <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>

@@ -1,5 +1,7 @@
-<%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
+<%@ page language="java" pageEncoding="Cp1251" contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +41,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -49,7 +51,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a><strong>${loggedinuser}</strong></a></li>
-                <li><a href="/logout">Выйти</a></li>
+                <li><a href="/logout">�����</a></li>
             </ul>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
@@ -60,48 +62,48 @@
             <div class="col-sm-3 col-md-2 hidden-xs-down sidebar">
 
                     <div  class="dropdown ofset">
-                        <button type="button" class="btn btn-primary btn-block" data-toggle="dropdown">Показать
+                        <button type="button" class="btn btn-primary btn-block" data-toggle="dropdown">��������
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu ">
-                            <li><a onclick="showUsers();">Список пользователей</a></li>
-                            <li><a onclick="getOwners();">Список владельцев</a></li>
-                            <li><a onclick="getDrivers();">Список водителей</a></li>
-                            <li><a onclick="getCards();">Список карт</a></li>
+                            <li><a onclick="showUsers();">������ �������������</a></li>
+                            <li><a onclick="getOwners();">������ ����������</a></li>
+                            <li><a onclick="getDrivers();">������ ���������</a></li>
+                            <li><a onclick="getCards();">������ ����</a></li>
                         </ul>
                     </div>
                 <div class="dropdown ofset">
                     <button type="button" class="btn btn-primary btn-block" data-toggle="dropdown">
-                        Добавить
+                        ��������
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu contmenu">
-                        <li><a onclick="window.location='/registration'">Пользователя</a></li>
-                        <li><a onclick="window.location='/admin/addOwner'">Владельца</a></li>
-                        <li><a onclick="window.location='/admin/addDriver'">Водителя</a></li>
-                        <li><a onclick="window.location='/admin/addCompany'">Компанию</a></li>
-                        <li><a onclick="window.location='/admin/addCard'">Карту</a></li>
-                        <li><a onclick="window.location='/admin/addBus'">Автобус</a></li>
-                        <li><a onclick="window.location='/admin/addRoute'">Маршрут</a></li>
-                        <%--<button type="button" class="btn btn-link" onclick="window.location='/registration'">Пользователя</button>--%>
+                        <li><a onclick="window.location='/registration'">������������</a></li>
+                        <li><a onclick="window.location='/admin/addOwner'">���������</a></li>
+                        <li><a onclick="window.location='/admin/addDriver'">��������</a></li>
+                        <li><a onclick="window.location='/admin/addCompany'">��������</a></li>
+                        <li><a onclick="window.location='/admin/addCard'">�����</a></li>
+                        <li><a onclick="window.location='/admin/addBus'">�������</a></li>
+                        <li><a onclick="window.location='/admin/addRoute'">�������</a></li>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/registration'">������������</button>--%>
                         <%--<br>--%>
-                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addOwner'">Владельца</button>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addOwner'">���������</button>--%>
                         <%--<br>--%>
-                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addDriver'">Водителя</button>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addDriver'">��������</button>--%>
                         <%--<br>--%>
-                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addCompany'">Компанию</button>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addCompany'">��������</button>--%>
                         <%--<br>--%>
-                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addCard'">Карту</button>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addCard'">�����</button>--%>
                         <%--<br>--%>
-                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addBus'">Автобус</button>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addBus'">�������</button>--%>
                         <%--<br>--%>
-                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addRoute'">Маршрут</button>--%>
+                        <%--<button type="button" class="btn btn-link" onclick="window.location='/admin/addRoute'">�������</button>--%>
                     </ul>
                 </div>
                 <div class="dropdown">
-                    <button type="button" class="btn btn-primary ofset btn-block" onclick="deleteUser()">Удалить
+                    <button type="button" class="btn btn-primary ofset btn-block" onclick="deleteUser()">�������
                     </button>
                 </div>
                 <div class="dropdown">
-                    <button type="button" class="btn btn-primary ofset btn-block" onclick="edit()">Редактировать
+                    <button type="button" class="btn btn-primary ofset btn-block" onclick="edit()">�������������
                     </button>
                 </div>
             </div>

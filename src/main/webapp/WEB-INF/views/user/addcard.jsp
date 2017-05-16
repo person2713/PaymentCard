@@ -13,9 +13,9 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 </head>
-<spring:url value="http://localhost:9555/user" var="urlHome" />
+<spring:url value="http://localhost:9000/user" var="urlHome" />
 
-<body>
+<body style="background-color: #EDEEF0">
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">

@@ -37,13 +37,8 @@ public class AddDriver {
     MessageSource messageSource;
 
     @Autowired
-    PersonService personService;
-
-    @Autowired
     DriversService driversService;
 
-    @Autowired
-    RoleService roleService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String renderAddNewDriver(ModelMap model) {
@@ -52,17 +47,11 @@ public class AddDriver {
         return "admin/addDriver";
     }
 
-    @Transactional
-    @RequestMapping(value = "/newDriver", method = RequestMethod.POST)
-    public String saveDriver(@Valid @ModelAttribute("driverForm") Drivers driver, BindingResult result,
-                              ModelMap model) {
 
-        driver.getPerson().setRole(roleService.findByType("DRIVER"));
-        personService.savePerson(driver.getPerson());
-        Long personId = personService.findByNickname(driver.getPerson().getNickname()).getPersonId();
-        driver.getPerson().setPersonId(personId);
+    @RequestMapping(value = "/newDriver", method = RequestMethod.POST)
+    public String saveDriver(@Valid @ModelAttribute("driverForm") Drivers driver) {
         driversService.save(driver);
-        return "/admin/admin";
+        return "redirect:/admin/allDrivers";
     }
 
     @ModelAttribute("cities")

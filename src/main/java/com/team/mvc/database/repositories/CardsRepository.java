@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Repository
@@ -19,6 +21,14 @@ public class CardsRepository extends AbstractRepository<Cards> {
     }
     @Autowired
     TypeCardRepository typeCardRepository;
+
+    @Autowired
+    public SessionFactory sessionFactoryZ;
+
+    @Override
+    protected Session getSession() {
+        return sessionFactory.getCurrentSession();
+    }
 
     public List<Cards> getAllBlockCards(){
 //        Query query = getSession().createQuery("SELECT C FROM Cards  C ");
@@ -118,7 +128,21 @@ public class CardsRepository extends AbstractRepository<Cards> {
     @Override
     public List<Cards> getAll() {
         Criteria criteria = createEntityCriteria();
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         criteria.addOrder(Order.asc("cardId"));
         return criteria.list();
+//        Session session = sessionFactory.openSession();
+//        Query query = session.createSQLQuery("select * from cards");
+//        return new ArrayList<Cards> (query.list());
+    }
+
+
+    @Override
+    public void update(Cards card){
+        Session session = sessionFactory.openSession();
+        Query query = session.createSQLQuery(String.format("update cards set person_id=:personId where card_id=:cardId"));
+        query.setParameter("personId", card.getPersonId());
+        query.setParameter("cardId", card.getCardId());
+        query.executeUpdate();
     }
 }

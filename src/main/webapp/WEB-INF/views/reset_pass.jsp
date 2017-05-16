@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Reset password</title>
+    <title>Восстановление пароля</title>
 
     <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/login_css/login.css" rel="stylesheet">
@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">

@@ -5,9 +5,11 @@ import com.team.mvc.database.entities.Persons;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
+@Transactional
 public class CompaniesRepository extends AbstractRepository<Companies> {
     public CompaniesRepository() {
         super(Companies.class);

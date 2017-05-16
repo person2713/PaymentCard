@@ -4,14 +4,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Reset password</title>
+    <title>Восстановление пароля</title>
     <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
     <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
     <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
-<body>
+<body style="background-color: #EDEEF0">
     <div class="text-center">
         <h4 style="margin-top: 10%">На вашу почту отправлено письмо для восстановления пароля.<br/>
             Пожалуйста, проверьте ваш почтовый ящик.</h4>

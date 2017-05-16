@@ -30,7 +30,7 @@ public class CardBalance implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "CARD_ID")
-   @JsonBackReference
+    @JsonBackReference
     private Cards card;
 
     @OneToMany(fetch = FetchType.LAZY)

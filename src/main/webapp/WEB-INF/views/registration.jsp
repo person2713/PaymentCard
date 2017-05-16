@@ -7,9 +7,15 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Registration</title>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <c:choose>
+        <c:when test="${edit}">
+            <title>Редактировать пользователя</title>
+        </c:when>
+        <c:otherwise>
+            <title>Регистрация</title>
+        </c:otherwise>
+    </c:choose>
     <%--<link href="/static/css/boot.css" rel="stylesheet">--%>
     <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
     <%--<link href="/static/css/login_css/login.css" rel="stylesheet">--%>
@@ -23,30 +29,25 @@
 
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <div class="container">
 
 
     <c:choose>
         <c:when test="${edit}">
             <legend><h2>Редактирование пользователя</h2></legend>
+            <spring:url value="/admin/allUsers/editUser" var="userActionUrl"/>
         </c:when>
         <c:when test="${isAdmin}">
             <legend><h2>Добавить пользователя</h2></legend>
+            <spring:url value="/registration/newUser" var="userActionUrl"/>
         </c:when>
         <c:otherwise>
             <legend><h2>Регистрация</h2></legend>
-        </c:otherwise>
-    </c:choose>
-
-    <c:choose>
-        <c:when test="${edit}">
-            <spring:url value="/admin/allUsers/editUsers" var="userActionUrl"/>
-        </c:when>
-        <c:otherwise>
             <spring:url value="/registration/newUser" var="userActionUrl"/>
         </c:otherwise>
     </c:choose>
+
 
     <form:form method="POST" modelAttribute="userForm" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="personId" id="personId"/>
@@ -145,32 +146,13 @@
         </div>
 
 
-        <sec:authorize access="hasRole('ADMIN')">
-            <div class="row">
+        <%--<div style='display:none;' id='business'>Business Name<br/>&nbsp;--%>
+        <%--<br/>&nbsp;--%>
+        <%--<input type='text' class='text' name='business' value size='20'/>--%>
+        <%--<br/>--%>
+        <%--</div>--%>
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="Role">Role</label>
-                    <div class="col-md-4">
-                        <form:select path="role" id="role" class="form-control">
-                            <%--<form:option value="NONE" label=""/>--%>
-                            <form:options items="${rollers}" multiple="false" itemValue="roleId"
-                                          itemLabel="roleType"/>
-                            <div class="has-error">
-                                <form:errors path="role" class="help-inline"/>
-                            </div>
-                        </form:select>
-                    </div>
-                </div>
-            </div>
-
-
-            <div style='display:none;' id='business'>Business Name<br/>&nbsp;
-                <br/>&nbsp;
-                <input type='text' class='text' name='business' value size='20'/>
-                <br/>
-            </div>
-
-        </sec:authorize>
+        <%--</sec:authorize>--%>
 
         <div class="form-group">
             <label class="col-md-4 control-label"></label>
@@ -186,7 +168,7 @@
                     </c:when>
                     <c:otherwise>
                         <input type="submit" value="Зарегистрироваться" class="btn btn-success"/>
-                        <a href="/" style="padding-left: 27%">Отмена</a>
+                        <a href="/" class="btn btn-orange">Отмена</a>
                     </c:otherwise>
                 </c:choose>
                     <%--<a href="/welcome" class="forgot-password" style="padding-left: 27%">Отмена</a>--%>
@@ -195,9 +177,9 @@
     </form:form>
 
     <%--<div class="navbar navbar-inner  navbar-fixed-bottom">--%>
-        <%--<p>--%>
-        <%--<center class="text-muted">© NetCracker Education Center 2017</center>--%>
-        <%--</p>--%>
+    <%--<p>--%>
+    <%--<center class="text-muted">© NetCracker Education Center 2017</center>--%>
+    <%--</p>--%>
     <%--</div>--%>
 </div>
 

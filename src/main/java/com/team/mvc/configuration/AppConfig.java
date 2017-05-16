@@ -34,7 +34,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     CityConverter cityConverter;
 
     @Autowired
-    DriverConverter driverConverter;
+    TypeCardConverter typeCardConverter;
 
     @Bean
     public ViewResolver viewResolver() {
@@ -49,6 +49,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages");
+        messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 
@@ -61,7 +62,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(cityConverter);
         registry.addConverter(roleConverter);
-        registry.addConverter(driverConverter);
+        registry.addConverter(typeCardConverter);
     }
 
     @Bean

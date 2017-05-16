@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -23,6 +24,7 @@ public class PersonService {
 
     @Autowired
     PersonRepository personRepository;
+
 
     @Autowired
     CitiesRepository citiesRepository;
@@ -73,31 +75,10 @@ public class PersonService {
     }
 
 
-//
-//    public List<Persons> getOwners() {
-//        List<Persons> personList = new ArrayList<>();
-//        for (Persons person : personRepository.getAll()) {
-//            if (person.getRole().getRoleType().equals("OWNER"))
-//                personList.add(person);
-//        }
-//        return personList;
-//    }
-//
-//
-//    public List<Persons> getDrivers() {
-//        List<Persons> personList = new ArrayList<>();
-//        for (Persons person : personRepository.getAll()) {
-//            if (person.getRole().getRoleType().equals("DRIVER"))
-//                personList.add(person);
-//        }
-//        return personList;
-//    }
-
-
 
     public boolean isPersonsNicknameUnique(Long id, String nickname) {
         Persons persons = findByNickname(nickname);
-        return (persons == null || ((id != null) && (persons.getPersonId() == id)));
+        return (persons == null || ((id != null) && (Objects.equals(persons.getPersonId(), id))));
 
     }
 
@@ -129,8 +110,7 @@ public class PersonService {
         personRepository.update(persons);
     }
     public void updPass (String mail, String pass){
-        Persons persons = new Persons();
-        persons = personRepository.findByEmail(mail);
+        Persons persons = personRepository.findByEmail(mail);
         persons.setPassword(passwordEncoder.encode(pass));
     }
     public List<Persons> getAll(){

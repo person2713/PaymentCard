@@ -35,4 +35,5 @@ public class CardBalanceService {
     public List<CardBalance> getAll(){
         return cardBalanceRepository.getAll();
     }
+
 }

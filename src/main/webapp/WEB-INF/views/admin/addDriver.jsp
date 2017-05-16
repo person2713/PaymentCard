@@ -3,13 +3,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Registration</title>
 
+    <c:choose>
+        <c:when test="${edit}">
+            <title>Редактировать водителя</title>
+        </c:when>
+        <c:otherwise>
+            <title>Добавить водителя</title>
+        </c:otherwise>
+    </c:choose>
     <link href="/static/css/boot.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
+    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
 
 
 </head>
@@ -17,38 +27,56 @@
 <body>
 <div class="container">
 
-    <legend><h2>Добавить водителя</h2></legend>
+    <c:choose>
+        <c:when test="${edit}">
+            <legend><h2>Редактировать вадителя</h2></legend>
+            <spring:url value="/admin/allDrivers/editDriver" var="userActionUrl"/>
+        </c:when>
+        <c:otherwise>
+            <legend><h2>Добавить владельца</h2></legend>
+            <spring:url value="/admin/addDriver/newDriver" var="userActionUrl"/>
+        </c:otherwise>
+    </c:choose>
 
-
-    <form:form method="POST" modelAttribute="driverForm" action="/admin/addDriver/newDriver" class="form-horizontal">
+    <form:form method="POST" modelAttribute="driverForm" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="driverId" id="driverId"/>
+
+        <form:input type="hidden" path="person.personId" id="person.personId"/>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="person.nickname">Никнейм</label>
             <div class="col-md-4">
-                <c:choose>
-                    <c:when test="${edit}">
-                        <form:input type="text" path="person.nickname" id="person.nickname" class="form-control"/>
-                    </c:when>
-                    <c:otherwise>
-                        <form:input type="text" path="person.nickname" id="person.nickname" class="form-control"/>
-                        <div class="has-error">
-                            <form:errors path="person.nickname" class="help-inline"/>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="person.password">Пароль</label>
-            <div class="col-md-4">
-                <form:input type="password" path="person.password" id="person.password" class="form-control"/>
+                <form:input type="text" path="person.nickname" id="person.nickname" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="person.password" class="help-inline"/>
+                    <form:errors path="person.nickname" class="help-inline"/>
                 </div>
             </div>
         </div>
+
+        <c:choose>
+            <c:when test="${edit}">
+                <div class="form-group" style="display: none">
+                    <label class="col-md-4 control-label" for="person.password">Пароль</label>
+                    <div class="col-md-4">
+                        <form:input type="password" path="person.password" id="person.password" class="form-control"/>
+                        <div class="has-error">
+                            <form:errors path="person.password" class="help-inline"/>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="person.password">Пароль</label>
+                    <div class="col-md-4">
+                        <form:input type="password" path="person.password" id="person.password" class="form-control"/>
+                        <div class="has-error">
+                            <form:errors path="person.password" class="help-inline"/>
+                        </div>
+                    </div>
+                </div>
+            </c:otherwise>
+        </c:choose>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="person.firstName">Имя</label>
@@ -97,7 +125,7 @@
             <label class="col-md-4 control-label" for="person.city">Выберите город</label>
             <div class="col-md-4">
                 <form:select path="person.city" class="form-control">
-                    <form:option value="NONE" label=""/>
+                    <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${cities}" multiple="false" itemValue="cityId" itemLabel="cityName"/>
                     <div class="has-error">
                         <form:errors path="person.city" class="help-inline"/>
@@ -106,11 +134,14 @@
             </div>
         </div>
 
+        
+
+
         <div class="form-group">
             <label class="col-md-4 control-label" for="companyId">Выберите компанию</label>
             <div class="col-md-4">
                 <form:select path="companyId" class="form-control">
-                    <form:option value="NONE" label=""/>
+                    <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${companies}" multiple="false" itemValue="companyId" itemLabel="companyName"/>
                     <div class="has-error">
                         <form:errors path="companyId" class="help-inline"/>
@@ -120,11 +151,20 @@
         </div>
 
 
+
         <div class="form-group">
             <label class="col-md-4 control-label"></label>
             <div class="col-md-4">
-                <input type="submit" value="Добавить" class="btn btn-success"/>
-                <a href="/admin" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                <c:choose>
+                    <c:when test="${edit}">
+                        <input type="submit" value="Редактировать" class="btn btn-success"/>
+                        <a href="/admin/allDrivers" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="submit" value="Добавить" class="btn btn-success"/>
+                        <a href="/admin/allDrivers" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
 

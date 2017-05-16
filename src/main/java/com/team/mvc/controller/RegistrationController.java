@@ -56,8 +56,7 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
-    public String saveUser(@Valid @ModelAttribute("userForm") Persons person, BindingResult result,
-                           ModelMap model) {
+    public String saveUser(@Valid @ModelAttribute("userForm") Persons person, BindingResult result) {
 
         List<FieldError> errors = new ArrayList<>();
 
@@ -108,12 +107,9 @@ public class RegistrationController {
             return "registration";
         }
 
-        if (GetRole.hasRole("ROLE_ADMIN"))
-            personService.savePerson(person);
-        else {
-            person.setRole(roleService.findByType("USER"));
-            personService.savePerson(person);
-        }
+        person.setRole(roleService.findByType("USER"));
+        personService.savePerson(person);
+
 
         if (Const.DEBUG) {
             if (logger.isDebugEnabled()) {
@@ -128,15 +124,11 @@ public class RegistrationController {
             }
         }
         if (GetRole.hasRole("ROLE_ADMIN"))
-            return "admin/successForAdmin";
+            return "redirect:/admin/allUsers";
         else
             return "success";
     }
 
-    @ModelAttribute("rollers")
-    public List<Rollers> getRollers() {
-        return roleService.findAll();
-    }
 
     @ModelAttribute("cities")
     public List<Cities> initializeCities() {

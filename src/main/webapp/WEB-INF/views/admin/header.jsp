@@ -3,7 +3,7 @@
 <html lang="ru">
 
 <head>
-    <title>Admin page</title>
+    <title>Администратор</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
@@ -52,7 +52,7 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Payment Card</a>
+            <a class="navbar-brand" style="color: white;">Payment Card</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -64,7 +64,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/admin/allUsers">Список пользователей</a></li>
                         <li><a href="/admin/allOwners">Список владельцев</a></li>
-                        <li><a href="/admin/allOwners">Список водителей</a></li>
+                        <li><a href="/admin/allDrivers">Список водителей</a></li>
                         <li><a href="/admin/allCards">Список карт</a></li>
                         <li><a href="/admin/allCompanies">Список компаний</a></li>
                     </ul>

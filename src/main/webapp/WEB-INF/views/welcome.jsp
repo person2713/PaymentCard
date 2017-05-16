@@ -23,7 +23,7 @@
 
 
 </head>
-<body>
+<body style="background-color: #EDEEF0">
     <div class="templatemo-top-bar" id="templatemo-top">
         <div class="container">
             <div class="subheader">
@@ -168,7 +168,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-center">
-                        <img src="/static/images/preim2.jpg">
+                        <img src="/static/images/nuzhnoe.png">
                     </div>
                 </div>
             </div>

@@ -3,8 +3,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Login page</title>
-	<%--<link href="/static/css/boot.css" rel="stylesheet">--%>
+	<title>Авторизация</title>
 	<link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
 	<link href="/static/css/login_css/login.css" rel="stylesheet">
 	<link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
@@ -13,7 +12,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
@@ -55,8 +54,7 @@
 										<div class="col-sm-6 col-sm-offset-3">
 											<div class="text-center">
 												<button class="btn btn-green">Вход</button>
-												<a href="/welcome" class="btn btn-orange">На главную</a>
-												<%--<input type="submit" value="На главную" class="btn btn-orange"/>--%>
+												<a href="/" class="btn btn-orange">На главную</a>
 											</div>
 										</div>
 									</div>
@@ -73,13 +71,14 @@
 							</form>
 						</div>
 					</div><!-- /.row -->
-						<div class="navbar navbar-inner  navbar-fixed-bottom">
-							<p><center  class="text-muted">© NetCracker Education Center 2017</center></p>
-						</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="navbar navbar-inner  navbar-fixed-bottom">
+	<p><center class="text-muted"><big>© NetCracker Education Center 2017</big></center></p>
 </div>
 </body>
 </html>
