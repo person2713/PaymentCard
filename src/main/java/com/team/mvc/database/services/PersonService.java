@@ -134,4 +134,6 @@ public class PersonService {
 //        if(cards.getPersonId()==null){cards.setPersonId(Long.valueOf(id)); cards.setCardName(name);}
     }
 
+    public void updatePerson(long id, String  firstn, String lastN, String numberM) {personRepository.updatePerson(id,firstn,lastN,numberM);}
+
 }

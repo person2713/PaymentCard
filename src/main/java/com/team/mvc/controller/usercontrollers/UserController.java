@@ -192,14 +192,7 @@ public class UserController {
 
 
 
-    @RequestMapping(value = "/user/history", method = RequestMethod.GET)
-    public String showHistory() {
 
-        System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
-
-        return "user/history";
-
-    }
 
     @RequestMapping(value="/user/addUserCard" , method=RequestMethod.POST)
     public RedirectView addUserCard(@RequestParam(value="idcard") String idcard, @RequestParam(value="namecard") String namecard){
@@ -217,8 +210,50 @@ public class UserController {
         return GetRole.getPrincipal();
     }
 
+    @ModelAttribute("id_user")
+    public Long getUserID() {
+        return personService.findByNickname(GetRole.getPrincipal()).getPersonId();
+    }
+
+
+    @RequestMapping(value = "/user/{id}/info", method = RequestMethod.GET)
+    public String showUpdUserForm(@PathVariable("id") Long id, Model model) {
+        System.out.println("showUpdateUserForm" + "------------------------------------------------------------------------------------------------------------");
+        Persons persons = null;
+        try {
+            persons = personService.findById(id);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("person", persons);
+
+        return "user/change_user";
+
 
     }
+
+
+    @RequestMapping(value = "/info", method = RequestMethod.POST)
+    public RedirectView saveOrUpdateUser(@ModelAttribute("person") @Validated Persons persons,
+                                   BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
+
+
+
+
+        personService.updatePerson(persons.getPersonId(),persons.getFirstName(),persons.getLastName(),persons.getMobileNumber());
+
+
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:9555/user");
+        return redirectView;
+
+    }
+
+
+    }
+
+
+
 
 
 

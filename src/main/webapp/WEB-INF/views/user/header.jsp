@@ -26,7 +26,8 @@
 		</div>
 		<div id="navbar">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a><strong>${user}</strong></a></li>
+				<li><a href="/user/user/${id_user}/info"><strong>${username1}</strong></a></li>
+				<%--<li><a><strong>${user}</strong></a></li>--%>
 				<li><a href="/logout">Выйти</a></li>
 			</ul>
 		</div>

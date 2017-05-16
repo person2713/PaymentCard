@@ -83,27 +83,36 @@ public class PersonRepository  extends AbstractRepository{
         return  (Events) sqlQuery.uniqueResult();
     }
 
-//    public Cards findEventAndBalanceHistByCardID(int id) {
-//        String que = "SELECT  *  FROM  BALANCE_HIST INNER JOIN EVENTS ON   BALANCE_HIST.CARD_ID = EVENTS.CARD_ID WHERE BALANCE_HIST.CARD_ID ="+id;
-//
+
+
+
+
+
+
+    public void updatePerson(long id, String  firstn, String lastN, String numberM) {
+
+        String UPDATE = "UPDATE PERSONS  SET PERSONS.FIRST_NAME =" + "'" + firstn +"'" +" ,PERSONS.LAST_NAME =" + "'" +lastN+"'" +" ,PERSONS.MOBILE_NUMBER=" + "'" +numberM + "'" +" WHERE PERSONS.PERSON_ID = " + id;
+        Session session = sessionFactory.openSession();
+        try {
+
+            session.getTransaction().begin();
+            session.createSQLQuery(UPDATE).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+        } catch (HibernateException erro) {
+            System.out.println(erro);
+            session.getTransaction().rollback();
+            session.close();
+        }
+
 //        Session session = sessionFactory.openSession();
 //        session.beginTransaction();
-//        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
-//        List result =  sqlQuery.list();
-//        return   result;
-//    }
+//        SQLQuery sqlQuery = session.createSQLQuery(UPDATE);
+//        int result = sqlQuery.executeUpdate();
+//        System.out.println(result);
+//        session.getTransaction().commit();
+    }
 
-//    public CardBalance findBalanceByNickname(String nickname) {
-//
-//
-//
-//
-//
-//
-//     /*   Criteria criteria = createEntityCriteria();
-//        criteria.add(Restrictions.eq("nickname", nickname));
-//        return ((Persons) criteria.uniqueResult()).getCards();*/
-//    }
 
 
 

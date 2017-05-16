@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -18,52 +19,41 @@
     <div class="container">
 
         <legend><h2>Изменить пользователя</h2></legend>
+        <spring:url value="/user/info" var="userActionUrl" />
+        <form:form method="POST" modelAttribute="person" action="${userActionUrl}" class="form-horizontal">
+            <form:hidden path="personId" />
 
-        <form:form method="POST" modelAttribute="" action="" class="form-horizontal">
-            <form:input type="hidden" path="" id=""/>
 
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="first_name">Имя</label>
+                <label class="col-md-4 control-label" for="firstName">Имя</label>
                 <div class="col-md-4">
-                    <form:input type="text" path="first_name" id="first_name" class="form-control"/>
+                    <form:input type="text" path="firstName" id="firstName" class="form-control"/>
                     <div class="has-error">
-                        <form:errors path="first_name" class="help-inline"/>
+                        <form:errors path="firstName" class="help-inline"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="first_name">Фамилия</label>
+                <label class="col-md-4 control-label" for="lastName">Фамилия</label>
                 <div class="col-md-4">
-                    <form:input type="text" path="last_name" id="last_name" class="form-control"/>
+                    <form:input type="text" path="lastName" id="lastName" class="form-control"/>
                     <div class="has-error">
-                        <form:errors path="last_name" class="help-inline"/>
+                        <form:errors path="lastName" class="help-inline"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="mobile">Телефон</label>
+                <label class="col-md-4 control-label" for="mobileNumber">Телефон</label>
                 <div class="col-md-4">
-                    <form:input type="text" path="mobile" id="mobile" class="form-control"/>
+                    <form:input type="text" path="mobileNumber" id="mobileNumber" class="form-control"/>
                     <div class="has-error">
-                        <form:errors path="mobile" class="help-inline"/>
+                        <form:errors path="mobileNumber" class="help-inline"/>
                     </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="email">Email</label>
-                <div class="col-md-4">
-                    <form:input type="email" path="email" id="email" class="form-control"/>
-                    <div class="has-error">
-                        <form:errors path="email" class="help-inline"/>
-                    </div>
-                </div>
-            </div>
-
-
 
             <div class="form-group">
                 <label class="col-md-4 control-label"></label>
