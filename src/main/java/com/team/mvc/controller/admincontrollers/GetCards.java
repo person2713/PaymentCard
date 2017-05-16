@@ -65,7 +65,7 @@ public class GetCards {
     }
 
     @RequestMapping(value = "/editCard", method = RequestMethod.POST)
-    public String saveOrUpdateDriver(@ModelAttribute("cardForm") @Validated Cards card, BindingResult result, Model model) throws NotFoundException {
+    public String saveOrUpdateDriver(@ModelAttribute("cardForm") @Validated Cards card, BindingResult result, Model model) {
 
         List<FieldError> errors = new ArrayList<>();
 
@@ -77,10 +77,14 @@ public class GetCards {
             errors.add(cardNameUniqError);
 
         }
-        if (!cardService.isCardKeyUnique(card.getCardId(), card.getCardKey())) {
-            FieldError cardKeyUniqError = new FieldError("card", "cardKey", messageSource.getMessage("non.unique.card.cardKey", new String[]{card.getCardKey().toString()}, Locale.getDefault()));
-            errors.add(cardKeyUniqError);
+        try {
+            if (!cardService.isCardKeyUnique(card.getCardId(), card.getCardKey())) {
+                FieldError cardKeyUniqError = new FieldError("card", "cardKey", messageSource.getMessage("non.unique.card.cardKey", new String[]{card.getCardKey().toString()}, Locale.getDefault()));
+                errors.add(cardKeyUniqError);
 
+            }
+        } catch (NotFoundException e) {
+            e.printStackTrace();
         }
         if (!errors.isEmpty()) {
 

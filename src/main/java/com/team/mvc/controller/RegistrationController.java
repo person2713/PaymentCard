@@ -58,77 +58,34 @@ public class RegistrationController {
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
     public String saveUser(@Valid @ModelAttribute("userForm") Persons person, BindingResult result) {
 
-        List<FieldError> errors = new ArrayList<>();
-
         if (result.hasErrors()) {
             return "errorPage";
         }
-
-        if (person.getNickname().isEmpty()) {
-            FieldError nicknameError = new FieldError("person", "nickname", messageSource.getMessage("NotEmpty.person.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
-            errors.add(nicknameError);
-        }
-
         if (!personService.isPersonsNicknameUnique(person.getPersonId(), person.getNickname())) {
-            FieldError nicknameUniqError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
-            errors.add(nicknameUniqError);
-        }
-
-
-        if (person.getPassword().isEmpty()) {
-            FieldError passwordError = new FieldError("person", "password", messageSource.getMessage("NotEmpty.person.password", new String[]{person.getPassword()}, Locale.getDefault()));
-            errors.add(passwordError);
-        }
-
-        if (person.getFirstName().isEmpty()) {
-            FieldError firstNameError = new FieldError("person", "firstName", messageSource.getMessage("NotEmpty.person.firstName", new String[]{person.getFirstName()}, Locale.getDefault()));
-            errors.add(firstNameError);
-        }
-
-        if (person.getLastName().isEmpty()) {
-            FieldError lastNameError = new FieldError("person", "lastName", messageSource.getMessage("NotEmpty.person.lastName", new String[]{person.getLastName()}, Locale.getDefault()));
-            errors.add(lastNameError);
-        }
-
-        if (person.getEmail().isEmpty()) {
-            FieldError emailError = new FieldError("person", "email", messageSource.getMessage("NotEmpty.person.email", new String[]{person.getEmail()}, Locale.getDefault()));
-            errors.add(emailError);
-        }
-
-        if (person.getCity() == null) {
-            FieldError cityError = new FieldError("person", "city", messageSource.getMessage("NotEmpty.person.city", new Cities[]{person.getCity()}, Locale.getDefault()));
-            errors.add(cityError);
-        }
-        if (!errors.isEmpty()) {
-
-            for (FieldError error : errors) {
-                result.addError(error);
-            }
+            FieldError nicknameUniqError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.user.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
+            result.addError(nicknameUniqError);
             return "registration";
-        }
-
-        person.setRole(roleService.findByType("USER"));
-        personService.savePerson(person);
-
-
-        if (Const.DEBUG) {
-            if (logger.isDebugEnabled()) {
-                logger.debug("person: id-" + person.getPersonId() +
-                        " Nickname-" + person.getNickname() +
-                        " Lastname-" + person.getLastName() +
-                        " FirstName-" + person.getFirstName() +
-                        " Email-" + person.getEmail() +
-                        " City-" + person.getCity().getCityName() +
-                        " MobileNumber-" + person.getMobileNumber() +
-                        " Role-" + person.getRole().getRoleType());
+        } else {
+            person.setRole(roleService.findByType("USER"));
+            personService.savePerson(person);
+            if (Const.DEBUG) {
+                if (logger.isDebugEnabled()) {
+                    logger.debug("person: id-" + person.getPersonId() +
+                            " Nickname-" + person.getNickname() +
+                            " Lastname-" + person.getLastName() +
+                            " FirstName-" + person.getFirstName() +
+                            " Email-" + person.getEmail() +
+                            " City-" + person.getCity().getCityName() +
+                            " MobileNumber-" + person.getMobileNumber() +
+                            " Role-" + person.getRole().getRoleType());
+                }
             }
+            if (GetRole.hasRole("ROLE_ADMIN"))
+                return "redirect:/admin/allUsers";
+            else
+                return "success";
         }
-        if (GetRole.hasRole("ROLE_ADMIN"))
-            return "redirect:/admin/allUsers";
-        else
-            return "success";
     }
-
 
     @ModelAttribute("cities")
     public List<Cities> initializeCities() {

@@ -10,14 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin/addOwner")
@@ -45,9 +48,19 @@ public class AddOwner {
     }
 
     @RequestMapping(value = "/newOwner", method = RequestMethod.POST)
-    public String saveOwner(@Valid @ModelAttribute("ownerForm") Owners owner) {
-        ownerService.saveOwner(owner);
-        return "redirect:/admin/allOwners";
+    public String saveOwner(@Valid @ModelAttribute("ownerForm") Owners owner, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "errorPage";
+        }
+        if (!ownerService.isOwnerNicknameUnique(owner.getPerson().getPersonId(), owner.getPerson().getNickname())) {
+            FieldError nicknameUniqError = new FieldError("owner", "person.nickname", messageSource.getMessage("non.unique.owner.nickname", new String[]{owner.getPerson().getNickname()}, Locale.getDefault()));
+            result.addError(nicknameUniqError);
+            return "admin/addOwner";
+        } else {
+            ownerService.saveOwner(owner);
+            return "redirect:/admin/allOwners";
+        }
     }
 
     @ModelAttribute("cities")

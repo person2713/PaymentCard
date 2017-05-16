@@ -11,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin/addDriver")
@@ -49,9 +52,19 @@ public class AddDriver {
 
 
     @RequestMapping(value = "/newDriver", method = RequestMethod.POST)
-    public String saveDriver(@Valid @ModelAttribute("driverForm") Drivers driver) {
-        driversService.save(driver);
-        return "redirect:/admin/allDrivers";
+    public String saveDriver(@Valid @ModelAttribute("driverForm") Drivers driver, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "errorPage";
+        }
+        if (!driversService.isDriverNicknameUnique(driver.getPerson().getPersonId(), driver.getPerson().getNickname())) {
+            FieldError nicknameUniqError = new FieldError("driver", "person.nickname", messageSource.getMessage("non.unique.driver.nickname", new String[]{driver.getPerson().getNickname()}, Locale.getDefault()));
+            result.addError(nicknameUniqError);
+            return "admin/addDriver";
+        } else {
+            driversService.save(driver);
+            return "redirect:/admin/allDrivers";
+        }
     }
 
     @ModelAttribute("cities")

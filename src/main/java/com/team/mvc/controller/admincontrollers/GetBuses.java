@@ -67,15 +67,15 @@ public class GetBuses {
     }
 
     @RequestMapping(value = "/editBus", method = RequestMethod.POST)
-    public String saveOrUpdateDriver(@ModelAttribute("busForm") @Validated Buses bus, BindingResult result, Model model) throws NotFoundException {
+    public String saveOrUpdateDriver(@ModelAttribute("busForm") @Validated Buses bus, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             return "errorPage";
         }
         if (!busesService.isBusNumberUnique(bus.getBusId(), bus.getBusNumber())) {
             model.addAttribute("edit", true);
-            FieldError companyNameUniqError = new FieldError("bus", "busNumber", messageSource.getMessage("non.unique.bus.number", new String[]{bus.getBusNumber()}, Locale.getDefault()));
-            result.addError(companyNameUniqError);
+            FieldError busNumberUniqError = new FieldError("bus", "busNumber", messageSource.getMessage("non.unique.bus.number", new String[]{bus.getBusNumber()}, Locale.getDefault()));
+            result.addError(busNumberUniqError);
             return "admin/addBus";
         } else {
             busesService.update(bus);

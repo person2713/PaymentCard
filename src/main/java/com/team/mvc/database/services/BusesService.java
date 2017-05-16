@@ -37,9 +37,9 @@ public class BusesService {
         busesRepository.delete(busesRepository.getById(id));
     }
 
-    public boolean isBusNumberUnique(Long id, String companyName) {
-        Buses bus = busesRepository.findByBusNumber(companyName);
-        return (bus == null || ((id != null) && (Objects.equals(bus.getCompanyId(), id))));
+    public boolean isBusNumberUnique(Long id, String busNumber) {
+        Buses bus = busesRepository.findByBusNumber(busNumber);
+        return (bus == null || ((id != null) && (Objects.equals(bus.getBusId(), id))));
     }
 
     public void update(Buses bus){
