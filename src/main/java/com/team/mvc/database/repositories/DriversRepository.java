@@ -8,12 +8,14 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Driver;
 import java.util.List;
 
 
 @Repository
+@Transactional
 public class DriversRepository extends AbstractRepository<Drivers> {
     public DriversRepository() {
         super(Drivers.class);

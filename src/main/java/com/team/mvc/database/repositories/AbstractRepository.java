@@ -20,15 +20,16 @@ public abstract class AbstractRepository<Entity> {
 
     @Autowired
     public SessionFactory sessionFactory;
+    protected Session getSession() {
+        return sessionFactory.getCurrentSession();
+    }
+
 
     protected Criteria createEntityCriteria() {
 
         return getSession().createCriteria(persistentClass);
     }
 
-    protected Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
 
     public Entity getById(Long id) throws NotFoundException {
         return (Entity) getSession().get(persistentClass, id);
