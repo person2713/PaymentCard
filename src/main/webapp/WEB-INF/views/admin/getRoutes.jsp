@@ -25,8 +25,8 @@
                 <td>${route.routePrice}</td>
                     <%--<td><input type="checkbox" value=""/></td>--%>
                 <td>
-                    <spring:url value="/admin/allRoutes/${bus.busId}/delete" var="deleteUrl"/>
-                    <spring:url value="/admin/allRoutes/${bus.busId}/edit" var="editUrl"/>
+                    <spring:url value="/admin/allRoutes/${route.routeId}/delete" var="deleteUrl"/>
+                    <spring:url value="/admin/allRoutes/${route.routeId}/edit" var="editUrl"/>
 
                     <button class="btn btn-primary"
                             onclick="location.href='${editUrl}'">Редактировать
