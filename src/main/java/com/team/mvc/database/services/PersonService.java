@@ -118,6 +118,7 @@ public class PersonService {
     }
 
     public Cards findByCardbyID(int id) { return personRepository.findByCardbyID(id);}
+    public Events findEvById(int id) {return  personRepository.findEvById(id);}
 //    public CardBalance findBalanceByNickname(String nickname) {
 //        return personRepository.findBalanceByNickname(nickname);
 //    }

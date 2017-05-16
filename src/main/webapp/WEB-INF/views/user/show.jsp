@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -35,6 +36,7 @@
             <th>Маршрут</th>
             <th>Баланс</th>
             <th>Время</th>
+            <th>На карте</th>
         </tr>
     </thead>
     <tbody>
@@ -45,6 +47,9 @@
             <td>${events.busId}</td>
             <td>${balanceHists.changes}</td>
             <td>${balanceHists.dateEvent}</td>
+            <td>
+                <spring:url value="/user/user/${events.eventId}/mapone" var="mapUrl" />
+                <button class="btn btn-mapbtn" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button></td>
         </tr>
     </c:forEach>
     </c:forEach>

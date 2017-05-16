@@ -179,6 +179,18 @@ public class UserController {
     }
 
 
+
+    @RequestMapping(value = "/user/{id}/mapone", method = RequestMethod.GET)
+    public String showMapOne (@PathVariable("id") int id, Model model){
+        System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
+
+
+        model.addAttribute("event", personService.findEvById(id));
+        return "user/swowonemap";
+    }
+
+
+
     @RequestMapping(value = "/user/history", method = RequestMethod.GET)
     public String showHistory() {
 
