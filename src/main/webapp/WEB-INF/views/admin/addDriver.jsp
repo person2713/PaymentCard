@@ -157,12 +157,28 @@
             <div class="col-md-4">
                 <c:choose>
                     <c:when test="${edit}">
-                        <input type="submit" value="Редактировать" class="btn btn-success"/>
-                        <a href="/admin/allDrivers" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <input type="submit" value="Редактировать" class="btn btn-success" style="width: 100%"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <a href="/admin/allDrivers" class="forgot-password" style="width: 100%">Отмена</a>
+                            </div>
+                        </div>
                     </c:when>
                     <c:otherwise>
-                        <input type="submit" value="Добавить" class="btn btn-success"/>
-                        <a href="/admin/allDrivers" class="forgot-password" style="padding-left: 27%">Отмена</a>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <input type="submit" value="Добавить" class="btn btn-success" style="width: 100%"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <a href="/admin/allDrivers" class="btn btn-orange" style="width: 100%">Отмена</a>
+                            </div>
+                        </div>
                     </c:otherwise>
                 </c:choose>
             </div>

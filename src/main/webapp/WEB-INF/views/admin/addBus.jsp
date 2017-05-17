@@ -65,7 +65,7 @@
         </div>
 
 
-        <div class="form-group">
+        <%--<div class="form-group">
             <label class="col-md-4 control-label"></label>
             <div class="col-md-4">
                 <c:choose>
@@ -79,7 +79,22 @@
                     </c:otherwise>
                 </c:choose>
             </div>
+        </div>--%>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label"></label>
+            <div class="col-md-2">
+                <div class="text-center">
+                    <input type="submit" value="Добавить" class="btn btn-success" style="width: 100%"/>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="text-center">
+                    <a href="/admin" class="btn btn-orange" style="width: 100%">Отмена</a>
+                </div>
+            </div>
         </div>
+
     </form:form>
     <div class="navbar navbar-inner  navbar-fixed-bottom">
         <p>
