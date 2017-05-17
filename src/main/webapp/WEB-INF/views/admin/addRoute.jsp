@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="text-center">
-                                <a href="/admin/allRoutes" class="btn btn-orange" style="width: 100%">Отмена</a>
+                                <a href="/admin" class="btn btn-orange" style="width: 100%">Отмена</a>
                             </div>
                         </div>
                     </c:otherwise>

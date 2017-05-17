@@ -75,7 +75,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Добавить <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/registration">Пользователя</a></li>
+                        <li><a href="/admin/addUser">Пользователя</a></li>
                         <li><a href="/admin/addOwner">Владельца</a></li>
                         <li><a href="/admin/addDriver">Водителя</a></li>
                         <li><a href="/admin/addCompany">Компанию</a></li>

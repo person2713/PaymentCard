@@ -1,3 +1,5 @@
+
+<%request.setCharacterEncoding("UTF-8");%>
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -8,9 +10,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-    <title>Регистрация</title>
-
+    <c:choose>
+        <c:when test="${edit}">
+            <title>Редактировать пользователя</title>
+        </c:when>
+        <c:otherwise>
+            <title>Добавить пользователя</title>
+        </c:otherwise>
+    </c:choose>
     <%--<link href="/static/css/boot.css" rel="stylesheet">--%>
     <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
     <%--<link href="/static/css/login_css/login.css" rel="stylesheet">--%>
@@ -27,8 +34,17 @@
 <body style="background-color: #EDEEF0">
 <div class="container">
 
-    <legend><h2>Регистрация</h2></legend>
-    <spring:url value="/registration/newUser" var="userActionUrl"/>
+
+    <c:choose>
+        <c:when test="${edit}">
+            <legend><h2>Редактирование пользователя</h2></legend>
+            <spring:url value="/admin/allUsers/editUser" var="userActionUrl"/>
+        </c:when>
+        <c:otherwise>
+            <legend><h2>Добавить пользователя</h2></legend>
+            <spring:url value="/admin/addUser/newUser" var="userActionUrl"/>
+        </c:otherwise>
+    </c:choose>
 
 
     <form:form method="POST" modelAttribute="userForm" action="${userActionUrl}" class="form-horizontal">
@@ -43,17 +59,33 @@
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="password">Пароль</label>
-            <div class="col-md-4">
-                <form:input type="password" path="password" id="password" class="form-control"/>
-                <div class="pwstrength_viewport_progress"></div>
-                <div class="has-error">
-                    <form:errors path="password" class="help-inline"/>
+        <c:choose>
+            <c:when test="${edit}">
+                <div class="form-group" style="display:none;">
+                    <label class="col-md-4 control-label" for="password">Пароль</label>
+                    <div class="col-md-4">
+                        <form:input type="password" path="password" id="password" class="form-control"/>
+                        <div class="pwstrength_viewport_progress"></div>
+                        <div class="has-error">
+                            <form:errors path="password" class="help-inline"/>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </c:when>
+            <c:otherwise>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="password">Пароль</label>
+                    <div class="col-md-4">
+                        <form:input type="password" path="password" id="password" class="form-control"/>
+                        <div class="pwstrength_viewport_progress"></div>
+                        <div class="has-error">
+                            <form:errors path="password" class="help-inline"/>
+                        </div>
+                    </div>
+                </div>
+            </c:otherwise>
+        </c:choose>
+
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="firstName">Имя</label>
@@ -111,28 +143,35 @@
             </div>
         </div>
 
-
-        <%--<div style='display:none;' id='business'>Business Name<br/>&nbsp;--%>
-        <%--<br/>&nbsp;--%>
-        <%--<input type='text' class='text' name='business' value size='20'/>--%>
-        <%--<br/>--%>
-        <%--</div>--%>
-
-        <%--</sec:authorize>--%>
-
         <div class="form-group">
             <label class="col-md-4 control-label"></label>
             <div class="col-md-4">
-                <div class="col-md-6">
-                    <div class="text-center">
-                        <input type="submit" value="Регистрация" class="btn btn-success" style="width: 100%"/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="text-center">
-                        <a href="/" class="btn btn-orange" style="width: 100%">Отмена</a>
-                    </div>
-                </div>
+                <c:choose>
+                    <c:when test="${edit}">
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <input type="submit" value="Редактировать" class="btn btn-success" style="width: 100%"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <a href="/admin/allUsers" class="btn btn-orange" style="width: 100%">Отмена</a>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <input type="submit" value="Добавить" class="btn btn-success" style="width: 100%"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <a href="/admin" class="btn btn-orange" style="width: 100%">Отмена</a>
+                            </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </form:form>

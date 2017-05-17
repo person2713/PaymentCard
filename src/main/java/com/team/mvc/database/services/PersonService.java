@@ -53,6 +53,7 @@ public class PersonService {
     }
 
     public void savePerson(Persons persons) {
+        persons.setRole(roleRepository.findByType("USER"));
         persons.setPassword(passwordEncoder.encode(persons.getPassword()));
         personRepository.save(persons);
     }

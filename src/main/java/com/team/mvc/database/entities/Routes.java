@@ -1,15 +1,9 @@
 package com.team.mvc.database.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -84,13 +78,13 @@ public class Routes implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Routes routes = (Routes) o;
+        Routes route = (Routes) o;
 
-        if (routeId != null ? !routeId.equals(routes.routeId) : routes.routeId != null) return false;
-        if (routePrice != null ? !routePrice.equals(routes.routePrice) : routes.routePrice != null) return false;
-        if (companyId != null ? !companyId.equals(routes.companyId) : routes.companyId != null) return false;
-        if (routeNumber != null ? !routeNumber.equals(routes.routeNumber) : routes.routeNumber != null) return false;
-        return carAssigns != null ? carAssigns.equals(routes.carAssigns) : routes.carAssigns == null;
+        if (routeId != null ? !routeId.equals(route.routeId) : route.routeId != null) return false;
+        if (routePrice != null ? !routePrice.equals(route.routePrice) : route.routePrice != null) return false;
+        if (companyId != null ? !companyId.equals(route.companyId) : route.companyId != null) return false;
+        if (routeNumber != null ? !routeNumber.equals(route.routeNumber) : route.routeNumber != null) return false;
+        return carAssigns != null ? carAssigns.equals(route.carAssigns) : route.carAssigns == null;
     }
 
     @Override
