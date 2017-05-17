@@ -1,6 +1,7 @@
 package com.team.mvc.database.services;
 
 import com.team.mvc.database.entities.BalanceHist;
+import com.team.mvc.database.entities.CardBalance;
 import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Events;
 import com.team.mvc.database.repositories.*;
@@ -51,9 +52,6 @@ public class CardsService {
         return (card == null || ((id != null) && (card.getCardId().equals(id))));
     }
 
-    public Cards findById(int id) {
-        return cardsRepository.findById(id);
-    }
 
     public void saveOrUpdate(Cards cards) throws NotFoundException {
 

@@ -38,15 +38,15 @@ public class Cards implements Serializable {
     @JoinColumn(name="TYPE_ID", nullable = false)
     private TypeCard typeCard;
 
-    @OneToOne(mappedBy = "card")
+    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL)
     @JsonManagedReference
     private CardBalance cardBalance;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="CARD_ID")
     private Set<BalanceHist> balanceHists = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="CARD_ID")
     public Set<Events> events = new HashSet<>();
 

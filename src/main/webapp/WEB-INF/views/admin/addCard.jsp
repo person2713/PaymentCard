@@ -42,8 +42,16 @@
 
     <form:form method="POST" modelAttribute="cardForm" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="cardId" id="cardId"/>
-        <form:input type="hidden" path="cardBalance.balanceId" id="cardBalance.balanceId"/>
 
+
+
+        <c:choose>
+            <c:when test="${edit}">
+                <form:input type="hidden" path="cardBalance.balanceId" id="cardBalance.balanceId"/>
+            </c:when>
+            <c:otherwise>
+            </c:otherwise>
+        </c:choose>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="cardName">Имя карты</label>
@@ -65,16 +73,23 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="cardBalance.balance">Баланс</label>
-            <div class="col-md-4">
-                <form:input type="text" path="cardBalance.balance" id="cardBalance.balance" class="form-control"/>
-                <div class="has-error">
-                    <form:errors path="cardBalance.balance" class="help-inline"/>
-                </div>
-            </div>
-        </div>
 
+
+        <c:choose>
+            <c:when test="${edit}">
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="cardBalance.balance">Баланс</label>
+                    <div class="col-md-4">
+                        <form:input type="text" path="cardBalance.balance" id="cardBalance.balance" class="form-control"/>
+                        <div class="has-error">
+                            <form:errors path="cardBalance.balance" class="help-inline"/>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+            </c:otherwise>
+        </c:choose>
 
         <c:choose>
             <c:when test="${edit}">
