@@ -49,7 +49,8 @@ public class CardsService {
 
     public boolean isCardNameUnique(Long id, String cardName) {
         Cards card = findByCardName(cardName);
-        return (card == null || ((id != null) && (card.getCardId().equals(id))));
+        boolean a = card == null || ((id != null) && (card.getCardId().equals(id)));
+        return (a);
     }
 
     public boolean isCardKeyUnique(Long id, long cardkey) throws NotFoundException {

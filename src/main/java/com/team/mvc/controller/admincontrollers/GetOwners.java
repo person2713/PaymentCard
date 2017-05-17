@@ -73,7 +73,7 @@ public class GetOwners {
         if (result.hasErrors()) {
             return "errorPage";
         }
-        if (!ownerService.isOwnerNicknameUnique(owner.getPerson().getPersonId(), owner.getPerson().getNickname())) {
+        if (!ownerService.isOwnerNicknameUnique(owner.getOwnerId(), owner.getPerson().getNickname())) {
             model.addAttribute("edit", true);
             FieldError nicknameUniqError = new FieldError("owner", "person.nickname", messageSource.getMessage("non.unique.owner.nickname", new String[]{owner.getPerson().getNickname()}, Locale.getDefault()));
             result.addError(nicknameUniqError);

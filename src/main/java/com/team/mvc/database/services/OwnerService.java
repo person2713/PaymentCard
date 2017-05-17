@@ -34,11 +34,13 @@ public class OwnerService {
         ownerRepository.save(owner);
     }
 
-    public List<Owners> getAll(){
+    public List<Owners> getAll() {
         return ownerRepository.getAll();
     }
 
-    public Owners getById(Long id) throws NotFoundException {return ownerRepository.getById(id);}
+    public Owners getById(Long id) throws NotFoundException {
+        return ownerRepository.getById(id);
+    }
 
     public void update(Owners owner) {
         owner.getPerson().setRole(roleRepository.findByType("OWNER"));
@@ -46,7 +48,7 @@ public class OwnerService {
         ownerRepository.update(owner);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         try {
             ownerRepository.delete(ownerRepository.getById(id));
         } catch (NotFoundException e) {

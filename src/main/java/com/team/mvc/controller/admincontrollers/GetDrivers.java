@@ -73,7 +73,7 @@ public class GetDrivers {
         if (result.hasErrors()) {
             return "errorPage";
         }
-        if (!driversService.isDriverNicknameUnique(driver.getPerson().getPersonId(), driver.getPerson().getNickname())) {
+        if (!driversService.isDriverNicknameUnique(driver.getDriverId(), driver.getPerson().getNickname())) {
             model.addAttribute("edit", true);
             FieldError nicknameUniqError = new FieldError("driver", "person.nickname", messageSource.getMessage("non.unique.driver.nickname", new String[]{driver.getPerson().getNickname()}, Locale.getDefault()));
             result.addError(nicknameUniqError);
