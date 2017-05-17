@@ -31,13 +31,10 @@ public class AppController {
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
 
-    @Autowired
-    PersonRepository  personRepository;
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) throws NotFoundException {
         model.addAttribute("greeting", "Welcome to the first page of the project");
-        List<Persons> personsList = personRepository.getAll();
         return "welcome";
     }
 

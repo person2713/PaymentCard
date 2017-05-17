@@ -61,7 +61,7 @@ public class GetUsers {
         } catch (NotFoundException e) {
             e.printStackTrace();
         }
-        return "registration";
+        return "admin/addUser";
     }
 
 
@@ -82,7 +82,7 @@ public class GetUsers {
             model.addAttribute("edit", true);
             FieldError nicknameUniqError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.user.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
             result.addError(nicknameUniqError);
-            return "registration";
+            return "admin/addUser";
         } else {
             personService.update(person);
             return "redirect:/admin/allUsers";

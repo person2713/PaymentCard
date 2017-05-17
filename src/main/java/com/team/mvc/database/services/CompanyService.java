@@ -33,6 +33,11 @@ public class CompanyService {
         return companiesRepository.getAll();
     }
 
+
+    public List<Companies> getCompaniesWithoutOwners(){
+        return companiesRepository.getCompaniesWithoutOwners();
+    }
+
     public Companies findById(Long id) throws NotFoundException {
         return companiesRepository.getById(id);
     }

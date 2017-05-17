@@ -69,8 +69,8 @@ public class AddOwner {
     }
 
     @ModelAttribute("companies")
-    public List<Companies> getCompanies() {
-        return companyService.getAll();
+    public List<Companies> getCompaniesWithoutOwners() {
+        return companyService.getCompaniesWithoutOwners();
     }
 
 }

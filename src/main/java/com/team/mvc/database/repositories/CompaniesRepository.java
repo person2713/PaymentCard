@@ -10,6 +10,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Repository
 @Transactional
@@ -22,6 +24,18 @@ public class CompaniesRepository extends AbstractRepository<Companies> {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("companyName", companyName));
         return (Companies) criteria.uniqueResult();
+    }
+
+    public List<Companies> getCompaniesWithoutOwners(){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createSQLQuery(
+                "SELECT * " +
+                        "FROM COMPANIES c LEFT JOIN OWNERS o " +
+                            "on c.COMPANY_ID = o.COMPANY_ID " +
+                        "WHERE o.OWNER_ID is null")
+                .addEntity(Companies.class);
+        return query.list();
     }
 
     @Override
