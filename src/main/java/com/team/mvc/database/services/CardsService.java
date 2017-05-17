@@ -34,8 +34,13 @@ public class CardsService {
     @Autowired
     TypeCardRepository typeCardRepository;
 
-    public Cards findById(long id) throws NotFoundException {
-        return cardsRepository.getById(id);
+    public Cards findById(long id)  {
+        try {
+            return cardsRepository.getById(id);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Cards findByCardKey(long cardKey) throws NotFoundException {

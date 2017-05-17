@@ -56,13 +56,9 @@ public class GetCards {
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String showUpdateCardForm(@PathVariable("id") long id, Model model) {
 
-        try {
-            Cards card = cardService.findById(id);
-            model.addAttribute("edit", true);
-            model.addAttribute("cardForm", card);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        Cards card = cardService.findById(id);
+        model.addAttribute("edit", true);
+        model.addAttribute("cardForm", card);
         return "admin/addCard";
     }
 
