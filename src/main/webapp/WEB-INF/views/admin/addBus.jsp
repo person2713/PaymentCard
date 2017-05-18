@@ -65,23 +65,6 @@
         </div>
 
 
-        <%--<div class="form-group">
-            <label class="col-md-4 control-label"></label>
-            <div class="col-md-4">
-                <c:choose>
-                    <c:when test="${edit}">
-                        <input type="submit" value="Редактировать" class="btn btn-success"/>
-                        <a href="/admin/allBuses" class="forgot-password" style="padding-left: 27%">Отмена</a>
-                    </c:when>
-                    <c:otherwise>
-                        <input type="submit" value="Добавить" class="btn btn-success"/>
-                        <a href="/admin/allBuses" class="forgot-password" style="padding-left: 27%">Отмена</a>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </div>--%>
-
-
         <div class="form-group">
             <label class="col-md-4 control-label"></label>
             <div class="col-md-4">
