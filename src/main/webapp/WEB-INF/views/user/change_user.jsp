@@ -13,7 +13,7 @@
     <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
 
 </head>
-<spring:url value="http://localhost:9000/user" var="urlHome" />
+
 <body style="background-color: #EDEEF0">
 
     <div class="container">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="text-center">
-                        <a href="${urlHome}" class="btn btn-orange" style="width: 100%">На главную</a>
+                        <a href="/user" class="btn btn-orange" style="width: 100%">На главную</a>
                     </div>
                 </div>
             </div>

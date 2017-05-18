@@ -54,7 +54,7 @@
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </head>
-<spring:url value="http://localhost:9000/user" var="urlHome" />
+
 <body style="background-color: #EDEEF0">
     <jsp:include page="header.jsp" />
     <div class="container"></div>
@@ -63,7 +63,7 @@
                 <div class="text-center">
                     <div id="map-canvas" style="width: 700px; height: 450px" ></div>
                     <br>
-                    <a class="btn btn-orange" href="${urlHome}"><span style="color: white">На главную</span></a>
+                    <a class="btn btn-orange" href="/user/user/${event.cardId}"><span style="color: white">На главную</span></a>
                 </div>
             </div>
         </div>
