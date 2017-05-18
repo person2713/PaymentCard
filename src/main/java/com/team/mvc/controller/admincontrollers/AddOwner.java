@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,6 +41,9 @@ public class AddOwner {
     @Autowired
     OwnerService ownerService;
 
+    @Autowired
+    PersonService personService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String renderAddNewOwner(ModelMap model) {
         Owners owner = new Owners();
@@ -50,12 +54,29 @@ public class AddOwner {
     @RequestMapping(value = "/newOwner", method = RequestMethod.POST)
     public String saveOwner(@Valid @ModelAttribute("ownerForm") Owners owner, BindingResult result) {
 
+        List<FieldError> listError = new ArrayList<>();
+
         if (result.hasErrors()) {
             return "errorPage";
         }
-        if (!ownerService.isOwnerNicknameUnique(owner.getPerson().getPersonId(), owner.getPerson().getNickname())) {
+
+        if (!personService.isPersonsNicknameUnique(owner.getPerson().getPersonId(), owner.getPerson().getNickname())) {
             FieldError nicknameUniqError = new FieldError("owner", "person.nickname", messageSource.getMessage("non.unique.owner.nickname", new String[]{owner.getPerson().getNickname()}, Locale.getDefault()));
-            result.addError(nicknameUniqError);
+            listError.add(nicknameUniqError);
+        }
+        if (!personService.isPersonsEmailUnique(owner.getPerson().getPersonId(), owner.getPerson().getEmail())) {
+            FieldError emailUniqError = new FieldError("owner", "person.email", messageSource.getMessage("non.unique.owner.email", new String[]{owner.getPerson().getEmail()}, Locale.getDefault()));
+            listError.add(emailUniqError);
+        }
+        if (!personService.isPersonsMobileUnique(owner.getPerson().getPersonId(), owner.getPerson().getMobileNumber())) {
+            FieldError mobileUniqError = new FieldError("owner", "person.mobileNumber", messageSource.getMessage("non.unique.owner.mobileNumber", new String[]{owner.getPerson().getMobileNumber()}, Locale.getDefault()));
+            listError.add(mobileUniqError);
+        }
+
+        if (!listError.isEmpty()) {
+            for (FieldError fieldError : listError) {
+                result.addError(fieldError);
+            }
             return "admin/addOwner";
         } else {
             ownerService.saveOwner(owner);
