@@ -48,15 +48,15 @@
 
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3">
+                                        <div class="col-sm-8 col-sm-offset-2">
                                             <div class="col-md-6">
                                                 <div class="text-center">
-                                                    <button class="btn btn-green" style="width: 100%">Добавить</button>
+                                                    <button class="btn btn-green" style="width: 100%; overflow: hidden">Добавить</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="text-center">
-                                                    <a href="${urlHome}" class="btn btn-orange" style="width: 100%">Отмена</a>
+                                                    <a href="${urlHome}" class="btn btn-orange" style="width: 100%; overflow: hidden">Отмена</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -67,7 +67,7 @@
                         </div>
                     </div><!-- /.row -->
                     <div class="navbar navbar-inner  navbar-fixed-bottom">
-                        <p><center  class="text-muted">© NetCracker Education Center 2017</center></p>
+                        <p><center  class="text-muted">© Netcracker Education Center 2017</center></p>
                     </div>
                 </div>
             </div>

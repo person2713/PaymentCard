@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <div class="navbar navbar-inner navbar-fixed-bottom">
-	<p><center class="text-muted">© NetCracker Education Center 2017</center></p>
+	<p><center class="text-muted">© Netcracker Education Center 2017</center></p>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
