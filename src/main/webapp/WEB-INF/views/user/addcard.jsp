@@ -13,7 +13,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 </head>
-<spring:url value="http://localhost:9000/user" var="urlHome" />
+
 
 <body style="background-color: #EDEEF0">
 <div class="container">
@@ -56,7 +56,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="text-center">
-                                                    <a href="${urlHome}" class="btn btn-orange" style="width: 100%; overflow: hidden">Отмена</a>
+                                                    <%--<a href="${urlHome}" class="btn btn-orange" style="width: 100%; overflow: hidden">Отмена</a>--%>
+                                                    <a href="/user" class="btn btn-orange" style="width: 100%">Отмена</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -23,6 +24,12 @@ public class CompaniesRepository extends AbstractRepository<Companies> {
     public Companies findByCompanyName(String companyName) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("companyName", companyName));
+        return (Companies) criteria.uniqueResult();
+    }
+
+    public Companies findByPhoneNumber(String companyName) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("phoneNumber", companyName));
         return (Companies) criteria.uniqueResult();
     }
 
@@ -61,4 +68,73 @@ public class CompaniesRepository extends AbstractRepository<Companies> {
 
     }
 
+    @Override
+    public void delete(Companies company) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query1 = session.createSQLQuery(
+                "delete from car_assign where driver_id in (SELECT driver_id FROM DRIVERS WHERE COMPANY_ID =:companyId)");
+        query1.setParameter("companyId", company.getCompanyId());
+        query1.executeUpdate();
+
+        Query query2 = session.createSQLQuery(
+                        "delete from car_assign where bus_id IN (SELECT bus_id FROM BUSES WHERE COMPANY_ID =:companyId)");
+        query2.setParameter("companyId", company.getCompanyId());
+        query2.executeUpdate();
+
+        Query query3 = session.createSQLQuery(
+                "delete from car_assign where route_id IN (SELECT route_id FROM ROUTES WHERE COMPANY_ID =:companyId)");
+        query3.setParameter("companyId", company.getCompanyId());
+        query3.executeUpdate();
+
+        Query query4 = session.createSQLQuery(
+                "delete from events where bus_id IN (SELECT bus_id FROM BUSES WHERE COMPANY_ID =:companyId)");
+        query4.setParameter("companyId", company.getCompanyId());
+        query4.executeUpdate();
+
+        Query query5 = session.createSQLQuery(
+                "delete from buses where bus_id IN (SELECT bus_id FROM BUSES WHERE COMPANY_ID =:companyId)");
+        query5.setParameter("companyId", company.getCompanyId());
+        query5.executeUpdate();
+
+        Query query6 = session.createSQLQuery(
+                "delete from ROUTES where route_id IN (SELECT route_id FROM ROUTES WHERE COMPANY_ID =:companyId)");
+        query6.setParameter("companyId", company.getCompanyId());
+        query6.executeUpdate();
+
+
+        Query query7 = session.createSQLQuery(
+                "delete from drivers where driver_id in (SELECT driver_id FROM DRIVERS WHERE COMPANY_ID =:companyId)");
+        query7.setParameter("companyId", company.getCompanyId());
+        query7.executeUpdate();
+
+        Query query8 = session.createSQLQuery(
+                "delete from companies where company_id=:companyId");
+        query8.setParameter("companyId", company.getCompanyId());
+        query8.executeUpdate();
+
+        session.getTransaction().commit();
+    }
+
+
+    @Override
+    public void save(Companies company) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        if(company.getCompBalance()==null){
+            company.setCompBalance(BigDecimal.ZERO);
+        }
+        Query query1 = session.createSQLQuery(
+                "insert into companies (company_name, phone_number, comp_balance, city_id) " +
+                        "VALUES (:companyName, :phoneNumber, :compBalance, :cityId)");
+//        query1.setParameter("cardId", card.getCardId());
+        query1.setParameter("companyName", company.getCompanyName());
+        query1.setParameter("phoneNumber", company.getPhoneNumber());
+        query1.setParameter("compBalance", company.getCompBalance());
+        query1.setParameter("cityId", company.getCity().getCityId());
+        query1.executeUpdate();
+        session.getTransaction().commit();
+    }
 }

@@ -52,6 +52,11 @@ public class PersonService {
         return personRepository.findByNickname(nickname);
     }
 
+
+
+
+
+
     public void savePerson(Persons persons) {
         persons.setRole(roleRepository.findByType("USER"));
         persons.setPassword(passwordEncoder.encode(persons.getPassword()));
@@ -84,6 +89,19 @@ public class PersonService {
 
     }
 
+    public Persons findByMobileNumber(String mobileNumber){return personRepository.findByMobileNumber(mobileNumber);}
+
+    public boolean isPersonsMobileUnique(Long id, String mobileNumber) {
+        Persons persons = findByMobileNumber(mobileNumber);
+        return (persons == null || ((id != null) && (Objects.equals(persons.getPersonId(), id))));
+
+    }
+
+    public boolean isPersonsEmailUnique(Long id, String email) {
+        Persons persons = findByEmail(email);
+        return (persons == null || ((id != null) && (Objects.equals(persons.getPersonId(), id))));
+
+    }
 
     public List<String> stringPersons() {
         List<String> list = new ArrayList<>();

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,6 +43,8 @@ public class AddDriver {
     @Autowired
     DriversService driversService;
 
+    @Autowired
+    PersonService personService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String renderAddNewDriver(ModelMap model) {
@@ -54,14 +57,32 @@ public class AddDriver {
     @RequestMapping(value = "/newDriver", method = RequestMethod.POST)
     public String saveDriver(@Valid @ModelAttribute("driverForm") Drivers driver, BindingResult result) {
 
+        List<FieldError> listError = new ArrayList<>();
+
         if (result.hasErrors()) {
             return "errorPage";
         }
-        if (!driversService.isDriverNicknameUnique(driver.getPerson().getPersonId(), driver.getPerson().getNickname())) {
+
+        if (!personService.isPersonsNicknameUnique(driver.getPerson().getPersonId(), driver.getPerson().getNickname())) {
             FieldError nicknameUniqError = new FieldError("driver", "person.nickname", messageSource.getMessage("non.unique.driver.nickname", new String[]{driver.getPerson().getNickname()}, Locale.getDefault()));
-            result.addError(nicknameUniqError);
+            listError.add(nicknameUniqError);
+        }
+        if (!personService.isPersonsEmailUnique(driver.getPerson().getPersonId(), driver.getPerson().getEmail())) {
+            FieldError emailUniqError = new FieldError("driver", "person.email", messageSource.getMessage("non.unique.driver.email", new String[]{driver.getPerson().getEmail()}, Locale.getDefault()));
+            listError.add(emailUniqError);
+        }
+        if (!personService.isPersonsMobileUnique(driver.getPerson().getPersonId(), driver.getPerson().getMobileNumber())) {
+            FieldError mobileUniqError = new FieldError("driver", "person.mobileNumber", messageSource.getMessage("non.unique.driver.mobileNumber", new String[]{driver.getPerson().getMobileNumber()}, Locale.getDefault()));
+            listError.add(mobileUniqError);
+        }
+
+        if(!listError.isEmpty()){
+            for (FieldError fieldError: listError) {
+                result.addError(fieldError);
+            }
             return "admin/addDriver";
-        } else {
+        }
+         else {
             driversService.save(driver);
             return "redirect:/admin/allDrivers";
         }

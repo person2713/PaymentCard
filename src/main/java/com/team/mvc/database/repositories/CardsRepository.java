@@ -97,7 +97,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
 
     public Cards findByCardKey(long key) {
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("cardId", key));
+        criteria.add(Restrictions.eq("cardKey", key));
         return (Cards) criteria.uniqueResult();
     }
 
@@ -144,6 +144,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
         Query query1 = session.createSQLQuery(
                 "insert into cards (person_id, card_key, card_name, type_id) " +
                         "VALUES (:personId, :cardKey, :cardName, :typeId)");
+//        query1.setParameter("cardId", card.getCardId());
         query1.setParameter("personId", card.getPersonId());
         query1.setParameter("cardKey", card.getCardKey());
         query1.setParameter("cardName", card.getCardName());

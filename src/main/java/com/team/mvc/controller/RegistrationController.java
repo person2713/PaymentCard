@@ -58,14 +58,32 @@ public class RegistrationController {
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
     public String saveUser(@Valid @ModelAttribute("userForm") Persons person, BindingResult result) {
 
+        List<FieldError> listError = new ArrayList<>();
+
         if (result.hasErrors()) {
             return "errorPage";
         }
+
         if (!personService.isPersonsNicknameUnique(person.getPersonId(), person.getNickname())) {
             FieldError nicknameUniqError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.user.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
-            result.addError(nicknameUniqError);
+            listError.add(nicknameUniqError);
+        }
+        if (!personService.isPersonsEmailUnique(person.getPersonId(), person.getEmail())) {
+            FieldError emailUniqError = new FieldError("person", "email", messageSource.getMessage("non.unique.user.email", new String[]{person.getEmail()}, Locale.getDefault()));
+            listError.add(emailUniqError);
+        }
+        if (!personService.isPersonsMobileUnique(person.getPersonId(), person.getMobileNumber())) {
+            FieldError mobileUniqError = new FieldError("person", "mobileNumber", messageSource.getMessage("non.unique.user.mobileNumber", new String[]{person.getMobileNumber()}, Locale.getDefault()));
+            listError.add(mobileUniqError);
+        }
+
+        if(!listError.isEmpty()){
+            for (FieldError fieldError: listError) {
+                result.addError(fieldError);
+            }
             return "registration";
-        } else {
+        }
+        else {
             person.setRole(roleService.findByType("USER"));
             personService.savePerson(person);
             if (Const.DEBUG) {

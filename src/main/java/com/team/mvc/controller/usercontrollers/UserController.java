@@ -83,7 +83,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/{id}/block", method = RequestMethod.GET)
-    public RedirectView Block(@PathVariable("id") int id, Model model) {
+    public String Block(@PathVariable("id") int id, Model model) {
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("http://localhost:9555/user");
         System.out.println("Block" + "------------------------------------------------------------------------------------------------------------");
@@ -92,7 +92,7 @@ public class UserController {
 
         sendSMSMessageService.SendMessage(personService.findByNickname(GetRole.getPrincipal()).getMobileNumber(),
                                     "Уважаемый клиент! Ваша карта №" + cardsService.findById(id).getCardKey() + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com");
-        return redirectView;
+        return "redirect:/user";
 
     }
 
@@ -130,7 +130,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/money", method = RequestMethod.POST)
-    public RedirectView saveOrUpdateMoney(@ModelAttribute("card") @Validated Cards cards,
+    public String saveOrUpdateMoney(@ModelAttribute("card") @Validated Cards cards,
                                           BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
 
         System.out.println("---------========saveOrUpdateMoney===---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
@@ -140,9 +140,8 @@ public class UserController {
 
         cardsService.updateMoney(cards.getCardId(), cards.getCardBalance().getBalance());
         System.out.println("cardsService.updateMONEY(cards.getCardId(), cards.getCardName());  отработал наверно -----------------");
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:9555/user");
-        return redirectView;
+
+        return "redirect:/user";
 
 
     }
@@ -180,13 +179,12 @@ public class UserController {
 
 
     @RequestMapping(value = "/user/addUserCard", method = RequestMethod.POST)
-    public RedirectView addUserCard(@RequestParam(value = "idcard") String idcard, @RequestParam(value = "namecard") String namecard) {
+    public String addUserCard(@RequestParam(value = "idcard") String idcard, @RequestParam(value = "namecard") String namecard) {
         System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
         System.out.println("addUserCard" + idcard + namecard);
         personService.addUserCard(idcard, namecard);
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:9555/user");
-        return redirectView;
+
+        return "redirect:/user";
 
     }
 
@@ -219,7 +217,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/info", method = RequestMethod.POST)
-    public RedirectView saveOrUpdateUser(@ModelAttribute("person") @Validated Persons persons,
+    public String saveOrUpdateUser(@ModelAttribute("person") @Validated Persons persons,
                                    BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
 
 
@@ -228,9 +226,8 @@ public class UserController {
         personService.updatePerson(persons.getPersonId(),persons.getFirstName(),persons.getLastName(),persons.getMobileNumber());
 
 
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:9555/user");
-        return redirectView;
+
+        return "redirect:/user";
 
     }
 

@@ -11,7 +11,7 @@
     <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
     <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
 </head>
-<spring:url value="http://localhost:9000/user" var="urlHome" />
+
 
 <body style="background-color: #EDEEF0">
     <jsp:include page="header.jsp" />
@@ -36,7 +36,7 @@
                 </div>
             </spring:bind>
             <button type="submit" class="btn btn-green"><span style="color: white">Пополнить</span></button>
-            <a class="btn btn-orange" href="${urlHome}"><span style="color: white">На главную</span></a>
+            <a class="btn btn-orange" href="/user"><span style="color: white">На главную</span></a>
         </form:form>
     </div>
 
