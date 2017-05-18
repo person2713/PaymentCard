@@ -18,7 +18,10 @@
     <script src="/static/js/welcome_js/templatemo_script.js"  type="text/javascript"></script>
 
     <%--api yandex--%>
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <%--<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>--%>
+
+    <%--google maps api--%>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
 
 
@@ -81,15 +84,15 @@
                             </div>
 
                             <div class="text-center">
-                                <div class="col-md-6 col-md-offset-3">
+                                <div class="col-md-8 col-md-offset-2">
                                     <div class="col-md-6">
                                         <div class="text-center">
-                                            <a class="btn btn-lg btn-green" href="/login" role="button" style="width: 100%; margin-top: 20px; margin-bottom: 20px">Вход</a>
+                                            <a class="btn btn-lg btn-green" href="/login" role="button" style="width: 100%; margin-top: 20px; margin-bottom: 20px; overflow: hidden">Вход</a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="text-center">
-                                            <a class="btn btn-lg btn-orange" href="/registration" role="button" style="width: 100%; margin-top: 20px; margin-bottom: 20px">Регистрация</a>
+                                            <a class="btn btn-lg btn-orange" href="/registration" role="button" style="width: 100%; margin-top: 20px; margin-bottom: 20px; overflow: hidden">Регистрация</a>
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +284,7 @@
                 </div>
 
                 <div class="col-md-8">
-                    <div id="map" style="width: 600px; height: 400px"></div>
+                    <div id="map_canvas" style="width: 600px; height: 400px"></div>
                     <div class="clearfix"></div>
                     <i>Учебный центр ВГУ NetCracker: 394018, Россия, г. Воронеж, Университетская пл., 1</i>
                 </div>
@@ -296,8 +299,36 @@
         </div><!-- /.container -->
     </div><!-- /#templatemo-contact -->
 
+    <script type="text/javascript">
+    function initialize() {
+        var myLatlng = new google.maps.LatLng(51.65651645725269,39.20612392121155);
+
+        var myOptions = {
+        zoom: 14,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        var myLatlng1 = new google.maps.LatLng(51.65452972847472,39.19274635586758);
+        var marker1 = new google.maps.Marker({
+            position: myLatlng1,
+            map: map,
+            title:"Офис компании NetCracker"
+        });
+
+        var myLatlng2 = new google.maps.LatLng(51.65651645725269,39.20612392121155);
+        var marker2 = new google.maps.Marker({
+            position: myLatlng2,
+            map: map,
+            title:"NetCracker Education Center ВГУ"
+        });
+
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
 
 
+
+    </script>
 
     <script type="text/javascript">
         ymaps.ready(init);
@@ -334,7 +365,7 @@
                     <div class="footer_container">
 
                         <div class="height30"></div>
-                        <a class="btn btn-lg btn-orange" href="#" role="button" id="btn-back-to-top">Наверх</a>
+                        <a class="btn btn-lg btn-orange" href="#" role="button" id="btn-back-to-top" style="width: 20%">Наверх</a>
                         <div class="height30"></div>
                     </div>
                     <div class="footer_bottom_content">
