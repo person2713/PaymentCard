@@ -57,7 +57,7 @@
                                             <div class="col-md-6">
                                                 <div class="text-center">
                                                     <%--<a href="${urlHome}" class="btn btn-orange" style="width: 100%; overflow: hidden">Отмена</a>--%>
-                                                    <a href="/user" class="btn btn-orange" style="width: 100%">Отмена</a>
+                                                    <a href="/user" class="btn btn-orange" style="width: 100%; overflow: hidden">Отмена</a>
                                                 </div>
                                             </div>
                                         </div>
