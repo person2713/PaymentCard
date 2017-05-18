@@ -43,6 +43,13 @@ public class PersonRepository  extends AbstractRepository{
     }
 
 
+
+    public Persons findByMobileNumber(String mobileNumber){
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("mobileNumber", mobileNumber));
+        return (Persons) criteria.uniqueResult();
+    }
+
     public List<Cards> findCardsByNickname(String nickname) {
         String que = "SELECT * FROM CARDS  WHERE CARDS.PERSON_ID = (SELECT PERSONS.PERSON_ID FROM PERSONS   WHERE PERSONS.NICKNAME ="+"'"+nickname+"'"+")";
 

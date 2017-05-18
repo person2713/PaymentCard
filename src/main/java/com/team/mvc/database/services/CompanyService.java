@@ -20,12 +20,17 @@ public class CompanyService {
     @Autowired
     CompaniesRepository companiesRepository;
 
-    public void saveCompany(Companies company) {
+    public void save(Companies company) {
         companiesRepository.save(company);
     }
 
     public boolean isCompanyNameUnique(Long id, String companyName) {
         Companies company = companiesRepository.findByCompanyName(companyName);
+        return (company == null || ((id != null) && (Objects.equals(company.getCompanyId(), id))));
+    }
+
+    public boolean isCompanyPhoneNumberUnique(Long id, String phoneNumber) {
+        Companies company = companiesRepository.findByPhoneNumber(phoneNumber);
         return (company == null || ((id != null) && (Objects.equals(company.getCompanyId(), id))));
     }
 

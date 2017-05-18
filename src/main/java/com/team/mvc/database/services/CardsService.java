@@ -49,12 +49,11 @@ public class CardsService {
 
     public boolean isCardNameUnique(Long id, String cardName) {
         Cards card = findByCardName(cardName);
-        boolean a = card == null || ((id != null) && (card.getCardId().equals(id)));
-        return (a);
+        return (card == null || ((id != null) && (card.getCardId().equals(id))));
     }
 
-    public boolean isCardKeyUnique(Long id, long cardkey) throws NotFoundException {
-        Cards card = findByCardKey(cardkey);
+    public boolean isCardKeyUnique(Long id, long cardKey) throws NotFoundException {
+        Cards card = findByCardKey(cardKey);
         return (card == null || ((id != null) && (card.getCardId().equals(id))));
     }
 

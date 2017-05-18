@@ -34,18 +34,18 @@ public class Companies implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "CITY_ID")
     private Cities city;
-//
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "COMPANY_ID")
-//    public Set<Buses> buses = new HashSet<>();
-//
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "COMPANY_ID")
-//    private Set<Drivers> drivers = new HashSet<>();
-//
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "COMPANY_ID")
-//    public Set<Routes> routes = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_ID")
+    public Set<Buses> buses = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_ID")
+    private Set<Drivers> drivers = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANY_ID")
+    public Set<Routes> routes = new HashSet<>();
 
     public Companies() {
     }
