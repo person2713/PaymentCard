@@ -56,13 +56,11 @@ public class AddCard {
         if (!cardService.isCardNameUnique(card.getCardId(), card.getCardName())) {
             FieldError cardNameUniqError = new FieldError("card", "cardName", messageSource.getMessage("non.unique.card.cardName", new String[]{card.getCardName()}, Locale.getDefault()));
             errors.add(cardNameUniqError);
-
         }
         try {
             if (!cardService.isCardKeyUnique(card.getCardId(), card.getCardKey())) {
                 FieldError cardKeyUniqError = new FieldError("card", "cardKey", messageSource.getMessage("non.unique.card.cardKey", new String[]{card.getCardKey().toString()}, Locale.getDefault()));
                 errors.add(cardKeyUniqError);
-
             }
         } catch (NotFoundException e) {
             e.printStackTrace();

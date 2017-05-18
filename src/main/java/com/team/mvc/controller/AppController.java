@@ -58,19 +58,12 @@ public class AppController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-
-    public String loginPage() {
-        return "login";
-    }
-
-
     public String loginPage(ModelMap model) {
 
         if (Flag.isFlag()) {
             model.addAttribute("flag", Flag.isFlag());
             Flag.setFlag(false);
         }
-
 
 // перенавправляем пользователя после его входа и при попытке повторного доступа к страничке login
         if (isCurrentAuthenticationAnonymous())

@@ -31,12 +31,12 @@
 							<form action="${loginUrl}" method="post" class="form-horizontal" id="login-form" role="form" style="display: block;">
 								<c:if test="${flag}">
 									<div class="alert alert-danger">
-										<p>Invalid username and password.</p>
+										<p>Неправильная комбинация логина и пароля</p>
 									</div>
 								</c:if>
 								<c:if test="${param.logout != null}">
 									<div class="alert alert-success">
-										<p>You have been logged out successfully.</p>
+										<p>Выход осуществлен успешно</p>
 									</div>
 								</c:if>
 								<br>
