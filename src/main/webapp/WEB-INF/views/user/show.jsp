@@ -23,6 +23,7 @@
     <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.bootstrap.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
+    <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
     <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
 
@@ -30,6 +31,9 @@
 
 <body style="background-color: #EDEEF0">
 <jsp:include page="header.jsp" />
+<div class="text-center">
+    <h4>Название карты</h4>
+</div>
 <table id="myTable"   class="table table-hover table-bordered table" cellspacing="0" width="100%">
     <thead>
         <tr>

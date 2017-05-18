@@ -3,9 +3,11 @@ package com.team.mvc.API.Terminal;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.team.mvc.database.entities.Buses;
 import com.team.mvc.database.entities.Cards;
+import com.team.mvc.database.entities.Routes;
 import com.team.mvc.database.services.BusesService;
 import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.PaymentService;
+import com.team.mvc.database.services.RoutesService;
 import com.team.mvc.log.Const;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -30,6 +32,8 @@ public class NewEventAPI {
     CardsService cardsService;
     @Autowired
     BusesService busesService;
+    @Autowired
+    RoutesService routesService;
 
     public static final Logger logger = Logger.getLogger(LoginAPI.class.getName());
 
@@ -43,11 +47,13 @@ public class NewEventAPI {
             Cards card = cardsService.findByCardKey(newEvent.getTagID());
             if (card == null) {
                 log += "Card not found";
-                return new ResponseEntity<Object>("Карта не найдена", HttpStatus.NOT_FOUND);
+                CSRFTokenSerializable<String> serToken = new CSRFTokenSerializable<>(Utils.getCsrfToken(request), "Карта не найдена");
+                return new ResponseEntity<Object>(serToken, HttpStatus.NOT_FOUND);
             }
             Buses bus = busesService.findById(newEvent.getBusId());
+            Routes route=routesService.findById(newEvent.getRouteId());
             if (paymentService.paymentPossibility(card.getCardId(),
-                    getCost(card),
+                    getCost(route),
                     newEvent.getLatitude(),
                     newEvent.getLongitude(),
                     new Timestamp(System.currentTimeMillis()),
@@ -61,6 +67,7 @@ public class NewEventAPI {
             return new ResponseEntity<Object>(serToken, HttpStatus.PAYMENT_REQUIRED);
         } catch (Exception ex) {
             log += "Error: " + ex.getMessage();
+            log="Error!!!! "+log;
             return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } finally {
             if (Const.DEBUG) {
@@ -72,25 +79,26 @@ public class NewEventAPI {
         }
     }
 
-    public BigDecimal getCost(Cards card) {
-        return new BigDecimal(15);
+    public BigDecimal getCost(Routes route) {
+        return route.getRoutePrice();
     }
 
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     static protected class NewEventClass implements Serializable {
-        private Integer BusId;
+        private Long BusId;
         private Double Longitude;
         private Double Latitude;
-        private long TagID;
+        private Long TagID;
+        private Long RouteId;
 
         public NewEventClass() {
         }
 
-        public Integer getBusId() {
+        public Long getBusId() {
             return BusId;
         }
 
-        public void setBusId(Integer busId) {
+        public void setBusId(Long busId) {
             BusId = busId;
         }
 
@@ -110,12 +118,20 @@ public class NewEventAPI {
             Latitude = latitude;
         }
 
-        public long getTagID() {
+        public Long getTagID() {
             return TagID;
         }
 
-        public void setTagID(long tagID) {
+        public void setTagID(Long tagID) {
             TagID = tagID;
+        }
+
+        public Long getRouteId() {
+            return RouteId;
+        }
+
+        public void setRouteId(Long routeId) {
+            RouteId = routeId;
         }
     }
 }

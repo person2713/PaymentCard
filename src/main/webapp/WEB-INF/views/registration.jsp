@@ -21,6 +21,7 @@
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/data_validate.js"></script>
 
 
 </head>
@@ -171,6 +172,27 @@
             }
         };
         $(':password').pwstrength(options);
+        //TODO: Не работает получение значений. Так же следует заменит алерт на нормальный вывод ошибок
+//        $('#nickname').change(function () {
+//            alert($('#nickname').value);
+//            if (validateNickname( $('#nickname').value))
+//                alert("Валидация не пройдена");
+//            else
+//                alert("А тут следует сказать что все ок");
+//        });
+//        $('#mobileNumber').change(function () {
+//            if (validatePhoneNumber($('#mobileNumber').value()))
+//                alert("Валидация не пройдена");
+//            else
+//                alert("А тут следует сказать что все ок");
+//        });
+//        $('#email').change(function () {
+//            if (validateEmail($('#email').value()))
+//                alert("Валидация не пройдена");
+//            else
+//                alert("А тут следует сказать что все ок");
+//        });
+
     });
 
 

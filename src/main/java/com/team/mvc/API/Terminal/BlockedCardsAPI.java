@@ -34,6 +34,7 @@ public class BlockedCardsAPI {
             return new ResponseEntity<Object>(serToken, HttpStatus.OK);
         } catch (Exception ex) {
             log += "Error: " + ex.getMessage();
+            log="Error!!!! "+log;
             return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } finally {
             if (Const.DEBUG) {

@@ -33,7 +33,7 @@
             <spring:url value="/admin/allDrivers/editDriver" var="userActionUrl"/>
         </c:when>
         <c:otherwise>
-            <legend><h2>Добавить владельца</h2></legend>
+            <legend><h2>Добавить водителя</h2></legend>
             <spring:url value="/admin/addDriver/newDriver" var="userActionUrl"/>
         </c:otherwise>
     </c:choose>
@@ -164,7 +164,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="text-center">
-                                <a href="/admin/allDrivers" class="forgot-password" style="width: 100%">Отмена</a>
+                                <a href="/admin/allDrivers" class="btn btn-orange" style="width: 100%">Отмена</a>
                             </div>
                         </div>
                     </c:when>
@@ -188,7 +188,7 @@
 
     <div class="navbar navbar-inner  navbar-fixed-bottom">
         <p>
-        <center class="text-muted">© NetCracker Education Center 2017</center>
+        <center class="text-muted">© Netcracker Education Center 2017</center>
         </p>
     </div>
 </div>

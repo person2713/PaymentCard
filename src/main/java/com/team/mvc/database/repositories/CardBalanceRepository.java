@@ -56,9 +56,9 @@ public class CardBalanceRepository extends AbstractRepository<CardBalance> {
 
          }
 
-    public CardBalance findByCardId(long cardId) {
+    public CardBalance findByCard(Cards card) {
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("cardId", cardId));
+        criteria.add(Restrictions.eq("card", card));
         return (CardBalance) criteria.uniqueResult();
     }
 

@@ -47,25 +47,32 @@ public class AddCardAPI {
                 log += "card not existing. Creating new, ";
                 card = new Cards();
                 card.setCardKey(addedCard.getCardKey());
-                cardBalance = new CardBalance();
-                cardBalance.setCard(card);
+
             } else {
                 log += "card existing., ";
                 cardBalance = card.getCardBalance();
             }
             card.setTypeCard(typeCardService.getTypeCardByStatusAndType("active", addedCard.getCardType()));
+            card.setPersonId(0L);
+//            cardBalance = new CardBalance();
+//            cardBalance.setCard(card);
+            //card.setCardBalance(cardBalance);
             if (card.getCardId() == null)
                 cardsService.saveCard(card);
             else cardsService.update(card);
+            card=cardsService.findByCardKey(addedCard.getCardKey());
+            cardBalance=cardBalanceService.findByCard(card);
             cardBalance.setBalance(new BigDecimal(addedCard.getBalance()));
-            if (cardBalance.getBalanceId() == null)
-                cardBalanceService.save(cardBalance);
-            else cardBalanceService.update(cardBalance);
-
+//            cardBalance.setBalance(new BigDecimal(addedCard.getBalance()));
+//            if (cardBalance.getBalanceId() == null)
+//                cardBalanceService.save(cardBalance);
+//            else cardBalanceService.update(cardBalance);
+            cardBalanceService.update(cardBalance);
             CSRFTokenSerializable<Long> serToken = new CSRFTokenSerializable<>(Utils.getCsrfToken(request), 42L);
             return new ResponseEntity<Object>(serToken, HttpStatus.OK);
         } catch (Exception ex) {
             log += "Error: " + ex.getMessage();
+            log="Error!!!! "+log;
             return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } finally {
             if (Const.DEBUG) {
