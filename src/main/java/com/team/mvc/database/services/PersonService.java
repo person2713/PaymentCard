@@ -118,6 +118,10 @@ public class PersonService {
         return personRepository.findCardsByNickname(nickname);
     }
 
+    public List<Cards> findCradsByNicknameActive(String nickname) {
+        return personRepository.findCradsByNicknameActive(nickname);
+    }
+
     public Cards findByCardbyID(int id) { return personRepository.findByCardbyID(id);}
     public Events findEvById(int id) {return  personRepository.findEvById(id);}
 //    public CardBalance findBalanceByNickname(String nickname) {

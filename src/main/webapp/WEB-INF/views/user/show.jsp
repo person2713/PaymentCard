@@ -32,7 +32,7 @@
 <body style="background-color: #EDEEF0">
 <jsp:include page="header.jsp" />
 <div class="text-center">
-    <h4>Название карты</h4>
+    <h4>Имя карты:${card.cardName}</h4>
 </div>
 <table id="myTable"   class="table table-hover table-bordered table" cellspacing="0" width="100%">
     <thead>
