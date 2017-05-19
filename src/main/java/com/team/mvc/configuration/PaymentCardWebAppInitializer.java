@@ -20,6 +20,7 @@ public class PaymentCardWebAppInitializer extends AbstractAnnotationConfigDispat
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
+
 }
 
 
