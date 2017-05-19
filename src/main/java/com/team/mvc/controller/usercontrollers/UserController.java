@@ -5,6 +5,7 @@ import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
 import com.team.mvc.database.services.CardsService;
 import com.team.mvc.database.services.PersonService;
+import com.team.mvc.database.services.SendEMAILMessageService;
 import com.team.mvc.database.services.SendSMSMessageService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class UserController {
     CardsService cardsService;
     @Autowired
     SendSMSMessageService sendSMSMessageService;
+    @Autowired
+    SendEMAILMessageService sendEMAILMessageService;
 
 
     @Autowired
@@ -92,6 +95,7 @@ public class UserController {
 
         sendSMSMessageService.SendMessage(personService.findByNickname(GetRole.getPrincipal()).getMobileNumber(),
                                     "Уважаемый клиент! Ваша карта №" + cardsService.findById(id).getCardKey() + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com");
+        sendEMAILMessageService.SendMessage(personService.findByNickname(GetRole.getPrincipal()).getEmail(),"Уважаемый клиент! Ваша карта №" + cardsService.findById(id).getCardKey() + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com");
         return "redirect:/user";
 
     }
