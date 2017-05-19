@@ -13,14 +13,42 @@
     <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
 
 </head>
+<script type="text/javascript">
+    function validate(){
+        //Считаем значения из полей name и email в переменные x и y
+        var x=document.forms["form"]["firstName"].value;
+        var z=document.forms["form"]["lastName"].value;
+        var y=document.forms["form"]["mobileNumber"].value;
+        var re = /^(\+7)?\d{10}$/;
+        //Если поле name пустое выведем сообщение и предотвратим отправку формы
+        if (x.length==0){
+            document.getElementById("firstNameF").innerHTML="*данное поле обязательно для заполнения";
+            return false;
+        }
+        if (z.length==0){
+            document.getElementById("lastNameF").innerHTML="*данное поле обязательно для заполнения";
+            return false;
+        }
+        //Если поле email пустое выведем сообщение и предотвратим отправку формы
 
+
+
+        if (!re.test(y)){document.getElementById("mobileNumberF").innerHTML="*Номер телефона введен не верно, введите в формате +7XXXXXXXXXX";
+            return false;}
+
+
+
+
+
+    }
+    </script>
 <body style="background-color: #EDEEF0">
 
     <div class="container">
 
         <legend><h2>Изменить пользователя</h2></legend>
         <spring:url value="/user/info" var="userActionUrl" />
-        <form:form method="POST" modelAttribute="person" action="${userActionUrl}" class="form-horizontal">
+        <form:form name="form" method="POST" modelAttribute="person" onsubmit="return (validate())" action="${userActionUrl}" class="form-horizontal">
             <form:hidden path="personId" />
 
 
@@ -28,7 +56,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="firstName">Имя</label>
                 <div class="col-md-4">
-                    <form:input type="text" path="firstName" id="firstName" class="form-control"/>
+                    <form:input type="text" path="firstName" id="firstName" class="form-control"/><span style="color:red" id="firstNameF"></span>
                     <div class="has-error">
                         <form:errors path="firstName" class="help-inline"/>
                     </div>
@@ -38,7 +66,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="lastName">Фамилия</label>
                 <div class="col-md-4">
-                    <form:input type="text" path="lastName" id="lastName" class="form-control"/>
+                    <form:input type="text" path="lastName" id="lastName" class="form-control"/><span style="color:red" id="lastNameF"></span>
                     <div class="has-error">
                         <form:errors path="lastName" class="help-inline"/>
                     </div>
@@ -48,7 +76,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="mobileNumber">Телефон</label>
                 <div class="col-md-4">
-                    <form:input type="text" path="mobileNumber" id="mobileNumber" class="form-control"/>
+                    <form:input type="text" path="mobileNumber" id="mobileNumber" class="form-control"/><span style="color:red" id="mobileNumberF"></span>
                     <div class="has-error">
                         <form:errors path="mobileNumber" class="help-inline"/>
                     </div>
@@ -59,7 +87,7 @@
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-2">
                     <div class="text-center">
-                        <input type="submit" value="Изменить" class="btn btn-success" style="width: 100%"/>
+                        <input type="submit" value="Изменить" class="btn btn-success" onClick="return validate();" style="width: 100%"/>
                     </div>
                 </div>
                 <div class="col-md-2">
