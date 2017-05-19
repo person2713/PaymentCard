@@ -32,7 +32,7 @@
 
             ];
 
-            var myLatlng = new google.maps.LatLng(51.663223, 39.227202);
+            var myLatlng = new google.maps.LatLng(markerLat, markerLong);
             var mapOptions = {
                 zoom : 16,
                 center : myLatlng
@@ -63,7 +63,7 @@
                 <div class="text-center">
                     <div id="map-canvas" style="width: 700px; height: 450px" ></div>
                     <br>
-                    <a class="btn btn-orange" href="/user/user/${event.cardId}"><span style="color: white">На главную</span></a>
+                    <a class="btn btn-orange" href="/user/user/${event.cardId}"><span style="color: white">Назад</span></a>
                 </div>
             </div>
         </div>

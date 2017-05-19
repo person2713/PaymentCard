@@ -32,24 +32,30 @@
             </c:forEach>
             ];
 
-            var myLatlng = new google.maps.LatLng(51.663223, 39.227202);
-            var mapOptions = {
-                zoom : 14,
-                center : myLatlng
-            }
-            var map = new google.maps.Map(document.getElementById('map-canvas'),
-                mapOptions);
+            var map = new google.maps.Map(document.getElementById('map-canvas'), {
+                zoom: 4,
+                center: new google.maps.LatLng(0, 0),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
 
+            var markersBounds = new google.maps.LatLngBounds();
 
-            for (i = 0; i < markerLat.length; i++) {
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(markerLat[i], markerLong[i]),
+            for (var i = 0; i < markerLong.length; i++) {
+                var markerPosition = new google.maps.LatLng( markerLat[i], markerLong[i]);
+
+                // Добавляем координаты маркера в область
+                markersBounds.extend(markerPosition);
+
+                // Создаём маркер
+                var marker = new google.maps.Marker({
+                    position: markerPosition,
                     map: map
-                })
 
-                marker.setMap(map);
-
+                });
             }
+
+// Центрируем и масштабируем карту
+            map.setCenter(markersBounds.getCenter(), map.fitBounds(markersBounds));
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
