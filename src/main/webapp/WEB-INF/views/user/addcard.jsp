@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -37,6 +38,11 @@
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                     <input type="text" class="form-control" id="inputCardNumber" name="idcard" placeholder="Номер карты">
+                                    <c:if test="${flag}">
+                                        <div class="alert alert-danger">
+                                            <p>Карточка с таким ключам ненайдена</p>
+                                        </div>
+                                    </c:if>
                                 </div>
                                 <h5><center>Введите название карты</center></h5>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">

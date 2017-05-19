@@ -43,8 +43,13 @@ public class CardsService {
         return null;
     }
 
-    public Cards findByCardKey(long cardKey) throws NotFoundException {
-        return cardsRepository.findByCardKey(cardKey);
+    public Cards findByCardKey(long cardKey)  {
+        try {
+            return cardsRepository.findByCardKey(cardKey);
+        }
+        catch (NullPointerException e){
+            return null;
+        }
     }
 
     public boolean isCardNameUnique(Long id, String cardName) {

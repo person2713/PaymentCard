@@ -13,7 +13,7 @@
 <jsp:include page="header.jsp"/>
 
 <div id="content">
-    <h1>Список пользователей</h1>
+    <h2>Список пользователей</h2>
     <div class="container-fluid">
         <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>

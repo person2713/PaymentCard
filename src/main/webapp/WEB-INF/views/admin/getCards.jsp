@@ -11,7 +11,7 @@
 <body style="background-color: #EDEEF0">
 <jsp:include page="header.jsp"/>
 <div id="content">
-    <h1>Список карт</h1>
+    <h2>Список карт</h2>
     <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
         <tr>
