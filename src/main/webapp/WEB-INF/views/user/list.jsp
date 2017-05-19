@@ -31,7 +31,7 @@
 
 		<div class="row">
 			<div class="col-md-11">
-				<table class="table table-hover table-bordered table">
+				<table class="table table-striped table-bordered table">
 					<thead>
 						<tr>
 							<th>Номер карты</th>
