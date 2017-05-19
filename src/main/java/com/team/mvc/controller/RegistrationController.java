@@ -2,19 +2,14 @@ package com.team.mvc.controller;
 
 import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.entities.Persons;
-import com.team.mvc.database.entities.Rollers;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.PersonService;
 import com.team.mvc.database.services.RoleService;
 import com.team.mvc.log.Const;
+import com.team.mvc.util.FieldChecker;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -76,14 +71,49 @@ public class RegistrationController {
             FieldError mobileUniqError = new FieldError("person", "mobileNumber", messageSource.getMessage("non.unique.user.mobileNumber", new String[]{person.getMobileNumber()}, Locale.getDefault()));
             listError.add(mobileUniqError);
         }
+        if (person.getNickname().replace(" ", "").isEmpty()) {
+            FieldError error = new FieldError("person", "nickname", messageSource.getMessage("empty.field", new String[]{person.getNickname()}, Locale.getDefault()));
+            listError.add(error);
+        } else if (!FieldChecker.checkNickname(person.getNickname())) {
+            FieldError error = new FieldError("person", "nickname", messageSource.getMessage("not.correct.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
+            listError.add(error);
+        }
+        if (person.getMobileNumber().replace(" ", "").isEmpty()) {
+            FieldError error = new FieldError("person", "mobileNumber", messageSource.getMessage("empty.field", new String[]{person.getMobileNumber()}, Locale.getDefault()));
+            listError.add(error);
+        } else if (!FieldChecker.checkPhoneNumber(person.getMobileNumber())) {
+            FieldError error = new FieldError("person", "mobileNumber", messageSource.getMessage("not.correct.mobileNumber", new String[]{person.getMobileNumber()}, Locale.getDefault()));
+            listError.add(error);
+        }
+        if (person.getEmail().replace(" ", "").isEmpty()) {
+            FieldError error = new FieldError("person", "email", messageSource.getMessage("empty.field", new String[]{person.getEmail()}, Locale.getDefault()));
+            listError.add(error);
+        } else if (!FieldChecker.checkEmail(person.getEmail())) {
+            FieldError error = new FieldError("person", "email", messageSource.getMessage("not.correct.email", new String[]{person.getEmail()}, Locale.getDefault()));
+            listError.add(error);
+        }
+        if (person.getFirstName().replace(" ", "").isEmpty()) {
+            FieldError error = new FieldError("person", "firstName", messageSource.getMessage("empty.field", new String[]{person.getFirstName()}, Locale.getDefault()));
+            listError.add(error);
+        } else if (!FieldChecker.checkLiteralsField(person.getFirstName())) {
+            FieldError error = new FieldError("person", "firstName", messageSource.getMessage("not.correct.user.firstName", new String[]{person.getFirstName()}, Locale.getDefault()));
+            listError.add(error);
+        }
+        if (person.getLastName().replace(" ", "").isEmpty()) {
+            FieldError error = new FieldError("person", "lastName", messageSource.getMessage("empty.field", new String[]{person.getLastName()}, Locale.getDefault()));
+            listError.add(error);
+        } else if (!FieldChecker.checkLiteralsField(person.getLastName())) {
+            FieldError error = new FieldError("person", "lastName", messageSource.getMessage("not.correct.user.lastName", new String[]{person.getLastName()}, Locale.getDefault()));
+            listError.add(error);
+        }
 
-        if(!listError.isEmpty()){
-            for (FieldError fieldError: listError) {
+
+        if (!listError.isEmpty()) {
+            for (FieldError fieldError : listError) {
                 result.addError(fieldError);
             }
             return "registration";
-        }
-        else {
+        } else {
             person.setRole(roleService.findByType("USER"));
             personService.savePerson(person);
             if (Const.DEBUG) {
