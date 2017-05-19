@@ -5,10 +5,7 @@ import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.Cards;
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.entities.TypeCard;
-import com.team.mvc.database.services.CardsService;
-import com.team.mvc.database.services.PersonService;
-import com.team.mvc.database.services.SendSMSMessageService;
-import com.team.mvc.database.services.TypeCardService;
+import com.team.mvc.database.services.*;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -45,6 +42,9 @@ public class GetCards {
 
     @Autowired
     PersonService personService;
+
+    @Autowired
+    SendEMAILMessageService sendEMAILMessageService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getCards(ModelMap model) {
@@ -105,6 +105,8 @@ public class GetCards {
                         card.getTypeCard().getStatus().equals("block"))
                     sendSMSMessageService.SendMessage(personService.findById(previousCard.getPersonId()).getMobileNumber(),
                             "Уважаемый клиент! Ваша карта №" + card.getCardKey() + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com");
+                    sendEMAILMessageService.SendMessage(personService.findByNickname(GetRole.getPrincipal()).getEmail(),"Уважаемый клиент! Ваша карта №" +card.getCardKey() + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com");
+
 
             } catch (Exception ex) {
                 System.out.println("Error occured: " + ex.getMessage());
