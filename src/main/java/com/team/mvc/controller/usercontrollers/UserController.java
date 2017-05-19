@@ -9,13 +9,17 @@ import com.team.mvc.database.services.SendEMAILMessageService;
 import com.team.mvc.database.services.SendSMSMessageService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Locale;
 
 
 @Controller
@@ -33,6 +37,8 @@ public class UserController {
     @Autowired
     SendEMAILMessageService sendEMAILMessageService;
 
+    @Autowired
+    MessageSource messageSource;
 
     @Autowired
     public void setUserService(PersonService personService) {
@@ -183,12 +189,21 @@ public class UserController {
 
 
     @RequestMapping(value = "/user/addUserCard", method = RequestMethod.POST)
-    public String addUserCard(@RequestParam(value = "idcard") String idcard, @RequestParam(value = "namecard") String namecard) {
-        System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
-        System.out.println("addUserCard" + idcard + namecard);
-        personService.addUserCard(idcard, namecard);
+    public String addUserCard(@RequestParam(value = "idcard") String idcard, @RequestParam(value = "namecard") String namecard, Model model) {
 
-        return "redirect:/user";
+
+        if (cardsService.findByCardKey(Long.parseLong(idcard))==null) {
+            model.addAttribute("flag", true);
+            return "user/addcard";
+        } else {
+            System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
+            System.out.println("addUserCard" + idcard + namecard);
+            personService.addUserCard(idcard, namecard);
+
+            return "redirect:/user";
+        }
+
+
 
     }
 
