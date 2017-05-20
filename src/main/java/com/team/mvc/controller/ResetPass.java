@@ -80,7 +80,7 @@ try{
             e.printStackTrace();
         }
         try {
-            mailMsg.setSubject("Test mail");
+            mailMsg.setSubject("Восстановление пароля");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
