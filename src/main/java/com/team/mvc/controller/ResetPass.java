@@ -100,17 +100,21 @@ try{
     @RequestMapping(value="/newPass" , method=RequestMethod.GET)
     public String resetPassword(@RequestParam(value="email") String email /*,Map<String,String> model*/)
     {
-        //check if the email id is valid and registered with us.
+        try{
+
+            //check if the email id is valid and registered with us.
         //model.put("emailid", email);
          maill.setMail(readMailIdFromToken(email));
         System.out.println(maill);
 //        Persons person = personService.findByEmail(email);
 //        System.out.println(person);
-        return "enter_new_pass";
+        return "enter_new_pass";}
+        catch (Exception E){return "errorPage";}
     }
     @RequestMapping(value="/updPass" ,method=RequestMethod.POST)
     public String updPassword(@RequestParam(value="pass") String pass /*,Map<String,String> model*/)
     {
+        try{
         System.out.println(maill.toString()+"   updPassword");
         personService.updPass(maill.toString(),pass);
         //check if the email id is valid and registered with us.
@@ -119,7 +123,8 @@ try{
 
 //        Persons person = personService.findByEmail(email);
 //        System.out.println(person);
-        return "success_pass";
+        return "success_pass";}
+        catch (Exception E){return "errorPage";}
     }
 
 
