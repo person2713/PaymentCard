@@ -56,14 +56,21 @@ public class GetOwners {
             model.addAttribute("ownerForm", owner);
         } catch (NotFoundException e) {
             e.printStackTrace();
+            return "errorPage";
         }
         return "admin/addOwner";
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String deleteOwner(@PathVariable("id") long id) {
-        ownerService.delete(id);
-        return "redirect:/admin/allOwners";
+
+        try {
+            ownerService.delete(id);
+            return "redirect:/admin/allOwners";
+        }
+        catch (Exception e){
+            return "errorPage";
+        }
 
     }
 

@@ -55,22 +55,32 @@ public class GetCards {
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String showUpdateCardForm(@PathVariable("id") long id, Model model) {
-
-        Cards card = cardService.findById(id);
-        model.addAttribute("edit", true);
-        model.addAttribute("cardForm", card);
-        return "admin/addCard";
+        try {
+            Cards card = cardService.findById(id);
+            model.addAttribute("edit", true);
+            model.addAttribute("cardForm", card);
+            return "admin/addCard";
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return "errorPage";
+        }
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String deleteCard(@PathVariable("id") long id) {
-        cardService.delete(id);
-        return "redirect:/admin/allCards";
+        try {
+            cardService.delete(id);
+            return "redirect:/admin/allCards";
+        }
+        catch (Exception e){
+            return "errorPage";
+        }
 
     }
 
     @RequestMapping(value = "/editCard", method = RequestMethod.POST)
-    public String saveOrUpdateDriver(@ModelAttribute("cardForm") @Validated Cards card, BindingResult result, Model model) {
+    public String saveOrUpdateCard(@ModelAttribute("cardForm") @Validated Cards card, BindingResult result, Model model) {
 
         List<FieldError> errors = new ArrayList<>();
 

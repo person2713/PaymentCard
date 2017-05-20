@@ -56,14 +56,20 @@ public class GetDrivers {
             model.addAttribute("driverForm", driver);
         } catch (NotFoundException e) {
             e.printStackTrace();
+            return "errorPage";
         }
         return "admin/addDriver";
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String deleteDriver(@PathVariable("id") long id) {
-        driversService.delete(id);
-        return "redirect:/admin/allDrivers";
+        try {
+            driversService.delete(id);
+            return "redirect:/admin/allDrivers";
+        }
+        catch (Exception e){
+            return "errorPage";
+        }
 
     }
 

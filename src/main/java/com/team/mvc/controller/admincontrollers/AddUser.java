@@ -1,12 +1,9 @@
 package com.team.mvc.controller.admincontrollers;
 
-import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.Cities;
 import com.team.mvc.database.entities.Persons;
 import com.team.mvc.database.services.CityService;
 import com.team.mvc.database.services.PersonService;
-import com.team.mvc.database.services.RoleService;
-import com.team.mvc.log.Const;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

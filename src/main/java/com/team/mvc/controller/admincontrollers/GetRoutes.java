@@ -54,6 +54,7 @@ public class GetRoutes {
             model.addAttribute("routeForm", route);
         } catch (NotFoundException e) {
             e.printStackTrace();
+            return "errorPage";
         }
         return "admin/addRoute";
     }
@@ -64,6 +65,7 @@ public class GetRoutes {
             routesService.delete(id);
         } catch (NotFoundException e) {
             e.printStackTrace();
+            return "errorPage";
         }
         return "redirect:/admin/allRoutes";
 

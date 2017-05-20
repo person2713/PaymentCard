@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Reset password</title>
     <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/login_css/login.css" rel="stylesheet">

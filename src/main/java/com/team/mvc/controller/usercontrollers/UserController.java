@@ -226,6 +226,7 @@ public class UserController {
             persons = personService.findById(id);
         } catch (NotFoundException e) {
             e.printStackTrace();
+            return "errorPage";
         }
         model.addAttribute("person", persons);
 
