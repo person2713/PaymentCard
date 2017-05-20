@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Добавить карту</title>
     <link href="/static/css/boot.css" rel="stylesheet">
     <link href="/static/css/login_css/login.css" rel="stylesheet">
