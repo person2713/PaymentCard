@@ -49,7 +49,7 @@ public class UserController {
     // list page
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllUsers(Model model) {
-        model.addAttribute("card", personService.findCradsByNicknameActive(GetRole.getPrincipal()));
+        model.addAttribute("card", personService.findCradsByNickname(GetRole.getPrincipal()));
         return "user/list";
     }
 

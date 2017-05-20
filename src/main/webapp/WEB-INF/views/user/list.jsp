@@ -48,18 +48,35 @@
 							<td>${card.cardName}</td>
 							<td>${card.typeCard.status}</td>
 							<td>${card.cardBalance.balance}</td>
-							<td>
-								<spring:url value="/user/user/${card.cardId}" var="userUrl" />
-								<spring:url value="/user/user/${card.cardId}/block" var="deleteUrl" />
-								<spring:url value="/user/user/${card.cardId}/update" var="updateUrl" />
-								<spring:url value="/user/user/${card.cardId}/money" var="moneyUrl" />
-                                <spring:url value="/user/user/${card.cardId}/map" var="mapUrl" />
+							<c:if test="${card.typeCard.typeId==3}">
+							<p><td>
+							<spring:url value="/user/user/${card.cardId}" var="userUrl" />
+							<spring:url value="/user/user/${card.cardId}/block" var="deleteUrl" />
+							<spring:url value="/user/user/${card.cardId}/update" var="updateUrl" />
+							<spring:url value="/user/user/${card.cardId}/money" var="moneyUrl" />
+							<spring:url value="/user/user/${card.cardId}/map" var="mapUrl" />
 
-								<button class="btn btn-infa" onclick="location.href='${userUrl}'"><span style="color: white">История</span></button>
-								<button class="btn btn-mapbtn" onclick="location.href='${updateUrl}'"><span style="color: white">Переименовать</span></button>
-                                <button class="btn btn-change" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button>
-								<button class="btn btn-addbalace" onclick="location.href='${moneyUrl}'"><span style="color: white">Пополнить баланс</span></button>
-								<button class="btn btn-cardblock" onclick="location.href='${deleteUrl}'"><span style="color: white">Заблокировать</span></button></td>
+							<button class="btn btn-infa" onclick="location.href='${userUrl}'"><span style="color: white">История</span></button>
+							<button class="btn btn-mapbtn" onclick="location.href='${updateUrl}'"><span style="color: white">Переименовать</span></button>
+							<button class="btn btn-change" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button>
+							<button class="btn btn-addbalace" onclick="location.href='${moneyUrl}'"><span style="color: white">Пополнить баланс</span></button>
+							<button class="btn btn-cardblock" onclick="location.href='${deleteUrl}'"><span style="color: white">Заблокировать</span></button></td><p>
+							</c:if>
+							<c:if test="${card.typeCard.typeId==21}">
+							<p><td>
+							<spring:url value="/user/user/${card.cardId}" var="userUrl" />
+							<spring:url value="/user/user/${card.cardId}/block" var="deleteUrl" />
+							<spring:url value="/user/user/${card.cardId}/update" var="updateUrl" />
+							<spring:url value="/user/user/${card.cardId}/money" var="moneyUrl" />
+							<spring:url value="/user/user/${card.cardId}/map" var="mapUrl" />
+
+							<button class="btn btn-infa   disabled" onclick="location.href='${userUrl}'"><span style="color: white">История</span></button>
+							<button class="btn btn-mapbtn   disabled" onclick="location.href='${updateUrl}'"><span style="color: white">Переименовать</span></button>
+							<button class="btn btn-change  disabled" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button>
+							<button class="btn btn-addbalace   disabled" onclick="location.href='${moneyUrl}'"><span style="color: white">Пополнить баланс</span></button>
+							<button class="btn btn-cardblock   disabled" onclick="location.href='${deleteUrl}'"><span style="color: white">Заблокировать</span></button></td><p>
+							</c:if>
+
               				</tr>
 					</c:forEach>
 				</table>
