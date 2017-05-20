@@ -14,7 +14,35 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 </head>
+<script type="text/javascript">
+    function validate(){
+        //Считаем значения из полей name и email в переменные x и y
+        var x=document.forms["form"]["idcard"].value;
+        var z=document.forms["form"]["namecard"].value;
 
+        var renum = /^[0-9]{1,20}$/;
+        var rename = /^[0-9A-Za-zА-Яа-я]{1,10}$/;
+        //Если поле name пустое выведем сообщение и предотвратим отправку формы
+        if (x.length==0){
+            document.getElementById("wNun").innerHTML="*данное поле обязательно для заполнения";
+            return false;
+        }
+
+        //Если поле email пустое выведем сообщение и предотвратим отправку формы
+
+
+
+        if (!renum.test(x)){document.getElementById("numF").innerHTML="*Номер карты - числа  до 20 знаков";
+            return false;}
+        if (!rename.test(z)){document.getElementById("nnameF").innerHTML="*Максимальная длина имени 10 символов(цифры и буквы в качестве символов)";
+            return false;}
+
+
+
+
+
+    }
+</script>
 
 <body style="background-color: #EDEEF0">
 <div class="container">
@@ -32,12 +60,12 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="/user/user/addUserCard" method="post" class="form-horizontal" id="login-form" role="form" style="display: block;">
+                            <form action="/user/user/addUserCard" name="form" method="post" onsubmit="return (validate())" class="form-horizontal" id="login-form" role="form" style="display: block;">
                                 <input type="hidden"  name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <h5><center>Введите номер карты</center></h5>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <input type="text" class="form-control" id="inputCardNumber" name="idcard" placeholder="Номер карты">
+                                    <input type="text" class="form-control" id="inputCardNumber" name="idcard" placeholder="Номер карты"><span style="color:red" id="wNun"></span><span style="color:red" id="numF"></span>
                                     <c:if test="${flag}">
                                         <div class="alert alert-danger">
                                             <p>Карточка с таким ключом не найдена</p>
@@ -47,7 +75,7 @@
                                 <h5><center>Введите название карты</center></h5>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <input type="text" class="form-control" id="inputCardName" name="namecard" placeholder="Название карты">
+                                    <input type="text" class="form-control" id="inputCardName" name="namecard" placeholder="Название карты"><span style="color:red" id="nnameF"></span>
                                 </div>
                                 </br>
 
@@ -57,7 +85,7 @@
                                         <div class="col-sm-8 col-sm-offset-2">
                                             <div class="col-md-6">
                                                 <div class="text-center">
-                                                    <button class="btn btn-green" style="width: 100%; overflow: hidden">Добавить</button>
+                                                    <button onClick="return validate();" class="btn btn-green" style="width: 100%; overflow: hidden">Добавить</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

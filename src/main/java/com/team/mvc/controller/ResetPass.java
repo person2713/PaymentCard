@@ -17,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,7 +53,13 @@ public class ResetPass {
     }
 
     @RequestMapping(value="/resetPassword" , method=RequestMethod.POST)
-    public String resetRequest(@RequestParam(value="email") String email){
+    public String resetRequest(@RequestParam(value="email") String email, Model model){
+try{
+
+    if (personService.findByEmail(email)==null) {
+        model.addAttribute("flag", true);
+        return "/reset_pass";
+    }
 
         Persons person = personService.findByEmail(email);
         String mail = person.getEmail();
@@ -73,7 +80,7 @@ public class ResetPass {
             e.printStackTrace();
         }
         try {
-            mailMsg.setSubject("Test mail");
+            mailMsg.setSubject("Восстановление пароля");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -86,23 +93,28 @@ public class ResetPass {
         System.out.println("---Done---");
 
 
-        return "checkMail";
+        return "checkMail";}
+        catch (Exception E){return "errorPage";}
     }
 
     @RequestMapping(value="/newPass" , method=RequestMethod.GET)
     public String resetPassword(@RequestParam(value="email") String email /*,Map<String,String> model*/)
     {
-        //check if the email id is valid and registered with us.
+        try{
+
+            //check if the email id is valid and registered with us.
         //model.put("emailid", email);
          maill.setMail(readMailIdFromToken(email));
         System.out.println(maill);
 //        Persons person = personService.findByEmail(email);
 //        System.out.println(person);
-        return "enter_new_pass";
+        return "enter_new_pass";}
+        catch (Exception E){return "errorPage";}
     }
     @RequestMapping(value="/updPass" ,method=RequestMethod.POST)
     public String updPassword(@RequestParam(value="pass") String pass /*,Map<String,String> model*/)
     {
+        try{
         System.out.println(maill.toString()+"   updPassword");
         personService.updPass(maill.toString(),pass);
         //check if the email id is valid and registered with us.
@@ -111,7 +123,8 @@ public class ResetPass {
 
 //        Persons person = personService.findByEmail(email);
 //        System.out.println(person);
-        return "success_pass";
+        return "success_pass";}
+        catch (Exception E){return "errorPage";}
     }
 
 

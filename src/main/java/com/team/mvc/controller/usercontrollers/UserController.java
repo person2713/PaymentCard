@@ -49,13 +49,15 @@ public class UserController {
     // list page
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String showAllUsers(Model model) {
+       try{
         model.addAttribute("card", personService.findCradsByNickname(GetRole.getPrincipal()));
-        return "user/list";
+        return "user/list";}
+       catch (Exception E){return "errorPage";}
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable("id") int id, Model model) throws NotFoundException {
-        System.out.println("-------------------showUser-------------------" + id);
+     try{   System.out.println("-------------------showUser-------------------" + id);
         Cards cards = personService.findByCardbyID(id);
         System.out.println(cards.toString() + "--------------------------------");
         if (cards == null) {
@@ -63,23 +65,25 @@ public class UserController {
             model.addAttribute("msg", "User not found");
         }
         model.addAttribute("card", cards);
-        return "user/show";
+        return "user/show";}
+     catch (Exception E){return "errorPage";}
     }
 
     @RequestMapping(value = "/user/{id}/update", method = RequestMethod.GET)
     public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
-        System.out.println("showUpdateUserForm" + "------------------------------------------------------------------------------------------------------------");
+      try{  System.out.println("showUpdateUserForm" + "------------------------------------------------------------------------------------------------------------");
         Cards cards = personService.findByCardbyID(id);
         model.addAttribute("card", cards);
         System.out.println("showUpdateUserForm" + cards.getCardId() + "------------------------------------------------------------------------------------------------------------");
-        return "user/userform";
+        return "user/userform";}
+      catch (Exception E){return "errorPage";}
 
 
     }
 
     @RequestMapping(value = "/user/{id}/money", method = RequestMethod.GET)
     public String showUpdateMoneyForm(@PathVariable("id") int id, Model model) {
-
+try{
         System.out.println("showUpdateUserForm" + "------------------------------------------------------------------------------------------------------------");
 
         Cards cards = personService.findByCardbyID(id);
@@ -87,16 +91,19 @@ public class UserController {
         model.addAttribute("card", cards);
 
 
-        return "user/moneyform";
+        return "user/moneyform";}
+catch (Exception E){return "errorPage";}
 
     }
 
     @RequestMapping(value = "/user/{id}/block", method = RequestMethod.GET)
     public String Block(@PathVariable("id") int id, Model model) {
+        try{
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("http://localhost:9555/user");
         System.out.println("Block" + "------------------------------------------------------------------------------------------------------------");
-        cardsService.blockCardById(id);
+        cardsService.blockCardById(id);}
+        catch (Exception E){return "errorPage";}
         System.out.println("Block" + "&&&&&&&&&&&&+ " + "---------------------" + personService.findByNickname(GetRole.getPrincipal()).getMobileNumber() + "---------------" + id + "------------------------------------------------------------------------");
 
         sendSMSMessageService.SendMessage(personService.findByNickname(GetRole.getPrincipal()).getMobileNumber(),
@@ -125,11 +132,13 @@ public class UserController {
             }
             System.out.println(cards.getCardName().toString() + "---------===========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
 //            cardsService.saveOrUpdate(cards);
+            try{
             cardsService.updateName(cards.getCardId(), cards.getCardName());
 
             System.out.println("cardsService.updateName(cards.getCardId(), cards.getCardName());  отработал наверно -----------------");
             // POST/REDIRECT/GET
-            return "redirect:/user/user/" + cards.getCardId();
+            return "redirect:/user/user/" + cards.getCardId();}
+            catch (Exception E){return "errorPage";}
 
             // POST/FORWARD/GET
             // return "user/list";
@@ -147,11 +156,12 @@ public class UserController {
 
 
         System.out.println("---------===saveOrUpdateMoney========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
-
+try{
         cardsService.updateMoney(cards.getCardId(), cards.getCardBalance().getBalance());
         System.out.println("cardsService.updateMONEY(cards.getCardId(), cards.getCardName());  отработал наверно -----------------");
 
-        return "redirect:/user";
+        return "redirect:/user";}
+catch (Exception E){return "errorPage";}
 
 
     }
@@ -170,8 +180,9 @@ public class UserController {
         System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
 
 
-        model.addAttribute("events", personService.findByCardbyID(id).getEvents());
-        return "user/map";
+       try{ model.addAttribute("events", personService.findByCardbyID(id).getEvents());
+        return "user/map";}
+       catch (Exception E){return "errorPage";}
     }
 
 
@@ -179,9 +190,10 @@ public class UserController {
     public String showMapOne(@PathVariable("id") int id, Model model) {
         System.out.println("+++++++++++++++++showAddUserForm()+++++++++++++++++++++++++++++");
 
-
+try{
         model.addAttribute("event", personService.findEvById(id));
-        return "user/swowonemap";
+        return "user/swowonemap";}
+catch (Exception E){return "errorPage";}
     }
 
 
@@ -191,17 +203,25 @@ public class UserController {
     @RequestMapping(value = "/user/addUserCard", method = RequestMethod.POST)
     public String addUserCard(@RequestParam(value = "idcard") String idcard, @RequestParam(value = "namecard") String namecard, Model model) {
 
+try{
 
-        if (cardsService.findByCardKey(Long.parseLong(idcard))==null) {
+        if (cardsService.findByCardKey(Long.valueOf(idcard))==null) {
             model.addAttribute("flag", true);
             return "user/addcard";
-        } else {
+        }
+       if(cardsService.findByCardKey(Long.valueOf(idcard)).getPersonId()!=null){model.addAttribute("flag", true);
+            return "user/addcard";}
+
+        else {
             System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
             System.out.println("addUserCard" + idcard + namecard);
             personService.addUserCard(idcard, namecard);
 
             return "redirect:/user";
         }
+
+    }
+catch (Exception E){return "errorPage";}
 
 
 
@@ -224,14 +244,11 @@ public class UserController {
         Persons persons = null;
         try {
             persons = personService.findById(id);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-            return "errorPage";
-        }
+
         model.addAttribute("person", persons);
 
         return "user/change_user";
-
+        } catch (Exception E){return "errorPage";}
 
     }
 
@@ -242,12 +259,13 @@ public class UserController {
 
 
 
-
+try{
         personService.updatePerson(persons.getPersonId(),persons.getFirstName(),persons.getLastName(),persons.getMobileNumber());
 
 
 
-        return "redirect:/user";
+        return "redirect:/user";}
+catch (Exception E){return "errorPage";}
 
     }
 
