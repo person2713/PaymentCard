@@ -34,7 +34,7 @@
 
         if (!renum.test(x)){document.getElementById("numF").innerHTML="*Номер карты - числа  до 20 знаков";
             return false;}
-        if (!rename.test(z)){document.getElementById("nnameF").innerHTML="*Максимальная длина имени 10 символов";
+        if (!rename.test(z)){document.getElementById("nnameF").innerHTML="*Максимальная длина имени 10 символов(цифры и буквы в качестве символов)";
             return false;}
 
 
