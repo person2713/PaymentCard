@@ -29,7 +29,31 @@
 
 
 </head>
-
+<script type="text/javascript">
+    function validate() {
+        var routeNumber = document.forms["form"]["routeNumber"].value;
+        var routePrice = document.forms["form"]["routePrice"].value;
+        var regexBalance = /(^[0-9]+$)/;
+        var regexNumber = /^[0-9]{1}[0-9а-я]{1,2}([а-я]{0,1})?$/;
+        //Если длина имени компании равно 0
+        if (routeNumber.length = 0) {
+            document.getElementById("routeNumber1").innerHTML = "*Номер маршрута должен быть обязательно заполнен";
+            return false;
+        }
+        if (routeNumber.length > 50) {
+            document.getElementById("routeNumber1").innerHTML = "*Номер маршрута не должно превыщать более 50 символов";
+            return false;
+        }
+        if (!regexBalance.test(routePrice)) {
+            document.getElementById("routePrice1").innerHTML = "*Неверный формат баланса, введите баланс в формате 1000";
+            return false;
+        }
+        if (!regexNumber.test(routeNumber)) {
+            document.getElementById("routeNumber1").innerHTML = "*Неверный формат номера маршрута, введите номер в формате 25а";
+            return false;
+        }
+    }
+</script>
 <body style="background-color: #EDEEF0">
 <div class="container">
 
@@ -54,7 +78,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="nickname" id="nickname" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="nickname" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="nickname" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -66,7 +92,9 @@
                         <form:input type="password" path="password" id="password" class="form-control"/>
                         <div class="pwstrength_viewport_progress"></div>
                         <div class="has-error">
-                            <form:errors path="password" class="help-inline"/>
+                            <span style="color:red">
+                                <form:errors path="password" class="help-inline"/>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -78,7 +106,9 @@
                         <form:input type="password" path="password" id="password" class="form-control"/>
                         <div class="pwstrength_viewport_progress"></div>
                         <div class="has-error">
-                            <form:errors path="password" class="help-inline"/>
+                            <span style="color:red">
+                                <form:errors path="password" class="help-inline"/>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -91,7 +121,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="firstName" id="firstName" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="firstName" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="firstName" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -101,7 +133,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="lastName" id="lastName" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="lastName" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="lastName" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -112,7 +146,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="mobileNumber" id="mobileNumber" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="mobileNumber" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="mobileNumber" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -123,7 +159,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="email" id="email" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="email" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="email" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -136,7 +174,9 @@
                     <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${cities}" multiple="false" itemValue="cityId" itemLabel="cityName"/>
                     <div class="has-error">
-                        <form:errors path="city" class="help-inline"/>
+                        <span style="color:red">
+                            <form:errors path="city" class="help-inline"/>
+                        </span>
                     </div>
                 </form:select>
             </div>

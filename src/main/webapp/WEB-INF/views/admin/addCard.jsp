@@ -25,6 +25,27 @@
 
 </head>
 
+
+<script type="text/javascript">
+    function validate() {
+        //Считаем значения из полей name и email в переменные x и y
+        var cardName = document.forms["form"]["cardName"].value;
+//        var regex = /^[А-Я]{1}[0-9]{3}[А-Я]{2}$/;
+        //Если длина имени карточки больше 30 символов
+        if (cardName.length > 30) {
+            document.getElementById("cardName1").innerHTML = "*Имя карты не должно содержать более 30 символов";
+            return false;
+        }
+//        //Если номер автобуса введен в неверном формате
+//        if (!regex.test(cardName)) {
+//            document.getElementById("busNumber1").innerHTML = "*Номер автобуса введен не в верном формате. Введите в следующем формате А123ИР";
+//            return false;
+//        }
+
+
+    }
+</script>
+
 <body style="background-color: #EDEEF0">
 <div class="container">
 
@@ -40,7 +61,7 @@
         </c:otherwise>
     </c:choose>
 
-    <form:form method="POST" modelAttribute="cardForm" action="${userActionUrl}" class="form-horizontal">
+    <form:form name="form" method="POST"  modelAttribute="cardForm" onsubmit="return (validate())" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="cardId" id="cardId"/>
 
 
@@ -57,8 +78,11 @@
             <label class="col-md-4 control-label" for="cardName">Имя карты</label>
             <div class="col-md-4">
                 <form:input type="text" path="cardName" id="cardName" class="form-control"/>
+                <span style="color:red" id="cardName1"></span>
                 <div class="has-error">
-                    <form:errors path="cardName" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="cardName" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -68,7 +92,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="cardKey" id="cardKey" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="cardKey" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="cardKey" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -82,7 +108,9 @@
                     <div class="col-md-4">
                         <form:input type="text" path="cardBalance.balance" id="cardBalance.balance" class="form-control"/>
                         <div class="has-error">
-                            <form:errors path="cardBalance.balance" class="help-inline"/>
+                            <span style="color:red">
+                                <form:errors path="cardBalance.balance" class="help-inline"/>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -101,7 +129,9 @@
                             <form:options items="${persons}" multiple="false" itemValue="personId"
                                           itemLabel="nickname"/>
                             <div class="has-error">
-                                <form:errors path="personId" class="help-inline"/>
+                                <span style="color:red">
+                                    <form:errors path="personId" class="help-inline"/>
+                                </span>
                             </div>
                         </form:select>
                     </div>
@@ -116,7 +146,9 @@
                             <form:options items="${persons}" multiple="false" itemValue="personId"
                                           itemLabel="nickname"/>
                             <div class="has-error">
-                                <form:errors path="personId" class="help-inline"/>
+                                <span style="color:red">
+                                    <form:errors path="personId" class="help-inline"/>
+                                </span>
                             </div>
                         </form:select>
                     </div>
@@ -133,7 +165,9 @@
                             <%--<form:option value="NONE" label=""/>--%>
                             <form:options items="${typeCard}" multiple="false" itemValue="typeId" itemLabel="status"/>
                             <div class="has-error">
-                                <form:errors path="typeCard" class="help-inline"/>
+                                <span style="color:red">
+                                    <form:errors path="typeCard" class="help-inline"/>
+                                </span>
                             </div>
                         </form:select>
                     </div>
@@ -152,7 +186,7 @@
                     <c:when test="${edit}">
                         <div class="col-md-6">
                             <div class="text-center">
-                                <input type="submit" value="Редактировать" class="btn btn-success" style="width: 100%"/>
+                                <input type="submit" value="Редактировать" class="btn btn-success" onClick="return validate();" style="width: 100%"/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -164,7 +198,7 @@
                     <c:otherwise>
                         <div class="col-md-6">
                             <div class="text-center">
-                                <input type="submit" value="Добавить" class="btn btn-success" style="width: 100%"/>
+                                <input type="submit" value="Добавить" class="btn btn-success" onClick="return validate();" style="width: 100%"/>
                             </div>
                         </div>
                         <div class="col-md-6">

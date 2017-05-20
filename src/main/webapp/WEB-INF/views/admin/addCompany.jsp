@@ -24,6 +24,35 @@
 
 </head>
 
+<script type="text/javascript">
+    function validate() {
+        var companyName = document.forms["form"]["companyName"].value;
+        var compBalance = document.forms["form"]["compBalance"].value;
+        var phoneNumber = document.forms["form"]["phoneNumber"].value;
+        var regexBalance = /(^[0-9]+$)/;
+        var regexPhone = /^[+]{1}[0-9]{1}[(]{1}[0-9]{3}[)]{1}[0-9]{7}$/;
+        //Если длина имени компании равно 0
+        if (companyName.length = 0) {
+            document.getElementById("companyName1").innerHTML = "*Имя компании должно быть обязательно заполнено";
+            return false;
+        }
+        if (companyName.length > 150) {
+            document.getElementById("companyName1").innerHTML = "*Имя компании не должно превыщать более 150 символов";
+            return false;
+        }
+        //Если баланс введен в неверном формате
+        if (!regexBalance.test(compBalance)) {
+            document.getElementById("compBalance1").innerHTML = "*Неверный формат баланса, введите баланс в формате 1000";
+            return false;
+        }
+        //Если номер телефона введен в неверном формате
+        if (!regexBalance.test(phoneNumber)) {
+            document.getElementById("compBalance1").innerHTML = "*Неверный формат телефона, введите телефон в формате +7(XXX)XXXXXXX";
+            return false;
+        }
+    }
+</script>
+
 <body style="background-color: #EDEEF0">
 <div class="container">
 
@@ -38,15 +67,18 @@
         </c:otherwise>
     </c:choose>
 
-    <form:form method="POST" modelAttribute="companyForm" action="${userActionUrl}" class="form-horizontal">
+    <form:form name="form" method="POST" modelAttribute="companyForm" onsubmit="return (validate())" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="companyId" id="companyId"/>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="companyName">Имя компании</label>
             <div class="col-md-4">
                 <form:input type="text" path="companyName" id="companyName" class="form-control"/>
+                <span style="color:red" id="companyName1"></span>
                 <div class="has-error">
-                    <form:errors path="companyName" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="companyName" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -55,8 +87,11 @@
             <label class="col-md-4 control-label" for="phoneNumber">Телефонный номер</label>
             <div class="col-md-4">
                 <form:input type="text" path="phoneNumber" id="phoneNumber" class="form-control"/>
+                <span style="color:red" id="phoneNumber1"></span>
                 <div class="has-error">
-                    <form:errors path="phoneNumber" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="phoneNumber" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -65,8 +100,11 @@
             <label class="col-md-4 control-label" for="compBalance">Баланс компании</label>
             <div class="col-md-4">
                 <form:input type="text" path="compBalance" id="compBalance" class="form-control"/>
+                <span style="color:red" id="compBalance1"></span>
                 <div class="has-error">
-                    <form:errors path="compBalance" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="compBalance" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -78,7 +116,9 @@
                     <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${cities}" multiple="false" itemValue="cityId" itemLabel="cityName"/>
                 <div class="has-error">
-                    <form:errors path="city" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="city" class="help-inline"/>
+                    </span>
                 </div>
                 </form:select>
             </div>
@@ -132,7 +172,7 @@
                     <c:when test="${edit}">
                         <div class="col-md-6">
                             <div class="text-center">
-                                <input type="submit" value="Редактировать" class="btn btn-success" style="width: 100%"/>
+                                <input type="submit" value="Редактировать"  class="btn btn-success" onClick="return validate();" style="width: 100%"/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -144,7 +184,7 @@
                     <c:otherwise>
                         <div class="col-md-6">
                             <div class="text-center">
-                                <input type="submit" value="Добавить" class="btn btn-success" style="width: 100%"/>
+                                <input type="submit" value="Добавить" class="btn btn-success" onClick="return validate();" style="width: 100%"/>
                             </div>
                         </div>
                         <div class="col-md-6">

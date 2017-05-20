@@ -49,7 +49,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="person.nickname" id="person.nickname" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="person.nickname" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="person.nickname" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -61,7 +63,9 @@
                     <div class="col-md-4">
                         <form:input type="password" path="person.password" id="person.password" class="form-control"/>
                         <div class="has-error">
-                            <form:errors path="person.password" class="help-inline"/>
+                            <span style="color:red">
+                                <form:errors path="person.password" class="help-inline"/>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -72,7 +76,9 @@
                     <div class="col-md-4">
                         <form:input type="password" path="person.password" id="person.password" class="form-control"/>
                         <div class="has-error">
-                            <form:errors path="person.password" class="help-inline"/>
+                            <span style="color:red">
+                                <form:errors path="person.password" class="help-inline"/>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -85,7 +91,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="person.firstName" id="person.firstName" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="person.firstName" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="person.firstName" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -95,7 +103,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="person.lastName" id="person.lastName" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="person.lastName" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="person.lastName" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -106,7 +116,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="person.mobileNumber" id="person.mobileNumber" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="person.mobileNumber" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="person.mobileNumber" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -117,7 +129,9 @@
             <div class="col-md-4">
                 <form:input type="text" path="person.email" id="person.email" class="form-control"/>
                 <div class="has-error">
-                    <form:errors path="person.email" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="person.email" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -130,7 +144,9 @@
                     <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${cities}" multiple="false" itemValue="cityId" itemLabel="cityName"/>
                     <div class="has-error">
-                        <form:errors path="person.city" class="help-inline"/>
+                        <span style="color:red">
+                            <form:errors path="person.city" class="help-inline"/>
+                        </span>
                     </div>
                 </form:select>
             </div>
@@ -143,7 +159,9 @@
                     <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${companies}" multiple="false" itemValue="companyId" itemLabel="companyName"/>
                     <div class="has-error">
-                        <form:errors path="companyId" class="help-inline"/>
+                        <span style="color:red">
+                            <form:errors path="companyId" class="help-inline"/>
+                        </span>
                     </div>
                 </form:select>
             </div>

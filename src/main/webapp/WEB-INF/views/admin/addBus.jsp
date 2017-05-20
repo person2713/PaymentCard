@@ -23,6 +23,31 @@
 
 </head>
 
+<script type="text/javascript">
+    function validate() {
+        //Считаем значения из полей name и email в переменные x и y
+        var busNumber = document.forms["form"]["busNumber"].value;
+        var regex = /^[А-Я]{1}[0-9]{3}[А-Я]{2}$/;
+        //Если поле name пустое выведем сообщение и предотвратим отправку формы
+        if (busNumber.length == 0) {
+            document.getElementById("busNumber1").innerHTML = "*Данное поле обязательно для заполнения";
+            return false;
+        }
+        //Если длина вводимых значений больше 6 символов
+        if (busNumber.length > 6) {
+            document.getElementById("busNumber1").innerHTML = "*Номер автобуса должен состоять из 6 символов";
+            return false;
+        }
+        //Если номер автобуса введен в неверном формате
+        if (!regex.test(busNumber)) {
+            document.getElementById("busNumber1").innerHTML = "*Номер автобуса введен в нeверном формате. Введите в следующем формате А123ИР";
+            return false;
+        }
+
+
+    }
+</script>
+
 <body style="background-color: #EDEEF0">
 <div class="container">
 
@@ -37,16 +62,19 @@
         </c:otherwise>
     </c:choose>
 
-    <form:form method="POST" modelAttribute="busForm" action="${userActionUrl}" class="form-horizontal">
+    <form:form name="form" method="POST" modelAttribute="busForm" onsubmit="return (validate())" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="busId" id="busId"/>
 
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="busNumber">Номер автобуса</label>
             <div class="col-md-4">
-                <form:input type="text" path="busNumber" id="busNumber" class="form-control"/>
+                <form:input type="text" path="busNumber" id="busNumber" name="busNumber" class="form-control"/>
+                <span style="color:red" id="busNumber1"></span>
                 <div class="has-error">
-                    <form:errors path="busNumber" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="busNumber" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -58,7 +86,9 @@
                     <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${companies}" multiple="false" itemValue="companyId" itemLabel="companyName"/>
                     <div class="has-error">
+                        <span style="color:red">
                         <form:errors path="companyId" class="help-inline"/>
+                        </span>
                     </div>
                 </form:select>
             </div>
@@ -72,7 +102,7 @@
                     <c:when test="${edit}">
                         <div class="col-md-6">
                             <div class="text-center">
-                                <input type="submit" value="Редактировать" class="btn btn-success" style="width: 100%"/>
+                                <input type="submit" value="Редактировать" class="btn btn-success" onClick="return validate();" style="width: 100%"/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -84,7 +114,7 @@
                     <c:otherwise>
                         <div class="col-md-6">
                             <div class="text-center">
-                                <input type="submit" value="Добавить" class="btn btn-success" style="width: 100%"/>
+                                <input type="submit" value="Добавить" class="btn btn-success" onClick="return validate();" style="width: 100%"/>
                             </div>
                         </div>
                         <div class="col-md-6">

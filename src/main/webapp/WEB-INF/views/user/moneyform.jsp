@@ -31,7 +31,9 @@
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <div class="col-sm-3">
                         <form:input path="cardBalance.balance" type="text" class="form-control" id="cardBalance.balance" placeholder="Сумма" value="100"/>
-                        <form:errors path="cardBalance.balance" class="control-label" />
+                        <span style="color:red">
+                            <form:errors path="cardBalance.balance" class="control-label" />
+                        </span>
                     </div>
                 </div>
             </spring:bind>

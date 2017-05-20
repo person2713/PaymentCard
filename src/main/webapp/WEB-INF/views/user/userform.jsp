@@ -29,7 +29,9 @@
 				<div class="form-group ${status.error ? 'has-error' : ''}">
 					<div class="col-sm-3">
 						<form:input path="cardName" type="text" class="form-control " id="cardName" placeholder="Имя карты" />
-						<form:errors path="cardName" class="control-label" />
+						<span style="color:red">
+							<form:errors path="cardName" class="control-label" />
+						</span>
 					</div>
 				</div>
 			</spring:bind>
