@@ -20,6 +20,7 @@
         var z=document.forms["form"]["lastName"].value;
         var y=document.forms["form"]["mobileNumber"].value;
         var re = /^(\+7)?\d{10}$/;
+        var rename = /^[0-9A-Za-zА-Яа-я]{1,15}$/;
         //Если поле name пустое выведем сообщение и предотвратим отправку формы
         if (x.length==0){
             document.getElementById("firstNameF").innerHTML="*данное поле обязательно для заполнения";
@@ -30,6 +31,10 @@
             return false;
         }
         //Если поле email пустое выведем сообщение и предотвратим отправку формы
+        if (!rename.test(x)){document.getElementById("err1").innerHTML="*Максимально 15 символов, буквы и цифры";
+            return false;}
+        if (!rename.test(z)){document.getElementById("err2").innerHTML="*Максимально 15 символов, буквы и цифры";
+            return false;}
 
 
 
@@ -56,7 +61,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="firstName">Имя</label>
                 <div class="col-md-4">
-                    <form:input type="text" path="firstName" id="firstName" class="form-control"/><span style="color:red" id="firstNameF"></span>
+                    <form:input type="text" path="firstName" id="firstName" class="form-control"/><span style="color:red" id="firstNameF"></span><span style="color:red" id="err1"></span>
                     <div class="has-error">
                         <form:errors path="firstName" class="help-inline"/>
                     </div>
@@ -66,7 +71,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="lastName">Фамилия</label>
                 <div class="col-md-4">
-                    <form:input type="text" path="lastName" id="lastName" class="form-control"/><span style="color:red" id="lastNameF"></span>
+                    <form:input type="text" path="lastName" id="lastName" class="form-control"/><span style="color:red" id="lastNameF"></span><span style="color:red" id="err2"></span>
                     <div class="has-error">
                         <form:errors path="lastName" class="help-inline"/>
                     </div>
