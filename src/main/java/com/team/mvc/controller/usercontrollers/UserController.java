@@ -9,15 +9,17 @@ import com.team.mvc.database.services.SendEMAILMessageService;
 import com.team.mvc.database.services.SendSMSMessageService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
+import java.util.Locale;
 
 
 @Controller
@@ -35,6 +37,8 @@ public class UserController {
     @Autowired
     SendEMAILMessageService sendEMAILMessageService;
 
+    @Autowired
+    MessageSource messageSource;
 
     @Autowired
     public void setUserService(PersonService personService) {
@@ -51,13 +55,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable("id") int id, Model model) throws NotFoundException {
-//        System.out.println("-------------------showUser-------------------" + id);
-//        List<Object[]> obj = personService.findByCardbyIDEvents(id);
-//        for(Object[] objL:obj){
-//            Long id = (Long)objL[0];
-//            Timestamp date = (Timestamp)object[1]
-//            String name = (String)object[2]
-//        }
+        System.out.println("-------------------showUser-------------------" + id);
         Cards cards = personService.findByCardbyID(id);
         System.out.println(cards.toString() + "--------------------------------");
         if (cards == null) {
@@ -191,12 +189,21 @@ public class UserController {
 
 
     @RequestMapping(value = "/user/addUserCard", method = RequestMethod.POST)
-    public String addUserCard(@RequestParam(value = "idcard") String idcard, @RequestParam(value = "namecard") String namecard) {
-        System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
-        System.out.println("addUserCard" + idcard + namecard);
-        personService.addUserCard(idcard, namecard);
+    public String addUserCard(@RequestParam(value = "idcard") String idcard, @RequestParam(value = "namecard") String namecard, Model model) {
 
-        return "redirect:/user";
+
+        if (cardsService.findByCardKey(Long.parseLong(idcard))==null) {
+            model.addAttribute("flag", true);
+            return "user/addcard";
+        } else {
+            System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
+            System.out.println("addUserCard" + idcard + namecard);
+            personService.addUserCard(idcard, namecard);
+
+            return "redirect:/user";
+        }
+
+
 
     }
 
@@ -242,15 +249,6 @@ public class UserController {
         return "redirect:/user";
 
     }
-
-
-
-
-//    SELECT  *
-//    FROM  BALANCE_HIST BH
-//    INNER JOIN EVENTS EV ON
-//    to_date(to_char(BH.DATE_EVENT,'DD.MM.YYYY HH24:MI:SS'),'DD.MM.YYYY HH24:MI:SS')=to_date(to_char(EV.PAYMENT_TIME,'DD.MM.YYYY HH24:MI:SS'),'DD.MM.YYYY HH24:MI:SS')
-//    WHERE BH.CARD_ID =181;
 
 
     }

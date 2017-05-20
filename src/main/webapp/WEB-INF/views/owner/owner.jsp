@@ -59,7 +59,7 @@
 
 
 	<div class="navbar navbar-inner  navbar-fixed-bottom">
-		<p><center  class="text-muted">© NetCracker Education Center 2017</center></p>
+		<p><center  class="text-muted">© Netcracker Education Center 2017</center></p>
 	</div>
 
 </body>
