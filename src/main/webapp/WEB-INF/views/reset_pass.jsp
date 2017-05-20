@@ -39,6 +39,11 @@
                                 <h5><center>Введите адрес электронной почты</center></h5>
                                 <br/>
                                 <div class="form-group" style="padding-left: 5%; padding-right: 5%">
+                                    <c:if test="${flag}">
+                                        <div class="alert alert-danger">
+                                            <p>Пользователь с таким почтовым ящиком не найден</p>
+                                        </div>
+                                    </c:if>
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email">
 
                                 </div>

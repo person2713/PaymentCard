@@ -15,7 +15,7 @@
     <div class="text-center">
         <h4 style="margin-top: 10%">На вашу почту отправлено письмо для восстановления пароля.<br/>
             Пожалуйста, проверьте ваш почтовый ящик.</h4>
-        <a href="/welcome" class="btn btn-orange">На главную</a>
+        <a href="/" class="btn btn-orange">На главную</a>
     </div>
 </body>
 </html>

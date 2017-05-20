@@ -12,7 +12,7 @@
 <body style="background-color: #EDEEF0">
 <div class="text-center">
     <h4 style="margin-top: 10%">Ваш пароль успешно изменён.</h4>
-    <a href="/welcome" class="btn btn-orange">На главную</a>
+    <a href="/" class="btn btn-orange">На главную</a>
 </div>
 </body>
 </html>

@@ -17,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,7 +53,13 @@ public class ResetPass {
     }
 
     @RequestMapping(value="/resetPassword" , method=RequestMethod.POST)
-    public String resetRequest(@RequestParam(value="email") String email){
+    public String resetRequest(@RequestParam(value="email") String email, Model model){
+try{
+
+    if (personService.findByEmail(email)==null) {
+        model.addAttribute("flag", true);
+        return "/reset_pass";
+    }
 
         Persons person = personService.findByEmail(email);
         String mail = person.getEmail();
@@ -86,7 +93,8 @@ public class ResetPass {
         System.out.println("---Done---");
 
 
-        return "checkMail";
+        return "checkMail";}
+        catch (Exception E){return "errorPage";}
     }
 
     @RequestMapping(value="/newPass" , method=RequestMethod.GET)
