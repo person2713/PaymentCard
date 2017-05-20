@@ -51,6 +51,7 @@ public class GetBuses {
             model.addAttribute("busForm", bus);
         } catch (NotFoundException e) {
             e.printStackTrace();
+            return "errorPage";
         }
         return "admin/addBus";
     }
@@ -61,6 +62,7 @@ public class GetBuses {
             busesService.delete(id);
         } catch (NotFoundException e) {
             e.printStackTrace();
+            return "errorPage";
         }
         return "redirect:/admin/allBuses";
 

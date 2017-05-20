@@ -224,10 +224,16 @@ public class CardsRepository extends AbstractRepository<Cards> {
         query3.executeUpdate();
 
         Query query4 = session.createSQLQuery(
-                "delete from cards " +
+                "delete from temporary_events " +
                         "where card_id=:cardId");
         query4.setParameter("cardId", card.getCardId());
         query4.executeUpdate();
+
+        Query query5 = session.createSQLQuery(
+                "delete from cards " +
+                        "where card_id=:cardId");
+        query5.setParameter("cardId", card.getCardId());
+        query5.executeUpdate();
 
         session.getTransaction().commit();
     }

@@ -75,45 +75,92 @@ public class CompaniesRepository extends AbstractRepository<Companies> {
         session.beginTransaction();
 
         Query query1 = session.createSQLQuery(
-                "delete from car_assign where driver_id in (SELECT driver_id FROM DRIVERS WHERE COMPANY_ID =:companyId)");
+                "delete from car_assign " +
+                        "where driver_id in (" +
+                            "SELECT driver_id " +
+                                "FROM DRIVERS " +
+                                "WHERE COMPANY_ID =:companyId)");
         query1.setParameter("companyId", company.getCompanyId());
         query1.executeUpdate();
 
         Query query2 = session.createSQLQuery(
-                        "delete from car_assign where bus_id IN (SELECT bus_id FROM BUSES WHERE COMPANY_ID =:companyId)");
+                        "delete from car_assign " +
+                                "where bus_id IN (" +
+                                    "SELECT bus_id " +
+                                        "FROM BUSES " +
+                                        "WHERE COMPANY_ID =:companyId)");
         query2.setParameter("companyId", company.getCompanyId());
         query2.executeUpdate();
 
         Query query3 = session.createSQLQuery(
-                "delete from car_assign where route_id IN (SELECT route_id FROM ROUTES WHERE COMPANY_ID =:companyId)");
+                "delete from car_assign " +
+                        "where route_id IN (" +
+                            "SELECT route_id " +
+                                "FROM ROUTES " +
+                                "WHERE COMPANY_ID =:companyId)");
         query3.setParameter("companyId", company.getCompanyId());
         query3.executeUpdate();
 
         Query query4 = session.createSQLQuery(
-                "delete from events where bus_id IN (SELECT bus_id FROM BUSES WHERE COMPANY_ID =:companyId)");
+                "delete from events " +
+                        "where bus_id IN (" +
+                            "SELECT bus_id " +
+                                "FROM BUSES " +
+                                "WHERE COMPANY_ID =:companyId)");
         query4.setParameter("companyId", company.getCompanyId());
         query4.executeUpdate();
 
-        Query query5 = session.createSQLQuery(
-                "delete from buses where bus_id IN (SELECT bus_id FROM BUSES WHERE COMPANY_ID =:companyId)");
+        Query query5 = session.createSQLQuery("delete " +
+                "from temporary_events " +
+                "where  bus_id in(" +
+                    "select bus_id " +
+                        "from buses " +
+                        "where company_id=:companyId)");
         query5.setParameter("companyId", company.getCompanyId());
         query5.executeUpdate();
 
         Query query6 = session.createSQLQuery(
-                "delete from ROUTES where route_id IN (SELECT route_id FROM ROUTES WHERE COMPANY_ID =:companyId)");
+                "delete from buses " +
+                        "where bus_id IN (" +
+                            "SELECT bus_id " +
+                                "FROM BUSES " +
+                                "WHERE COMPANY_ID =:companyId)");
         query6.setParameter("companyId", company.getCompanyId());
         query6.executeUpdate();
 
-
         Query query7 = session.createSQLQuery(
-                "delete from drivers where driver_id in (SELECT driver_id FROM DRIVERS WHERE COMPANY_ID =:companyId)");
+                "delete from ROUTES " +
+                        "where route_id IN (" +
+                            "SELECT route_id " +
+                                "FROM ROUTES " +
+                                "WHERE COMPANY_ID =:companyId)");
         query7.setParameter("companyId", company.getCompanyId());
         query7.executeUpdate();
 
+
         Query query8 = session.createSQLQuery(
-                "delete from companies where company_id=:companyId");
+                "delete from drivers " +
+                        "where driver_id in (" +
+                            "SELECT driver_id " +
+                                "FROM DRIVERS " +
+                                "WHERE COMPANY_ID =:companyId)");
         query8.setParameter("companyId", company.getCompanyId());
         query8.executeUpdate();
+
+        Query query9 = session.createSQLQuery(
+                "delete from owners " +
+                        "where owner_id in (" +
+                            "SELECT owner_id " +
+                                "FROM owners " +
+                                "WHERE company_id =:companyId)");
+        query9.setParameter("companyId", company.getCompanyId());
+        query9.executeUpdate();
+
+        Query query10 = session.createSQLQuery(
+                "delete from companies " +
+                        "where company_id=:companyId");
+        query10.setParameter("companyId", company.getCompanyId());
+        query10.executeUpdate();
 
         session.getTransaction().commit();
     }

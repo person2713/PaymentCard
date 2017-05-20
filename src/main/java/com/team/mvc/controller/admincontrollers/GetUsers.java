@@ -60,6 +60,7 @@ public class GetUsers {
             model.addAttribute("userForm", user);
         } catch (NotFoundException e) {
             e.printStackTrace();
+            return "errorPage";
         }
         return "admin/addUser";
     }
@@ -67,8 +68,13 @@ public class GetUsers {
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") long id) {
-        personService.delete(id);
-        return "redirect:/admin/allUsers";
+        try{
+            personService.delete(id);
+            return "redirect:/admin/allUsers";
+        }
+        catch (Exception e){
+            return "errorPage";
+        }
     }
 
     @RequestMapping(value = "/editUser", method = RequestMethod.POST)

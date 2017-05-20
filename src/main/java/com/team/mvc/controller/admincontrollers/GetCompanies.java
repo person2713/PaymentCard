@@ -49,6 +49,7 @@ public class GetCompanies {
             model.addAttribute("companyForm", company);
         } catch (NotFoundException e) {
             e.printStackTrace();
+            return "errorPage";
         }
         return "admin/addCompany";
     }
