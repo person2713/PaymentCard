@@ -39,25 +39,25 @@
         <tr>
             <th>Номер транзакции <i class="fa fa-fw fa-sort"></i></th>
             <th>Маршрут <i class="fa fa-fw fa-sort"></i></th>
-            <th>Баланс <i class="fa fa-fw fa-sort"></i></th>
+            <%--<th>Баланс <i class="fa fa-fw fa-sort"></i></th>--%>
             <th>Время <i class="fa fa-fw fa-sort"></i></th>
             <th>На карте <i class="fa fa-fw fa-sort"></i></th>
         </tr>
     </thead>
     <tbody>
-    <c:forEach items="${card.balanceHists}" var="balanceHists">
     <c:forEach items="${card.events}" var="events">
+    <%--<c:forEach items="${card.events}" var="events">--%>
         <tr>
-            <td>${balanceHists.balanceHistId}</td>
+            <td>${events.eventId}</td>
+            <%--<td>${events.busId}</td>--%>
             <td>${events.busId}</td>
-            <td>${balanceHists.changes}</td>
-            <td>${balanceHists.dateEvent}</td>
+            <td>${events.paymentTime}</td>
             <td>
                 <spring:url value="/user/user/${events.eventId}/mapone" var="mapUrl" />
                 <button class="btn btn-mapbtn" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button></td>
         </tr>
     </c:forEach>
-    </c:forEach>
+    <%--</c:forEach>--%>
     </tbody>
 </table>
 <script>

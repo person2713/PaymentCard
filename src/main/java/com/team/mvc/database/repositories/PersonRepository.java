@@ -83,6 +83,24 @@ public class PersonRepository  extends AbstractRepository{
         return  (Cards) sqlQuery.uniqueResult();
     }
 
+
+
+    public List<Object[]> findByCardbyIDEvents(int id) {
+        String que = " SELECT  FROM  BALANCE_HIST BH INNER JOIN EVENTS EV ON  to_date(to_char(BH.DATE_EVENT,'DD.MM.YYYY HH24:MI:SS'),'DD.MM.YYYY HH24:MI:SS')=to_date(to_char(EV.PAYMENT_TIME,'DD.MM.YYYY HH24:MI:SS'),'DD.MM.YYYY HH24:MI:SS')   WHERE BH.CARD_ID ="+id;
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
+
+        return   sqlQuery.list();
+    }
+
+
+
+
+
+
+
     public Events findEvById(int id) {
         String que = "SELECT * FROM EVENTS  WHERE EVENTS.EVENT_ID="+id;
 

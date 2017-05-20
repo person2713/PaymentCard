@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/user")
@@ -49,7 +51,13 @@ public class UserController {
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable("id") int id, Model model) throws NotFoundException {
-        System.out.println("-------------------showUser-------------------" + id);
+//        System.out.println("-------------------showUser-------------------" + id);
+//        List<Object[]> obj = personService.findByCardbyIDEvents(id);
+//        for(Object[] objL:obj){
+//            Long id = (Long)objL[0];
+//            Timestamp date = (Timestamp)object[1]
+//            String name = (String)object[2]
+//        }
         Cards cards = personService.findByCardbyID(id);
         System.out.println(cards.toString() + "--------------------------------");
         if (cards == null) {
@@ -234,6 +242,15 @@ public class UserController {
         return "redirect:/user";
 
     }
+
+
+
+
+//    SELECT  *
+//    FROM  BALANCE_HIST BH
+//    INNER JOIN EVENTS EV ON
+//    to_date(to_char(BH.DATE_EVENT,'DD.MM.YYYY HH24:MI:SS'),'DD.MM.YYYY HH24:MI:SS')=to_date(to_char(EV.PAYMENT_TIME,'DD.MM.YYYY HH24:MI:SS'),'DD.MM.YYYY HH24:MI:SS')
+//    WHERE BH.CARD_ID =181;
 
 
     }

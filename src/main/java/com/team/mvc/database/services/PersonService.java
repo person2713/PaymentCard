@@ -158,6 +158,7 @@ public class PersonService {
         //    System.out.println(cards.toString());
 //        if(cards.getPersonId()==null){cards.setPersonId(Long.valueOf(id)); cards.setCardName(name);}
     }
+    public List<Object[]> findByCardbyIDEvents(int id) {return findByCardbyIDEvents(id);}
 
     public void updatePerson(long id, String  firstn, String lastN, String numberM) {personRepository.updatePerson(id,firstn,lastN,numberM);}
 
