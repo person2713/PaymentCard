@@ -40,7 +40,7 @@
                                     <input type="text" class="form-control" id="inputCardNumber" name="idcard" placeholder="Номер карты">
                                     <c:if test="${flag}">
                                         <div class="alert alert-danger">
-                                            <p>Карточка с таким ключам ненайдена</p>
+                                            <p>Карточка с таким ключом не найдена</p>
                                         </div>
                                     </c:if>
                                 </div>
