@@ -214,7 +214,7 @@
         var personMobile = document.forms["form"]["mobileNumber"].value;
         var personEmail = document.forms["form"]["email"].value;
         var regexEmail = /^(?!.*@.*@.*$)(?!.*@.*\-\-.*\..*$)(?!.*@.*\-\..*$)(?!.*@.*\-$)(.*@.+(\..{1,11})?)$/;
-        var regexPhone = /(^(?!\+.*\(.*\).*\-\-.*$)(?!\+.*\(.*\).*\-$)(\+[0-9]{1,3}\([0-9]{1,3}\)[0-9]{1}([-0-9]{0,8})?([0-9]{0,1})?)$)|(^[0-9]{1,4}$)/;
+        var regexPhone = /^(\+7)?\d{10}$/;
 
         if (personNickname.length == 0) {
             document.getElementById("person.nickname1").innerHTML = "*Поле никнейм должно быть обязательно заполнено";
@@ -262,7 +262,7 @@
         }
         if(personMobile.length > 0 && personMobile.length < 30) {
             if (!regexPhone.test(personMobile)) {
-                document.getElementById("person.mobileNumber1").innerHTML = "*Неверный формат телефона, введите телефон в формате +7(9XX)XXXXXXX";
+                document.getElementById("person.mobileNumber1").innerHTML = "*Номер телефона введен не верно, введите в формате +7XXXXXXXXXX";
                 return false;
             }
         }
