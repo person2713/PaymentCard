@@ -21,8 +21,12 @@
             document.getElementById("err1").innerHTML="*данное поле обязательно для заполнения";
             return false;
         }
+        if (inputMoney<0){
+            document.getElementById("err3").innerHTML="*введите неотрицательное число";
+            return false;
+        }
         //Если поле email пустое выведем сообщение и предотвратим отправку формы
-        if (!check.test(inputMoney)){document.getElementById("err2").innerHTML="*Максимальная сумма пополнения - 9999, введите целое число";
+        if (check.test(inputMoney)){document.getElementById("err2").innerHTML="*Максимальная сумма пополнения - 9999, введите целое число";
             return false;}
        }
 </script>
@@ -45,7 +49,7 @@
             <spring:bind path="cardBalance.balance">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <div class="col-sm-3">
-                        <form:input path="cardBalance.balance" type="text" class="form-control" name="cardBalance.balance" id="cardBalance.balance" placeholder="Сумма" value="100"/><span style="color:red" id="err1"></span><span style="color:red" id="err2"></span>
+                        <form:input path="cardBalance.balance" type="text" class="form-control" name="cardBalance.balance" id="cardBalance.balance" placeholder="Сумма" value="100"/><span style="color:red" id="err1"></span><span style="color:red" id="err2"></span><span style="color:red" id="err3"></span>
                         <form:errors path="cardBalance.balance" class="control-label" />
                     </div>
                 </div>
