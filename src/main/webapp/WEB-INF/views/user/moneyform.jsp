@@ -15,7 +15,7 @@
     function validate(){
         //Считаем значения из полей name и email в переменные x и y
         var inputMoney = document.forms["form"]["cardBalance.balance"].value;
-        var check = /^[0-9]{5}$/;
+        var check = /^[0-9]{1,4}$/;
         //Если поле name пустое выведем сообщение и предотвратим отправку формы
         if (inputMoney.length==0){
             document.getElementById("err1").innerHTML="*данное поле обязательно для заполнения";
@@ -26,7 +26,7 @@
             return false;
         }
         //Если поле email пустое выведем сообщение и предотвратим отправку формы
-        if (check.test(inputMoney)){document.getElementById("err2").innerHTML="*Максимальная сумма пополнения - 9999, введите целое число";
+        if (!check.test(inputMoney)){document.getElementById("err2").innerHTML="*Максимальная сумма пополнения - 9999, введите целое число";
             return false;}
        }
 </script>
