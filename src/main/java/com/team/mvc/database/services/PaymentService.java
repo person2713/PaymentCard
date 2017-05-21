@@ -31,12 +31,11 @@ public class PaymentService {
      * @param cost        сумма снятия
      * @param latitude    координаты(широта)
      * @param longitude   координаты(долгота
-     * @param paymentTime время платежа
      * @param busId         автобус, с котрого произведен платеж
      * @return true, в случае успешного снятия средств, иначе false
      * @throws NotFoundException
      */
-    public boolean paymentPossibility(long cardId, BigDecimal cost, double latitude, double longitude, Timestamp paymentTime, long busId) throws NotFoundException {
+    public boolean paymentPossibility(long cardId, BigDecimal cost, double latitude, double longitude, long busId) throws NotFoundException {
         Cards card=cardsService.findById(cardId);
         CardBalance cardBalance =card.getCardBalance();
         if (cardBalance.getBalance().compareTo(cost) < 0) return false;
@@ -47,7 +46,6 @@ public class PaymentService {
         events.setLongitude(longitude);
         events.setBusId(busId);
         events.setCardId(card.getCardId());
-        events.setPaymentTime(paymentTime);
         eventsRepository.save(events);
         return true;
     }

@@ -3,10 +3,8 @@ package com.team.mvc.controller.usercontrollers;
 
 import com.team.mvc.controller.GetRole;
 import com.team.mvc.database.entities.*;
-import com.team.mvc.database.services.CardsService;
-import com.team.mvc.database.services.PersonService;
-import com.team.mvc.database.services.SendEMAILMessageService;
-import com.team.mvc.database.services.SendSMSMessageService;
+import com.team.mvc.database.mergedEntities.BalanceHistEvents;
+import com.team.mvc.database.services.*;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
 import java.util.Locale;
 
 
@@ -41,6 +40,9 @@ public class UserController {
     MessageSource messageSource;
 
     @Autowired
+    BalanceHistEventsService balanceHistEventsService;
+
+    @Autowired
     public void setUserService(PersonService personService) {
         this.personService = personService;
     }
@@ -56,17 +58,23 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public String showUser(@PathVariable("id") int id, Model model) throws NotFoundException {
-     try{   System.out.println("-------------------showUser-------------------" + id);
-        Cards cards = personService.findByCardbyID(id);
-        System.out.println(cards.toString() + "--------------------------------");
-        if (cards == null) {
-            model.addAttribute("css", "danger");
-            model.addAttribute("msg", "User not found");
+    public String showUser(@PathVariable("id") Long id, Model model) throws NotFoundException {
+        try {
+            System.out.println("-------------------showUser-------------------" + id);
+            Cards card = cardsService.findById(id);
+            System.out.println(card.toString() + "--------------------------------");
+            if (card == null) {
+                model.addAttribute("css", "danger");
+                model.addAttribute("msg", "User not found");
+                model.addAttribute("card", card);
+                return "user/show";
+            }
+            List<BalanceHistEvents> objects=balanceHistEventsService.getBalanceHistEventsByCardId(card.getCardId());
+            model.addAttribute("values", objects);
+            return "user/show";
+        } catch (Exception E) {
+            return "errorPage";
         }
-        model.addAttribute("card", cards);
-        return "user/show";}
-     catch (Exception E){return "errorPage";}
     }
 
     @RequestMapping(value = "/user/{id}/update", method = RequestMethod.GET)
@@ -204,14 +212,15 @@ catch (Exception E){return "errorPage";}
     public String addUserCard(@RequestParam(value = "idcard") String idcard, @RequestParam(value = "namecard") String namecard, Model model) {
 
 try{
-
-        if (cardsService.findByCardKey(Long.valueOf(idcard))==null) {
+        Cards card=cardsService.findByCardKey(Long.valueOf(idcard));
+        if (card==null) {
             model.addAttribute("flag", true);
             return "user/addcard";
         }
-       if(cardsService.findByCardKey(Long.valueOf(idcard)).getPersonId()!=null){model.addAttribute("flag", true);
-            return "user/addcard";}
-
+       if(card.getPersonId()!=null&&!card.getPersonId().equals(0L)){
+            model.addAttribute("flag", true);
+            return "user/addcard";
+        }
         else {
             System.out.println("+++++++++++++++++addUserCard(@RequestParam String namecard){+++++++++++++++++++++++++++++");
             System.out.println("addUserCard" + idcard + namecard);

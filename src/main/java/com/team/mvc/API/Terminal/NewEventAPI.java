@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 @RestController
 @RequestMapping(value = "/API/driver/newEvent", method = RequestMethod.POST)
@@ -56,7 +55,6 @@ public class NewEventAPI {
                     getCost(route),
                     newEvent.getLatitude(),
                     newEvent.getLongitude(),
-                    new Timestamp(System.currentTimeMillis()),
                     bus.getBusId())) {
                 log += "OK";
                 CSRFTokenSerializable<String> serToken = new CSRFTokenSerializable<>(Utils.getCsrfToken(request), "OK");

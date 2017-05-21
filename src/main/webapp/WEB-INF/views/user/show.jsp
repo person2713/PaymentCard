@@ -37,24 +37,28 @@
 <table id="myTable"   class="table table-hover table-bordered table" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th>Номер транзакции <i class="fa fa-fw fa-sort"></i></th>
-            <th>Маршрут <i class="fa fa-fw fa-sort"></i></th>
+            <th>Тип транзакции <i class="fa fa-fw fa-sort"></i></th>
+            <th>Баланс <i class="fa fa-fw fa-sort"></i></th>
             <%--<th>Баланс <i class="fa fa-fw fa-sort"></i></th>--%>
             <th>Время <i class="fa fa-fw fa-sort"></i></th>
+            <th>Номер маршрута <i class="fa fa-fw fa-sort"></i></th>
             <th>На карте <i class="fa fa-fw fa-sort"></i></th>
         </tr>
     </thead>
     <tbody>
-    <c:forEach items="${card.events}" var="events">
+    <c:forEach items="${values}" var="item">
     <%--<c:forEach items="${card.events}" var="events">--%>
         <tr>
-            <td>${events.eventId}</td>
+            <td>${item.transactionType}</td>
             <%--<td>${events.busId}</td>--%>
-            <td>${events.busId}</td>
-            <td>${events.paymentTime}</td>
+            <td>${item.balance}</td>
+            <td>${item.dateEvent}</td>
+            <td>${item.routeNumber}</td>
             <td>
-                <spring:url value="/user/user/${events.eventId}/mapone" var="mapUrl" />
-                <button class="btn btn-mapbtn" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button></td>
+                <c:if test="${not empty item.routeId}">
+                    <spring:url value="/user/user/${item.eventId}/mapone" var="mapUrl" />
+                    <button class="btn btn-mapbtn" onclick="location.href='${mapUrl}'"><span style="color: white">На карте</span></button></td>
+                </c:if>
         </tr>
     </c:forEach>
     <%--</c:forEach>--%>
