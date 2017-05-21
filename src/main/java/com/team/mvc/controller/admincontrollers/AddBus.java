@@ -42,17 +42,24 @@ public class AddBus {
     @RequestMapping(value = "/newBus", method = RequestMethod.POST)
     public String saveBus(@Valid @ModelAttribute("busForm") Buses bus, BindingResult result) {
 
-        if (result.hasErrors()) {
+        try {
+            if (result.hasErrors()) {
+                return "errorPage";
+            }
+            if (!busesService.isBusNumberUnique(bus.getBusId(), bus.getBusNumber())) {
+                FieldError busNumberUniqError = new FieldError("bus", "busNumber", messageSource.getMessage("non.unique.bus.number", new String[]{bus.getBusNumber()}, Locale.getDefault()));
+                result.addError(busNumberUniqError);
+                return "admin/addBus";
+            } else {
+                busesService.save(bus);
+                return "redirect:/admin/allBuses";
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
             return "errorPage";
         }
-        if (!busesService.isBusNumberUnique(bus.getBusId(), bus.getBusNumber())) {
-            FieldError busNumberUniqError = new FieldError("bus", "busNumber", messageSource.getMessage("non.unique.bus.number", new String[]{bus.getBusNumber()}, Locale.getDefault()));
-            result.addError(busNumberUniqError);
-            return "admin/addBus";
-        } else {
-            busesService.save(bus);
-            return "redirect:/admin/allBuses";
-        }
+
     }
 
     @ModelAttribute("companies")

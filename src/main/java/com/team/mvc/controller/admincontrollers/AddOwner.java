@@ -56,32 +56,38 @@ public class AddOwner {
 
         List<FieldError> listError = new ArrayList<>();
 
-        if (result.hasErrors()) {
+        try {
+            if (result.hasErrors()) {
+                return "errorPage";
+            }
+
+            if (!personService.isPersonsNicknameUnique(owner.getPerson().getPersonId(), owner.getPerson().getNickname())) {
+                FieldError nicknameUniqError = new FieldError("owner", "person.nickname", messageSource.getMessage("non.unique.owner.nickname", new String[]{owner.getPerson().getNickname()}, Locale.getDefault()));
+                listError.add(nicknameUniqError);
+            }
+            if (!personService.isPersonsEmailUnique(owner.getPerson().getPersonId(), owner.getPerson().getEmail())) {
+                FieldError emailUniqError = new FieldError("owner", "person.email", messageSource.getMessage("non.unique.owner.email", new String[]{owner.getPerson().getEmail()}, Locale.getDefault()));
+                listError.add(emailUniqError);
+            }
+            if (!personService.isPersonsMobileUnique(owner.getPerson().getPersonId(), owner.getPerson().getMobileNumber())) {
+                FieldError mobileUniqError = new FieldError("owner", "person.mobileNumber", messageSource.getMessage("non.unique.owner.mobileNumber", new String[]{owner.getPerson().getMobileNumber()}, Locale.getDefault()));
+                listError.add(mobileUniqError);
+            }
+
+            if (!listError.isEmpty()) {
+                for (FieldError fieldError : listError) {
+                    result.addError(fieldError);
+                }
+                return "admin/addOwner";
+            } else {
+                ownerService.saveOwner(owner);
+                return "redirect:/admin/allOwners";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return "errorPage";
         }
 
-        if (!personService.isPersonsNicknameUnique(owner.getPerson().getPersonId(), owner.getPerson().getNickname())) {
-            FieldError nicknameUniqError = new FieldError("owner", "person.nickname", messageSource.getMessage("non.unique.owner.nickname", new String[]{owner.getPerson().getNickname()}, Locale.getDefault()));
-            listError.add(nicknameUniqError);
-        }
-        if (!personService.isPersonsEmailUnique(owner.getPerson().getPersonId(), owner.getPerson().getEmail())) {
-            FieldError emailUniqError = new FieldError("owner", "person.email", messageSource.getMessage("non.unique.owner.email", new String[]{owner.getPerson().getEmail()}, Locale.getDefault()));
-            listError.add(emailUniqError);
-        }
-        if (!personService.isPersonsMobileUnique(owner.getPerson().getPersonId(), owner.getPerson().getMobileNumber())) {
-            FieldError mobileUniqError = new FieldError("owner", "person.mobileNumber", messageSource.getMessage("non.unique.owner.mobileNumber", new String[]{owner.getPerson().getMobileNumber()}, Locale.getDefault()));
-            listError.add(mobileUniqError);
-        }
-
-        if (!listError.isEmpty()) {
-            for (FieldError fieldError : listError) {
-                result.addError(fieldError);
-            }
-            return "admin/addOwner";
-        } else {
-            ownerService.saveOwner(owner);
-            return "redirect:/admin/allOwners";
-        }
     }
 
     @ModelAttribute("cities")

@@ -23,30 +23,6 @@
 
 </head>
 
-<script type="text/javascript">
-    function validate() {
-        //Считаем значения из полей name и email в переменные x и y
-        var busNumber = document.forms["form"]["busNumber"].value;
-        var regex = /^[А-Я]{1}[0-9]{3}[А-Я]{2}$/;
-        //Если поле name пустое выведем сообщение и предотвратим отправку формы
-        if (busNumber.length == 0) {
-            document.getElementById("busNumber1").innerHTML = "*Данное поле обязательно для заполнения";
-            return false;
-        }
-        //Если длина вводимых значений больше 6 символов
-        if (busNumber.length > 6) {
-            document.getElementById("busNumber1").innerHTML = "*Номер автобуса должен состоять из 6 символов";
-            return false;
-        }
-        //Если номер автобуса введен в неверном формате
-        if (!regex.test(busNumber)) {
-            document.getElementById("busNumber1").innerHTML = "*Номер автобуса введен в нeверном формате. Введите в следующем формате А123ИР";
-            return false;
-        }
-
-
-    }
-</script>
 
 <body style="background-color: #EDEEF0">
 <div class="container">
@@ -127,11 +103,37 @@
             </div>
         </div>
     </form:form>
-    <div class="navbar navbar-inner  navbar-fixed-bottom">
-        <p>
-        <center class="text-muted">© Netcracker Education Center 2017</center>
-        </p>
-    </div>
+    <%--<div class="navbar navbar-inner  navbar-fixed-bottom">--%>
+        <%--<p>--%>
+        <%--<center class="text-muted">© Netcracker Education Center 2017</center>--%>
+        <%--</p>--%>
+    <%--</div>--%>
+
+    <script type="text/javascript">
+        function validate() {
+            //Считаем значения из полей name и email в переменные x и y
+            var busNumber = document.forms["form"]["busNumber"].value;
+            var regex = /^[А-Я]{1}[0-9]{3}[А-Я]{2}$/;
+            //Если поле name пустое выведем сообщение и предотвратим отправку формы
+            if (busNumber.length == 0) {
+                document.getElementById("busNumber1").innerHTML = "*Данное поле обязательно для заполнения";
+                return false;
+            }
+            //Если длина вводимых значений больше 6 символов
+            if (busNumber.length > 6) {
+                document.getElementById("busNumber1").innerHTML = "*Номер автобуса должен состоять из 6 символов";
+                return false;
+            }
+            //Если номер автобуса введен в неверном формате
+            if (!regex.test(busNumber)) {
+                document.getElementById("busNumber1").innerHTML = "*Номер автобуса введен в нeверном формате. Введите в следующем формате А123ИР";
+                return false;
+            }
+
+
+        }
+    </script>
+
 </div>
 </body>
 </html>

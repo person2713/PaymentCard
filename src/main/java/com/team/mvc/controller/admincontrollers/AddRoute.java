@@ -42,17 +42,23 @@ public class AddRoute {
     @RequestMapping(value = "/newRoute", method = RequestMethod.POST)
     public String saveBus(@Valid @ModelAttribute("routeForm") Routes route, BindingResult result) {
 
-        if (result.hasErrors()) {
+        try {
+            if (result.hasErrors()) {
+                return "errorPage";
+             }
+            if (!routesService.isRouteNumberUnique(route.getRouteId(), route.getRouteNumber())) {
+                FieldError routeNumberUniqError = new FieldError("route", "routeNumber", messageSource.getMessage("non.unique.route.number", new String[]{route.getRouteNumber()}, Locale.getDefault()));
+                result.addError(routeNumberUniqError);
+                return "admin/addRoute";
+            } else {
+                routesService.save(route);
+                return "redirect:/admin/allRoutes";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return "errorPage";
         }
-        if (!routesService.isRouteNumberUnique(route.getRouteId(), route.getRouteNumber())) {
-            FieldError routeNumberUniqError = new FieldError("route", "routeNumber", messageSource.getMessage("non.unique.route.number", new String[]{route.getRouteNumber()}, Locale.getDefault()));
-            result.addError(routeNumberUniqError);
-            return "admin/addRoute";
-        } else {
-            routesService.save(route);
-            return "redirect:/admin/allRoutes";
-        }
+
     }
 
     @ModelAttribute("companies")

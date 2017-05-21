@@ -24,35 +24,6 @@
 
 </head>
 
-<script type="text/javascript">
-    function validate() {
-        var companyName = document.forms["form"]["companyName"].value;
-        var compBalance = document.forms["form"]["compBalance"].value;
-        var phoneNumber = document.forms["form"]["phoneNumber"].value;
-        var regexBalance = /(^[0-9]+$)/;
-        var regexPhone = /^[+]{1}[0-9]{1}[(]{1}[0-9]{3}[)]{1}[0-9]{7}$/;
-        //Если длина имени компании равно 0
-        if (companyName.length = 0) {
-            document.getElementById("companyName1").innerHTML = "*Имя компании должно быть обязательно заполнено";
-            return false;
-        }
-        if (companyName.length > 150) {
-            document.getElementById("companyName1").innerHTML = "*Имя компании не должно превыщать более 150 символов";
-            return false;
-        }
-        //Если баланс введен в неверном формате
-        if (!regexBalance.test(compBalance)) {
-            document.getElementById("compBalance1").innerHTML = "*Неверный формат баланса, введите баланс в формате 1000";
-            return false;
-        }
-        //Если номер телефона введен в неверном формате
-        if (!regexBalance.test(phoneNumber)) {
-            document.getElementById("compBalance1").innerHTML = "*Неверный формат телефона, введите телефон в формате +7(XXX)XXXXXXX";
-            return false;
-        }
-    }
-</script>
-
 <body style="background-color: #EDEEF0">
 <div class="container">
 
@@ -73,7 +44,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="companyName">Имя компании</label>
             <div class="col-md-4">
-                <form:input type="text" path="companyName" id="companyName" class="form-control"/>
+                <form:input type="text" path="companyName" id="companyName" name="companyName" class="form-control"/>
                 <span style="color:red" id="companyName1"></span>
                 <div class="has-error">
                     <span style="color:red">
@@ -86,7 +57,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="phoneNumber">Телефонный номер</label>
             <div class="col-md-4">
-                <form:input type="text" path="phoneNumber" id="phoneNumber" class="form-control"/>
+                <form:input type="text" path="phoneNumber" id="phoneNumber" name="phoneNumber" class="form-control"/>
                 <span style="color:red" id="phoneNumber1"></span>
                 <div class="has-error">
                     <span style="color:red">
@@ -99,7 +70,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="compBalance">Баланс компании</label>
             <div class="col-md-4">
-                <form:input type="text" path="compBalance" id="compBalance" class="form-control"/>
+                <form:input type="text" path="compBalance" id="compBalance" name="compBalance" class="form-control"/>
                 <span style="color:red" id="compBalance1"></span>
                 <div class="has-error">
                     <span style="color:red">
@@ -214,11 +185,38 @@
         </div>--%>
     </form:form>
 
-    <div class="navbar navbar-inner  navbar-fixed-bottom">
-        <p>
-        <center class="text-muted">© Netcracker Education Center 2017</center>
-        </p>
-    </div>
+    <%--<div class="navbar navbar-inner  navbar-fixed-bottom">--%>
+        <%--<p>--%>
+        <%--<center class="text-muted">© Netcracker Education Center 2017</center>--%>
+        <%--</p>--%>
+    <%--</div>--%>
+
+    <script type="text/javascript">
+        function validate() {
+            var companyName = document.forms["form"]["companyName"].value;
+            var compBalance = document.forms["form"]["compBalance"].value;
+            var phoneNumber = document.forms["form"]["phoneNumber"].value;
+            var regexBalance = /(^[0-9]+$)/;
+            var regexPhone = /(^(?!\+.*\(.*\).*\-\-.*$)(?!\+.*\(.*\).*\-$)(\+[0-9]{1,3}\([0-9]{1,3}\)[0-9]{1}([-0-9]{0,8})?([0-9]{0,1})?)$)|(^[0-9]{1,4}$)/;
+            if (companyName.length == 0) {
+                document.getElementById("companyName1").innerHTML = "*Имя компании должно быть обязательно заполнено";
+                return false;
+            }
+            if (companyName.length > 150) {
+                document.getElementById("companyName1").innerHTML = "*Имя компании не должно превыщать более 150 символов";
+                return false;
+            }
+            if (!regexBalance.test(compBalance)) {
+                document.getElementById("compBalance1").innerHTML = "*Неверный формат баланса, введите баланс в формате 1000";
+                return false;
+            }
+            if (!regexPhone.test(phoneNumber)) {
+                document.getElementById("phoneNumber1").innerHTML = "*Неверный формат телефона, введите телефон в формате +7(9XX)XXXXXXX";
+                return false;
+            }
+        }
+    </script>
+
 </div>
 </body>
 </html>
