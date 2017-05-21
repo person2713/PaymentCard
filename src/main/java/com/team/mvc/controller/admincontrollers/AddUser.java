@@ -45,17 +45,24 @@ public class AddUser {
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
     public String saveUser(@Valid @ModelAttribute("userForm") Persons person, BindingResult result) {
 
-        if (result.hasErrors()) {
+        try {
+            if (result.hasErrors()) {
+                return "errorPage";
+            }
+            if (!personService.isPersonsNicknameUnique(person.getPersonId(), person.getNickname())) {
+                FieldError nicknameUniqError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.user.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
+                result.addError(nicknameUniqError);
+                return "admin/addUser";
+            } else {
+                personService.savePerson(person);
+                return "redirect:/admin/allUsers";
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
             return "errorPage";
         }
-        if (!personService.isPersonsNicknameUnique(person.getPersonId(), person.getNickname())) {
-            FieldError nicknameUniqError = new FieldError("person", "nickname", messageSource.getMessage("non.unique.user.nickname", new String[]{person.getNickname()}, Locale.getDefault()));
-            result.addError(nicknameUniqError);
-            return "admin/addUser";
-        } else {
-            personService.savePerson(person);
-            return "redirect:/admin/allUsers";
-        }
+
     }
 
     @ModelAttribute("cities")

@@ -46,15 +46,18 @@
     </c:choose>
 
 
-    <form:form method="POST" modelAttribute="userForm" action="${userActionUrl}" class="form-horizontal">
+    <form:form name="form" method="POST" modelAttribute="userForm" onsubmit="return (validate())" action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="personId" id="personId"/>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="nickname">Никнейм</label>
             <div class="col-md-4">
-                <form:input type="text" path="nickname" id="nickname" class="form-control"/>
+                <form:input type="text" path="nickname" id="nickname" name="nickname" class="form-control"/>
+                <span style="color:red" id="person.nickname1"></span>
                 <div class="has-error">
-                    <form:errors path="nickname" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="nickname" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -63,10 +66,13 @@
                 <div class="form-group" style="display:none;">
                     <label class="col-md-4 control-label" for="password">Пароль</label>
                     <div class="col-md-4">
-                        <form:input type="password" path="password" id="password" class="form-control"/>
+                        <form:input type="password" path="password" id="password" name="password" class="form-control"/>
+                        <span style="color:red" id="person.password1"></span>
                         <div class="pwstrength_viewport_progress"></div>
                         <div class="has-error">
-                            <form:errors path="password" class="help-inline"/>
+                            <span style="color:red">
+                                <form:errors path="password" class="help-inline"/>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -75,10 +81,13 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="password">Пароль</label>
                     <div class="col-md-4">
-                        <form:input type="password" path="password" id="password" class="form-control"/>
+                        <form:input type="password" path="password" id="password" name="password" class="form-control"/>
+                        <span style="color:red" id="person.password1"></span>
                         <div class="pwstrength_viewport_progress"></div>
                         <div class="has-error">
-                            <form:errors path="password" class="help-inline"/>
+                            <span style="color:red">
+                                <form:errors path="password" class="help-inline"/>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -89,9 +98,12 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="firstName">Имя</label>
             <div class="col-md-4">
-                <form:input type="text" path="firstName" id="firstName" class="form-control"/>
+                <form:input type="text" path="firstName" id="firstName" name="firstName" class="form-control"/>
+                <span style="color:red" id="person.firstName1"></span>
                 <div class="has-error">
-                    <form:errors path="firstName" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="firstName" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -99,9 +111,12 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="lastName">Фамилия</label>
             <div class="col-md-4">
-                <form:input type="text" path="lastName" id="lastName" class="form-control"/>
+                <form:input type="text" path="lastName" id="lastName" name="lastName" class="form-control"/>
+                <span style="color:red" id="person.lastName1"></span>
                 <div class="has-error">
-                    <form:errors path="lastName" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="lastName" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -110,9 +125,12 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="mobileNumber">Номер телефона</label>
             <div class="col-md-4">
-                <form:input type="text" path="mobileNumber" id="mobileNumber" class="form-control"/>
+                <form:input type="text" path="mobileNumber" id="mobileNumber" name="mobileNumber" class="form-control"/>
+                <span style="color:red" id="person.mobileNumber1"></span>
                 <div class="has-error">
-                    <form:errors path="mobileNumber" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="mobileNumber" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -121,9 +139,12 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="email">Электронная почта</label>
             <div class="col-md-4">
-                <form:input type="text" path="email" id="email" class="form-control"/>
+                <form:input type="text" path="email" id="email" name="email" class="form-control"/>
+                <span style="color:red" id="person.email1"></span>
                 <div class="has-error">
-                    <form:errors path="email" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="email" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -136,7 +157,9 @@
                     <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${cities}" multiple="false" itemValue="cityId" itemLabel="cityName"/>
                     <div class="has-error">
-                        <form:errors path="city" class="help-inline"/>
+                        <span style="color:red">
+                            <form:errors path="city" class="help-inline"/>
+                        </span>
                     </div>
                 </form:select>
             </div>
@@ -149,7 +172,7 @@
                     <c:when test="${edit}">
                         <div class="col-md-6">
                             <div class="text-center">
-                                <input type="submit" value="Редактировать" class="btn btn-success" style="width: 100%"/>
+                                <input type="submit" value="Редактировать" class="btn btn-success" onClick="return validate();" style="width: 100%"/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -161,7 +184,7 @@
                     <c:otherwise>
                         <div class="col-md-6">
                             <div class="text-center">
-                                <input type="submit" value="Добавить" class="btn btn-success" style="width: 100%"/>
+                                <input type="submit" value="Добавить" class="btn btn-success" onClick="return validate();" style="width: 100%"/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -182,6 +205,73 @@
     <%--</div>--%>
 </div>
 
+<script type="text/javascript">
+    function validate() {
+        var personNickname = document.forms["form"]["nickname"].value;
+        var personPassword = document.forms["form"]["password"].value;
+        var personFirstName = document.forms["form"]["firstName"].value;
+        var personLastName = document.forms["form"]["lastName"].value;
+        var personMobile = document.forms["form"]["mobileNumber"].value;
+        var personEmail = document.forms["form"]["email"].value;
+        var regexEmail = /^(?!.*@.*@.*$)(?!.*@.*\-\-.*\..*$)(?!.*@.*\-\..*$)(?!.*@.*\-$)(.*@.+(\..{1,11})?)$/;
+        var regexPhone = /(^(?!\+.*\(.*\).*\-\-.*$)(?!\+.*\(.*\).*\-$)(\+[0-9]{1,3}\([0-9]{1,3}\)[0-9]{1}([-0-9]{0,8})?([0-9]{0,1})?)$)|(^[0-9]{1,4}$)/;
+
+        if (personNickname.length == 0) {
+            document.getElementById("person.nickname1").innerHTML = "*Поле никнейм должно быть обязательно заполнено";
+            return false;
+        }
+        if (personNickname.length > 30) {
+            document.getElementById("person.nickname1").innerHTML = "*Значение никнейма не должно превыщать более 30 символов";
+            return false;
+        }
+        if (personPassword.length == 0) {
+            document.getElementById("person.password1").innerHTML = "*Пароль должен быть обязательно заполнен";
+            return false;
+        }
+        if (personPassword.length > 100) {
+            document.getElementById("person.password1").innerHTML = "*Значение пароля не должно превыщать более 100 символов";
+            return false;
+        }
+        if (personFirstName.length == 0) {
+            document.getElementById("person.firstName1").innerHTML = "*Имя пользователя должно быть обязательно заполнено";
+            return false;
+        }
+        if (personFirstName.length > 100) {
+            document.getElementById("person.firstName1").innerHTML = "*Значение имени не должно превыщать более 30 символов";
+            return false;
+        }
+        if (personLastName.length == 0) {
+            document.getElementById("person.lastName1").innerHTML = "*Фамилия пользователя должна быть обязательно заполнена";
+            return false;
+        }
+        if (personLastName.length > 100) {
+            document.getElementById("person.lastName1").innerHTML = "*Значение фамилии не должно превыщать более 30 символов";
+            return false;
+        }
+        if (personEmail.length == 0) {
+            document.getElementById("person.email1").innerHTML = "*Поле email должно быть обязательно заполнено";
+            return false;
+        }
+        if (personEmail.length > 30) {
+            document.getElementById("person.email1").innerHTML = "*Значение email не должно превыщать более 30 символов";
+            return false;
+        }
+        if (personMobile.length > 30) {
+            document.getElementById("person.mobileNumber1").innerHTML = "*Значение mobile не должно превыщать более 30 символов";
+            return false;
+        }
+        if(personMobile.length > 0 && personMobile.length < 30) {
+            if (!regexPhone.test(personMobile)) {
+                document.getElementById("person.mobileNumber1").innerHTML = "*Неверный формат телефона, введите телефон в формате +7(9XX)XXXXXXX";
+                return false;
+            }
+        }
+        if (!regexEmail.test(personEmail)) {
+            document.getElementById("person.email1").innerHTML = "*Неверный формат почты, введите почту в формате SomeEmail@google.com";
+            return false;
+        }
+    }
+</script>
 <script type="text/javascript">
     /*
      * jQuery Password Strength plugin for Twitter Bootstrap

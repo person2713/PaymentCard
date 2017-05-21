@@ -50,33 +50,40 @@ public class AddCard {
 
         List<FieldError> errors = new ArrayList<>();
 
-        if (result.hasErrors()) {
+        try {
+            if (result.hasErrors()) {
+                return "errorPage";
+            }
+            if (!cardService.isCardNameUnique(card.getCardId(), card.getCardName())) {
+                FieldError cardNameUniqError = new FieldError("card", "cardName", messageSource.getMessage("non.unique.card.cardName", new String[]{card.getCardName()}, Locale.getDefault()));
+                errors.add(cardNameUniqError);
+            }
+            try {
+                if (!cardService.isCardKeyUnique(card.getCardId(), card.getCardKey())) {
+                    FieldError cardKeyUniqError = new FieldError("card", "cardKey", messageSource.getMessage("non.unique.card.cardKey", new String[]{card.getCardKey().toString()}, Locale.getDefault()));
+                    errors.add(cardKeyUniqError);
+                }
+            } catch (NotFoundException e) {
+                e.printStackTrace();
+            }
+            if (!errors.isEmpty()) {
+
+                for (FieldError error : errors) {
+                    result.addError(error);
+                }
+                return "admin/addCard";
+            }
+            else {
+                card.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
+                cardService.saveCard(card);
+                return "redirect:/admin/allCards";
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
             return "errorPage";
         }
-        if (!cardService.isCardNameUnique(card.getCardId(), card.getCardName())) {
-            FieldError cardNameUniqError = new FieldError("card", "cardName", messageSource.getMessage("non.unique.card.cardName", new String[]{card.getCardName()}, Locale.getDefault()));
-            errors.add(cardNameUniqError);
-        }
-        try {
-            if (!cardService.isCardKeyUnique(card.getCardId(), card.getCardKey())) {
-                FieldError cardKeyUniqError = new FieldError("card", "cardKey", messageSource.getMessage("non.unique.card.cardKey", new String[]{card.getCardKey().toString()}, Locale.getDefault()));
-                errors.add(cardKeyUniqError);
-            }
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
-        if (!errors.isEmpty()) {
 
-            for (FieldError error : errors) {
-                result.addError(error);
-            }
-            return "admin/addCard";
-        }
-        else {
-            card.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
-            cardService.saveCard(card);
-            return "redirect:/admin/allCards";
-        }
     }
 
     @ModelAttribute("persons")

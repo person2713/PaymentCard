@@ -45,9 +45,12 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="routeNumber">Номер маршрута</label>
             <div class="col-md-4">
-                <form:input type="text" path="routeNumber" id="routeNumber" class="form-control"/>
+                <form:input type="text" path="routeNumber" id="routeNumber" name="routeNumber" class="form-control"/>
+                <span style="color:red" id="routeNumber1"></span>
                 <div class="has-error">
-                    <form:errors path="routeNumber" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="routeNumber" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -55,9 +58,12 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="routePrice">Стоимость проезда</label>
             <div class="col-md-4">
-                <form:input type="text" path="routePrice" id="routePrice" class="form-control"/>
+                <form:input type="text" path="routePrice" id="routePrice" name="routePrice" class="form-control"/>
+                <span style="color:red" id="routePrice1"></span>
                 <div class="has-error">
-                    <form:errors path="routePrice" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="routePrice" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -69,7 +75,9 @@
                     <%--<form:option value="NONE" label=""/>--%>
                     <form:options items="${companies}" multiple="false" itemValue="companyId" itemLabel="companyName"/>
                     <div class="has-error">
-                        <form:errors path="companyId" class="help-inline"/>
+                        <span style="color:red">
+                            <form:errors path="companyId" class="help-inline"/>
+                        </span>
                     </div>
                 </form:select>
             </div>
@@ -107,11 +115,37 @@
             </div>
         </div>
     </form:form>
-    <div class="navbar navbar-inner  navbar-fixed-bottom">
-        <p>
-        <center class="text-muted">© Netcracker Education Center 2017</center>
-        </p>
-    </div>
+    <%--<div class="navbar navbar-inner  navbar-fixed-bottom">--%>
+        <%--<p>--%>
+        <%--<center class="text-muted">© Netcracker Education Center 2017</center>--%>
+        <%--</p>--%>
+    <%--</div>--%>
+
+    <script type="text/javascript">
+        function validate() {
+            var routeNumber = document.forms["form"]["routeNumber"].value;
+            var routePrice = document.forms["form"]["routePrice"].value;
+            var regexBalance = /(^[0-9]+$)/;
+            var regexNumber = /^[0-9]{1}[0-9а-я]{1,2}([а-я]{0,1})?$/;
+            //Если длина имени компании равно 0
+            if (routeNumber.length == 0) {
+                document.getElementById("routeNumber1").innerHTML = "*Номер маршрута должен быть обязательно заполнен";
+                return false;
+            }
+            if (routeNumber.length > 50) {
+                document.getElementById("routeNumber1").innerHTML = "*Номер маршрута не должно превыщать более 50 символов";
+                return false;
+            }
+            if (!regexBalance.test(routePrice)) {
+                document.getElementById("routePrice1").innerHTML = "*Неверный формат баланса, введите баланс в формате 1000";
+                return false;
+            }
+            if (!regexNumber.test(routeNumber)) {
+                document.getElementById("routeNumber1").innerHTML = "*Неверный формат номера маршрута, введите номер в формате 25а";
+                return false;
+            }
+        }
+    </script>
 </div>
 </body>
 </html>

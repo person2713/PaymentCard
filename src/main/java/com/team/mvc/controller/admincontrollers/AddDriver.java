@@ -59,33 +59,40 @@ public class AddDriver {
 
         List<FieldError> listError = new ArrayList<>();
 
-        if (result.hasErrors()) {
+        try {
+            if (result.hasErrors()) {
+                return "errorPage";
+            }
+
+            if (!personService.isPersonsNicknameUnique(driver.getPerson().getPersonId(), driver.getPerson().getNickname())) {
+                FieldError nicknameUniqError = new FieldError("driver", "person.nickname", messageSource.getMessage("non.unique.driver.nickname", new String[]{driver.getPerson().getNickname()}, Locale.getDefault()));
+                listError.add(nicknameUniqError);
+            }
+            if (!personService.isPersonsEmailUnique(driver.getPerson().getPersonId(), driver.getPerson().getEmail())) {
+                FieldError emailUniqError = new FieldError("driver", "person.email", messageSource.getMessage("non.unique.driver.email", new String[]{driver.getPerson().getEmail()}, Locale.getDefault()));
+                listError.add(emailUniqError);
+            }
+            if (!personService.isPersonsMobileUnique(driver.getPerson().getPersonId(), driver.getPerson().getMobileNumber())) {
+                FieldError mobileUniqError = new FieldError("driver", "person.mobileNumber", messageSource.getMessage("non.unique.driver.mobileNumber", new String[]{driver.getPerson().getMobileNumber()}, Locale.getDefault()));
+                listError.add(mobileUniqError);
+            }
+
+            if(!listError.isEmpty()){
+                for (FieldError fieldError: listError) {
+                    result.addError(fieldError);
+                }
+                return "admin/addDriver";
+            }
+            else {
+                driversService.save(driver);
+                return "redirect:/admin/allDrivers";
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
             return "errorPage";
         }
 
-        if (!personService.isPersonsNicknameUnique(driver.getPerson().getPersonId(), driver.getPerson().getNickname())) {
-            FieldError nicknameUniqError = new FieldError("driver", "person.nickname", messageSource.getMessage("non.unique.driver.nickname", new String[]{driver.getPerson().getNickname()}, Locale.getDefault()));
-            listError.add(nicknameUniqError);
-        }
-        if (!personService.isPersonsEmailUnique(driver.getPerson().getPersonId(), driver.getPerson().getEmail())) {
-            FieldError emailUniqError = new FieldError("driver", "person.email", messageSource.getMessage("non.unique.driver.email", new String[]{driver.getPerson().getEmail()}, Locale.getDefault()));
-            listError.add(emailUniqError);
-        }
-        if (!personService.isPersonsMobileUnique(driver.getPerson().getPersonId(), driver.getPerson().getMobileNumber())) {
-            FieldError mobileUniqError = new FieldError("driver", "person.mobileNumber", messageSource.getMessage("non.unique.driver.mobileNumber", new String[]{driver.getPerson().getMobileNumber()}, Locale.getDefault()));
-            listError.add(mobileUniqError);
-        }
-
-        if(!listError.isEmpty()){
-            for (FieldError fieldError: listError) {
-                result.addError(fieldError);
-            }
-            return "admin/addDriver";
-        }
-         else {
-            driversService.save(driver);
-            return "redirect:/admin/allDrivers";
-        }
     }
 
     @ModelAttribute("cities")

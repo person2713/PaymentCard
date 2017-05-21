@@ -42,27 +42,35 @@ public class AddCompany {
 
         List<FieldError> listError = new ArrayList<>();
 
-        if (result.hasErrors()) {
+
+        try {
+            if (result.hasErrors()) {
+                return "errorPage";
+            }
+            if (!companyService.isCompanyNameUnique(company.getCompanyId(), company.getCompanyName())) {
+                FieldError companyNameUniqError = new FieldError("company", "companyName", messageSource.getMessage("non.unique.company.name", new String[]{company.getCompanyName()}, Locale.getDefault()));
+                listError.add(companyNameUniqError);
+            }
+            if(!companyService.isCompanyPhoneNumberUnique(company.getCompanyId(), company.getPhoneNumber())){
+                FieldError companyPhoneNumberUniq = new FieldError("company", "phoneNumber", messageSource.getMessage("non.unique.company.phoneNumber", new String[]{company.getPhoneNumber()}, Locale.getDefault()));
+                listError.add(companyPhoneNumberUniq);
+            }
+            if(!listError.isEmpty()){
+                for (FieldError fieldError: listError) {
+                    result.addError(fieldError);
+                }
+                return "admin/addCompany";
+            }
+            else {
+                companyService.save(company);
+                return "redirect:/admin/allCompanies";
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
             return "errorPage";
         }
-        if (!companyService.isCompanyNameUnique(company.getCompanyId(), company.getCompanyName())) {
-            FieldError companyNameUniqError = new FieldError("company", "companyName", messageSource.getMessage("non.unique.company.name", new String[]{company.getCompanyName()}, Locale.getDefault()));
-            listError.add(companyNameUniqError);
-        }
-        if(!companyService.isCompanyPhoneNumberUnique(company.getCompanyId(), company.getPhoneNumber())){
-            FieldError companyPhoneNumberUniq = new FieldError("company", "phoneNumber", messageSource.getMessage("non.unique.company.phoneNumber", new String[]{company.getPhoneNumber()}, Locale.getDefault()));
-            listError.add(companyPhoneNumberUniq);
-        }
-        if(!listError.isEmpty()){
-            for (FieldError fieldError: listError) {
-                result.addError(fieldError);
-            }
-            return "admin/addCompany";
-        }
-        else {
-            companyService.save(company);
-            return "redirect:/admin/allCompanies";
-        }
+
     }
 
     @ModelAttribute("cities")

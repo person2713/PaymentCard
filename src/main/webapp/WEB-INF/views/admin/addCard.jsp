@@ -25,6 +25,7 @@
 
 </head>
 
+
 <body style="background-color: #EDEEF0">
 <div class="container">
 
@@ -40,9 +41,9 @@
         </c:otherwise>
     </c:choose>
 
-    <form:form method="POST" modelAttribute="cardForm" action="${userActionUrl}" class="form-horizontal">
+    <form:form name="form" method="POST" modelAttribute="cardForm" onsubmit="return (validate())"
+               action="${userActionUrl}" class="form-horizontal">
         <form:input type="hidden" path="cardId" id="cardId"/>
-
 
 
         <c:choose>
@@ -56,9 +57,12 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="cardName">Имя карты</label>
             <div class="col-md-4">
-                <form:input type="text" path="cardName" id="cardName" class="form-control"/>
+                <form:input type="text" path="cardName" id="cardName" name="cardName" class="form-control"/>
+                <span style="color:red" id="cardName1"></span>
                 <div class="has-error">
-                    <form:errors path="cardName" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="cardName" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -66,13 +70,15 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="cardKey">Ключ карты</label>
             <div class="col-md-4">
-                <form:input type="text" path="cardKey" id="cardKey" class="form-control"/>
+                <form:input type="text" path="cardKey" id="cardKey" name="cardKey" class="form-control"/>
+                <span style="color:red" id="cardKey1"></span>
                 <div class="has-error">
-                    <form:errors path="cardKey" class="help-inline"/>
+                    <span style="color:red">
+                        <form:errors path="cardKey" class="help-inline"/>
+                    </span>
                 </div>
             </div>
         </div>
-
 
 
         <c:choose>
@@ -80,9 +86,12 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="cardBalance.balance">Баланс</label>
                     <div class="col-md-4">
-                        <form:input type="text" path="cardBalance.balance" id="cardBalance.balance" class="form-control"/>
+                        <form:input type="text" path="cardBalance.balance" id="cardBalance.balance"
+                                    class="form-control"/>
                         <div class="has-error">
-                            <form:errors path="cardBalance.balance" class="help-inline"/>
+                            <span style="color:red">
+                                <form:errors path="cardBalance.balance" class="help-inline"/>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -101,7 +110,9 @@
                             <form:options items="${persons}" multiple="false" itemValue="personId"
                                           itemLabel="nickname"/>
                             <div class="has-error">
-                                <form:errors path="personId" class="help-inline"/>
+                                <span style="color:red">
+                                    <form:errors path="personId" class="help-inline"/>
+                                </span>
                             </div>
                         </form:select>
                     </div>
@@ -116,14 +127,16 @@
                             <form:options items="${persons}" multiple="false" itemValue="personId"
                                           itemLabel="nickname"/>
                             <div class="has-error">
-                                <form:errors path="personId" class="help-inline"/>
+                                <span style="color:red">
+                                    <form:errors path="personId" class="help-inline"/>
+                                </span>
                             </div>
                         </form:select>
                     </div>
                 </div>
             </c:otherwise>
         </c:choose>
-            
+
         <c:choose>
             <c:when test="${edit}">
                 <div class="form-group">
@@ -133,7 +146,9 @@
                             <%--<form:option value="NONE" label=""/>--%>
                             <form:options items="${typeCard}" multiple="false" itemValue="typeId" itemLabel="status"/>
                             <div class="has-error">
-                                <form:errors path="typeCard" class="help-inline"/>
+                                <span style="color:red">
+                                    <form:errors path="typeCard" class="help-inline"/>
+                                </span>
                             </div>
                         </form:select>
                     </div>
@@ -152,7 +167,8 @@
                     <c:when test="${edit}">
                         <div class="col-md-6">
                             <div class="text-center">
-                                <input type="submit" value="Редактировать" class="btn btn-success" style="width: 100%"/>
+                                <input type="submit" value="Редактировать" class="btn btn-success"
+                                       onClick="return validate();" style="width: 100%"/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -164,7 +180,8 @@
                     <c:otherwise>
                         <div class="col-md-6">
                             <div class="text-center">
-                                <input type="submit" value="Добавить" class="btn btn-success" style="width: 100%"/>
+                                <input type="submit" value="Добавить" class="btn btn-success"
+                                       onClick="return validate();" style="width: 100%"/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -177,11 +194,35 @@
             </div>
         </div>
     </form:form>
-    <div class="navbar navbar-inner  navbar-fixed-bottom">
-        <p>
-        <center class="text-muted">© Netcracker Education Center 2017</center>
-        </p>
-    </div>
+    <%--<div class="navbar navbar-inner  navbar-fixed-bottom">--%>
+        <%--<p>--%>
+        <%--<center class="text-muted">© Netcracker Education Center 2017</center>--%>
+        <%--</p>--%>
+    <%--</div>--%>
+    <script type="text/javascript">
+        function validate() {
+
+            var cardName = document.forms["form"]["cardName"].value;
+            var cardKey = document.forms["form"]["cardKey"].value;
+            var regexKey = /^[0-9]{1,20}$/;
+
+            if (cardKey.length == 0) {
+                document.getElementById("cardKey1").innerHTML = "*Ключ карты должен быть заполнен";
+                return false;
+            }
+            if (cardName.length > 30) {
+                document.getElementById("cardName1").innerHTML = "*Имя карты не должно содержать более 30 символов";
+                return false;
+            }
+
+            if (!regexKey.test(cardName)) {
+                document.getElementById("cardKey1").innerHTML = "*Номер автобуса введен не в верном формате. Введите в следующем формате А123ИР";
+                return false;
+            }
+
+
+        }
+    </script>
 </div>
 </body>
 </html>
