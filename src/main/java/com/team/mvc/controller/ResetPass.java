@@ -85,7 +85,7 @@ try{
             e.printStackTrace();
         }
         try {
-            mailMsg.setText("<html><body>hi,<br/><a href='http://localhost:9000/newPass?email="+createToken(email)+"'> Click here</a> to reset password</body></html>",true);
+            mailMsg.setText("<html><body>hi,<br/><a href='http://localhost:8080/newPass?email="+createToken(email)+"'> Click here</a> to reset password</body></html>",true);
         } catch (MessagingException e) {
             e.printStackTrace();
         }//
