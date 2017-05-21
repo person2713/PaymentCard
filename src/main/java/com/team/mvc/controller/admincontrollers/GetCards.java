@@ -112,7 +112,7 @@ public class GetCards {
             try {//Оповещаем пользователя о блокировке карты
                 previousCard = cardService.findById(card.getCardId());
                 if (!previousCard.getTypeCard().getStatus().equals(card.getTypeCard().getStatus()) &&
-                        card.getTypeCard().getStatus().equals("block"))
+                        card.getTypeCard().getStatus().equals("заблокирована"))
                     sendSMSMessageService.SendMessage(personService.findById(previousCard.getPersonId()).getMobileNumber(),
                             "Уважаемый клиент! Ваша карта №" + card.getCardKey() + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com");
                     sendEMAILMessageService.SendMessage(personService.findByNickname(GetRole.getPrincipal()).getEmail(),"Уважаемый клиент! Ваша карта №" +card.getCardKey() + " была заблокирована! За уточнением деталей обращайтесь по номеру +79003004688 или по электронной почте trebvit@gmail.com");

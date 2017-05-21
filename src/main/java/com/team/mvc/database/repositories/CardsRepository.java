@@ -36,7 +36,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
 //
 ////        query.setLong("typeCard", Long.parseLong("21")); WHERE C.typeCard=:typeCard
         Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.in("typeCard", typeCardRepository.getByStatus("block")));
+        criteria.add(Restrictions.in("typeCard", typeCardRepository.getByStatus("заблокирована")));
         List<Cards> cardss = criteria.list();
         return cardss;
     }

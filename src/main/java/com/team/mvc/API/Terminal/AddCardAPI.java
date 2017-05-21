@@ -52,7 +52,7 @@ public class AddCardAPI {
                 log += "card existing., ";
                 cardBalance = card.getCardBalance();
             }
-            card.setTypeCard(typeCardService.getTypeCardByStatusAndType("active", addedCard.getCardType()));
+            card.setTypeCard(typeCardService.getTypeCardByStatusAndType("активна", addedCard.getCardType()));
             card.setPersonId(0L);
 //            cardBalance = new CardBalance();
 //            cardBalance.setCard(card);

@@ -74,7 +74,7 @@ public class AddCard {
                 return "admin/addCard";
             }
             else {
-                card.setTypeCard(typeCardService.getTypeCardbyStatus("active"));
+                card.setTypeCard(typeCardService.getTypeCardbyStatus("активна"));
                 cardService.saveCard(card);
                 return "redirect:/admin/allCards";
             }
