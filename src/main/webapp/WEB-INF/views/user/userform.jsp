@@ -37,7 +37,7 @@
 			</spring:bind>
 
 			<button type="submit" class="btn btn-green"><span style="color: white">Переименовать</span></button>
-			<a class="btn btn-orange" href="/user"><span style="color: white">На главную</span></a>
+			<a class="btn btn-orange" href="/user"><span style="color: white">Назад</span></a>
 
 		</form:form>
 

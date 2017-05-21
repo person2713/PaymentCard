@@ -20,7 +20,7 @@
 	<div class="container">
 		<div class="navbar-header">
 			<ul class="nav navbar-nav navbar-left">
-				<li><a class="navbar-brand" style="color: white" href="/user">Главная страница</a></li>
+				<li><a class="navbar-brand" style="color: white" href="/user">Личный кабинет</a></li>
 				<li><a href="${urlAddUser}">Добавить карту</a></li>
 			</ul>
 		</div>

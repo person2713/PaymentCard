@@ -24,12 +24,12 @@
 
 </head>
 
-<body>
+<body style="background-color: #EDEEF0">
 <div class="container">
 
     <c:choose>
         <c:when test="${edit}">
-            <legend><h2>Редактировать вадителя</h2></legend>
+            <legend><h2>Редактировать водителя</h2></legend>
             <spring:url value="/admin/allDrivers/editDriver" var="userActionUrl"/>
         </c:when>
         <c:otherwise>

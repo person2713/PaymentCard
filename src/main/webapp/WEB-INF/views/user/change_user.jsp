@@ -97,7 +97,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="text-center">
-                        <a href="/user" class="btn btn-orange" style="width: 100%">На главную</a>
+                        <a href="/user" class="btn btn-orange" style="width: 100%">Назад</a>
                     </div>
                 </div>
             </div>

@@ -70,7 +70,7 @@
                 <div class="text-center">
                     <div id="map-canvas" style="width: 700px; height: 450px" ></div>
                     <br>
-                    <a class="btn btn-orange" href="/user"><span style="color: white">На главную</span></a>
+                    <a class="btn btn-orange" href="/user"><span style="color: white">Назад</span></a>
                 </div>
             </div>
         </div>

@@ -9,10 +9,10 @@
     <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
-<body>
+<body style="background-color: #EDEEF0">
     <div class="text-center">
         <h4 style="margin-top: 10%">Пользователь успешно добавлен.</h4>
-        <a href="/admin/allUsers" class="btn btn-orange">На домашнюю страницу</a>
+        <a href="/admin/allUsers" class="btn btn-orange" style="overflow: hidden">На домашнюю страницу</a>
     </div>
 </body>
 </html>

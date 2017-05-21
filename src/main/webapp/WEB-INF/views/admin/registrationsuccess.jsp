@@ -10,7 +10,7 @@
 	<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet">
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #EDEEF0">
 	<div class="generic-container">
 		<%--<%@include file="header.jsp" %>--%>
 		<div class="well lead">???????</div>

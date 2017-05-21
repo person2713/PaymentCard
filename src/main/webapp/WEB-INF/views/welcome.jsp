@@ -7,15 +7,15 @@
 
     <link href="/static/css/welcome_css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/welcome_css/colorbox.css" rel="stylesheet">
-    <link href="/static/css/welcome_css/templatemo_style.css"  rel="stylesheet">
-    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/static/css/welcome_css/templatemo_style.css" rel="stylesheet">
+    <link href="/static/images/favicon%20(3).ico" rel="shortcut icon" type="image/x-icon"/>
 
     <script src="/static/js/welcome_js/jquery.min.js" type="text/javascript"></script>
-    <script src="/static/js/welcome_js/bootstrap.min.js"  type="text/javascript"></script>
-    <script src="/static/js/welcome_js/stickUp.min.js"  type="text/javascript"></script>
-    <script src="/static/js/welcome_js/colorbox/jquery.colorbox.js"  type="text/javascript"></script>
-    <script src="/static/js/welcome_js/colorbox/jquery.colorbox-min.js"  type="text/javascript"></script>
-    <script src="/static/js/welcome_js/templatemo_script.js"  type="text/javascript"></script>
+    <script src="/static/js/welcome_js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/js/welcome_js/stickUp.min.js" type="text/javascript"></script>
+    <script src="/static/js/welcome_js/colorbox/jquery.colorbox.js" type="text/javascript"></script>
+    <script src="/static/js/welcome_js/colorbox/jquery.colorbox-min.js" type="text/javascript"></script>
+    <script src="/static/js/welcome_js/templatemo_script.js" type="text/javascript"></script>
 
     <%--api yandex--%>
     <%--<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>--%>
@@ -313,14 +313,14 @@
         var marker1 = new google.maps.Marker({
             position: myLatlng1,
             map: map,
-            title:"Офис компании NetCracker"
+            title:"Офис компании Netcracker"
         });
 
         var myLatlng2 = new google.maps.LatLng(51.65651645725269,39.20612392121155);
         var marker2 = new google.maps.Marker({
             position: myLatlng2,
             map: map,
-            title:"NetCracker Education Center ВГУ"
+            title:"Netcracker Education Center ВГУ"
         });
 
     }
@@ -343,13 +343,13 @@
             });
 
             myPlacemark1 = new ymaps.Placemark([51.65452972847472,39.19274635586758], {
-                hintContent: 'NetCracker',
+                hintContent: 'Netcracker',
                 balloonContent: 'Офис компании'
             });
 
             myPlacemark2 = new ymaps.Placemark([51.65651645725269,39.20612392121155], {
                 hintContent: 'ВГУ',
-                balloonContent: 'NetCracker Education Center'
+                balloonContent: 'Netcracker Education Center'
             });
 
             myMap.geoObjects.add(myPlacemark1);
