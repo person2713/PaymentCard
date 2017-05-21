@@ -215,8 +215,8 @@
                 return false;
             }
 
-            if (!regexKey.test(cardName)) {
-                document.getElementById("cardKey1").innerHTML = "*Номер автобуса введен не в верном формате. Введите в следующем формате А123ИР";
+            if (!regexKey.test(cardKey)) {
+                document.getElementById("cardKey1").innerHTML = "*Ключ карты введен в неверном формате. Длина ключа не должна превыщать 20 символов";
                 return false;
             }
 
