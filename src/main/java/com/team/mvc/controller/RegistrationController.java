@@ -43,16 +43,17 @@ public class RegistrationController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String renderRegistration(ModelMap model) {
-        Persons person = new Persons();
+  try{      Persons person = new Persons();
         model.addAttribute("userForm", person);
         model.addAttribute("edit", false);
         model.addAttribute("isAdmin", GetRole.hasRole("ROLE_ADMIN"));
-        return "registration";
+        return "registration";}
+  catch (Exception E){return "errorPage";}
     }
 
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
     public String saveUser(@Valid @ModelAttribute("userForm") Persons person, BindingResult result) {
-
+try{
         List<FieldError> listError = new ArrayList<>();
 
         if (result.hasErrors()) {
@@ -133,7 +134,7 @@ public class RegistrationController {
             else
                 return "success";
         }
-    }
+    } catch (Exception E){return "errorPage";}}
 
     @ModelAttribute("cities")
     public List<Cities> initializeCities() {
