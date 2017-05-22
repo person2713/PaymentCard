@@ -41,7 +41,9 @@ public class DriversRepository extends AbstractRepository<Drivers> {
         Session session = sessionFactory.openSession();
         Query query = session.createSQLQuery(String.format("select * from drivers d left join persons p on d.person_id = p.person_id where p.nickname= :nickname"))
                 .addEntity(Drivers.class).setParameter("nickname", nickname);
-        return (Drivers) query.uniqueResult();
+        Drivers driver =(Drivers) query.uniqueResult();
+        session.close();
+        return driver;
     }
 
     @Override
@@ -75,6 +77,7 @@ public class DriversRepository extends AbstractRepository<Drivers> {
         query2.setParameter("personId", driver.getPerson().getPersonId());
         query2.executeUpdate();
         session.getTransaction().commit();
+        session.close();
     }
 
     @Override
@@ -100,8 +103,8 @@ public class DriversRepository extends AbstractRepository<Drivers> {
                         "where person_id=:personId");
         query3.setParameter("personId", driver.getPerson().getPersonId());
         query3.executeUpdate();
-
         session.getTransaction().commit();
+        session.close();
     }
 
 }

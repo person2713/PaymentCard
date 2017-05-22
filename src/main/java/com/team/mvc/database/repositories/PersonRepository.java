@@ -58,6 +58,7 @@ public class PersonRepository  extends AbstractRepository{
         SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
 
         List result =  sqlQuery.list();
+        session.close();
         return   result;
     }
 
@@ -67,8 +68,8 @@ public class PersonRepository  extends AbstractRepository{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
-
         List result =  sqlQuery.list();
+        session.close();
         return   result;
     }
 
@@ -79,8 +80,9 @@ public class PersonRepository  extends AbstractRepository{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
-
-        return  (Cards) sqlQuery.uniqueResult();
+        Cards card = (Cards)sqlQuery.uniqueResult();
+        session.close();
+        return  card;
     }
 
 

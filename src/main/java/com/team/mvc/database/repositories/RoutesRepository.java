@@ -61,6 +61,7 @@ public class RoutesRepository extends AbstractRepository<Routes> {
         query.setParameter("routeId", route.getRouteId());
         query.executeUpdate();
         session.getTransaction().commit();
+        session.close();
 
     }
 }

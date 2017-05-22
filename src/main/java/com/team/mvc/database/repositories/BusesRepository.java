@@ -57,6 +57,7 @@ public class BusesRepository extends AbstractRepository<Buses> {
         query.setParameter("busId", bus.getBusId());
         query.executeUpdate();
         session.getTransaction().commit();
+        session.close();
 
     }
 

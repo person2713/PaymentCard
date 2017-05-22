@@ -18,7 +18,9 @@ public class OwnerRepository extends AbstractRepository<Owners> {
         Session session = sessionFactory.openSession();
         Query query = session.createSQLQuery("select * from owners o left join persons p on o.person_id = p.person_id where p.nickname= :nickname")
                 .addEntity(Owners.class).setParameter("nickname", nickname);
-        return (Owners)query.uniqueResult();
+        Owners owner = (Owners) query.uniqueResult();
+        session.close();
+        return owner;
     }
 
     @Override
@@ -39,6 +41,7 @@ public class OwnerRepository extends AbstractRepository<Owners> {
         query2.executeUpdate();
 
         session.getTransaction().commit();
+        session.close();
     }
 
 }

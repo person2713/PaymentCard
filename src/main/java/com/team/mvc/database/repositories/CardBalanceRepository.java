@@ -53,7 +53,7 @@ public class CardBalanceRepository extends AbstractRepository<CardBalance> {
         int result = sqlQuery.executeUpdate();
         System.out.println(result);
         session.getTransaction().commit();
-
+        session.close();
          }
 
     public CardBalance findByCard(Cards card) {

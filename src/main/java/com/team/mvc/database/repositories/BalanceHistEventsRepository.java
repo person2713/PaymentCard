@@ -76,7 +76,8 @@ public class BalanceHistEventsRepository extends AbstractRepository<BalanceHistE
 //                    .setResultTransformer(Transformers.TO_LIST)
                     .setParameter("cardId", cardId);
             List<BalanceHistEvents> list = query.list();
-            return query.list();
+            session.close();
+            return list;
         } catch (Exception ex) {
             ex.printStackTrace();
         }

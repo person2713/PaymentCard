@@ -159,6 +159,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
         query2.setParameter("balance", 500);
         query2.executeUpdate();
         session.getTransaction().commit();
+        session.close();
     }
 
     @Override
@@ -198,6 +199,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
         query2.setParameter("cardBalanceID", card.getCardBalance().getBalanceId());
         query2.executeUpdate();
         session.getTransaction().commit();
+        session.close();
     }
 
     @Override
@@ -236,5 +238,6 @@ public class CardsRepository extends AbstractRepository<Cards> {
         query5.executeUpdate();
 
         session.getTransaction().commit();
+        session.close();
     }
 }

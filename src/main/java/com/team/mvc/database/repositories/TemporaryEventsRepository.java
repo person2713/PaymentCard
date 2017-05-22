@@ -50,6 +50,7 @@ public class TemporaryEventsRepository extends AbstractRepository<TemporaryEvent
         int result = sqlQuery.executeUpdate();
         System.out.println(result);
         session.getTransaction().commit();
+        session.close();
     }
 
 }

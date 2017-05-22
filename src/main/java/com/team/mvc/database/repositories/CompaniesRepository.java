@@ -42,7 +42,9 @@ public class CompaniesRepository extends AbstractRepository<Companies> {
                             "on c.COMPANY_ID = o.COMPANY_ID " +
                         "WHERE o.OWNER_ID is null")
                 .addEntity(Companies.class);
-        return query.list();
+        List<Companies> companiesList = query.list();
+        session.close();
+        return companiesList;
     }
 
     @Override
@@ -65,6 +67,7 @@ public class CompaniesRepository extends AbstractRepository<Companies> {
         query.setParameter("companyId", company.getCompanyId());
         query.executeUpdate();
         session.getTransaction().commit();
+        session.close();
 
     }
 
@@ -163,6 +166,7 @@ public class CompaniesRepository extends AbstractRepository<Companies> {
         query10.executeUpdate();
 
         session.getTransaction().commit();
+        session.close();
     }
 
 
@@ -183,5 +187,6 @@ public class CompaniesRepository extends AbstractRepository<Companies> {
         query1.setParameter("cityId", company.getCity().getCityId());
         query1.executeUpdate();
         session.getTransaction().commit();
+        session.close();
     }
 }
