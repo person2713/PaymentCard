@@ -141,103 +141,118 @@ public class CardsRepository extends AbstractRepository<Cards> {
     @Override
     public void save(Cards card) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        Query query1 = session.createSQLQuery(
-                "insert into cards (person_id, card_key, card_name, type_id) " +
-                        "VALUES (:personId, :cardKey, :cardName, :typeId)");
+        try {
+            session.beginTransaction();
+            Query query1 = session.createSQLQuery(
+                    "insert into cards (person_id, card_key, card_name, type_id) " +
+                            "VALUES (:personId, :cardKey, :cardName, :typeId)");
 //        query1.setParameter("cardId", card.getCardId());
-        query1.setParameter("personId", card.getPersonId());
-        query1.setParameter("cardKey", card.getCardKey());
-        query1.setParameter("cardName", card.getCardName());
-        query1.setParameter("typeId", card.getTypeCard().getTypeId());
-        query1.executeUpdate();
-        Query query2 = session.createSQLQuery(
-                "insert into card_balance (balance, card_id) " +
-                        "VALUES (:balance, " +
-                        "(select card_id from cards where card_key=:cardKey))");
-        query2.setParameter("cardKey", card.getCardKey());
-        query2.setParameter("balance", 0);
-        query2.executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+            query1.setParameter("personId", card.getPersonId());
+            query1.setParameter("cardKey", card.getCardKey());
+            query1.setParameter("cardName", card.getCardName());
+            query1.setParameter("typeId", card.getTypeCard().getTypeId());
+            query1.executeUpdate();
+            Query query2 = session.createSQLQuery(
+                    "insert into card_balance (balance, card_id) " +
+                            "VALUES (:balance, " +
+                            "(select card_id from cards where card_key=:cardKey))");
+            query2.setParameter("cardKey", card.getCardKey());
+            query2.setParameter("balance", 0);
+            query2.executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void update(Cards card) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        if (card.getPersonId() == null) {
-            Query query1 = session.createSQLQuery(
-                    "update cards " +
-                            "set person_id=NULL, " +
-                            "card_key=:cardKey, " +
-                            "type_id=:typeId, " +
-                            "card_name=:cardName " +
-                            "where card_id=:cardId");
-            query1.setParameter("cardKey", card.getCardKey());
-            query1.setParameter("typeId", card.getTypeCard().getTypeId());
-            query1.setParameter("cardName", card.getCardName());
-            query1.setParameter("cardId", card.getCardId());
-            query1.executeUpdate();
-        } else {
-            Query query1 = session.createSQLQuery(
-                    "update cards " +
-                            "set person_id=:personId, " +
-                            "card_key=:cardKey, " +
-                            "type_id=:typeId, " +
-                            "card_name=:cardName " +
-                            "where card_id=:cardId");
-            query1.setParameter("personId", card.getPersonId());
-            query1.setParameter("cardKey", card.getCardKey());
-            query1.setParameter("typeId", card.getTypeCard().getTypeId());
-            query1.setParameter("cardName", card.getCardName());
-            query1.setParameter("cardId", card.getCardId());
-            query1.executeUpdate();
+        try {
+            session.beginTransaction();
+            if (card.getPersonId() == null) {
+                Query query1 = session.createSQLQuery(
+                        "update cards " +
+                                "set person_id=NULL, " +
+                                "card_key=:cardKey, " +
+                                "type_id=:typeId, " +
+                                "card_name=:cardName " +
+                                "where card_id=:cardId");
+                query1.setParameter("cardKey", card.getCardKey());
+                query1.setParameter("typeId", card.getTypeCard().getTypeId());
+                query1.setParameter("cardName", card.getCardName());
+                query1.setParameter("cardId", card.getCardId());
+                query1.executeUpdate();
+            } else {
+                Query query1 = session.createSQLQuery(
+                        "update cards " +
+                                "set person_id=:personId, " +
+                                "card_key=:cardKey, " +
+                                "type_id=:typeId, " +
+                                "card_name=:cardName " +
+                                "where card_id=:cardId");
+                query1.setParameter("personId", card.getPersonId());
+                query1.setParameter("cardKey", card.getCardKey());
+                query1.setParameter("typeId", card.getTypeCard().getTypeId());
+                query1.setParameter("cardName", card.getCardName());
+                query1.setParameter("cardId", card.getCardId());
+                query1.executeUpdate();
+            }
+            Query query2 = session.createSQLQuery("update card_balance set balance=:cardBalance where balance_id=:cardBalanceID");
+            query2.setParameter("cardBalance", card.getCardBalance().getBalance());
+            query2.setParameter("cardBalanceID", card.getCardBalance().getBalanceId());
+            query2.executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
         }
-        Query query2 = session.createSQLQuery("update card_balance set balance=:cardBalance where balance_id=:cardBalanceID");
-        query2.setParameter("cardBalance", card.getCardBalance().getBalance());
-        query2.setParameter("cardBalanceID", card.getCardBalance().getBalanceId());
-        query2.executeUpdate();
-        session.getTransaction().commit();
-        session.close();
     }
 
     @Override
     public void delete(Cards card) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        try {
+            session.beginTransaction();
 
-        Query query1 = session.createSQLQuery(
-                "delete from balance_hist " +
-                        "where card_id=:cardId");
-        query1.setParameter("cardId", card.getCardId());
-        query1.executeUpdate();
+            Query query1 = session.createSQLQuery(
+                    "delete from balance_hist " +
+                            "where card_id=:cardId");
+            query1.setParameter("cardId", card.getCardId());
+            query1.executeUpdate();
 
-        Query query2 = session.createSQLQuery(
-                "delete from card_balance " +
-                        "where card_id=:cardId");
-        query2.setParameter("cardId", card.getCardId());
-        query2.executeUpdate();
+            Query query2 = session.createSQLQuery(
+                    "delete from card_balance " +
+                            "where card_id=:cardId");
+            query2.setParameter("cardId", card.getCardId());
+            query2.executeUpdate();
 
-        Query query3 = session.createSQLQuery(
-                "delete from events " +
-                        "where card_id=:cardId");
-        query3.setParameter("cardId", card.getCardId());
-        query3.executeUpdate();
+            Query query3 = session.createSQLQuery(
+                    "delete from events " +
+                            "where card_id=:cardId");
+            query3.setParameter("cardId", card.getCardId());
+            query3.executeUpdate();
 
-        Query query4 = session.createSQLQuery(
-                "delete from temporary_events " +
-                        "where card_id=:cardId");
-        query4.setParameter("cardId", card.getCardId());
-        query4.executeUpdate();
+            Query query4 = session.createSQLQuery(
+                    "delete from temporary_events " +
+                            "where card_id=:cardId");
+            query4.setParameter("cardId", card.getCardId());
+            query4.executeUpdate();
 
-        Query query5 = session.createSQLQuery(
-                "delete from cards " +
-                        "where card_id=:cardId");
-        query5.setParameter("cardId", card.getCardId());
-        query5.executeUpdate();
+            Query query5 = session.createSQLQuery(
+                    "delete from cards " +
+                            "where card_id=:cardId");
+            query5.setParameter("cardId", card.getCardId());
+            query5.executeUpdate();
 
-        session.getTransaction().commit();
-        session.close();
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 }

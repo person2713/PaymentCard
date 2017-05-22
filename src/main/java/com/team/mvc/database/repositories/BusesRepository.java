@@ -45,20 +45,24 @@ public class BusesRepository extends AbstractRepository<Buses> {
     }
 
     @Override
-    public void update(Buses bus){
+    public void update(Buses bus) {
 
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        try {
+            session.beginTransaction();
 
-        Query query = session.createSQLQuery(
-                "update buses set bus_number=:busNumber, company_id=:companyId where bus_id=:busId");
-        query.setParameter("busNumber", bus.getBusNumber());
-        query.setParameter("companyId", bus.getCompanyId());
-        query.setParameter("busId", bus.getBusId());
-        query.executeUpdate();
-        session.getTransaction().commit();
-        session.close();
-
+            Query query = session.createSQLQuery(
+                    "update buses set bus_number=:busNumber, company_id=:companyId where bus_id=:busId");
+            query.setParameter("busNumber", bus.getBusNumber());
+            query.setParameter("companyId", bus.getCompanyId());
+            query.setParameter("busId", bus.getBusId());
+            query.executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
 }

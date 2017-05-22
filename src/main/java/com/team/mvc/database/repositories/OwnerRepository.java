@@ -16,32 +16,42 @@ public class OwnerRepository extends AbstractRepository<Owners> {
 
     public Owners findByNickname(String nickname) {
         Session session = sessionFactory.openSession();
-        Query query = session.createSQLQuery("select * from owners o left join persons p on o.person_id = p.person_id where p.nickname= :nickname")
-                .addEntity(Owners.class).setParameter("nickname", nickname);
-        Owners owner = (Owners) query.uniqueResult();
-        session.close();
-        return owner;
+        try {
+            Query query = session.createSQLQuery("select * from owners o left join persons p on o.person_id = p.person_id where p.nickname= :nickname")
+                    .addEntity(Owners.class).setParameter("nickname", nickname);
+            return (Owners) query.uniqueResult();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
 
     @Override
     public void delete(Owners owner){
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        try {
+            session.beginTransaction();
 
-        Query query1 = session.createSQLQuery(
-                "delete from owners " +
-                        "where owner_id=:ownerId");
-        query1.setParameter("ownerId", owner.getOwnerId());
-        query1.executeUpdate();
+            Query query1 = session.createSQLQuery(
+                    "delete from owners " +
+                            "where owner_id=:ownerId");
+            query1.setParameter("ownerId", owner.getOwnerId());
+            query1.executeUpdate();
 
-        Query query2 = session.createSQLQuery(
-                "delete from persons " +
-                        "where person_id=:personId");
-        query2.setParameter("personId", owner.getPerson().getPersonId());
-        query2.executeUpdate();
+            Query query2 = session.createSQLQuery(
+                    "delete from persons " +
+                            "where person_id=:personId");
+            query2.setParameter("personId", owner.getPerson().getPersonId());
+            query2.executeUpdate();
 
-        session.getTransaction().commit();
-        session.close();
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
 }

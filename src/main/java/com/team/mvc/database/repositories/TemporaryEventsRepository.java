@@ -45,12 +45,17 @@ public class TemporaryEventsRepository extends AbstractRepository<TemporaryEvent
 
         String DEL = " DELETE  FROM TEMPORARY_EVENTS ";
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        SQLQuery sqlQuery = session.createSQLQuery(DEL);
-        int result = sqlQuery.executeUpdate();
-        System.out.println(result);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.beginTransaction();
+            SQLQuery sqlQuery = session.createSQLQuery(DEL);
+            int result = sqlQuery.executeUpdate();
+            System.out.println(result);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
 }

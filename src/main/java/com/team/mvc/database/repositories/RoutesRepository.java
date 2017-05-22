@@ -47,21 +47,26 @@ public class RoutesRepository extends AbstractRepository<Routes> {
     public void update(Routes route){
 
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        try {
+            session.beginTransaction();
 
-        Query query = session.createSQLQuery(
-                "update routes " +
-                        "set route_number=:routeNumber, " +
-                        "route_price=:routePrice, " +
-                        "company_id=:companyId " +
-                        "where route_id=:routeId");
-        query.setParameter("routeNumber", route.getRouteNumber());
-        query.setParameter("routePrice", route.getRoutePrice());
-        query.setParameter("companyId", route.getCompanyId());
-        query.setParameter("routeId", route.getRouteId());
-        query.executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+            Query query = session.createSQLQuery(
+                    "update routes " +
+                            "set route_number=:routeNumber, " +
+                            "route_price=:routePrice, " +
+                            "company_id=:companyId " +
+                            "where route_id=:routeId");
+            query.setParameter("routeNumber", route.getRouteNumber());
+            query.setParameter("routePrice", route.getRoutePrice());
+            query.setParameter("companyId", route.getCompanyId());
+            query.setParameter("routeId", route.getRouteId());
+            query.executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
 
     }
 }

@@ -48,13 +48,18 @@ public class CardBalanceRepository extends AbstractRepository<CardBalance> {
 
         String UPDATE = "update  COMPANIES CM SET CM.COMP_BALANCE =(SELECT(COUNTEVENTS*R.ROUTE_PRICE) AS TOTALSUM FROM  COMPANIES COM  INNER JOIN  ROUTES R  ON  R.COMPANY_ID = COM.COMPANY_ID INNER JOIN  BUSES B ON B.COMPANY_ID = COM.COMPANY_ID  INNER JOIN (SELECT  COUNT(E.EVENT_ID) AS COUNTEVENTS,E.BUS_ID FROM  EVENTS E GROUP BY  E.BUS_ID)E  ON  E.BUS_ID=B.BUS_ID WHERE COM.COMPANY_ID=46 GROUP BY  COM.COMPANY_ID, COUNTEVENTS*R.ROUTE_PRICE )where CM.COMPANY_ID = 46  ";
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        SQLQuery sqlQuery = session.createSQLQuery(UPDATE);
-        int result = sqlQuery.executeUpdate();
-        System.out.println(result);
-        session.getTransaction().commit();
-        session.close();
-         }
+        try {
+            session.beginTransaction();
+            SQLQuery sqlQuery = session.createSQLQuery(UPDATE);
+            int result = sqlQuery.executeUpdate();
+            System.out.println(result);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 
     public CardBalance findByCard(Cards card) {
         Criteria criteria = createEntityCriteria();

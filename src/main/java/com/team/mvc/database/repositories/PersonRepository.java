@@ -51,26 +51,39 @@ public class PersonRepository  extends AbstractRepository{
     }
 
     public List<Cards> findCardsByNickname(String nickname) {
-        String que = "SELECT * FROM CARDS  WHERE CARDS.PERSON_ID = (SELECT PERSONS.PERSON_ID FROM PERSONS   WHERE PERSONS.NICKNAME ="+"'"+nickname+"'"+")";
+        String que = "SELECT * FROM CARDS  WHERE CARDS.PERSON_ID = (SELECT PERSONS.PERSON_ID FROM PERSONS   WHERE PERSONS.NICKNAME =" + "'" + nickname + "'" + ")";
 
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
+        try {
+            session.beginTransaction();
+            SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
 
-        List result =  sqlQuery.list();
-        session.close();
-        return   result;
+            List result = sqlQuery.list();
+            return result;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
 
     public List<Cards> findCradsByNicknameActive(String nickname) {
-        String que = "SELECT * FROM CARDS  WHERE CARDS.PERSON_ID = (SELECT PERSONS.PERSON_ID FROM PERSONS   WHERE PERSONS.NICKNAME ="+"'"+nickname+"'"+") AND CARDS.TYPE_ID=3";
+        String que = "SELECT * FROM CARDS  WHERE CARDS.PERSON_ID = (SELECT PERSONS.PERSON_ID FROM PERSONS   WHERE PERSONS.NICKNAME =" + "'" + nickname + "'" + ") AND CARDS.TYPE_ID=3";
 
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
-        List result =  sqlQuery.list();
-        session.close();
-        return   result;
+        try {
+            session.beginTransaction();
+            SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
+
+            List result = sqlQuery.list();
+            return result;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
 
 
@@ -78,11 +91,17 @@ public class PersonRepository  extends AbstractRepository{
         String que = "SELECT * FROM CARDS  WHERE CARDS.CARD_ID="+id;
 
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
-        Cards card = (Cards)sqlQuery.uniqueResult();
-        session.close();
-        return  card;
+        try {
+            session.beginTransaction();
+            SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
+
+            return (Cards) sqlQuery.uniqueResult();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
 
 
@@ -91,10 +110,17 @@ public class PersonRepository  extends AbstractRepository{
         String que = " SELECT  FROM  BALANCE_HIST BH INNER JOIN EVENTS EV ON  to_date(to_char(BH.DATE_EVENT,'DD.MM.YYYY HH24:MI:SS'),'DD.MM.YYYY HH24:MI:SS')=to_date(to_char(EV.PAYMENT_TIME,'DD.MM.YYYY HH24:MI:SS'),'DD.MM.YYYY HH24:MI:SS')   WHERE BH.CARD_ID ="+id;
 
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
+        try {
+            session.beginTransaction();
+            SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Cards.class);
 
-        return   sqlQuery.list();
+            return sqlQuery.list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
 
 
@@ -107,10 +133,17 @@ public class PersonRepository  extends AbstractRepository{
         String que = "SELECT * FROM EVENTS  WHERE EVENTS.EVENT_ID="+id;
 
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Events.class);
+        try {
+            session.beginTransaction();
+            SQLQuery sqlQuery = session.createSQLQuery(que).addEntity(Events.class);
 
-        return  (Events) sqlQuery.uniqueResult();
+            return (Events) sqlQuery.uniqueResult();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
 
 
@@ -128,10 +161,11 @@ public class PersonRepository  extends AbstractRepository{
             session.getTransaction().begin();
             session.createSQLQuery(UPDATE).executeUpdate();
             session.getTransaction().commit();
-            session.close();
         } catch (HibernateException erro) {
             System.out.println(erro);
             session.getTransaction().rollback();
+
+        } finally {
             session.close();
         }
 
