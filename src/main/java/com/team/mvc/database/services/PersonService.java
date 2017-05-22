@@ -67,7 +67,7 @@ public class PersonService {
     public List<Persons> getUsers() {
         List<Persons> personList = new ArrayList<>();
         for (Persons person : personRepository.getAll()) {
-            if (person.getRole().getRoleType().equals("USER"))
+            if (person.getRole().getRoleType().equals("USER") && !Objects.equals(person.getNickname(), "dummy"))
                 personList.add(person);
         }
         return personList;
