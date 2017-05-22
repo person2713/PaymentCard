@@ -59,6 +59,7 @@ public class BalanceHistEventsRepository extends AbstractRepository<BalanceHistE
                             "              ON last_car_assign.ROUTE_ID=ro.ROUTE_ID" +
                             "        ) last_routes" +
                             "          ON last_routes.BUS_ID=EV.BUS_ID" +
+                            "  WHERE BH.CARD_ID=:cardId" +
                             "  ORDER BY BH.DATE_EVENT"
             )
                     .addScalar("transactionType")
@@ -74,6 +75,7 @@ public class BalanceHistEventsRepository extends AbstractRepository<BalanceHistE
                     .setResultTransformer(new AliasToBeanResultTransformer(BalanceHistEvents.class))
 //                    .setResultTransformer(Transformers.TO_LIST)
                     .setParameter("cardId", cardId);
+            List<BalanceHistEvents> list = query.list();
             return query.list();
         } catch (Exception ex) {
             ex.printStackTrace();
