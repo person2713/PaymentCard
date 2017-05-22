@@ -132,7 +132,7 @@ catch (Exception E){return "errorPage";}
             if (cards.isNew()) {
                 redirectAttributes.addFlashAttribute("msg", "User added successfully!");
             } else {
-                redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
+                redirectAttributes.addFlashAttribute("msg", "Имя карты обновлено!");
             }
             System.out.println(cards.getCardName().toString() + "---------===========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
 //            cardsService.saveOrUpdate(cards);
@@ -141,7 +141,7 @@ catch (Exception E){return "errorPage";}
 
             System.out.println("cardsService.updateName(cards.getCardId(), cards.getCardName());  отработал наверно -----------------");
             // POST/REDIRECT/GET
-            return "redirect:/user/user/" + cards.getCardId();}
+            return "redirect:/user";}
             catch (Exception E){return "errorPage";}
 
             // POST/FORWARD/GET
