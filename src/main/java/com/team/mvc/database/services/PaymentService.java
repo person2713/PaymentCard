@@ -46,6 +46,9 @@ public class PaymentService {
         events.setLongitude(longitude);
         events.setBusId(busId);
         events.setCardId(card.getCardId());
+        Timestamp time=new Timestamp(System.currentTimeMillis());
+        time.setTime(1000*(long)Math.floor(time.getTime()/ 1000));//отбрасывание миллисекунд
+        events.setPaymentTime(time);
         eventsRepository.save(events);
         return true;
     }
