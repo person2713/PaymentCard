@@ -48,7 +48,7 @@
 							<td>${card.cardName}</td>
 							<td>${card.typeCard.status}</td>
 							<td>${card.cardBalance.balance}</td>
-							<c:if test="${card.typeCard.typeId==3}">
+							<c:if test="${card.typeCard.typeId==2}">
 							<p><td>
 							<spring:url value="/user/user/${card.cardId}" var="userUrl" />
 							<spring:url value="/user/user/${card.cardId}/block" var="deleteUrl" />
@@ -62,7 +62,7 @@
 							<button class="btn btn-addbalace" onclick="location.href='${moneyUrl}'"><span style="color: white">Пополнить баланс</span></button>
 							<button class="btn btn-cardblock" onclick="location.href='${deleteUrl}'"><span style="color: white">Заблокировать</span></button></td><p>
 							</c:if>
-							<c:if test="${card.typeCard.typeId==21}">
+							<c:if test="${card.typeCard.typeId==1}">
 							<p><td>
 							<spring:url value="/user/user/${card.cardId}" var="userUrl" />
 							<spring:url value="/user/user/${card.cardId}/block" var="deleteUrl" />
