@@ -156,7 +156,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
                         "VALUES (:balance, " +
                         "(select card_id from cards where card_key=:cardKey))");
         query2.setParameter("cardKey", card.getCardKey());
-        query2.setParameter("balance", 0);
+        query2.setParameter("balance", 500);
         query2.executeUpdate();
         session.getTransaction().commit();
     }

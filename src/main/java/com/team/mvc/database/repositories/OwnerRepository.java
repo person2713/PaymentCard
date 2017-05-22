@@ -21,4 +21,24 @@ public class OwnerRepository extends AbstractRepository<Owners> {
         return (Owners)query.uniqueResult();
     }
 
+    @Override
+    public void delete(Owners owner){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query1 = session.createSQLQuery(
+                "delete from owners " +
+                        "where owner_id=:ownerId");
+        query1.setParameter("ownerId", owner.getOwnerId());
+        query1.executeUpdate();
+
+        Query query2 = session.createSQLQuery(
+                "delete from persons " +
+                        "where person_id=:personId");
+        query2.setParameter("personId", owner.getPerson().getPersonId());
+        query2.executeUpdate();
+
+        session.getTransaction().commit();
+    }
+
 }
