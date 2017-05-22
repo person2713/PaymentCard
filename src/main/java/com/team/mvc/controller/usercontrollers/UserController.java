@@ -61,14 +61,12 @@ public class UserController {
     public String showUser(@PathVariable("id") Long id, Model model) throws NotFoundException {
         try {
 //            System.out.println("-------------------showUser-------------------" + id);
-//            Cards card = cardsService.findById(id);
-//            System.out.println(card.toString() + "--------------------------------");
-//            if (card == null) {
-//                model.addAttribute("css", "danger");
-//                model.addAttribute("msg", "User not found");
-//                model.addAttribute("card", card);
-//                return "user/show";
-//            }
+            Cards card = cardsService.findById(id);
+
+
+            model.addAttribute("card", card);
+
+
             List<BalanceHistEvents> objects=balanceHistEventsService.getBalanceHistEventsByCardId(id);
             model.addAttribute("values", objects);
             return "user/show";
