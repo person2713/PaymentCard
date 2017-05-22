@@ -34,19 +34,23 @@ public class AppController {
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) throws NotFoundException {
-        model.addAttribute("greeting", "Welcome to the first page of the project");
-        return "welcome";
+    try{    model.addAttribute("greeting", "Welcome to the first page of the project");
+        return "welcome";}
+    catch (Exception E){return "errorPage";}
     }
 
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
-        model.addAttribute("loggedinuser", GetRole.getPrincipal());
-        return "accessDenied";
+    try{    model.addAttribute("loggedinuser", GetRole.getPrincipal());
+        return "accessDenied";}
+    catch (Exception E){return "errorPage";}
     }
 
     @RequestMapping(value = "/reset_pass", method = RequestMethod.GET)
     public String resetPassPage(ModelMap model) {
-        return "reset_pass";
+        try{
+        return "reset_pass";}
+        catch (Exception E){return "errorPage";}
     }
 
 
@@ -59,7 +63,7 @@ public class AppController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(ModelMap model) {
-
+try{
         if (Flag.isFlag()) {
             model.addAttribute("flag", Flag.isFlag());
             Flag.setFlag(false);
@@ -73,18 +77,19 @@ public class AppController {
                 return "redirect:/admin";
             else
                 return "redirect:/user";
-        }
+        }}
+        catch (Exception E){return "errorPage";}
     }
 
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        try{    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
 
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/login?logout";
+        return "redirect:/login?logout";} catch (Exception E){return "errorPage";}
     }
 
     // метод для проверки авторизации пользователя

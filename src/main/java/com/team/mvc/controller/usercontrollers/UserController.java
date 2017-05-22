@@ -107,8 +107,6 @@ catch (Exception E){return "errorPage";}
     @RequestMapping(value = "/user/{id}/block", method = RequestMethod.GET)
     public String Block(@PathVariable("id") int id, Model model) {
         try{
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:9555/user");
         System.out.println("Block" + "------------------------------------------------------------------------------------------------------------");
         cardsService.blockCardById(id);}
         catch (Exception E){return "errorPage";}
@@ -125,7 +123,7 @@ catch (Exception E){return "errorPage";}
     public String saveOrUpdateUser(@ModelAttribute("card") @Validated Cards cards,
                                    BindingResult result, Model model, final RedirectAttributes redirectAttributes) throws NotFoundException {
 
-        System.out.println("---------===========---------------===============--------------" + cards.getCardId() + "----" + cards.getCardKey());
+
 
         if (result.hasErrors()) {
 

@@ -58,7 +58,7 @@ public class CardsRepository extends AbstractRepository<Cards> {
         int result = sqlQuery.executeUpdate();
         System.out.println(result);
         session.getTransaction().commit();*/
-        String UPDATE = "UPDATE CARDS  SET CARDS.TYPE_ID =21 WHERE CARDS.CARD_ID=" + cardId;
+        String UPDATE = "UPDATE CARDS  SET CARDS.TYPE_ID =(SELECT TYPE_CARD.TYPE_ID FROM TYPE_CARD WHERE TYPE_CARD.STATUS='заблокирована' ) WHERE CARDS.CARD_ID=" + cardId;
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         SQLQuery sqlQuery = session.createSQLQuery(UPDATE);
